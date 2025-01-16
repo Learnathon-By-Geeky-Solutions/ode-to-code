@@ -5,7 +5,7 @@ class AssetsPath {
   static const String logo = '$_asset/logo';
 
   //Logo
-  static const String appLogo = '$logo/logo.png';
+  static const String appLogo = '$logo/app_logo.png';
   static const String school = '$logo/1_school.svg';
   static const String college = '$logo/2_college.svg';
   static const String english = '$logo/3_english.svg';
