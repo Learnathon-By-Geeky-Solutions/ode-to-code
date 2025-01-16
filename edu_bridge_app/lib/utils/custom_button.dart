@@ -1,5 +1,4 @@
-import 'package:edu_bridge_app/utils/widgets/custom_text.dart';
-import 'package:flutter/material.dart';
+import 'package:edu_bridge_app/resources/export.dart';
 
 enum ButtonType { elevated, outlined, text }
 

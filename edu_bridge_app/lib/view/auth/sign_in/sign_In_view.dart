@@ -1,7 +1,10 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/forgot_password/forget_password_view.dart';
-import 'package:edu_bridge_app/view/auth/sign_up/sign_up_view.dart';
-import 'package:edu_bridge_app/view_model/auth/forgot_password_controller.dart';
+import 'package:edu_bridge_app/utils/custom_spacing.dart';
+import 'package:edu_bridge_app/utils/custom_text_field.dart';
+import 'package:edu_bridge_app/utils/validators.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/widget/forgot_password_text_button.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/widget/sign_in_button_builder.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/widget/sign_up_text_button.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -11,11 +14,10 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
-  final emailTEController = TextEditingController();
-  final passwordTEController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final ForgotPasswordController forgotPasswordController =
-      Get.put(ForgotPasswordController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,136 +28,41 @@ class _SignInViewState extends State<SignInView> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 15.h),
-                Image.asset(AssetsPath.appLogo),
-                SizedBox(height: 1.h),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CustomText(
-                        text: "Let’s Sign In.!",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
-                      CustomText(
-                        text: "Login to Your Account to Continue your Courses",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: AppColors.blackGray,
-                      ),
-                    ],
-                  ),
+                //Logo
+                _buildLogo(),
+                //Header Text
+                _buildHeader(),
+                VerticalSpacing(3.h),
+
+                //Text field
+                CustomTextFormField(
+                  labelText: "Email",
+                  controller: _emailController,
+                  validator: Validators.emailValidator,
                 ),
-                SizedBox(height: 3.h),
-                buildTextFormField(
-                  "Email",
-                  controller: emailTEController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    if (!RegExp(r"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return 'Please enter a valid email address';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 2.h),
-                buildTextFormField(
-                  "Password",
-                  controller: passwordTEController,
+                VerticalSpacing(2.h),
+                CustomTextFormField(
+                  labelText: "Password",
+                  controller: _passwordController,
                   obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    return null;
-                  },
+                  validator: Validators.passwordValidator,
                 ),
-                SizedBox(height: 2.h),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: () async {
-                      Get.to(ForgotPasswordView());
-                    },
-                    child: CustomText(
-                      text: "Forget Password",
-                      fontWeight: FontWeight.w900,
-                      fontSize: 16,
-                      color: AppColors.blackGray,
-                    ),
-                  ),
+                VerticalSpacing(2.h),
+
+                //Forgot Password Text Button
+                const ForgotPasswordTextButton(),
+                VerticalSpacing(2.h),
+
+                //SignInButton
+                SignInButtonBuilder(
+                  formKey: _formKey,
+                  emailController: _emailController,
+                  passwordController: _passwordController,
                 ),
-                SizedBox(height: 2.h),
-                GetBuilder<SignInController>(
-                  builder: (logInController) {
-                    return Obx(() {
-                      if (logInController.signInApiInProgress) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return CustomButton(
-                        text: "Sign In",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        onPressed: () async {
-                          final email = emailTEController.text;
-                          final password = passwordTEController.text;
-                          if (_formKey.currentState!.validate()) {
-                            bool isSuccess =
-                                await logInController.logIn(email, password);
-                            if (isSuccess) {
-                              Get.offAll(PinVerificationView());
-                            } else {
-                              Get.snackbar(
-                                'Error',
-                                logInController.errorMessage,
-                                backgroundColor: Colors.red,
-                                colorText: Colors.white,
-                              );
-                            }
-                          }
-                        },
-                        backgroundColor: AppColors.themeColor,
-                        textColor: Colors.white,
-                        icon: Icons.arrow_forward,
-                        buttonType: ButtonType.elevated,
-                      );
-                    });
-                  },
-                ),
-                SizedBox(height: 2.h),
-                RichText(
-                  text: TextSpan(
-                    text: 'Don\'t have an account? ',
-                    style: TextStyle(
-                      color: AppColors.blackGray,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.4,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Sign Up',
-                        style: TextStyle(color: AppColors.themeColor),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Get.to(SignUpView());
-                          },
-                      ),
-                    ],
-                  ),
-                ),
+                VerticalSpacing(2.h),
+                const SignUpTextButton()
               ],
             ),
           ),
@@ -164,30 +71,42 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    emailTEController.dispose();
-    passwordTEController.dispose();
-    super.dispose();
+  Widget _buildLogo() {
+    return Column(
+      children: [
+        SizedBox(height: 15.h),
+        Image.asset(AssetsPath.appLogo),
+        SizedBox(height: 1.h),
+      ],
+    );
   }
 
-  // Reusable TextFormField
-  Widget buildTextFormField(
-    String labelText, {
-    bool obscureText = false,
-    String? Function(String?)? validator,
-    required TextEditingController controller,
-  }) {
-    return TextFormField(
-      obscureText: obscureText,
-      validator: validator,
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+  Widget _buildHeader() {
+    return const Align(
+      alignment: Alignment.topLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          CustomText(
+            text: "Let’s Sign In.!",
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+          CustomText(
+            text: "Login to Your Account to Continue your Courses",
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: AppColors.blackGray,
+          ),
+        ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

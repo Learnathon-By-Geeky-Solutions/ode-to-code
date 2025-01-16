@@ -1,6 +1,6 @@
 import 'package:edu_bridge_app/resources/app_colors.dart';
-import 'package:edu_bridge_app/utils/widgets/custom_button.dart';
-import 'package:edu_bridge_app/utils/widgets/custom_text_field.dart';
+import 'package:edu_bridge_app/utils/custom_button.dart';
+import 'package:edu_bridge_app/utils/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
