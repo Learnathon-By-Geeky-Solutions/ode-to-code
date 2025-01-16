@@ -3,33 +3,39 @@ import 'package:get/get.dart';
 
 class ForgotPasswordController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  bool _forgotPasswordApiInProgress = false;
-  String _error = '';
 
-  bool get forgotPasswordApiInProgress => _forgotPasswordApiInProgress;
-  String get error => _error;
+  // Observable variables for reactive UI updates
+  var isApiInProgress = false.obs;
+  var errorMessage = ''.obs;
 
-  Future<bool> forgotPassword(String email) async {
-    bool isSuccess = false;
+  Future<bool> sendPasswordReset(String email) async {
     try {
-      _forgotPasswordApiInProgress = true;
-      update();
+      isApiInProgress.value = true;
 
+      // Send password reset email
       await _auth.sendPasswordResetEmail(email: email);
-      isSuccess = true; // Only set this to true if no exception is thrown
+
+      // Success case
+      return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-email') {
-        _error = 'The email address is not valid. Please check and try again.';
-      } else if (e.code == 'user-not-found') {
-        _error = 'No user found with this email address.';
-      } else {
-        _error = 'An error occurred: ${e.message}';
-      }
-      Get.snackbar('Warning', _error);
+      // Handle specific FirebaseAuth errors
+      errorMessage.value = _getErrorMessage(e);
+      Get.snackbar('Warning', errorMessage.value);
+      return false;
     } finally {
-      _forgotPasswordApiInProgress = false;
-      update();
+      isApiInProgress.value = false;
     }
-    return isSuccess;
+  }
+
+  // Helper method to map error codes to user-friendly messages
+  String _getErrorMessage(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'invalid-email':
+        return 'The email address is not valid. Please check and try again.';
+      case 'user-not-found':
+        return 'No user found with this email address.';
+      default:
+        return 'An error occurred: ${e.message ?? "Unknown error"}';
+    }
   }
 }

@@ -2,7 +2,7 @@ import 'package:edu_bridge_app/data/services/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class LogInController extends GetxController {
+class SignInController extends GetxController {
   final FirebaseAuthServices _auth = FirebaseAuthServices();
 
   // Reactive variables for cleaner state management

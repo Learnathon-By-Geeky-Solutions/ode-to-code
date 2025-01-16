@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
 import 'package:edu_bridge_app/view/intro/intro_view_1.dart';
 import 'package:edu_bridge_app/view/intro/intro_view_2.dart';
 import 'package:edu_bridge_app/view/intro/intro_view_3.dart';
@@ -53,12 +54,12 @@ class _OnBoardingState extends State<OnBoarding> {
                     ? GestureDetector(
                         onTap: () {
                           _controller.nextPage(
-                              duration: Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 500),
                               curve: Curves.easeIn);
                         },
                         child: ElevatedButton(
                             onPressed: () {
-                              Get.offAll(LoginView());
+                              Get.offAll(() => const SignInView());
                             },
                             style: ElevatedButton.styleFrom(
                                 fixedSize: Size(200, 60),

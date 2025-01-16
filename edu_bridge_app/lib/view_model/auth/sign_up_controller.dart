@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_bridge_app/data/services/firebase_auth_services.dart';
-import 'package:edu_bridge_app/view/auth/login/login_view.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +28,7 @@ class SignUpController extends GetxController {
 
         Get.snackbar('Sign Up', 'User successfully created',
             snackPosition: SnackPosition.TOP);
-        Get.offAll(() => LoginView());
+        Get.offAll(() => const SignInView());
         return true;
       } else {
         _errorMessage.value = 'Sign-up failed. Please try again.';

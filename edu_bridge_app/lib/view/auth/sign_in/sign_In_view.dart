@@ -1,17 +1,21 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/view/auth/forgot_password/forget_password_view.dart';
+import 'package:edu_bridge_app/view/auth/sign_up/sign_up_view.dart';
+import 'package:edu_bridge_app/view_model/auth/forgot_password_controller.dart';
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+class SignInView extends StatefulWidget {
+  const SignInView({super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _SignInViewState extends State<SignInView> {
   final emailTEController = TextEditingController();
   final passwordTEController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  final ForgotPasswordController forgotPasswordController =
+      Get.put(ForgotPasswordController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +38,12 @@ class _RegisterViewState extends State<RegisterView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const CustomText(
-                        text: "Getting Started.!",
+                        text: "Let’s Sign In.!",
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
                       ),
                       CustomText(
-                        text: "Create an Account to Continue your all Courses",
+                        text: "Login to Your Account to Continue your Courses",
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                         color: AppColors.blackGray,
@@ -78,88 +82,63 @@ class _RegisterViewState extends State<RegisterView> {
                   },
                 ),
                 SizedBox(height: 2.h),
-                /*Align(
+                Align(
                   alignment: Alignment.topRight,
-                  child: CustomText(
-                    text: "Forget Password",
-                    fontWeight: FontWeight.w900,
-                    fontSize: 16,
-                    color: AppColors.blackGray,
+                  child: GestureDetector(
+                    onTap: () async {
+                      Get.to(ForgotPasswordView());
+                    },
+                    child: CustomText(
+                      text: "Forget Password",
+                      fontWeight: FontWeight.w900,
+                      fontSize: 16,
+                      color: AppColors.blackGray,
+                    ),
                   ),
-                ),*/
+                ),
                 SizedBox(height: 2.h),
-                GetBuilder<SignUpController>(
-                  builder: (signUpController) {
-                    return Visibility(
-                      visible: !signUpController.signUpApiInProgress,
-                      replacement:
-                          const Center(child: CircularProgressIndicator()),
-                      child: CustomButton(
-                        text: "Sign Up",
+                GetBuilder<SignInController>(
+                  builder: (logInController) {
+                    return Obx(() {
+                      if (logInController.signInApiInProgress) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return CustomButton(
+                        text: "Sign In",
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         onPressed: () async {
-                          if (!_formKey.currentState!.validate()) {
-                            return; // Exit if form is invalid
-                          }
-
-                          // Get the latest values of email and password
                           final email = emailTEController.text;
                           final password = passwordTEController.text;
-
-                          // Attempt to sign in
-                          final isSuccess =
-                              await signUpController.signUp(email, password);
-                          if (isSuccess) {
-                            Get.offAll(const SignInView());
-                          } else {
-                            Get.snackbar(
-                              'Error',
-                              signUpController.errorMessage,
-                              backgroundColor: Colors.red,
-                              colorText: Colors.white,
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 3),
-                            );
+                          if (_formKey.currentState!.validate()) {
+                            bool isSuccess =
+                                await logInController.logIn(email, password);
+                            if (isSuccess) {
+                              Get.offAll(PinVerificationView());
+                            } else {
+                              Get.snackbar(
+                                'Error',
+                                logInController.errorMessage,
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                              );
+                            }
                           }
                         },
                         backgroundColor: AppColors.themeColor,
                         textColor: Colors.white,
                         icon: Icons.arrow_forward,
                         buttonType: ButtonType.elevated,
-                      ),
-                    );
+                      );
+                    });
                   },
                 ),
                 SizedBox(height: 2.h),
-                CustomText(
-                  text: "Or Continue with",
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
-                  color: AppColors.blackGray,
-                ),
-                SizedBox(height: 2.h),
-                SizedBox(
-                  width: 146,
-                  height: 48,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset(
-                        AssetsPath.google,
-                        fit: BoxFit.cover,
-                      ),
-                      SvgPicture.asset(
-                        AssetsPath.apple,
-                        fit: BoxFit.cover,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 5.h),
                 RichText(
                   text: TextSpan(
-                    text: 'Already have an account? ',
+                    text: 'Don\'t have an account? ',
                     style: TextStyle(
                       color: AppColors.blackGray,
                       fontWeight: FontWeight.w600,
@@ -167,11 +146,11 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     children: [
                       TextSpan(
-                        text: 'Sign In',
+                        text: 'Sign Up',
                         style: TextStyle(color: AppColors.themeColor),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.to(LoginView());
+                            Get.to(SignUpView());
                           },
                       ),
                     ],
@@ -208,18 +187,6 @@ class _RegisterViewState extends State<RegisterView> {
         labelText: labelText,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      ),
-    );
-  }
-
-  Widget socialButton(String assetPath) {
-    return InkWell(
-      onTap: () {
-        // Add logic for social login
-      },
-      child: SvgPicture.asset(
-        assetPath,
-        fit: BoxFit.cover,
       ),
     );
   }
