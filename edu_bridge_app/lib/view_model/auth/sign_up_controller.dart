@@ -31,8 +31,6 @@ class SignUpController extends GetxController {
         Get.offAll(() => const SignInView());
         return true;
       } else {
-        _errorMessage.value = 'Sign-up failed. Please try again.';
-        _showErrorSnackbar(_errorMessage.value);
         return false;
       }
     } catch (e) {

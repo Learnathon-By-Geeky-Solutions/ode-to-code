@@ -1,5 +1,11 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/utils/centered_app_logo.dart';
+import 'package:edu_bridge_app/utils/custom_header_text.dart';
+import 'package:edu_bridge_app/utils/custom_spacing.dart';
+import 'package:edu_bridge_app/utils/custom_text_field.dart';
+import 'package:edu_bridge_app/utils/validators.dart';
+import 'package:edu_bridge_app/view/auth/sign_up/wisget/sign_in_text_button.dart';
+import 'package:edu_bridge_app/view/auth/sign_up/wisget/sign_up_button.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -9,8 +15,8 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
-  final emailTEController = TextEditingController();
-  final passwordTEController = TextEditingController();
+  final _emailTEController = TextEditingController();
+  final _passwordTEController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,133 +32,32 @@ class _SignUpViewState extends State<SignUpView> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 15.h),
-                Image.asset(AssetsPath.appLogo),
-                SizedBox(height: 1.h),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CustomText(
-                        text: "Getting Started.!",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
-                      CustomText(
-                        text: "Create an Account to Continue your all Courses",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        color: AppColors.blackGray,
-                      ),
-                    ],
-                  ),
+                const CenteredAppLogo(),
+                const CustomHeaderText(
+                  text1: "Getting Started.!",
+                  text2: "Create an Account to Continue your all Courses",
                 ),
-                SizedBox(height: 3.h),
-                buildTextFormField(
-                  "Email",
-                  controller: emailTEController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    if (!RegExp(r"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return 'Please enter a valid email address';
-                    }
-                    return null;
-                  },
+                VerticalSpacing(2.h),
+                CustomTextFormField(
+                  labelText: "Email",
+                  controller: _emailTEController,
+                  validator: Validators.emailValidator,
                 ),
-                SizedBox(height: 2.h),
-                buildTextFormField(
-                  "Password",
-                  controller: passwordTEController,
+                VerticalSpacing(2.h),
+                CustomTextFormField(
+                  labelText: "Password",
+                  controller: _passwordTEController,
                   obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    return null;
-                  },
+                  validator: Validators.passwordValidator,
                 ),
-                SizedBox(height: 2.h),
-                /*Align(
-                  alignment: Alignment.topRight,
-                  child: CustomText(
-                    text: "Forget Password",
-                    fontWeight: FontWeight.w900,
-                    fontSize: 16,
-                    color: AppColors.blackGray,
-                  ),
-                ),*/
-                SizedBox(height: 2.h),
-                GetBuilder<SignUpController>(
-                  builder: (signUpController) {
-                    return Visibility(
-                      visible: !signUpController.signUpApiInProgress,
-                      replacement:
-                          const Center(child: CircularProgressIndicator()),
-                      child: CustomButton(
-                        text: "Sign Up",
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        onPressed: () async {
-                          if (!_formKey.currentState!.validate()) {
-                            return; // Exit if form is invalid
-                          }
-
-                          // Get the latest values of email and password
-                          final email = emailTEController.text;
-                          final password = passwordTEController.text;
-
-                          // Attempt to sign in
-                          final isSuccess =
-                              await signUpController.signUp(email, password);
-                          if (isSuccess) {
-                            Get.offAll(const SignInView());
-                          } else {
-                            Get.snackbar(
-                              'Error',
-                              signUpController.errorMessage,
-                              backgroundColor: Colors.red,
-                              colorText: Colors.white,
-                              snackPosition: SnackPosition.BOTTOM,
-                              duration: const Duration(seconds: 3),
-                            );
-                          }
-                        },
-                        backgroundColor: AppColors.themeColor,
-                        textColor: Colors.white,
-                        icon: Icons.arrow_forward,
-                        buttonType: ButtonType.elevated,
-                      ),
-                    );
-                  },
+                VerticalSpacing(2.h),
+                SignUpButton(
+                  formKey: _formKey,
+                  emailTEController: _emailTEController,
+                  passwordTEController: _passwordTEController,
                 ),
-                SizedBox(height: 2.h),
-                RichText(
-                  text: TextSpan(
-                    text: 'Already have an account? ',
-                    style: TextStyle(
-                      color: AppColors.blackGray,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.4,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Sign In',
-                        style: TextStyle(color: AppColors.themeColor),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Get.to(SignInView());
-                          },
-                      ),
-                    ],
-                  ),
-                ),
+                VerticalSpacing(2.h),
+                const SignInTextButton(),
               ],
             ),
           ),
@@ -164,27 +69,8 @@ class _SignUpViewState extends State<SignUpView> {
   @override
   void dispose() {
     // TODO: implement dispose
-    emailTEController.dispose();
-    passwordTEController.dispose();
+    _emailTEController.dispose();
+    _passwordTEController.dispose();
     super.dispose();
-  }
-
-  // Reusable TextFormField
-  Widget buildTextFormField(
-    String labelText, {
-    bool obscureText = false,
-    String? Function(String?)? validator,
-    required TextEditingController controller,
-  }) {
-    return TextFormField(
-      obscureText: obscureText,
-      validator: validator,
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      ),
-    );
   }
 }

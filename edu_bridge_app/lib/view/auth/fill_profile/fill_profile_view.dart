@@ -18,7 +18,7 @@ class _FillProfileViewState extends State<FillProfileView> {
       backgroundColor: AppColors.bg,
       appBar: AppBar(
           backgroundColor: AppColors.bg,
-          title: Text(
+          title: const Text(
             "Fill Your Profile",
             style: TextStyle(fontWeight: FontWeight.bold),
           )),
@@ -36,7 +36,7 @@ class _FillProfileViewState extends State<FillProfileView> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: Color(0xffE8F1FF)),
-                  child: Icon(
+                  child: const Icon(
                     Icons.person,
                     size: 95,
                     color: Colors.white,
@@ -44,17 +44,17 @@ class _FillProfileViewState extends State<FillProfileView> {
                 ),
               ),
               SizedBox(height: 2.h),
-              CustomTextFormField(labelText: "Full Name"),
+              const CustomTextFormField(labelText: "Full Name"),
               SizedBox(height: 2.h),
-              CustomTextFormField(labelText: "Nick Name"),
+              const CustomTextFormField(labelText: "Nick Name"),
               SizedBox(height: 2.h),
-              CustomTextFormField(labelText: "Date of Birth"),
+              const CustomTextFormField(labelText: "Date of Birth"),
               SizedBox(height: 2.h),
-              CustomTextFormField(labelText: "Email"),
+              const CustomTextFormField(labelText: "Email"),
               SizedBox(height: 2.h),
-              CustomTextFormField(labelText: "phone"),
+              const CustomTextFormField(labelText: "phone"),
               SizedBox(height: 2.h),
-              CustomTextFormField(labelText: "Gender"),
+              const CustomTextFormField(labelText: "Gender"),
               SizedBox(height: 2.h),
               CustomButton(
                 text: "Sign In",

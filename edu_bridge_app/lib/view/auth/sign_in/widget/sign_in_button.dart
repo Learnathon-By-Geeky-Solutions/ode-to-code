@@ -1,11 +1,11 @@
 import 'package:edu_bridge_app/resources/export.dart';
 
-class SignInButtonBuilder extends StatelessWidget {
+class SignInButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
 
-  const SignInButtonBuilder({
+  const SignInButton({
     super.key,
     required this.formKey,
     required this.emailController,

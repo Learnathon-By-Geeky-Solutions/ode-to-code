@@ -1,10 +1,12 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/utils/centered_app_logo.dart';
+import 'package:edu_bridge_app/utils/custom_header_text.dart';
 import 'package:edu_bridge_app/utils/custom_spacing.dart';
 import 'package:edu_bridge_app/utils/custom_text_field.dart';
 import 'package:edu_bridge_app/utils/validators.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/widget/forgot_password_text_button.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/widget/sign_in_button_builder.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/widget/sign_up_text_button.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/widget/sign_in_button.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/widget/sign_up_text_button=.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -31,11 +33,13 @@ class _SignInViewState extends State<SignInView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 //Logo
-                _buildLogo(),
+                const CenteredAppLogo(),
                 //Header Text
-                _buildHeader(),
+                const CustomHeaderText(
+                  text1: "Let’s Sign In.!",
+                  text2: "Login to Your Account to Continue your Courses",
+                ),
                 VerticalSpacing(3.h),
-
                 //Text field
                 CustomTextFormField(
                   labelText: "Email",
@@ -56,7 +60,7 @@ class _SignInViewState extends State<SignInView> {
                 VerticalSpacing(2.h),
 
                 //SignInButton
-                SignInButtonBuilder(
+                SignInButton(
                   formKey: _formKey,
                   emailController: _emailController,
                   passwordController: _passwordController,
@@ -67,38 +71,6 @@ class _SignInViewState extends State<SignInView> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildLogo() {
-    return Column(
-      children: [
-        SizedBox(height: 15.h),
-        Image.asset(AssetsPath.appLogo),
-        SizedBox(height: 1.h),
-      ],
-    );
-  }
-
-  Widget _buildHeader() {
-    return const Align(
-      alignment: Alignment.topLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          CustomText(
-            text: "Let’s Sign In.!",
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-          CustomText(
-            text: "Login to Your Account to Continue your Courses",
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-            color: AppColors.blackGray,
-          ),
-        ],
       ),
     );
   }

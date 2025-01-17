@@ -1,14 +1,16 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_up/sign_up_view.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
 
-class SignUpTextButton extends StatelessWidget {
-  const SignUpTextButton({super.key});
+class SignInTextButton extends StatelessWidget {
+  const SignInTextButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: 'Don\'t have an account? ',
+        text: 'Already have an account? ',
         style: TextStyle(
           color: AppColors.blackGray,
           fontWeight: FontWeight.w600,
@@ -16,10 +18,12 @@ class SignUpTextButton extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: 'Sign Up',
+            text: 'Sign In',
             style: TextStyle(color: AppColors.themeColor),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => Get.to(SignUpView()),
+              ..onTap = () {
+                Get.to(SignInView());
+              },
           ),
         ],
       ),
