@@ -7,7 +7,7 @@ class CenteredAppLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 15.h),
+        SizedBox(height: 10.h),
         Image.asset(AssetsPath.appLogo),
         SizedBox(height: 1.h),
       ],
