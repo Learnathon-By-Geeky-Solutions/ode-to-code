@@ -4,8 +4,8 @@ import 'package:edu_bridge_app/utils/custom_header_text.dart';
 import 'package:edu_bridge_app/utils/custom_spacing.dart';
 import 'package:edu_bridge_app/utils/custom_text_field.dart';
 import 'package:edu_bridge_app/utils/validators.dart';
-import 'package:edu_bridge_app/view/auth/sign_up/wisget/sign_in_text_button.dart';
-import 'package:edu_bridge_app/view/auth/sign_up/wisget/sign_up_button.dart';
+import 'package:edu_bridge_app/view/auth/sign_up/widget/sign_in_text_button.dart';
+import 'package:edu_bridge_app/view/auth/sign_up/widget/sign_up_button.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});

@@ -3,10 +3,14 @@ class AssetsPath {
   static const String images = '$_asset/images';
   static const String icons = '$_asset/icons';
   static const String logo = '$_asset/logo';
+  static const String categoriesPath = '$_asset/logo/categories';
+  static const String schoolPath = '$logo/school';
+  static const String collegePath = '$logo/college';
 
   //Logo
   static const String appLogo = '$logo/edu_bridge_logo.png';
   static const String appLogo2 = '$logo/edu_bridge_logo1.png';
+  /*
   static const String school = '$logo/1_school.svg';
   static const String college = '$logo/2_college.svg';
   static const String english = '$logo/3_english.svg';
@@ -14,10 +18,32 @@ class AssetsPath {
   static const String health = '$logo/5_health.svg';
   static const String creative = '$logo/6_creative.svg';
   static const String life = '$logo/7_life.svg';
+  */
+  //Categories
+  static const String school = '$categoriesPath/01.svg';
+  static const String college = '$categoriesPath/02.svg';
+  static const String english = '$categoriesPath/03.svg';
+  static const String creativity = '$categoriesPath/04.svg';
+  static const String skill = '$categoriesPath/05.svg';
+
+  //School
+  static const String class6 = '$schoolPath/6.svg';
+  static const String class7 = '$schoolPath/7.svg';
+  static const String class8 = '$schoolPath/8.svg';
+  static const String class9 = '$schoolPath/9.svg';
+  static const String class10 = '$schoolPath/10.svg';
+  //college
+  static const String hsc1Sci = '$collegePath/1.svg';
+  static const String hsc2Sci = '$collegePath/2.svg';
+  static const String hsc1Com = '$collegePath/3.svg';
+  static const String hsc2Com = '$collegePath/4.svg';
+  static const String hsc1Hum = '$collegePath/5.svg';
+  static const String hsc2Hum = '$collegePath/6.svg';
 
   //Icons
   static String google = '$icons/google_logo.svg';
   static String apple = '$icons/apple_logo.svg';
+  static String subjectsBook = '$icons/subjects_book.svg';
   static String sliderCard = '$images/offer.png';
 
   static String google1 =

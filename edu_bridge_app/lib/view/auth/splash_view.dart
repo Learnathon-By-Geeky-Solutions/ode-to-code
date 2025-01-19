@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -54,7 +54,7 @@ class _SplashViewState extends State<SplashView>
 
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      Get.offAll(const SignInView());
+      Get.offAll(const HomeView());
     } else {
       Get.offAll(OnBoarding());
     }

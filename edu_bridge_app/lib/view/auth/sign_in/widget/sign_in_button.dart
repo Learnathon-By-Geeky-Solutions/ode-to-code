@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/view/home/home_view.dart';
 
 class SignInButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -32,7 +33,7 @@ class SignInButton extends StatelessWidget {
               if (formKey.currentState!.validate()) {
                 bool isSuccess = await logInController.logIn(email, password);
                 if (isSuccess) {
-                  Get.offAll(PinVerificationView());
+                  Get.offAll(HomeView());
                 } else {
                   Get.snackbar(
                     'Error',
