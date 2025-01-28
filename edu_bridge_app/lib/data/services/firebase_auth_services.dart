@@ -1,8 +1,10 @@
+import 'package:edu_bridge_app/data/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class FirebaseAuthServices {
+class FirebaseAuthServices extends AuthService {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+  @override
   Future<User?> signUpWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -15,7 +17,9 @@ class FirebaseAuthServices {
     return null;
   }
 
-  Future<User?> logInWithEmailAndPassword(String email, String password) async {
+  @override
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);

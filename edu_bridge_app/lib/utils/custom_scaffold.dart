@@ -3,11 +3,13 @@ import 'package:edu_bridge_app/resources/export.dart';
 class CustomScaffold extends StatelessWidget {
   final String title;
   final Widget body;
+  final Widget? floatingActionButton;
 
   const CustomScaffold({
     super.key,
     required this.title,
     required this.body,
+    this.floatingActionButton,
   });
 
   @override
@@ -23,6 +25,7 @@ class CustomScaffold extends StatelessWidget {
       ),
       backgroundColor: AppColors.white,
       body: body,
+      floatingActionButton: floatingActionButton,
     );
   }
 }

@@ -33,7 +33,6 @@ class _TopMentorsViewState extends State<TopMentorsView> {
               },
             ),
           ),
-          SvgPicture.asset('assets/logo/college/math.svg'),
         ],
       ),
     );

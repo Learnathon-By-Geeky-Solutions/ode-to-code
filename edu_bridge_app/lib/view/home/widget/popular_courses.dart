@@ -25,7 +25,7 @@ class PopularCourses extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(PopularCoursesView());
+                    Get.to(() => PopularCoursesView());
                   },
                   child: CustomText(
                     text: "SEE ALL",

@@ -25,7 +25,7 @@ class TopMentorSection extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(TopMentorsView());
+                    Get.to(() => TopMentorsView());
                   },
                   child: CustomText(
                     text: "SEE ALL",

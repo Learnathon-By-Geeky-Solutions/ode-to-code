@@ -24,7 +24,7 @@ class _CategoriesViewState extends State<CategoriesView> {
   ];
 
   void navigateToView(int index) {
-    Get.to(views[index]);
+    Get.to(() => views[index]);
   }
 
   @override

@@ -35,7 +35,7 @@ class _CollegeViewState extends State<CollegeView> {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
+              child: SizedBox(
                 width: 50, // Fixed width for the Card
                 height: 50, // Fixed height for the Card
                 child: Card(

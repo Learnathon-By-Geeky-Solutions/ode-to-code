@@ -3,13 +3,14 @@ class AssetsPath {
   static const String images = '$_asset/images';
   static const String icons = '$_asset/icons';
   static const String logo = '$_asset/logo';
+  static const String appLogoPath = '$_asset/logo/app_logo';
   static const String categoriesPath = '$_asset/logo/categories';
   static const String schoolPath = '$logo/school';
   static const String collegePath = '$logo/college';
 
   //Logo
-  static const String appLogo = '$logo/edu_bridge_logo.png';
-  static const String appLogo2 = '$logo/edu_bridge_logo1.png';
+  static const String appLogo = '$appLogoPath/edu_bridge_logo.png';
+  static const String appLogo2 = '$appLogoPath/edu_bridge_logo1.png';
   /*
   static const String school = '$logo/1_school.svg';
   static const String college = '$logo/2_college.svg';

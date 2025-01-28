@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:edu_bridge_app/data/services/firebase_auth_services.dart';
+import 'package:edu_bridge_app/data/services/auth_service.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
-  final FirebaseAuthServices _auth = FirebaseAuthServices();
+  //final FirebaseAuthServices _auth = FirebaseAuthServices();
+  final AuthService _authService;
+  SignUpController({required AuthService authService})
+      : _authService = authService;
 
   // Reactive variables for state management
   final _errorMessage = ''.obs;
@@ -20,7 +23,8 @@ class SignUpController extends GetxController {
     _signUpApiProgress.value = true;
 
     try {
-      User? user = await _auth.signUpWithEmailAndPassword(email, password);
+      User? user =
+          await _authService.signUpWithEmailAndPassword(email, password);
 
       if (user != null) {
         // Save user information in Firestore

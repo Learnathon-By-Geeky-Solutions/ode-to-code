@@ -19,7 +19,7 @@ class SignUpTextButton extends StatelessWidget {
             text: 'Sign Up',
             style: TextStyle(color: AppColors.themeColor),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => Get.to(SignUpView()),
+              ..onTap = () => Get.to(() => SignUpView()),
           ),
         ],
       ),

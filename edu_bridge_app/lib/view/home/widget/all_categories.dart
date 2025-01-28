@@ -33,7 +33,7 @@ class AllCategories extends StatelessWidget {
                 categoriesList[index],
                 width: 70,
                 height: 70,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
             );
           },

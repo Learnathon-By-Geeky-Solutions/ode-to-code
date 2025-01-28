@@ -1,9 +1,11 @@
-import 'package:edu_bridge_app/data/services/firebase_auth_services.dart';
+import 'package:edu_bridge_app/data/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SignInController extends GetxController {
-  final FirebaseAuthServices _auth = FirebaseAuthServices();
+  final AuthService _authService;
+  SignInController({required AuthService authService})
+      : _authService = authService;
 
   // Reactive variables for cleaner state management
   final _logInApiInProgress = false.obs;
@@ -15,7 +17,8 @@ class SignInController extends GetxController {
   Future<bool> logIn(String email, String password) async {
     _logInApiInProgress.value = true;
     try {
-      User? user = await _auth.logInWithEmailAndPassword(email, password);
+      User? user =
+          await _authService.signInWithEmailAndPassword(email, password);
       if (user != null) {
         _errorMessage.value = '';
         return true;

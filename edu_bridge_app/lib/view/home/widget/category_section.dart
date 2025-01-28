@@ -12,7 +12,7 @@ class CategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 12.h,
+      height: 14.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,9 +28,9 @@ class CategoriesSection extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(CategoriesView());
+                    Get.to(() => const CategoriesView());
                   },
-                  child: CustomText(
+                  child: const CustomText(
                     text: "SEE ALL",
                     fontWeight: FontWeight.bold,
                     fontSize: 18,

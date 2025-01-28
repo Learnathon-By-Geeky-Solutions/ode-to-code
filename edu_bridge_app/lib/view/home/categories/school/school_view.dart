@@ -23,10 +23,15 @@ class _SchoolViewState extends State<SchoolView> {
     const SubjectsView(),
     const SubjectsView(),
     const SubjectsView(),
+    const SubjectsView(),
   ];
 
   void navigateToViews(int index) {
-    Get.to(views[index]);
+    if (index < views.length) {
+      Get.to(views[index]);
+    } else {
+      debugPrint("Invalid index: $index");
+    }
   }
 
   @override
@@ -48,7 +53,7 @@ class _SchoolViewState extends State<SchoolView> {
               onTap: () => navigateToViews(index),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                   width: 50, // Fixed width for the Card
                   height: 50, // Fixed height for the Card
                   child: Card(
