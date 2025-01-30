@@ -71,7 +71,7 @@ class _ChaptersViewState extends State<ChaptersView> {
     );
   }
 
-  Container buildContainer(String chapter) {
+  Widget buildContainer(String chapter) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
