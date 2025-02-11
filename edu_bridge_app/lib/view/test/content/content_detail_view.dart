@@ -1,3 +1,4 @@
+/*
 import 'package:edu_bridge_app/resources/export.dart';
 
 class ContentDetailView extends StatelessWidget {
@@ -17,3 +18,4 @@ class ContentDetailView extends StatelessWidget {
     );
   }
 }
+*/

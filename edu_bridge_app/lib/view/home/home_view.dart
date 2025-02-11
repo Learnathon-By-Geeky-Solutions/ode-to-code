@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
-import 'package:edu_bridge_app/view/home/widget/all_categories.dart';
-import 'package:edu_bridge_app/view/home/widget/category_section.dart';
+/*import 'package:edu_bridge_app/view/home/widget/all_categories.dart';
+import 'package:edu_bridge_app/view/home/widget/category_section.dart';*/
 import 'package:edu_bridge_app/view/home/widget/popular_courses.dart';
 import 'package:edu_bridge_app/view/home/widget/top_mentors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,8 +36,8 @@ class _HomeViewState extends State<HomeView> {
             children: [
               _buildCarouselSlider(),
               SizedBox(height: 3.h),
-              CategoriesSection(
-                  widgets: AllCategories(categoriesList: categories)),
+              /*CategoriesSection(
+                  widgets: AllCategories(categoriesList: categories)),*/
               SizedBox(height: 1.h),
               const PopularCourses(),
               SizedBox(height: 1.h),

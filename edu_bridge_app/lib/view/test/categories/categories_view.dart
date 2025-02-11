@@ -7,14 +7,14 @@ import 'package:edu_bridge_app/view/test/classes/classes_view.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
-class TestCategoriesView extends StatefulWidget {
-  const TestCategoriesView({super.key});
+class CategoriesView extends StatefulWidget {
+  const CategoriesView({super.key});
 
   @override
-  State<TestCategoriesView> createState() => _TestCategoriesViewState();
+  State<CategoriesView> createState() => _CategoriesViewState();
 }
 
-class _TestCategoriesViewState extends State<TestCategoriesView> {
+class _CategoriesViewState extends State<CategoriesView> {
   final List<Widget> views = [];
   final ImagePicker _picker = ImagePicker();
   List<Map<String, String>> categories = []; // List to store category data
