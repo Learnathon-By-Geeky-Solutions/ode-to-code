@@ -1,3 +1,4 @@
+/*
 import 'package:edu_bridge_app/resources/export.dart';
 
 class SubjectsController extends GetxController {
@@ -19,3 +20,4 @@ class SubjectsController extends GetxController {
     return subjectChapters[subject] ?? [];
   }
 }
+*/

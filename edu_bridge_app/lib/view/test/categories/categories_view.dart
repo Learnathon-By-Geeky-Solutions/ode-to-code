@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/utils/custom_scaffold.dart';
-import 'package:edu_bridge_app/view/test/classes/classes_view.dart';
+import 'package:edu_bridge_app/view/optimized_test/test_class_view.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -172,7 +172,7 @@ class _CategoriesViewState extends State<CategoriesView> {
 
   void navigateToView(int index) {
     if (index < categories.length) {
-      Get.to(() => ClassesView(
+      Get.to(() => TestClassesView(
             categoryId: categories[index]['id']!,
             categoryTitle: categories[index]['title']!,
           ));
