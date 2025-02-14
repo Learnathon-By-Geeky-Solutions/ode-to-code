@@ -48,10 +48,10 @@ class TestCategoriesView2 extends StatelessWidget {
                               height: 72,
                             ),
                             const SizedBox(height: 8),
-                            Text(
+                            /*Text(
                               controller.categories[index]['title']!,
                               style: const TextStyle(fontSize: 16),
-                            ),
+                            ),*/
                           ],
                         ),
                       ),

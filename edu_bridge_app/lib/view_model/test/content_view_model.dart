@@ -14,6 +14,7 @@ class ContentController extends GetxController {
 
   var contentTitleController = TextEditingController();
   var contentBodyController = TextEditingController();
+  var contentNumberController = TextEditingController();
   var contents = <Map<String, String>>[].obs;
   var isLoading = false.obs;
   var isError = false.obs;
@@ -33,10 +34,12 @@ class ContentController extends GetxController {
             .doc(chapterId)
             .collection('contents')
             .add({
+          'number': contentNumberController.text,
           'title': contentTitleController.text,
           'body': contentBodyController.text,
         });
         Get.snackbar("Success", "Content added successfully!");
+        contentNumberController.clear();
         contentTitleController.clear();
         contentBodyController.clear();
         fetchContents();
@@ -66,6 +69,7 @@ class ContentController extends GetxController {
 
       contents.value = querySnapshot.docs.map((doc) {
         return {
+          'number': doc['number'] as String,
           'title': doc['title'] as String,
           'body': doc['body'] as String,
         };

@@ -1,6 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view/auth/profile/profile_view.dart';
+import 'package:edu_bridge_app/view/home/widget/all_categories.dart';
+import 'package:edu_bridge_app/view/home/widget/category_section.dart';
 /*import 'package:edu_bridge_app/view/home/widget/all_categories.dart';
 import 'package:edu_bridge_app/view/home/widget/category_section.dart';*/
 import 'package:edu_bridge_app/view/home/widget/popular_courses.dart';
@@ -24,6 +27,29 @@ class _HomeViewState extends State<HomeView> {
     AssetsPath.skill
   ];
 
+  String _fullName = "Loading...";
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserProfile();
+  }
+
+  Future<void> _fetchUserProfile() async {
+    String userId = _auth.currentUser!.uid;
+    DocumentSnapshot userDoc =
+        await _firestore.collection('users').doc(userId).get();
+    if (userDoc.exists) {
+      Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+      setState(() {
+        _fullName = userData['fullName'] ?? "No Name";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +62,8 @@ class _HomeViewState extends State<HomeView> {
             children: [
               _buildCarouselSlider(),
               SizedBox(height: 3.h),
-              /*CategoriesSection(
-                  widgets: AllCategories(categoriesList: categories)),*/
+              CategoriesSection(
+                  widgets: AllCategories(categoriesList: categories)),
               SizedBox(height: 1.h),
               const PopularCourses(),
               SizedBox(height: 1.h),
@@ -52,25 +78,30 @@ class _HomeViewState extends State<HomeView> {
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: AppColors.white,
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const CustomText(
-            text: "Hi, ALEX",
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-          Text(
-            "What Would you like to learn Today? \nSearch Below",
-            style: GoogleFonts.mulish(
-              color: AppColors.blackGray,
-              fontWeight: FontWeight.bold,
-              fontSize: 13,
+      title: InkWell(
+        onTap: () {
+          Get.to(ProfileView());
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+              text: _fullName,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
             ),
-          ),
-        ],
+            Text(
+              "What Would you like to learn Today?",
+              style: GoogleFonts.mulish(
+                color: AppColors.blackGray,
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
       ),
-      actions: [
+      /*actions: [
         GestureDetector(
           onTap: () async {
             await FirebaseAuth.instance.signOut();
@@ -80,7 +111,7 @@ class _HomeViewState extends State<HomeView> {
           },
           child: const Icon(Icons.logout),
         ),
-      ],
+      ],*/
     );
   }
 

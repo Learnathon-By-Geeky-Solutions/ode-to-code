@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/utils/custom_scaffold.dart';
 import 'package:edu_bridge_app/view/test/web/webview.dart';
 import 'package:edu_bridge_app/view_model/test/content_view_model.dart';
 
@@ -27,16 +28,14 @@ class TestContentView extends StatelessWidget {
       ),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(chapterTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: controller.fetchContents,
-          ),
-        ],
-      ),
+    return CustomScaffold(
+      title: chapterTitle,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.refresh),
+          onPressed: controller.fetchContents,
+        ),
+      ],
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -54,11 +53,28 @@ class TestContentView extends StatelessWidget {
                   Get.to(() => WebViewScreen(link: content['body'] ?? ''));
                 },
                 child: Card(
+                  color: AppColors.white,
+                  elevation: 5,
                   margin:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   child: ListTile(
-                    title: Text(content['title'] ?? ''),
+                    leading: CustomText(
+                      text: content['number'] ?? '',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xffFF6B00),
+                    ),
+                    title: CustomText(
+                      text: content['title'] ?? '',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                     subtitle: Text(content['body'] ?? ''),
+                    trailing: Icon(
+                      Icons.bookmark,
+                      size: 30,
+                      color: AppColors.bookColor,
+                    ),
                   ),
                 ),
               );
@@ -74,13 +90,19 @@ class TestContentView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
+                  controller: controller.contentNumberController,
+                  decoration: const InputDecoration(hintText: "Number "),
+                ),
+                const SizedBox(height: 8),
+                TextField(
                   controller: controller.contentTitleController,
                   decoration: const InputDecoration(hintText: "Enter title"),
                 ),
                 const SizedBox(height: 8),
                 TextField(
                   controller: controller.contentBodyController,
-                  decoration: const InputDecoration(hintText: "Enter content"),
+                  decoration:
+                      const InputDecoration(hintText: "Enter content link"),
                 ),
               ],
             ),

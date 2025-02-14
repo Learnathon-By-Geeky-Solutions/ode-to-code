@@ -1,3 +1,5 @@
+import 'package:edu_bridge_app/resources/app_colors.dart';
+import 'package:edu_bridge_app/utils/custom_scaffold.dart';
 import 'package:edu_bridge_app/view/optimized_test/test_subjects_view.dart';
 import 'package:edu_bridge_app/view_model/test/class_model/classes_view_model.dart';
 import 'package:flutter/material.dart';
@@ -20,24 +22,47 @@ class TestClassesView extends StatelessWidget {
     // Fetch classes on initial load
     controller.fetchClasses(categoryId);
 
-    return Scaffold(
-      appBar: AppBar(title: Text(categoryTitle)),
+    return CustomScaffold(
+      title: categoryTitle,
       body: Obx(() {
         if (controller.classes.isEmpty) {
           return const Center(child: Text("No classes available"));
         } else {
-          return ListView.builder(
-            itemCount: controller.classes.length,
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // Adjust the number of columns
+              crossAxisSpacing: 1.0, // Space between columns
+              mainAxisSpacing: 1.0, // Space between rows
+              childAspectRatio: 1.2, // Adjust the aspect ratio if needed
+            ),
+            itemCount:
+                controller.classes.length, // The number of items in the grid
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(controller.classes[index]),
+              return InkWell(
                 onTap: () {
-                  Get.to(() => TestSubjectsView(
-                        categoryId: categoryId,
-                        classId: controller.classes[index],
-                        classTitle: controller.classes[index],
-                      ));
+                  Get.to(
+                    () => TestSubjectsView(
+                      categoryId: categoryId,
+                      classId: controller.classes[index],
+                      classTitle: controller.classes[index],
+                    ),
+                  );
                 },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    child: Card(
+                      elevation: 3,
+                      color: AppColors.white,
+                      child: Center(
+                        child: Text(
+                          controller.classes[index], // Display the class name
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               );
             },
           );
