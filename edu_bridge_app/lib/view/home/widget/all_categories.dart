@@ -1,12 +1,16 @@
 import 'package:edu_bridge_app/resources/export.dart';
 
 class AllCategories extends StatelessWidget {
-  const AllCategories({
+  AllCategories({
     super.key,
-    required this.categoriesList,
   });
 
-  final List<String> categoriesList;
+  final List<String> categoriesList = [
+    AssetsPath.school,
+    AssetsPath.college,
+    AssetsPath.english,
+    AssetsPath.skill
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +35,8 @@ class AllCategories extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: SvgPicture.asset(
                 categoriesList[index],
-                width: 70,
-                height: 70,
+                width: 65,
+                height: 65,
                 fit: BoxFit.cover,
               ),
             );

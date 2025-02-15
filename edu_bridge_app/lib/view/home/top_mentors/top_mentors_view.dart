@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/view_model/home/mentors_controller.dart';
 
 class TopMentorsView extends StatefulWidget {
   const TopMentorsView({super.key});
@@ -8,6 +9,8 @@ class TopMentorsView extends StatefulWidget {
 }
 
 class _TopMentorsViewState extends State<TopMentorsView> {
+  final MentorController mentorController = Get.put(MentorController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,25 +25,40 @@ class _TopMentorsViewState extends State<TopMentorsView> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: buildContainer(),
-                );
-              },
-            ),
+          Obx(
+            () {
+              if (mentorController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (mentorController.mentorList.isEmpty) {
+                return const Center(child: Text("No Mentors Available"));
+              }
+              return SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: mentorController.mentorList.length,
+                  itemBuilder: (context, index) {
+                    var mentor = mentorController.mentorList[index];
+                    return buildMentorCard(
+                      mentor["imageUrl"] ?? "",
+                      mentor["name"] ?? "Unknown",
+                      mentor["specialty"] ?? "No specialty",
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget buildContainer() {
+  Widget buildMentorCard(String imageUrl, String name, String specialty) {
     return Card(
       color: AppColors.white,
+      elevation: 4,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
@@ -54,6 +72,10 @@ class _TopMentorsViewState extends State<TopMentorsView> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(66),
                     color: Colors.black),
+                child: imageUrl.isEmpty
+                    ? const Icon(Icons.person, color: AppColors.white, size: 40)
+                    : Image.network(imageUrl,
+                        height: 134, width: 280, fit: BoxFit.contain),
               ),
               Padding(
                 padding: EdgeInsets.all(2.5.h),
@@ -61,12 +83,12 @@ class _TopMentorsViewState extends State<TopMentorsView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: "Jiya Shetty",
+                      text: name,
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
                     CustomText(
-                      text: "3D Design",
+                      text: specialty,
                       fontSize: 13,
                       color: AppColors.blackGray,
                     ),

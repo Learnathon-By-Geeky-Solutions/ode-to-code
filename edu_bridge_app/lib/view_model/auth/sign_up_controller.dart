@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
-  //final FirebaseAuthServices _auth = FirebaseAuthServices();
   final AuthService _authService;
+
   SignUpController({required AuthService authService})
       : _authService = authService;
 
@@ -19,7 +19,8 @@ class SignUpController extends GetxController {
   String get errorMessage => _errorMessage.value;
 
   /// Method to sign up a user using email and password
-  Future<bool> signUp(String email, String password) async {
+  Future<bool> signUp(String email, String password,
+      {bool isAdmin = false}) async {
     _signUpApiProgress.value = true;
 
     try {
@@ -27,8 +28,8 @@ class SignUpController extends GetxController {
           await _authService.signUpWithEmailAndPassword(email, password);
 
       if (user != null) {
-        // Save user information in Firestore
-        await _saveUserToFirestore(user.uid, email);
+        // Save user information in Firestore with admin status
+        await _saveUserToFirestore(user.uid, email, isAdmin: isAdmin);
 
         Get.snackbar('Sign Up', 'User successfully created',
             snackPosition: SnackPosition.TOP);
@@ -47,9 +48,11 @@ class SignUpController extends GetxController {
   }
 
   /// Helper method to save user data to Firestore
-  Future<void> _saveUserToFirestore(String userId, String email) async {
+  Future<void> _saveUserToFirestore(String userId, String email,
+      {bool isAdmin = false}) async {
     await FirebaseFirestore.instance.collection('users').doc(userId).set({
       'email': email,
+      'isAdmin': isAdmin, // This should save the 'isAdmin' field correctly
       'createdAt': DateTime.now(),
     });
   }

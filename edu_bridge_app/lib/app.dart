@@ -1,6 +1,6 @@
 import 'package:edu_bridge_app/controller.dart';
 import 'package:edu_bridge_app/resources/app_colors.dart';
-import 'package:edu_bridge_app/view/home/home_view.dart';
+import 'package:edu_bridge_app/view/auth/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,9 +13,10 @@ class EduBridge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) => GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           initialBinding: ControllerBinder(),
           theme: _buildThemeData(),
-          home: HomeView()),
+          home: SplashView()),
     );
   }
 
