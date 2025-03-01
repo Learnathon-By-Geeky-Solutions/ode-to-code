@@ -15,49 +15,26 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SignUpController>(
-      builder: (signUpController) {
-        return Obx(() {
-          if (signUpController.signUpApiInProgress) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return CustomButton(
-            text: "Sign Up",
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            onPressed: () async {
-              if (!_formKey.currentState!.validate()) {
-                return; // Exit if form is invalid
-              }
+    return CustomButton(
+      text: "Sign Up",
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      onPressed: () {
+        if (!_formKey.currentState!.validate()) {
+          return; // Exit if form is invalid
+        }
 
-              // Get the latest values of email and password
-              final email = emailTEController.text;
-              final password = passwordTEController.text;
+        // Get the latest values of email and password
+        final email = emailTEController.text;
+        final password = passwordTEController.text;
 
-              // Attempt to sign in
-              final isSuccess = await signUpController.signUp(email, password);
-              if (isSuccess) {
-                Get.offAll(const SignInView());
-              } else {
-                Get.snackbar(
-                  'Error',
-                  signUpController.errorMessage,
-                  backgroundColor: Colors.red,
-                  colorText: Colors.white,
-                  snackPosition: SnackPosition.BOTTOM,
-                  duration: const Duration(seconds: 3),
-                );
-              }
-            },
-            backgroundColor: AppColors.themeColor,
-            textColor: Colors.white,
-            icon: Icons.arrow_forward,
-            buttonType: ButtonType.elevated,
-          );
-        });
+        // Navigate to Sign In screen (Sign up logic should be handled separately)
+        Get.offAll(const SignInView());
       },
+      backgroundColor: AppColors.themeColor,
+      textColor: Colors.white,
+      icon: Icons.arrow_forward,
+      buttonType: ButtonType.elevated,
     );
   }
 }

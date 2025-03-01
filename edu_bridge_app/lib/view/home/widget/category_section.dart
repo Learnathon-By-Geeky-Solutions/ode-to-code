@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/optimized_test/test_categories.dart';
+import 'package:edu_bridge_app/view/home/categories/categories_view.dart';
 
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({
@@ -28,7 +28,7 @@ class CategoriesSection extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => const TestCategoriesView2());
+                    Get.to(() => const CategoriesView());
                   },
                   child: const CustomText(
                     text: "SEE ALL",

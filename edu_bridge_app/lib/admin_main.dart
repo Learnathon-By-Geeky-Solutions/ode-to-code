@@ -1,3 +1,4 @@
+/*
 import 'package:edu_bridge_app/admin_app.dart';
 import 'package:edu_bridge_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,3 +11,4 @@ void main() async {
   );
   runApp(const EduBridgeAdmin());
 }
+*/

@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/profile/profile_view.dart';
 import 'package:edu_bridge_app/view/home/widget/all_categories.dart';
-import 'package:edu_bridge_app/view/home/widget/banner_carousel.dart';
 import 'package:edu_bridge_app/view/home/widget/category_section.dart';
 import 'package:edu_bridge_app/view/home/widget/popular_courses.dart';
 import 'package:edu_bridge_app/view/home/widget/top_mentors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatefulWidget {
@@ -17,28 +14,13 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  String _nicName = "Loading...";
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchUserProfile();
-  }
-
-  Future<void> _fetchUserProfile() async {
-    String userId = _auth.currentUser!.uid;
-    DocumentSnapshot userDoc =
-        await _firestore.collection('users').doc(userId).get();
-    if (userDoc.exists) {
-      Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
-      setState(() {
-        _nicName = userData['nickName'] ?? "No Name";
-      });
-    }
-  }
+  final List<String> categories = [
+    AssetsPath.school,
+    AssetsPath.college,
+    AssetsPath.english,
+    AssetsPath.creativity,
+    AssetsPath.skill
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +32,14 @@ class _HomeViewState extends State<HomeView> {
           padding: EdgeInsets.symmetric(vertical: 3.h),
           child: Column(
             children: [
-              BannerCarousel(),
+              _buildCarouselSlider(),
               SizedBox(height: 3.h),
-              CategoriesSection(widgets: AllCategories()),
+              CategoriesSection(
+                  widgets: AllCategories(categoriesList: categories)),
               SizedBox(height: 1.h),
-              PopularCourse(),
+              const PopularCourses(),
               SizedBox(height: 1.h),
-              TopMentors(),
+              const TopMentorSection(),
             ],
           ),
         ),
@@ -67,48 +50,55 @@ class _HomeViewState extends State<HomeView> {
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: AppColors.white,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(
-            AssetsPath.notification,
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CustomText(
+            text: "Hi, ALEX",
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
           ),
-        )
-      ],
-      title: InkWell(
-        onTap: () {
-          Get.to(ProfileView());
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-              text: "Hi, $_nicName",
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
+          Text(
+            "What Would you like to learn Today? \nSearch Below",
+            style: GoogleFonts.mulish(
+              color: AppColors.blackGray,
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
             ),
-            Text(
-              "What Would you like to learn Today?",
-              style: GoogleFonts.mulish(
-                color: AppColors.blackGray,
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-      /*actions: [
+      actions: [
         GestureDetector(
-          onTap: () async {
-            await FirebaseAuth.instance.signOut();
-            Get.snackbar('Logged Out', 'User successfully logged out',
-                snackPosition: SnackPosition.TOP);
-            Get.offAll(const SignInView());
-          },
+          onTap: () async {},
           child: const Icon(Icons.logout),
         ),
-      ],*/
+      ],
+    );
+  }
+
+  Widget _buildCarouselSlider() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 180.0,
+        autoPlay: true,
+        enlargeCenterPage: true,
+      ),
+      items: List.generate(5, (index) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              decoration: BoxDecoration(
+                color: AppColors.themeColor,
+                borderRadius: BorderRadius.circular(22),
+              ),
+              child: Image.asset(AssetsPath.sliderCard),
+            );
+          },
+        );
+      }),
     );
   }
 }
