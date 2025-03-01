@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 class ImagePickerService {
   // Pick an image from gallery and upload it to Firebase Storage
-  Future<String> pickImage() async {
+  Future<String> pickImage({required String folderName}) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -14,7 +14,7 @@ class ImagePickerService {
       File imageFile = File(pickedFile.path);
       String fileName = pickedFile.name;
       UploadTask uploadTask = FirebaseStorage.instance
-          .ref('category_images/$fileName')
+          .ref('$folderName/$fileName')
           .putFile(imageFile);
 
       TaskSnapshot snapshot = await uploadTask;

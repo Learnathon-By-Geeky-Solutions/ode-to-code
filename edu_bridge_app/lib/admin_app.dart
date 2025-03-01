@@ -1,22 +1,23 @@
 import 'package:edu_bridge_app/controller.dart';
 import 'package:edu_bridge_app/resources/app_colors.dart';
-import 'package:edu_bridge_app/view/auth/splash_view.dart';
+import 'package:edu_bridge_app/view/admin/admin_sign_in/admin_sign_in_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-class EduBridge extends StatelessWidget {
-  const EduBridge({super.key});
+class EduBridgeAdmin extends StatelessWidget {
+  const EduBridgeAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) => GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialBinding: ControllerBinder(),
-          theme: _buildThemeData(),
-          home: SplashView()),
+        debugShowCheckedModeBanner: false,
+        initialBinding: ControllerBinder(),
+        theme: _buildThemeData(),
+        home: AdminSignInView(),
+      ),
     );
   }
 

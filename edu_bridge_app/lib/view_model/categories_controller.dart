@@ -1,14 +1,13 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:edu_bridge_app/resources/image_picker_service.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CategoryController extends GetxController {
-  RxList<String> categories =
-      <String>['School', 'College', 'Creativity', 'English', 'Skills'].obs;
-  RxString pickedImageUrl = ''.obs; // To store the picked image URL
+  RxList<String> categories = <String>[].obs; // Start with an empty list
+  RxString pickedImageUrl = ''.obs;
+
+  final ImagePickerService _imagePickerService =
+      ImagePickerService(); // Create instance of ImagePickerService
 
   // Fetch categories from Firestore
   Future<void> fetchCategories() async {
@@ -29,22 +28,11 @@ class CategoryController extends GetxController {
     }
   }
 
-  // Pick an image from gallery
+  // Pick an image using the ImagePickerService
   Future<void> pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      // Upload the image to Firebase Storage
-      File imageFile = File(pickedFile.path);
-      String fileName = pickedFile.name;
-      UploadTask uploadTask = FirebaseStorage.instance
-          .ref('category_images/$fileName')
-          .putFile(imageFile);
-
-      TaskSnapshot snapshot = await uploadTask;
-      String imageUrl = await snapshot.ref.getDownloadURL();
-
+    String imageUrl =
+        await _imagePickerService.pickImage(folderName: "category_images");
+    if (imageUrl.isNotEmpty) {
       pickedImageUrl.value = imageUrl; // Store the image URL
     }
   }
