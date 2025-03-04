@@ -24,28 +24,35 @@ class ClassRepository {
   // Method to add a new class to the database
   Future<bool> addClass(ClassModel classModel) async {
     try {
-      // Inserting the class into the "classes" table
-      await _supabase.from("classes").insert(classModel.toMap());
+      final classData = classModel.toMap();
+      print("Class Data being sent to Supabase: $classData"); // Debugging
+
+      // Inserting into Supabase
+      await _supabase.from("classes").insert(classData);
+
+      print("Class added successfully!");
       return true;
     } catch (e) {
+      print("Error adding class: $e"); // Debugging
       return false;
     }
   }
 
-  // Method to fetch all classes from the database
-  Future<List<ClassModel>> fetchClasses() async {
-    final response = await _supabase.from("classes").select();
-    return response.map((data) => ClassModel.fromMap(data)).toList();
-  }
-
   // Method to fetch a class by its ID
-  Future<ClassModel?> fetchClassById(String id) async {
-    final response =
-        await _supabase.from("classes").select().eq('id', id).single();
-    if (response != null) {
-      return ClassModel.fromMap(response);
-    } else {
-      return null;
+  Future<List<ClassModel>> fetchClassesByCategoryId(String categoryId) async {
+    try {
+      // Query to fetch classes based on categoryId
+      final response = await _supabase
+          .from('classes')
+          .select()
+          .eq('category_id', categoryId);
+
+      // Mapping the response data to a list of ClassModel objects
+      return response
+          .map<ClassModel>((data) => ClassModel.fromMap(data))
+          .toList();
+    } catch (e) {
+      return []; // Returning an empty list if an error occurs
     }
   }
 }

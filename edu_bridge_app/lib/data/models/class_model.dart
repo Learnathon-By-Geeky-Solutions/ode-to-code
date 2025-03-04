@@ -2,7 +2,7 @@ class ClassModel {
   final String? id;
   final String categoryId;
   final String className;
-  final String createdAt;
+  final String? createdAt;
 
   final String image;
 
@@ -10,7 +10,7 @@ class ClassModel {
     this.id,
     required this.categoryId,
     required this.className,
-    required this.createdAt,
+    this.createdAt,
     required this.image,
   });
 
@@ -19,7 +19,6 @@ class ClassModel {
       'category_id': categoryId,
       'class_name': className,
       'image': image,
-      'created_at': createdAt,
     };
   }
 

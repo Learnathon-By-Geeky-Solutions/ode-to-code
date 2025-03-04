@@ -1,17 +1,35 @@
+import 'dart:io';
 import 'package:edu_bridge_app/data/models/banner_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class BannerRepository {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  // Method to add a new banner to the database
-  Future<bool> addBanner(BannerModel bannerModel) async {
+  // Method to upload banner image to Supabase Storage
+  Future<String?> uploadBannerImage(File imageFile) async {
     try {
-      // Insert the banner into the "banners" table
-      await _supabase.from("banners").insert(bannerModel.toMap());
+      final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final String filePath = 'banners/$fileName';
+
+      // Uploading the file to Supabase storage
+      await _supabase.storage.from('banners').upload(filePath, imageFile);
+
+      // Returning the public URL of the uploaded image
+      return _supabase.storage.from('banners').getPublicUrl(filePath);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Method to add a new banner to the database
+  Future<bool> addBanner(BannerModel banner) async {
+    try {
+      // Inserting the banner into the "banners" table
+      await _supabase.from("banners").insert(banner.toMap());
+      print("Banner added successfully!");
       return true;
     } catch (e) {
-      print("Error adding banner: $e");
+      print("Error adding class: $e"); // Debugging
       return false;
     }
   }
@@ -19,44 +37,6 @@ class BannerRepository {
   // Method to fetch all banners from the database
   Future<List<BannerModel>> fetchBanners() async {
     final response = await _supabase.from("banners").select();
-    if (response is List) {
-      return response.map((data) => BannerModel.fromMap(data)).toList();
-    }
-    return [];
-  }
-
-  // Method to fetch a banner by its ID
-  Future<BannerModel?> fetchBannerById(String id) async {
-    final response =
-        await _supabase.from("banners").select().eq('id', id).single();
-    if (response != null) {
-      return BannerModel.fromMap(response);
-    }
-    return null;
-  }
-
-  // Method to update a banner's information
-  Future<bool> updateBanner(BannerModel bannerModel) async {
-    try {
-      await _supabase
-          .from("banners")
-          .update(bannerModel.toMap())
-          .eq('id', bannerModel.id!);
-      return true;
-    } catch (e) {
-      print("Error updating banner: $e");
-      return false;
-    }
-  }
-
-  // Method to delete a banner by its ID
-  Future<bool> deleteBanner(String id) async {
-    try {
-      await _supabase.from("banners").delete().eq('id', id);
-      return true;
-    } catch (e) {
-      print("Error deleting banner: $e");
-      return false;
-    }
+    return response.map((data) => BannerModel.fromMap(data)).toList();
   }
 }

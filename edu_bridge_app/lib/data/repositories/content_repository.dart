@@ -5,32 +5,32 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class ContentRepository {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  // Method to add a new content to the database
   Future<bool> addContent(ContentModel contentModel) async {
     try {
-      // Inserting the content into the "contents" table
-      await _supabase.from("contents").insert(contentModel.toMap());
+      final response =
+          await _supabase.from("content").insert(contentModel.toMap());
+
+      print("Supabase Response: $response");
+
       return true;
     } catch (e) {
+      print("Supabase Error: $e");
       return false;
     }
   }
 
-  // Method to fetch all content by chapter ID from the database
   Future<List<ContentModel>> fetchContentsByChapterId(String chapterId) async {
-    final response =
-        await _supabase.from("contents").select().eq('chapter_id', chapterId);
-    return response.map((data) => ContentModel.fromMap(data)).toList();
-  }
+    try {
+      // Query to fetch contents based on chapterId
+      final response =
+          await _supabase.from('content').select().eq('chapters_id', chapterId);
 
-  // Method to fetch a content by its ID
-  Future<ContentModel?> fetchContentById(String id) async {
-    final response =
-        await _supabase.from("contents").select().eq('id', id).single();
-    if (response != null) {
-      return ContentModel.fromMap(response);
-    } else {
-      return null;
+      // Mapping the response data to a list of ContentModel objects
+      return response
+          .map<ContentModel>((data) => ContentModel.fromMap(data))
+          .toList();
+    } catch (e) {
+      return []; // Returning an empty list if an error occurs
     }
   }
 }

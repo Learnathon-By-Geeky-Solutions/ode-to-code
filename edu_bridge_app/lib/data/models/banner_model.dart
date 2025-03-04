@@ -1,20 +1,19 @@
 class BannerModel {
   final String? id;
-  final String image;
-  final String createdAt;
+  final String details;
+  final String? createdAt;
   final String imageLink;
 
   BannerModel({
     this.id,
-    required this.image,
-    required this.createdAt,
+    required this.details,
+    this.createdAt,
     required this.imageLink,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'image': image,
-      'created_at': createdAt,
+      'details': details,
       'image_link': imageLink,
     };
   }
@@ -22,7 +21,7 @@ class BannerModel {
   factory BannerModel.fromMap(Map<String, dynamic> map) {
     return BannerModel(
       id: map['id'],
-      image: map['image'] ?? '',
+      details: map['details'] ?? '',
       createdAt: map['created_at'] ?? '',
       imageLink: map['image_link'] ?? '',
     );

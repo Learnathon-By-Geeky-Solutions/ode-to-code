@@ -1,18 +1,18 @@
-class CourseModel {
+class PopularCourseModel {
   final String? id;
   final String imageLink;
   final String title;
   final String price;
   final String type;
-  final String createdAt;
+  final String? createdAt;
 
-  CourseModel({
+  PopularCourseModel({
     this.id,
     required this.imageLink,
     required this.title,
     required this.price,
     required this.type,
-    required this.createdAt,
+    this.createdAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,12 +21,11 @@ class CourseModel {
       'title': title,
       'price': price,
       'type': type,
-      'created_at': createdAt,
     };
   }
 
-  factory CourseModel.fromMap(Map<String, dynamic> map) {
-    return CourseModel(
+  factory PopularCourseModel.fromMap(Map<String, dynamic> map) {
+    return PopularCourseModel(
       id: map['id'],
       imageLink: map['image_link'] ?? '',
       title: map['title'] ?? '',

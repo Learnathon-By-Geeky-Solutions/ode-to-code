@@ -1,13 +1,13 @@
 class CategoryModel {
-  final String id;
+  final String? id;
   final String categoryName;
-  final String createdAt;
+  final String? createdAt;
   final String imageUrl;
 
   CategoryModel({
-    required this.id,
+    this.id,
     required this.categoryName,
-    required this.createdAt,
+    this.createdAt,
     required this.imageUrl,
   });
 

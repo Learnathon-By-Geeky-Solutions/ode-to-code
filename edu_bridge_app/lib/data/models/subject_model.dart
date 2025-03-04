@@ -2,14 +2,14 @@ class SubjectModel {
   final String? id;
   final String classId;
   final String subjectName;
-  final String createdAt;
+  final String? createdAt;
   final String image;
 
   SubjectModel({
     this.id,
     required this.classId,
     required this.subjectName,
-    required this.createdAt,
+    this.createdAt,
     required this.image,
   });
 
@@ -18,7 +18,6 @@ class SubjectModel {
       'class_id': classId,
       'subject_name': subjectName,
       'image': image,
-      'created_at': createdAt,
     };
   }
 

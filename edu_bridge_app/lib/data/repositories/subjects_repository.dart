@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:edu_bridge_app/data/models/subject_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,28 +26,31 @@ class SubjectRepository {
   // Method to add a new subject to the database
   Future<bool> addSubject(SubjectModel subjectModel) async {
     try {
-      // Inserting the subject into the "subjects" table
-      await _supabase.from("subjects").insert(subjectModel.toMap());
+      final subjectData = subjectModel.toMap();
+      print("Subject Data being sent to Supabase: $subjectData"); // Debugging
+
+      // Inserting into Supabase
+      await _supabase.from("subjects").insert(subjectData);
+
+      print("Subject added successfully!");
       return true;
     } catch (e) {
+      print("Error adding subject: $e"); // Debugging
       return false;
     }
   }
 
-  // Method to fetch all subjects from the database
-  Future<List<SubjectModel>> fetchSubjects() async {
-    final response = await _supabase.from("subjects").select();
-    return response.map((data) => SubjectModel.fromMap(data)).toList();
-  }
+  // Method to fetch subjects by class ID
+  Future<List<SubjectModel>> fetchSubjectsByClassId(String classId) async {
+    try {
+      final response =
+          await _supabase.from('subjects').select().eq('class_id', classId);
 
-  // Method to fetch a subject by its ID
-  Future<SubjectModel?> fetchSubjectById(String id) async {
-    final response =
-        await _supabase.from("subjects").select().eq('id', id).single();
-    if (response != null) {
-      return SubjectModel.fromMap(response);
-    } else {
-      return null;
+      return response
+          .map<SubjectModel>((data) => SubjectModel.fromMap(data))
+          .toList();
+    } catch (e) {
+      return [];
     }
   }
 }

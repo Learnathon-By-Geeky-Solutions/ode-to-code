@@ -1,7 +1,6 @@
 import 'package:edu_bridge_app/controller.dart';
 import 'package:edu_bridge_app/resources/app_colors.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
-import 'package:edu_bridge_app/view/auth/splash_view.dart';
+import 'package:edu_bridge_app/view/admin_content_post/admin_content_post_view.dart';
 import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +15,7 @@ class EduBridgeUser extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        //initialBinding: ControllerBinder(),
+        initialBinding: ControllerBinder(),
         theme: _buildThemeData(),
         home: HomeView(),
       ),

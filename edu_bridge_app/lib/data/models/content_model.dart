@@ -1,29 +1,36 @@
 class ContentModel {
-  final String? id;
-  final String chapterId;
-  final String chapterName;
+  final int? id;
+  final String chaptersId;
+  final String number;
+  final String name;
+  final String link;
   final String createdAt;
 
   ContentModel({
     this.id,
-    required this.chapterId,
-    required this.chapterName,
+    required this.chaptersId,
+    required this.number,
+    required this.name,
+    required this.link,
     required this.createdAt,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'chapter_id': chapterId,
-      'chapter_name': chapterName,
-      'created_at': createdAt,
+      'chapters_id': chaptersId,
+      'number': number,
+      'name': name,
+      'link': link,
     };
   }
 
   factory ContentModel.fromMap(Map<String, dynamic> map) {
     return ContentModel(
       id: map['id'],
-      chapterId: map['chapter_id'] ?? '',
-      chapterName: map['chapter_name'] ?? '',
+      chaptersId: map['chapters_id'] ?? '',
+      number: map['number'] ?? ' ',
+      name: map['name'] ?? '',
+      link: map['link'] ?? '',
       createdAt: map['created_at'] ?? '',
     );
   }
