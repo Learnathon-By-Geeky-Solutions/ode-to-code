@@ -1,5 +1,6 @@
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view_model/auth/sign_up_controller.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
@@ -15,26 +16,34 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      text: "Sign Up",
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      onPressed: () {
-        if (!_formKey.currentState!.validate()) {
-          return; // Exit if form is invalid
-        }
+    return GetBuilder<SignUpController>(
+      builder: (controller) {
+        return CustomButton(
+          text: "Sign Up",
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          onPressed: () async {
+            if (!_formKey.currentState!.validate()) {
+              return; // Exit if form is invalid
+            }
 
-        // Get the latest values of email and password
-        final email = emailTEController.text;
-        final password = passwordTEController.text;
+            final email = emailTEController.text;
+            final password = passwordTEController.text;
 
-        // Navigate to Sign In screen (Sign up logic should be handled separately)
-        Get.offAll(const SignInView());
+            // Call sign-up logic from SignUpController
+            bool success = await controller.signUp(email, password);
+
+            if (success) {
+              // Navigate to Sign In screen after successful sign-up
+              Get.offAll(const SignInView());
+            }
+          },
+          backgroundColor: AppColors.themeColor,
+          textColor: Colors.white,
+          icon: Icons.arrow_forward,
+          buttonType: ButtonType.elevated,
+        );
       },
-      backgroundColor: AppColors.themeColor,
-      textColor: Colors.white,
-      icon: Icons.arrow_forward,
-      buttonType: ButtonType.elevated,
     );
   }
 }

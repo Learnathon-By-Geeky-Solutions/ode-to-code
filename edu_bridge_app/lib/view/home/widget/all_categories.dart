@@ -24,20 +24,25 @@ class AllCategories extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(12.0),
           child: SizedBox(
-            height: 6.h,
+            height: 7.5.h,
             child: ListView.builder(
               itemCount: controller.categories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Image.network(
-                    controller.categories[index].imageUrl,
-                    width: 70,
+                  child: Container(
                     height: 70,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const Icon(Icons.broken_image),
+                    width: 70,
+                    //color: Colors.yellow,
+                    child: Image.network(
+                      controller.categories[index].imageUrl,
+                      width: 70,
+                      height: 70,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.broken_image),
+                    ),
                   ),
                 );
               },

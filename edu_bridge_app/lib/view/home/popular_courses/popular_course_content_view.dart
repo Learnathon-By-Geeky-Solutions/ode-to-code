@@ -3,36 +3,38 @@ import 'package:edu_bridge_app/view/home/content/widget/web_view.dart';
 import 'package:edu_bridge_app/view/home/content/widget/content_card.dart';
 import 'package:edu_bridge_app/view/home/content/widget/youtube_view.dart';
 import 'package:edu_bridge_app/view_model/content_controller.dart';
+import 'package:edu_bridge_app/view_model/popular_course_content_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ContentView extends StatefulWidget {
+class PopularCourseContentView extends StatefulWidget {
   final String chapterTitle;
-  final String chaptersId;
+  final String courseId;
 
-  const ContentView({
+  const PopularCourseContentView({
     super.key,
     required this.chapterTitle,
-    required this.chaptersId,
+    required this.courseId,
   });
 
   @override
-  State<ContentView> createState() => _ContentViewState();
+  State<PopularCourseContentView> createState() =>
+      _PopularCourseContentViewState();
 }
 
-class _ContentViewState extends State<ContentView> {
-  final CourseContentController _contentController =
-      Get.put(CourseContentController());
+class _PopularCourseContentViewState extends State<PopularCourseContentView> {
+  final PopularCourseContentController _popularCourseContentController =
+      Get.put(PopularCourseContentController());
 
   @override
   void initState() {
     super.initState();
-    _contentController.fetchContents(widget.chaptersId);
+    _popularCourseContentController.fetchContents(widget.courseId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CourseContentController>(
+    return GetBuilder<PopularCourseContentController>(
       builder: (controller) {
         return CustomScaffold(
           title: widget.chapterTitle,
@@ -50,7 +52,7 @@ class _ContentViewState extends State<ContentView> {
                           },
                           child: ContentCard(
                             number: content.number,
-                            title: content.name,
+                            title: content.title,
                             link: content.link,
                           ),
                         );
@@ -98,14 +100,15 @@ class _ContentViewState extends State<ContentView> {
             onPressed: () async {
               if (_contentTitleController.text.isNotEmpty &&
                   _contentLinkController.text.isNotEmpty) {
-                bool success = await _contentController.addContent(
-                  widget.chaptersId,
+                bool success = await _popularCourseContentController.addContent(
+                  widget.courseId,
                   _numberController.text,
                   _contentTitleController.text,
                   _contentLinkController.text,
                 );
                 if (success) {
-                  _contentController.fetchContents(widget.chaptersId);
+                  _popularCourseContentController
+                      .fetchContents(widget.courseId);
                   Get.back();
                 }
               } else {

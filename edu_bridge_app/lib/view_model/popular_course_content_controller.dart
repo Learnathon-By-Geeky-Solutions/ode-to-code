@@ -1,9 +1,12 @@
 import 'package:edu_bridge_app/data/models/content_model.dart';
+import 'package:edu_bridge_app/data/models/popular_course_content_model.dart';
 import 'package:edu_bridge_app/data/repositories/content_repository.dart';
+import 'package:edu_bridge_app/data/repositories/popular_course_content_repository.dart';
 import 'package:get/get.dart';
 
-class CourseContentController extends GetxController {
-  final ContentRepository _repository = ContentRepository();
+class PopularCourseContentController extends GetxController {
+  final PopularCourseContentRepository _repository =
+      PopularCourseContentRepository();
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;
@@ -11,12 +14,12 @@ class CourseContentController extends GetxController {
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
-  List<ContentModel> _contents = [];
-  List<ContentModel> get contents => _contents;
+  List<PopularCourseContentModel> _contents = [];
+  List<PopularCourseContentModel> get contents => _contents;
 
   Future<bool> addContent(
-      String chaptersId, String number, String name, String link) async {
-    if (name.isEmpty || link.isEmpty || chaptersId.isEmpty) {
+      String courseId, String number, String title, String link) async {
+    if (title.isEmpty || link.isEmpty || courseId.isEmpty) {
       Get.snackbar(
           "Error", "Please enter content name, link, and select chapter");
       return false;
@@ -27,17 +30,16 @@ class CourseContentController extends GetxController {
     _errorMessage = null;
     update();
 
-    final newContent = ContentModel(
-      chaptersId: chaptersId,
+    final newContent = PopularCourseContentModel(
+      coursesId: courseId,
+      title: title,
       number: number,
-      name: name,
       link: link,
-      createdAt: DateTime.now().toIso8601String(),
     );
 
     print('Test : \$newContent');
 
-    final success = await _repository.addContent(newContent);
+    final success = await _repository.addPopularCourseContent(newContent);
     if (success) {
       isSuccess = true;
       // Using Future.delayed to ensure snackbar appears immediately
@@ -57,13 +59,13 @@ class CourseContentController extends GetxController {
     return isSuccess;
   }
 
-  Future<void> fetchContents(String chaptersId) async {
+  Future<void> fetchContents(String courseId) async {
     _inProgress = true;
     _errorMessage = null;
     update();
 
     try {
-      _contents = await _repository.fetchContentsByChapterId(chaptersId);
+      _contents = await _repository.fetchPopularCourseContentById(courseId);
       // Log the fetched contents for debugging
       print("Fetched contents: $_contents");
     } catch (e) {

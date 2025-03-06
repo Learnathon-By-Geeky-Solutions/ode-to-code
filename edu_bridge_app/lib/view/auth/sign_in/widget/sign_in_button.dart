@@ -1,4 +1,6 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/view/home/home_view.dart';
+import 'package:edu_bridge_app/view_model/auth/sign_in_controller.dart';
 
 class SignInButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -14,17 +16,29 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      text: "Sign In",
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      onPressed: () {
-        // No logic here, just keeping the UI
+    return GetBuilder<SignInController>(
+      builder: (controller) {
+        return CustomButton(
+          text: "Sign In",
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          onPressed: () async {
+            if (formKey.currentState?.validate() ?? false) {
+              bool success = await controller.signIn(
+                emailController.text,
+                passwordController.text,
+              );
+              if (success) {
+                Get.offAll(() => HomeView());
+              }
+            }
+          },
+          backgroundColor: AppColors.themeColor,
+          textColor: Colors.white,
+          icon: Icons.arrow_forward,
+          buttonType: ButtonType.elevated,
+        );
       },
-      backgroundColor: AppColors.themeColor,
-      textColor: Colors.white,
-      icon: Icons.arrow_forward,
-      buttonType: ButtonType.elevated,
     );
   }
 }
