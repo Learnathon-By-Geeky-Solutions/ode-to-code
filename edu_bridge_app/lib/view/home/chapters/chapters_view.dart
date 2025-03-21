@@ -33,7 +33,7 @@ class _ChaptersViewState extends State<ChaptersView> {
     return GetBuilder<ChapterController>(
       builder: (controller) {
         return CustomScaffold(
-          title: widget.subjectName,
+          name: widget.subjectName,
           body: controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.errorMessage != null

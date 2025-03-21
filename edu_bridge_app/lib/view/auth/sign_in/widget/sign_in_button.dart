@@ -29,7 +29,11 @@ class SignInButton extends StatelessWidget {
                 passwordController.text,
               );
               if (success) {
-                Get.offAll(() => HomeView());
+                Get.offAll(
+                  () => HomeView(
+                    email: emailController.text,
+                  ),
+                );
               }
             }
           },

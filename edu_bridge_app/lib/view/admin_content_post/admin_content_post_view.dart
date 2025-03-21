@@ -17,7 +17,7 @@ class _AdminContentPostViewState extends State<AdminContentPostView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Hi, There\nUpload your content",
+      name: "Hi, There\nUpload your content",
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

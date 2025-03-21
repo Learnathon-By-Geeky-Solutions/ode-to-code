@@ -10,39 +10,43 @@ class UserController extends GetxController {
   bool _inProgress = false;
   bool get inProgress => _inProgress;
 
-  File? _userImage;
-  File? get userImage => _userImage;
+  File? _profileImage;
+  File? get profileImage => _profileImage;
 
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
-  List<UserModel> _users = [];
-  List<UserModel> get users => _users;
+  UserModel? _user;
+  UserModel? get user => _user;
 
   final ImagePicker _picker = ImagePicker();
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchUsers();
-  }
-
-  void pickUserImage() async {
+  // Method to pick the user profile image from gallery
+  void pickProfileImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      _userImage = File(pickedFile.path);
+      _profileImage = File(pickedFile.path);
       update();
     }
   }
 
-  Future<bool> addUser(String fullName, String email, String whatYouDo,
-      String gender, String accountType) async {
+  Future<bool> addUser(
+    String fullName,
+    String email,
+    String whatYouDo,
+    String accountType,
+    String dateOfBirth,
+    String gender,
+  ) async {
     if (fullName.isEmpty ||
         email.isEmpty ||
         whatYouDo.isEmpty ||
+        accountType.isEmpty ||
+        dateOfBirth.isEmpty ||
         gender.isEmpty ||
-        _userImage == null) {
-      Get.snackbar("Error", "Please fill all the details and select an image");
+        _profileImage == null) {
+      Get.snackbar(
+          "Error", "Please fill in all fields and select a profile image.");
       return false;
     }
 
@@ -51,26 +55,25 @@ class UserController extends GetxController {
     _errorMessage = null;
     update();
 
-    final imageUrl = await _repository.uploadUserImage(_userImage!);
+    final imageUrl = await _repository.uploadUserProfileImage(_profileImage!);
     if (imageUrl != null) {
       final newUser = UserModel(
         fullName: fullName,
         email: email,
         whatYouDo: whatYouDo,
-        createdAt: DateTime.now().toString(),
-        accountType: accountType, // Default value, adjust as needed
+        accountType: accountType,
         image: imageUrl,
-        dateOfBirth: null, // Can be added later
+        dateOfBirth: dateOfBirth,
         gender: gender,
       );
 
+      // Add user to the database
       final success = await _repository.addUser(newUser);
       if (success) {
         isSuccess = true;
-        fetchUsers();
-        Get.snackbar("Success", "User added successfully!");
+        Get.snackbar("Success", "Subject added successfully!");
       } else {
-        _errorMessage = "Failed to add user.";
+        _errorMessage = "Failed to add subject.";
         Get.snackbar("Error", _errorMessage!);
       }
     } else {
@@ -83,51 +86,31 @@ class UserController extends GetxController {
     return isSuccess;
   }
 
-  Future<void> fetchUsers() async {
+  // Method to fetch user by ID
+  /*Future<void> fetchUserById(String userId) async {
     _inProgress = true;
     _errorMessage = null;
     update();
 
     try {
-      _users = await _repository.fetchUsers();
-    } catch (e) {
-      _errorMessage = 'Failed to load users: $e';
-    }
-
-    _inProgress = false;
-    update();
-  }
-
-  Future<bool> updateUser(UserModel user) async {
-    bool isSuccess = false;
-    _inProgress = true;
-    _errorMessage = null;
-    update();
-
-    if (_userImage != null) {
-      final imageUrl = await _repository.uploadUserImage(_userImage!);
-      if (imageUrl != null) {
-        user = user.copyWith(image: imageUrl); // Updating the image URL
+      _user = await _repository.fetchUser(userId);
+      if (_user == null) {
+        _errorMessage = "User not found.";
+        Get.snackbar("Error", _errorMessage!);
       }
-    }
-
-    final success = await _repository.updateUser(user);
-    if (success) {
-      isSuccess = true;
-      fetchUsers();
-      Get.snackbar("Success", "User updated successfully!");
-    } else {
-      _errorMessage = "Failed to update user.";
+    } catch (e) {
+      _errorMessage = 'Failed to load user: $e';
       Get.snackbar("Error", _errorMessage!);
     }
 
     _inProgress = false;
     update();
-    return isSuccess;
-  }
+  }*/
 
+  // Method to clear all fields
   void clearFields() {
-    _userImage = null;
+    _profileImage = null;
+    _user = null;
     update();
   }
 }

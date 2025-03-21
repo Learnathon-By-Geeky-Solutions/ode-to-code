@@ -4,6 +4,7 @@ import 'package:edu_bridge_app/view/admin_content_post/admin_content_post_view.d
 import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
 import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
+import 'package:edu_bridge_app/view/user/add_user.dart';
 import 'package:edu_bridge_app/view/user/user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,11 +18,10 @@ class EduBridgeUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) => GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialBinding: ControllerBinder(),
-        theme: _buildThemeData(),
-        home: OnBoarding(),
-      ),
+          debugShowCheckedModeBanner: false,
+          initialBinding: ControllerBinder(),
+          theme: _buildThemeData(),
+          home: SignInView()),
     );
   }
 

@@ -12,14 +12,12 @@ class CategoriesView extends StatefulWidget {
 }
 
 class _CategoriesViewState extends State<CategoriesView> {
-  final CategoryController _categoryController = Get.put(CategoryController());
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoryController>(
       builder: (controller) {
         return CustomScaffold(
-          title: "All Categories",
+          name: "All Categories",
           floatingActionButton: OutlinedButton(
             onPressed: showAddCategoryDialog,
             child: const Icon(Icons.add),

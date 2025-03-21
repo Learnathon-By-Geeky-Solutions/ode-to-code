@@ -33,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
         suffixIcon: suffixIcon != null ? Icon(prefixIcon) : null,
       ),

@@ -31,7 +31,7 @@ class _ClassViewState extends State<ClassView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: widget.className,
+      name: widget.className,
       floatingActionButton: OutlinedButton(
         onPressed: showAddClassDialog,
         child: const Icon(Icons.add),

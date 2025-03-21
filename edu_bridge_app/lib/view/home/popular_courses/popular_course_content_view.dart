@@ -37,7 +37,7 @@ class _PopularCourseContentViewState extends State<PopularCourseContentView> {
     return GetBuilder<PopularCourseContentController>(
       builder: (controller) {
         return CustomScaffold(
-          title: widget.chapterTitle,
+          name: widget.chapterTitle,
           body: controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.contents.isEmpty

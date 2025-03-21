@@ -35,7 +35,7 @@ class _ContentViewState extends State<ContentView> {
     return GetBuilder<CourseContentController>(
       builder: (controller) {
         return CustomScaffold(
-          title: widget.chapterTitle,
+          name: widget.chapterTitle,
           body: controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.contents.isEmpty

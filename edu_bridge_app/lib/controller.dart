@@ -11,6 +11,7 @@ import 'package:edu_bridge_app/view_model/popular_course_content_controller.dart
 import 'package:edu_bridge_app/view_model/popularcourse_controller.dart';
 import 'package:edu_bridge_app/view_model/subject_controller.dart';
 import 'package:edu_bridge_app/view_model/user_controller.dart';
+import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
 
 import 'package:get/get.dart';
 
@@ -33,5 +34,6 @@ class ControllerBinder extends Bindings {
     Get.put(PopularCourseController());
     Get.put(PopularCourseContentController());
     Get.put(SubjectController());
+    Get.put(UserProfileController());
   }
 }

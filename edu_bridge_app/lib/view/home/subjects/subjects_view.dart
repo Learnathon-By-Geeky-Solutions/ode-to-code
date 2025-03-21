@@ -26,7 +26,7 @@ class _SubjectsViewState extends State<SubjectsView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Subjects View",
+      name: "Subjects View",
       floatingActionButton: OutlinedButton(
         onPressed: showAddSubjectDialog,
         child: const Icon(Icons.add),

@@ -1,17 +1,18 @@
-class UserModel {
+class UserProfileModel {
   final String? id;
-  final String fullName;
+  final String name;
   final String email;
+  final String gender;
   final String whatYouDo;
   final String accountType;
   final String image;
   final String dateOfBirth;
-  final String gender;
+
   final String? createdAt;
 
-  UserModel({
+  UserProfileModel({
     this.id,
-    required this.fullName,
+    required this.name,
     required this.email,
     required this.whatYouDo,
     required this.accountType,
@@ -21,9 +22,10 @@ class UserModel {
     this.createdAt,
   });
 
+  // Convert UserProfileModel to Map (used for saving data)
   Map<String, dynamic> toMap() {
     return {
-      'full_name': fullName,
+      'name': name,
       'email': email,
       'what_you_do': whatYouDo,
       'account_type': accountType,
@@ -33,10 +35,11 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
+  // Convert Map to UserProfileModel (used for retrieving data)
+  factory UserProfileModel.fromMap(Map<String, dynamic> map) {
+    return UserProfileModel(
       id: map['id'],
-      fullName: map['full_name'] ?? '',
+      name: map['name'] ?? '',
       email: map['email'] ?? '',
       whatYouDo: map['what_you_do'] ?? '',
       accountType: map['account_type'] ?? '',

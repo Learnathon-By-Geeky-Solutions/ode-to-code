@@ -5,8 +5,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class UserRepository {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  // Method to upload user image to Supabase Storage
-  Future<String?> uploadUserImage(File imageFile) async {
+  // Method to upload user profile image to Supabase Storage
+  Future<String?> uploadUserProfileImage(File imageFile) async {
     try {
       final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
       final String filePath = 'user/$fileName';
@@ -22,41 +22,33 @@ class UserRepository {
   }
 
   // Method to add a new user to the database
-  Future<bool> addUser(UserModel user) async {
+  Future<bool> addUser(UserModel userModel) async {
     try {
-      // Inserting the user into the "users" table
-      await _supabase.from("user").insert(user.toMap());
+      final userData = userModel.toMap();
+      print("User Data being sent to Supabase: $userData"); // Debugging
+
+      // Inserting into Supabase
+      await _supabase.from("user").insert(userData);
+
+      print("User added successfully!");
       return true;
     } catch (e) {
+      print("Error adding user: $e"); // Debugging
       return false;
     }
   }
 
-  // Method to fetch all users from the database
-  Future<List<UserModel>> fetchUsers() async {
-    final response = await _supabase.from("user").select();
-    return response.map((data) => UserModel.fromMap(data)).toList();
-  }
-
-  // Method to fetch a user by ID
-  Future<UserModel?> fetchUserById(String id) async {
-    final response =
-        await _supabase.from("user").select().eq('id', id).single();
-    if (response != null) {
-      return UserModel.fromMap(response);
-    } else {
-      return null;
-    }
-  }
-
-  // Method to update user details in the database
-  Future<bool> updateUser(UserModel user) async {
+  // Method to fetch users by account type
+  Future<List<UserModel>> fetchUser(String email) async {
     try {
-      // Updating the user in the "users" table
-      await _supabase.from("user").upsert(user.toMap());
-      return true;
+      final response =
+          await _supabase.from('users').select().eq('email', email);
+
+      return response
+          .map<UserModel>((data) => UserModel.fromMap(data))
+          .toList();
     } catch (e) {
-      return false;
+      return [];
     }
   }
 }
