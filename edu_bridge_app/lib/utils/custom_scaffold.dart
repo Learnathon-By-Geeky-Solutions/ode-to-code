@@ -45,19 +45,19 @@ class CustomScaffold extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
               ),
-              Text(
+              /*Text(
                 "What would you like to learn today? \nSearch below",
                 style: GoogleFonts.mulish(
                   color: AppColors.blackGray,
                   fontWeight: FontWeight.bold,
                   fontSize: 13,
                 ),
-              ),
+              ),*/
             ],
           ),
         );
       }),
-      actions: [
+      /*actions: [
         ...?actions, // Include additional actions if provided
         GestureDetector(
           onTap: () async {
@@ -70,7 +70,7 @@ class CustomScaffold extends StatelessWidget {
             child: Icon(Icons.logout),
           ),
         ),
-      ],
+      ],*/
     );
   }
 }

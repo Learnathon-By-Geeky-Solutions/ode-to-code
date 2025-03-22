@@ -1,4 +1,3 @@
-/*
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
@@ -53,8 +52,9 @@ class _SplashViewState extends State<SplashView>
     final supabase = Supabase.instance.client;
     final session = supabase.auth.currentSession;
 
-    if (session != null) {
-      Get.offAll(const HomeView(email: email));
+    if (session != null && session.user != null) {
+      String email = session.user!.email ?? ''; // Retrieve the email
+      Get.offAll(HomeView(email: email)); // Pass email to HomeView
     } else {
       Get.offAll(OnBoarding());
     }
@@ -84,4 +84,3 @@ class _SplashViewState extends State<SplashView>
     );
   }
 }
-*/

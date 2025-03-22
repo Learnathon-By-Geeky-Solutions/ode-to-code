@@ -23,9 +23,10 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
-        autoPlay: true, // Do not auto-play the video initially
-        mute: false, // Do not mute the video initially
-        enableCaption: true, // Enable captions if available
+        autoPlay: true,
+        mute: false,
+        enableCaption: true,
+        useHybridComposition: true, // Add this
       ),
     );
   }

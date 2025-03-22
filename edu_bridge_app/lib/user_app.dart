@@ -2,6 +2,7 @@ import 'package:edu_bridge_app/controller.dart';
 import 'package:edu_bridge_app/resources/app_colors.dart';
 import 'package:edu_bridge_app/view/admin_content_post/admin_content_post_view.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view/auth/splash_view.dart';
 import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
 import 'package:edu_bridge_app/view/user/add_user.dart';
@@ -21,7 +22,7 @@ class EduBridgeUser extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialBinding: ControllerBinder(),
           theme: _buildThemeData(),
-          home: SignInView()),
+          home: SplashView()),
     );
   }
 
