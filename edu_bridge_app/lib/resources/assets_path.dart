@@ -44,6 +44,7 @@ class AssetsPath {
   //Icons
   static String google = '$icons/google_logo.svg';
   static String apple = '$icons/apple_logo.svg';
+  static String notification = '$icons/notification.svg';
   static String subjectsBook = '$icons/subjects_book.svg';
   static String sliderCard = '$images/offer.png';
 

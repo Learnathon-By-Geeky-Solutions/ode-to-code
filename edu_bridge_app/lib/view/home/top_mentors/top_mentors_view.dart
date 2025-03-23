@@ -1,4 +1,6 @@
+import 'package:edu_bridge_app/data/models/mentor_model.dart';
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/view_model/mentor_controller.dart';
 
 class TopMentorsView extends StatefulWidget {
   const TopMentorsView({super.key});
@@ -20,25 +22,46 @@ class _TopMentorsViewState extends State<TopMentorsView> {
           fontSize: 20,
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: buildContainer(),
-                );
-              },
-            ),
-          ),
-        ],
+      body: GetBuilder<MentorController>(
+        init: MentorController(), // Initialize the controller
+        builder: (controller) {
+          // Show loading indicator if still fetching mentors
+          if (controller.inProgress) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          // Show error message if fetching mentors failed
+          if (controller.errorMessage != null) {
+            return Center(
+              child: CustomText(
+                text: controller.errorMessage!,
+                color: Colors.red,
+              ),
+            );
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.mentors.length,
+                  itemBuilder: (context, index) {
+                    final mentor = controller.mentors[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: buildContainer(mentor),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget buildContainer() {
+  Widget buildContainer(MentorModel mentor) {
     return Card(
       color: AppColors.white,
       child: Padding(
@@ -48,12 +71,18 @@ class _TopMentorsViewState extends State<TopMentorsView> {
           height: 93,
           child: Row(
             children: [
+              // Display mentor's image
               Container(
                 width: 66,
                 height: 66,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(66),
-                    color: Colors.black),
+                  borderRadius: BorderRadius.circular(66),
+                  image: DecorationImage(
+                    image:
+                        NetworkImage(mentor.image), // Image URL of the mentor
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               Padding(
                 padding: EdgeInsets.all(2.5.h),
@@ -61,18 +90,18 @@ class _TopMentorsViewState extends State<TopMentorsView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: "Jiya Shetty",
+                      text: mentor.name,
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
                     CustomText(
-                      text: "3D Design",
+                      text: mentor.designation,
                       fontSize: 13,
                       color: AppColors.blackGray,
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

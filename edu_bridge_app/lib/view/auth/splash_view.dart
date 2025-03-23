@@ -1,7 +1,7 @@
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -19,13 +19,11 @@ class _SplashViewState extends State<SplashView>
   void initState() {
     super.initState();
 
-    // Initialize the animation controller
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3), // Total duration of the animation
+      duration: const Duration(seconds: 3),
     );
 
-    // Define a repeating fade-in and fade-out animation
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
@@ -33,11 +31,10 @@ class _SplashViewState extends State<SplashView>
       ),
     );
 
-    // Start the animation and loop it once
     _controller.forward();
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _controller.reverse(); // Reverse the animation for fade-out
+        _controller.reverse();
       }
     });
     _moveToNextScreen();
@@ -52,9 +49,12 @@ class _SplashViewState extends State<SplashView>
   Future<void> _moveToNextScreen() async {
     await Future.delayed(const Duration(seconds: 3));
 
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      Get.offAll(const HomeView());
+    final supabase = Supabase.instance.client;
+    final session = supabase.auth.currentSession;
+
+    if (session != null && session.user != null) {
+      String email = session.user!.email ?? ''; // Retrieve the email
+      Get.offAll(HomeView(email: email)); // Pass email to HomeView
     } else {
       Get.offAll(OnBoarding());
     }
