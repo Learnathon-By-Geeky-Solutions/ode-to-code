@@ -30,13 +30,14 @@ class _HomeViewState extends State<HomeView> {
       email: widget.email,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.h),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              const HomeBanner(),
-              SizedBox(height: 3.h),
-              const CategoriesSection(),
               SizedBox(height: 1.h),
+              const HomeBanner(),
+              SizedBox(height: 1.h),
+              const CategoriesSection(),
+              // SizedBox(height: 1.h),
               const PopularCourses(),
               SizedBox(height: 1.h),
               const TopMentorSection(),

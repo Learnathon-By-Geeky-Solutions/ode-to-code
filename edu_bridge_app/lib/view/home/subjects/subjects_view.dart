@@ -35,72 +35,73 @@ class _SubjectsViewState extends State<SubjectsView> {
         padding: const EdgeInsets.all(8.0),
         child: GetBuilder<SubjectController>(builder: (controller) {
           return controller.inProgress
-              ? const Center(
-                  child:
-                      CircularProgressIndicator()) // Show loader while fetching
-              : GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 1,
-                    childAspectRatio: 1,
-                  ),
-                  itemCount:
-                      controller.subjects.length, // Static count for UI purpose
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Get.to(
-                          () => ChaptersView(
-                              subjectId: controller.subjects[index].id!,
-                              subjectName:
-                                  controller.subjects[index].subjectName!),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          child: Card(
-                            elevation: 3,
-                            color: AppColors.white,
-                            child: Center(
-                              child: Stack(
-                                children: [
-                                  SvgPicture.asset(
-                                    AssetsPath.subjectsBook,
-                                    fit: BoxFit.contain,
+              ? const Center(child: CircularProgressIndicator())
+              : controller.subjects.isEmpty
+                  ? const Center(child: Text("No content available"))
+                  : GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 1,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: controller
+                          .subjects.length, // Static count for UI purpose
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Get.to(
+                              () => ChaptersView(
+                                  subjectId: controller.subjects[index].id!,
+                                  subjectName:
+                                      controller.subjects[index].subjectName!),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              child: Card(
+                                elevation: 3,
+                                color: AppColors.white,
+                                child: Center(
+                                  child: Stack(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AssetsPath.subjectsBook,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Positioned(
+                                        top: 20,
+                                        left: 15,
+                                        right: 1,
+                                        bottom: 1,
+                                        child: Center(
+                                          child: controller.subjects[index]
+                                                  .image.isNotEmpty
+                                              ? Text(
+                                                  controller.subjects[index]
+                                                      .subjectName, // Placeholder text
+                                                  style: GoogleFonts.murecho(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppColors.bookColor,
+                                                  ),
+                                                )
+                                              : const Icon(
+                                                  Icons.image_not_supported,
+                                                  size: 50),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Positioned(
-                                    top: 20,
-                                    left: 15,
-                                    right: 1,
-                                    bottom: 1,
-                                    child: Center(
-                                      child: controller
-                                              .subjects[index].image.isNotEmpty
-                                          ? Text(
-                                              controller.subjects[index]
-                                                  .subjectName, // Placeholder text
-                                              style: GoogleFonts.murecho(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColors.bookColor,
-                                              ),
-                                            )
-                                          : const Icon(
-                                              Icons.image_not_supported,
-                                              size: 50),
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     );
-                  },
-                );
         }),
       ),
     );

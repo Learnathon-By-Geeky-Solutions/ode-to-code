@@ -41,43 +41,44 @@ class _ClassViewState extends State<ClassView> {
         child: GetBuilder<ClassController>(
           builder: (controller) {
             return controller.inProgress
-                ? const Center(
-                    child:
-                        CircularProgressIndicator()) // Show loader while fetching
-                : GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 1,
-                      mainAxisSpacing: 1,
-                      childAspectRatio: 1,
-                    ),
-                    itemCount: controller.classes.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Get.to(() => SubjectsView(
-                                classId: controller.classes[index].id!,
-                              ));
-                          print(controller.classes[index].id);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            elevation: 3,
-                            color: AppColors.white,
-                            child: Center(
-                              child: controller.classes[index].image.isNotEmpty
-                                  ? Image.network(
-                                      controller.classes[index].image)
-                                  : const Icon(Icons.image_not_supported,
-                                      size: 50),
-                            ),
-                          ),
+                ? const Center(child: CircularProgressIndicator())
+                : controller.classes.isEmpty
+                    ? const Center(child: Text("No content available"))
+                    : GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 1,
+                          mainAxisSpacing: 1,
+                          childAspectRatio: 1,
                         ),
+                        itemCount: controller.classes.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Get.to(() => SubjectsView(
+                                    classId: controller.classes[index].id!,
+                                  ));
+                              print(controller.classes[index].id);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                elevation: 3,
+                                color: AppColors.white,
+                                child: Center(
+                                  child: controller
+                                          .classes[index].image.isNotEmpty
+                                      ? Image.network(
+                                          controller.classes[index].image)
+                                      : const Icon(Icons.image_not_supported,
+                                          size: 50),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       );
-                    },
-                  );
           },
         ),
       ),

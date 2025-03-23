@@ -34,21 +34,25 @@ class PopularCoursesView extends StatelessWidget {
           }
 
           // If courses are fetched, display them in a list
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: controller.popularCourses
-                      .length, // Dynamically use the length of fetched courses
-                  itemBuilder: (context, index) {
-                    final course = controller.popularCourses[index];
-                    return popularCoursesCard(
-                        course); // Pass the course data to the card widget
-                  },
-                ),
-              ),
-            ],
-          );
+          return controller.inProgress
+              ? const Center(child: CircularProgressIndicator())
+              : controller.popularCourses.isEmpty
+                  ? const Center(child: Text("No content available"))
+                  : Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: controller.popularCourses
+                                .length, // Dynamically use the length of fetched courses
+                            itemBuilder: (context, index) {
+                              final course = controller.popularCourses[index];
+                              return popularCoursesCard(
+                                  course); // Pass the course data to the card widget
+                            },
+                          ),
+                        ),
+                      ],
+                    );
         },
       ),
     );
