@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/view/home/categories/school/class_view.dart';
 import 'package:edu_bridge_app/view_model/category_controller.dart';
 
 class AllCategories extends StatelessWidget {
@@ -23,29 +24,44 @@ class AllCategories extends StatelessWidget {
 
         return Padding(
           padding: const EdgeInsets.all(12.0),
-          child: SizedBox(
-            height: 7.5.h,
-            child: ListView.builder(
-              itemCount: controller.categories.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Container(
-                    height: 70,
-                    width: 70,
-                    //color: Colors.yellow,
-                    child: Image.network(
-                      controller.categories[index].imageUrl,
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Icon(Icons.broken_image),
+          child: InkWell(
+            child: SizedBox(
+              height: 7.5.h,
+              child: ListView.builder(
+                itemCount: controller.categories.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Get.to(
+                        () => ClassView(
+                          categoryId:
+                              controller.categories[index].id.toString(),
+                          className: controller.categories[index].categoryName,
+                        ),
+                      );
+                      print(controller.categories[index].id.toString());
+                      print(controller.categories[index].categoryName);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: SizedBox(
+                        height: 70,
+                        width: 75,
+                        //color: Colors.yellow,
+                        child: Image.network(
+                          controller.categories[index].imageUrl,
+                          width: 70,
+                          height: 70,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(Icons.broken_image),
+                        ),
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         );

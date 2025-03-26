@@ -23,41 +23,44 @@ class CustomScaffoldHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(email!),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80), // Custom height for AppBar
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
+          child: AppBar(
+            backgroundColor: AppColors.white,
+            elevation: 0, // Remove shadow
+            title: InkWell(
+              onTap: () => Get.to(() => FetchUserProfileScreen(email: email!)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                    text: name ?? "Hi there!",
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  Text(
+                    "What would you like to learn today? \nSearch below",
+                    style: GoogleFonts.mulish(
+                      color: AppColors.blackGray,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              ...?actions,
+            ],
+          ),
+        ),
+      ),
       backgroundColor: AppColors.bg,
       body: body,
       floatingActionButton: floatingActionButton,
       endDrawer: _buildDrawer(context),
-    );
-  }
-
-  AppBar _buildAppBar(String email) {
-    return AppBar(
-      backgroundColor: AppColors.white,
-      title: InkWell(
-        onTap: () => Get.to(() => FetchUserProfileScreen(email: email)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-              text: name ?? "Hi there!",
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-            Text(
-              "What would you like to learn today? \nSearch below",
-              style: GoogleFonts.mulish(
-                color: AppColors.blackGray,
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-              ),
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        ...?actions,
-      ],
     );
   }
 
@@ -73,29 +76,29 @@ class CustomScaffoldHome extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomText(
-                  text: name ?? "User",
+                  text: name ?? "User Email",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.white,
+                  color: AppColors.blackGray,
                 ),
                 CustomText(
                   text: email ?? "",
                   fontSize: 16,
-                  color: AppColors.white,
+                  color: AppColors.blackGray,
                 ),
               ],
             ),
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text("Fetch Profile"),
+            leading: const Icon(Icons.person),
+            title: const Text("Your Profile"),
             onTap: () {
               Get.to(() => FetchUserProfileScreen(email: email!));
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text("Sign Out"),
+            leading: const Icon(Icons.logout),
+            title: const Text("Sign Out"),
             onTap: () async {
               final supabase = Supabase.instance.client;
               await supabase.auth.signOut();

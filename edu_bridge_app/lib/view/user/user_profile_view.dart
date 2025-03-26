@@ -25,7 +25,8 @@ class _UserProfileViewState extends State<UserProfileView> {
   final TextEditingController passwordController =
       TextEditingController(); // Add password field
   final TextEditingController whatYouDoController = TextEditingController();
-  final TextEditingController accountTypeController = TextEditingController();
+  final TextEditingController accountTypeController =
+      TextEditingController(text: 'Student'); // Set default value
   final TextEditingController dateOfBirthController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController fetchEmailController = TextEditingController();
@@ -35,17 +36,13 @@ class _UserProfileViewState extends State<UserProfileView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      name: 'User Profile',
+      name: 'Sign Up & User Profile',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Sign Up & Add User Profile',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
               SizedBox(height: 20),
               // Profile Image Picker
               GetBuilder<UserProfileController>(
@@ -93,12 +90,31 @@ class _UserProfileViewState extends State<UserProfileView> {
               CustomTextFormField(
                 labelText: 'Email',
                 controller: emailController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      .hasMatch(value)) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
                 labelText: 'Password',
                 controller: passwordController,
                 obscureText: true, // Hide password input
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
@@ -109,18 +125,56 @@ class _UserProfileViewState extends State<UserProfileView> {
               CustomTextFormField(
                 labelText: 'Account Type',
                 controller: accountTypeController,
+                enabled: false, // Disable editing
               ),
               SizedBox(height: 1.h),
-              CustomTextFormField(
-                labelText: 'Date of Birth',
-                controller: dateOfBirthController,
+              // Date of Birth Picker
+              InkWell(
+                onTap: () async {
+                  final selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime.now(),
+                  );
+                  if (selectedDate != null) {
+                    dateOfBirthController.text =
+                        "${selectedDate.toLocal()}".split(' ')[0];
+                  }
+                },
+                child: IgnorePointer(
+                  child: CustomTextFormField(
+                    labelText: 'Date of Birth',
+                    controller: dateOfBirthController,
+                  ),
+                ),
               ),
               SizedBox(height: 1.h),
-              CustomTextFormField(
-                labelText: 'Gender',
-                controller: genderController,
+              // Gender Dropdown
+              DropdownButtonFormField<String>(
+                value: genderController.text.isEmpty
+                    ? null
+                    : genderController.text,
+                decoration: InputDecoration(
+                  labelText: 'Gender',
+                  border: OutlineInputBorder(),
+                ),
+                items: ['Male', 'Female'].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  genderController.text = value!;
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select your gender';
+                  }
+                  return null;
+                },
               ),
-
               SizedBox(height: 20),
               // Sign Up & Add User Button
               GetBuilder<UserProfileController>(
@@ -137,7 +191,6 @@ class _UserProfileViewState extends State<UserProfileView> {
                                     emailController.text.isEmpty ||
                                     passwordController.text.isEmpty ||
                                     whatYouDoController.text.isEmpty ||
-                                    accountTypeController.text.isEmpty ||
                                     dateOfBirthController.text.isEmpty ||
                                     genderController.text.isEmpty ||
                                     profileController.profileImage == null) {
@@ -171,7 +224,6 @@ class _UserProfileViewState extends State<UserProfileView> {
                                     emailController.clear();
                                     passwordController.clear();
                                     whatYouDoController.clear();
-                                    accountTypeController.clear();
                                     dateOfBirthController.clear();
                                     genderController.clear();
                                     Get.snackbar("Success",
@@ -179,87 +231,10 @@ class _UserProfileViewState extends State<UserProfileView> {
                                   }
                                 }
                               },
-                              text: "Sign Up & Add Profile",
+                              text: "Sign Up",
                             );
                     },
                   );
-                },
-              ),
-              SizedBox(height: 20),
-              Divider(),
-              SizedBox(height: 20),
-              Text(
-                'Fetch User Profile',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                controller: fetchEmailController,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 20),
-              // Fetch User Button
-              GetBuilder<UserProfileController>(
-                builder: (controller) {
-                  return controller.inProgress
-                      ? Center(child: CircularProgressIndicator())
-                      : ElevatedButton(
-                          onPressed: () async {
-                            final email = fetchEmailController.text;
-
-                            if (email.isEmpty) {
-                              Get.snackbar("Error", "Please enter email");
-                              return;
-                            }
-
-                            await controller.fetchUserProfile(email);
-                          },
-                          child: Text('Fetch User'),
-                        );
-                },
-              ),
-              SizedBox(height: 20),
-              // Display fetched user profile
-              GetBuilder<UserProfileController>(
-                builder: (controller) {
-                  if (controller.userProfile != null) {
-                    final profile = controller.userProfile!;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (profile.image != null)
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage: NetworkImage(profile.image!),
-                          ),
-                        Text('Name: ${profile.name}',
-                            style: TextStyle(fontSize: 16)),
-                        Text('Email: ${profile.email}',
-                            style: TextStyle(fontSize: 16)),
-                        Text('What You Do: ${profile.whatYouDo}',
-                            style: TextStyle(fontSize: 16)),
-                        Text('Account Type: ${profile.accountType}',
-                            style: TextStyle(fontSize: 16)),
-                        Text('Date of Birth: ${profile.dateOfBirth}',
-                            style: TextStyle(fontSize: 16)),
-                        Text('Gender: ${profile.gender}',
-                            style: TextStyle(fontSize: 16)),
-                      ],
-                    );
-                  } else if (controller.errorMessage != null) {
-                    return Text(
-                      controller.errorMessage!,
-                      style: TextStyle(color: Colors.red),
-                    );
-                  } else {
-                    return Text(
-                      'No user profile found.',
-                      style: TextStyle(color: Colors.grey),
-                    );
-                  }
                 },
               ),
             ],

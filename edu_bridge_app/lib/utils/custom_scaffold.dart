@@ -1,6 +1,6 @@
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
-import 'package:edu_bridge_app/view/user/add_user.dart';
+import 'package:edu_bridge_app/view/user/user_profile_view.dart';
 import 'package:edu_bridge_app/view/user/user_view.dart';
 import 'package:edu_bridge_app/view_model/user_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,7 +32,7 @@ class CustomScaffold extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.bg,
       title: GetBuilder<UserController>(builder: (controller) {
         return InkWell(
           onTap: () =>

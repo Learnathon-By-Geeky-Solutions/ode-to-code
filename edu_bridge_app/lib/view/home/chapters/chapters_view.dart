@@ -36,8 +36,8 @@ class _ChaptersViewState extends State<ChaptersView> {
           name: widget.subjectName,
           body: controller.inProgress
               ? const Center(child: CircularProgressIndicator())
-              : controller.errorMessage != null
-                  ? Center(child: Text(controller.errorMessage!))
+              : controller.chapters.isEmpty
+                  ? const Center(child: Text("No content available"))
                   : Column(
                       children: [
                         Expanded(

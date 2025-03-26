@@ -15,7 +15,7 @@ class PopularCourses extends StatelessWidget {
     Get.find<PopularCourseController>().fetchPopularCourses();
 
     return SizedBox(
-      height: 30.9.h,
+      height: 32.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -24,7 +24,7 @@ class PopularCourses extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(
+                const CustomText(
                   text: "Popular Course",
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -33,7 +33,7 @@ class PopularCourses extends StatelessWidget {
                   onTap: () {
                     Get.to(() => PopularCoursesView());
                   },
-                  child: CustomText(
+                  child: const CustomText(
                     text: "SEE ALL",
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -109,7 +109,7 @@ class PopularCourses extends StatelessWidget {
           ),
           Container(
             width: 280,
-            height: 95,
+            height: 106,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(24),
@@ -128,10 +128,10 @@ class PopularCourses extends StatelessWidget {
                       CustomText(
                         text: controller.popularCourses[index].type,
                         color: AppColors.orange,
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
-                      Icon(Icons.bookmark_border),
+                      const Icon(Icons.bookmark_border),
                     ],
                   ),
                   CustomText(
