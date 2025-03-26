@@ -21,7 +21,7 @@ class _CollegeViewState extends State<CollegeView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "College",
+      name: "College",
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(

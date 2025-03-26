@@ -1,5 +1,6 @@
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view_model/auth/sign_up_controller.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
@@ -16,47 +17,32 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SignUpController>(
-      builder: (signUpController) {
-        return Obx(() {
-          if (signUpController.signUpApiInProgress) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return CustomButton(
-            text: "Sign Up",
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            onPressed: () async {
-              if (!_formKey.currentState!.validate()) {
-                return; // Exit if form is invalid
-              }
+      builder: (controller) {
+        return CustomButton(
+          text: "Sign Up",
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          onPressed: () async {
+            if (!_formKey.currentState!.validate()) {
+              return; // Exit if form is invalid
+            }
 
-              // Get the latest values of email and password
-              final email = emailTEController.text;
-              final password = passwordTEController.text;
+            final email = emailTEController.text;
+            final password = passwordTEController.text;
 
-              // Attempt to sign in
-              final isSuccess = await signUpController.signUp(email, password);
-              if (isSuccess) {
-                Get.offAll(const SignInView());
-              } else {
-                Get.snackbar(
-                  'Error',
-                  signUpController.errorMessage,
-                  backgroundColor: Colors.red,
-                  colorText: Colors.white,
-                  snackPosition: SnackPosition.BOTTOM,
-                  duration: const Duration(seconds: 3),
-                );
-              }
-            },
-            backgroundColor: AppColors.themeColor,
-            textColor: Colors.white,
-            icon: Icons.arrow_forward,
-            buttonType: ButtonType.elevated,
-          );
-        });
+            // Call sign-up logic from SignUpController
+            bool success = await controller.signUp(email, password);
+
+            if (success) {
+              // Navigate to Sign In screen after successful sign-up
+              Get.offAll(const SignInView());
+            }
+          },
+          backgroundColor: AppColors.themeColor,
+          textColor: Colors.white,
+          icon: Icons.arrow_forward,
+          buttonType: ButtonType.elevated,
+        );
       },
     );
   }

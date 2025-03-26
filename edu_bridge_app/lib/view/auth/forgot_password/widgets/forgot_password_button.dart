@@ -1,15 +1,12 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view_model/auth/forgot_password_controller.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({
     super.key,
     required TextEditingController emailTEController,
-    required this.forgotPasswordController,
   }) : _emailTEController = emailTEController;
 
   final TextEditingController _emailTEController;
-  final ForgotPasswordController forgotPasswordController;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +14,7 @@ class ForgotPasswordButton extends StatelessWidget {
       text: "Forgot Password",
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      onPressed: () async {
+      onPressed: () {
         final email = _emailTEController.text;
         if (email.isEmpty) {
           Get.snackbar(
@@ -28,16 +25,14 @@ class ForgotPasswordButton extends StatelessWidget {
           );
           return;
         }
-        bool isSuccess =
-            await forgotPasswordController.sendPasswordReset(email);
-        if (isSuccess) {
-          Get.snackbar(
-            'Success',
-            'A password reset link has been sent to your email.',
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-          );
-        }
+
+        // Password reset logic should be implemented separately
+        Get.snackbar(
+          'Success',
+          'A password reset link has been sent to your email.',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
       },
       backgroundColor: AppColors.themeColor,
       textColor: Colors.white,

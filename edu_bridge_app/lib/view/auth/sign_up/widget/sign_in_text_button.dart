@@ -22,7 +22,7 @@ class SignInTextButton extends StatelessWidget {
             style: TextStyle(color: AppColors.themeColor),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.to(() => SignInView());
+                Get.to(SignInView());
               },
           ),
         ],

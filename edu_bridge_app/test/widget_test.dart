@@ -5,14 +5,14 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:edu_bridge_app/app.dart';
+import 'package:edu_bridge_app/user_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const EduBridge());
+    await tester.pumpWidget(const EduBridgeUser());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
