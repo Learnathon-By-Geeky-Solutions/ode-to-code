@@ -7,8 +7,8 @@ export 'package:edu_bridge_app/utils/custom_text.dart';
 // Auth Views
 export 'package:edu_bridge_app/view/auth/pin_verification/pin_verification_view.dart';
 // View Models
-export 'package:edu_bridge_app/view_model/auth/sign_in_controller.dart';
-export 'package:edu_bridge_app/view_model/auth/sign_up_controller.dart';
+//export 'package:edu_bridge_app/view_model/auth/sign_in_controller.dart';
+//export 'package:edu_bridge_app/view_model/auth/sign_up_controller.dart';
 //Controller
 
 // External Packages

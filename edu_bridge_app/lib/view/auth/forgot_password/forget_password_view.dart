@@ -5,7 +5,7 @@ import 'package:edu_bridge_app/utils/custom_spacing.dart';
 import 'package:edu_bridge_app/utils/custom_text_field.dart';
 import 'package:edu_bridge_app/utils/validators.dart';
 import 'package:edu_bridge_app/view/auth/forgot_password/widgets/forgot_password_button.dart';
-import 'package:edu_bridge_app/view_model/auth/forgot_password_controller.dart';
+import 'package:get/get.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -17,8 +17,7 @@ class ForgotPasswordView extends StatefulWidget {
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final _emailTEController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final ForgotPasswordController forgotPasswordController =
-      ForgotPasswordController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +46,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                 VerticalSpacing(2.h),
                 ForgotPasswordButton(
                   emailTEController: _emailTEController,
-                  forgotPasswordController: forgotPasswordController,
                 )
               ],
             ),
@@ -57,8 +55,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     );
   }
 
+  @override
   void dispose() {
-    // TODO: implement dispose
     _emailTEController.dispose();
     super.dispose();
   }

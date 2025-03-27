@@ -1,36 +1,38 @@
-import 'package:edu_bridge_app/data/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:edu_bridge_app/data/repositories/auth_resposity.dart';
 import 'package:get/get.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/services/auth_service.dart';
 
 class SignInController extends GetxController {
-  final AuthService _authService;
-  SignInController({required AuthService authService})
-      : _authService = authService;
+  final AuthService _authService = AuthService();
 
-  // Reactive variables for cleaner state management
-  final _logInApiInProgress = false.obs;
-  final _errorMessage = ''.obs;
+  bool _inProgress = false;
+  bool get inProgress => _inProgress;
 
-  bool get signInApiInProgress => _logInApiInProgress.value;
-  String get errorMessage => _errorMessage.value;
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
 
-  Future<bool> logIn(String email, String password) async {
-    _logInApiInProgress.value = true;
+  Future<bool> signIn(String email, String password) async {
+    if (email.isEmpty || password.isEmpty) {
+      Get.snackbar("Error", "Please enter email and password");
+      return false;
+    }
+
+    _inProgress = true;
+    _errorMessage = null;
+    update();
+
     try {
-      User? user =
-          await _authService.signInWithEmailAndPassword(email, password);
-      if (user != null) {
-        _errorMessage.value = '';
-        return true;
-      } else {
-        _errorMessage.value = 'Something went wrong';
-        return false;
-      }
-    } catch (e) {
-      _errorMessage.value = e.toString();
+      await _authService.signInWithEmail(email, password);
+      Get.snackbar("Success", "Signed in successfully!");
+      return true;
+    } on AuthException catch (e) {
+      _errorMessage = e.message;
+      Get.snackbar("Error", _errorMessage!);
       return false;
     } finally {
-      _logInApiInProgress.value = false;
+      _inProgress = false;
+      update();
     }
   }
 }
