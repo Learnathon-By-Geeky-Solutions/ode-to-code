@@ -75,3 +75,10 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 📌 **Future-Proof Education** → Pilot AI-driven tutoring and vocational training to combat unemployment.  
 
 ---
+
+## 🌟 **Why This Matters**  
+- 📌 **Impact**: 60% of Bangladeshi students lack access to quality tutors. EduBridge bridges this gap.  
+- 📌 **Innovation**: First community-driven app combining peer learning + donations in Bangladesh.  
+- 📌 **Scalability**: Designed to expand into AI/gamification with Supabase’s flexibility.  
+
+--- 
