@@ -97,3 +97,11 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 ![Supabase Schema](https://github.com/user-attachments/assets/7062c197-3366-409a-8f14-eaf8de769ea8)
 
 ---
+
+## 🌐 **API Documentation**  
+📌 **Auth Endpoints** → (Sign up, Login, OAuth)  
+📌 **Storage** → (Video uploads, document sharing)  
+📌 **Database** → (CRUD for notes, MCQs, progress tracking)  
+📌 **Example Requests** → (Dart code snippets)  
+
+---
