@@ -18,3 +18,8 @@
 ![REST API](https://img.shields.io/badge/REST-API-red?logo=api&logoColor=white)
 ![Android Studio](https://img.shields.io/badge/Android_Studio-Giraffe-green?logo=androidstudio&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+## **📖 About EduBridge**  
+EduBridge is a **free, community-powered education app** designed to bridge the learning gap for students across Bangladesh. Built on the belief that education should be accessible to all regardless of financial constraints, the platform empowers students (Grades 8–12, IELTS/Spoken English learners) to **learn, share, and grow together**.  
+
+--- 
