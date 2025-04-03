@@ -48,3 +48,13 @@ EduBridge is a **free, community-powered education app** designed to bridge the 
 12. 🤝 [Contributing](#-contributing)  
 
 ---
+
+## 👥 **Team Members**  
+- **mishad01** (Team Leader)  
+- **saif-gitreps**  
+- **IsratJahan09**  
+
+### 🎓 **Project Mentor**  
+- **ihjohny**  
+
+---
