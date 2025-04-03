@@ -32,3 +32,19 @@ EduBridge is a **free, community-powered education app** designed to bridge the 
 ✅ **A Step Toward the Future** – Beyond books, we’re building smarter learning with AI and real-world skills to help students thrive.  
 
 ---
+
+## 📋 **Table of Contents**  
+1. 👥 [Team Members](#-team-members)  
+2. 🚀 [Project Overview](#-project-overview)  
+3. 🎯 [Key Goals](#-key-goals)  
+4. 🌟 [Why This Matters](#-why-this-matters)  
+5. 🔧 [Technical Alignment](#-technical-alignment)  
+6. 🏗️ [System Architecture](#-system-architecture)  
+7. 🗃️ [Database Design](#-database-design)  
+8. 🌐 [API Documentation](#-api-documentation)  
+9. 💻 [Development Guidelines](#-development-guidelines)  
+10. 🧪 [Testing](#-testing)  
+11. 📚 [Resources](#-resources)  
+12. 🤝 [Contributing](#-contributing)  
+
+---
