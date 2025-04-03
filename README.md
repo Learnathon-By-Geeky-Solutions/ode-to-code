@@ -104,10 +104,11 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 📌 **Database** → (CRUD for notes, MCQs, progress tracking)  
 📌 **Example Requests** → (Dart code snippets)  
 
+---  
+
+## 🧪 **Testing**  
+📌 **Unit tests** (ViewModel logic)  
+📌 **Widget tests** (UI components)  
+📌 **Supabase mock testing**  
+
 ---
-
-## 💻 **Development Guidelines**  
-📌 **MVVM structure** (`/lib/view`, `/lib/viewmodel`, `/lib/model`)  
-📌 **State management** (GetX)  
-📌 **Supabase best practices**  
-
