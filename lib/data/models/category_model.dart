@@ -11,7 +11,6 @@ class CategoryModel {
     required this.imageUrl,
   });
 
-  // Convert CategoryModel to a Map
   Map<String, dynamic> toMap() {
     return {
       'category_name': categoryName,

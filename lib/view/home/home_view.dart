@@ -15,9 +15,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class HomeView extends StatefulWidget {
   const HomeView({
     super.key,
-    required this.email,
   });
-  final String email;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -27,10 +25,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffoldHome(
-      email: widget.email,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               SizedBox(height: 1.h),

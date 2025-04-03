@@ -30,26 +30,23 @@ class CustomScaffoldHome extends StatelessWidget {
           child: AppBar(
             backgroundColor: AppColors.white,
             elevation: 0, // Remove shadow
-            title: InkWell(
-              onTap: () => Get.to(() => FetchUserProfileScreen(email: email!)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    text: name ?? "Hi there!",
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: name ?? "Hi there!",
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
+                Text(
+                  "What would you like to learn today? \nSearch below",
+                  style: GoogleFonts.mulish(
+                    color: AppColors.blackGray,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
                   ),
-                  Text(
-                    "What would you like to learn today? \nSearch below",
-                    style: GoogleFonts.mulish(
-                      color: AppColors.blackGray,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             actions: [
               ...?actions,
@@ -93,7 +90,7 @@ class CustomScaffoldHome extends StatelessWidget {
             leading: const Icon(Icons.person),
             title: const Text("Your Profile"),
             onTap: () {
-              Get.to(() => FetchUserProfileScreen(email: email!));
+              Get.to(() => FetchUserProfileScreen());
             },
           ),
           ListTile(

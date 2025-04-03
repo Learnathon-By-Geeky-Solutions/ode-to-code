@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:edu_bridge_app/view_model/user_profile_controller.dart'; // Import your controller
+import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // Import your controller
 
 class FetchUserProfileScreen extends StatefulWidget {
-  final String email; // Email to fetch profile data
-
-  const FetchUserProfileScreen({Key? key, required this.email})
-      : super(key: key);
+  const FetchUserProfileScreen({super.key});
 
   @override
   State<FetchUserProfileScreen> createState() => _FetchUserProfileScreenState();
@@ -25,7 +23,10 @@ class _FetchUserProfileScreenState extends State<FetchUserProfileScreen> {
 
   // Method to fetch profile data
   void fetchProfileData() async {
-    await profileController.fetchUserProfile(widget.email);
+    final supabase = Supabase.instance.client;
+    final session = supabase.auth.currentSession;
+    String email = session?.user.email ?? '';
+    await profileController.fetchUserProfile(email);
   }
 
   @override
