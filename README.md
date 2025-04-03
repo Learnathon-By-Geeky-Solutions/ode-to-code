@@ -58,3 +58,10 @@ EduBridge is a **free, community-powered education app** designed to bridge the 
 - **ihjohny**  
 
 ---
+
+## 🚀 **Project Overview**  
+**EduBridge** is a free, community-powered education app designed to democratize learning for Bangladeshi students (Grades 8-12, IELTS/Spoken English learners). Built with **Flutter (MVVM)** and **Supabase**, it enables peer-to-peer knowledge sharing through localized Bengali content, interactive MCQs, and a donation-based reward system.  
+
+Unlike paid platforms, EduBridge turns students into both learners and teachers, creating a self-sustaining ecosystem where smartphones become tools for accessible education.  
+
+---
