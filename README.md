@@ -91,3 +91,9 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 📌 **MVVM Pattern** (ViewModel ↔ Model ↔ View)  
 📌 **Component diagram** (Flutter ↔ Supabase)  
 📌 **Data flow** (User → App → Supabase)
+
+## 🗃️ **Database Design**  
+
+![Supabase Schema](https://github.com/user-attachments/assets/7062c197-3366-409a-8f14-eaf8de769ea8)
+
+---
