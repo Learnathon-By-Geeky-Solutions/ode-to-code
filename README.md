@@ -65,3 +65,13 @@ EduBridge is a **free, community-powered education app** designed to bridge the 
 Unlike paid platforms, EduBridge turns students into both learners and teachers, creating a self-sustaining ecosystem where smartphones become tools for accessible education.  
 
 ---
+
+## 🎯 **Key Goals**  
+📌 **Eliminate Financial Barriers** → Provide 100% free, high-quality educational resources tailored to the Bangladeshi curriculum.  
+📌 **Foster Collaborative Learning** → Empower students to upload/share videos, notes, and MCQs (like an "educational Stack Overflow").  
+📌 **Localize Content** → Deliver Bengali-medium lessons with instant feedback, addressing gaps in global platforms (Coursera, Udemy).  
+📌 **Leverage Technology for Scale** → Use **Supabase** (Auth, PostgreSQL, Storage) for cost-effective backend operations. Adopt **MVVM** for clean, maintainable Flutter code.  
+📌 **Build a Sustainable Model** → Encourage donations to content creators (peer rewards, not paid subscriptions).  
+📌 **Future-Proof Education** → Pilot AI-driven tutoring and vocational training to combat unemployment.  
+
+---
