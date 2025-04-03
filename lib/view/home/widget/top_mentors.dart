@@ -10,7 +10,7 @@ class TopMentorSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 14.0.h,
+      height: 20.0.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -67,14 +67,20 @@ class TopMentorSection extends StatelessWidget {
                       child: Container(
                         width: 80,
                         height: 96,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.black,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                mentor.image), // Display mentor image
-                            fit: BoxFit.cover,
-                          ),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                mentor.image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Text(
+                              mentor.name,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     );
