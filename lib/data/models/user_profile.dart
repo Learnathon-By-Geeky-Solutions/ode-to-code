@@ -21,8 +21,6 @@ class UserProfileModel {
     required this.gender,
     this.createdAt,
   });
-
-  // Convert UserProfileModel to Map (used for saving data)
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -35,7 +33,6 @@ class UserProfileModel {
     };
   }
 
-  // Convert Map to UserProfileModel (used for retrieving data)
   factory UserProfileModel.fromMap(Map<String, dynamic> map) {
     return UserProfileModel(
       id: map['id'],
