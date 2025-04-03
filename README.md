@@ -124,3 +124,10 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 📌 **Flutter MVVM tutorials**  
 
 ---
+
+## 🤝 **Contributing**  
+📌 **Git workflow** (feature branches)  
+📌 **Issue templates**  
+📌 **Code review process**  
+
+---
