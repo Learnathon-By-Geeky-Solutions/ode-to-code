@@ -117,3 +117,10 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 📌 **Supabase mock testing**  
 
 ---
+
+## 📚 **Resources**  
+📌 **Figma designs**  
+📌 **Supabase docs**  
+📌 **Flutter MVVM tutorials**  
+
+---
