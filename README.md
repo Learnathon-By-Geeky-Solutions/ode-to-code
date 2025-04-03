@@ -82,3 +82,12 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 - 📌 **Scalability**: Designed to expand into AI/gamification with Supabase’s flexibility.  
 
 --- 
+
+# 🔧 **Technical Alignment**  
+- **Flutter MVVM**: Ensures testable, modular code (Views ↔ ViewModels ↔ Supabase).  
+- **Supabase**: Handles auth, user-generated content, and donations securely.  
+
+## 🏗️ **System Architecture**  
+📌 **MVVM Pattern** (ViewModel ↔ Model ↔ View)  
+📌 **Component diagram** (Flutter ↔ Supabase)  
+📌 **Data flow** (User → App → Supabase)
