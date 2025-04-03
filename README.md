@@ -131,3 +131,5 @@ Unlike paid platforms, EduBridge turns students into both learners and teachers,
 📌 **Code review process**  
 
 ---
+
+🔹 **Built with ❤️ by the EduBridge Team** 🔹
