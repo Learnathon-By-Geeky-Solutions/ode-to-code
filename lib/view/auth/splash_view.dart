@@ -1,6 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/home/bottom%20nav%20bar/main_bottom_nav_bar.dart';
-import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -22,7 +21,7 @@ class _SplashViewState extends State<SplashView>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -33,12 +32,10 @@ class _SplashViewState extends State<SplashView>
     );
 
     _controller.forward();
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller.reverse();
-      }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _moveToNextScreen();
     });
-    _moveToNextScreen();
   }
 
   @override
@@ -53,11 +50,10 @@ class _SplashViewState extends State<SplashView>
     final supabase = Supabase.instance.client;
     final session = supabase.auth.currentSession;
 
-    if (session != null && session.user != null) {
-      String email = session.user!.email ?? ''; // Retrieve the email
-      Get.offAll(MainBottomNavScreen()); // Pass email to HomeView
+    if (session?.user != null) {
+      Get.offAll(() => MainBottomNavScreen());
     } else {
-      Get.offAll(OnBoarding());
+      Get.offAll(() => const OnBoarding());
     }
   }
 
@@ -65,21 +61,13 @@ class _SplashViewState extends State<SplashView>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedBuilder(
-              animation: _fadeAnimation,
-              builder: (context, child) {
-                return Opacity(
-                  opacity: _fadeAnimation.value,
-                  child: Image.asset(AssetsPath.appLogo2),
-                );
-              },
-            ),
-          ],
+      body: Center(
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: Image.asset(
+            AssetsPath.appLogo2,
+            width: 200,
+          ),
         ),
       ),
     );

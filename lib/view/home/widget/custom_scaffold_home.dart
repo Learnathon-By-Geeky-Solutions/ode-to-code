@@ -29,7 +29,7 @@ class CustomScaffoldHome extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
           child: AppBar(
             backgroundColor: AppColors.white,
-            elevation: 0, // Remove shadow
+            elevation: 0,
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -67,7 +67,7 @@ class CustomScaffoldHome extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +90,7 @@ class CustomScaffoldHome extends StatelessWidget {
             leading: const Icon(Icons.person),
             title: const Text("Your Profile"),
             onTap: () {
-              Get.to(() => FetchUserProfileScreen());
+              Get.to(() => const FetchUserProfileView());
             },
           ),
           ListTile(

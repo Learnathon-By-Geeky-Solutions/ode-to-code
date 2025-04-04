@@ -3,47 +3,44 @@ import 'package:edu_bridge_app/view/home/categories/categories_view.dart';
 import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/home/popular_courses/popular_courses_view.dart';
 import 'package:edu_bridge_app/view/user/fetch_user_profile_view.dart';
+import 'package:edu_bridge_app/view_model/main_bottom_navbar_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class MainBottomNavScreen extends StatefulWidget {
-  const MainBottomNavScreen({super.key});
+class MainBottomNavScreen extends StatelessWidget {
+  MainBottomNavScreen({super.key});
 
-  @override
-  State<MainBottomNavScreen> createState() => _MainBottomNavScreenState();
-}
+  final MainBottomNavBarController controller =
+      Get.put(MainBottomNavBarController());
 
-class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _screens = [
-    const HomeView(),
-    const CategoriesView(),
-    const PopularCoursesView(),
-    const FetchUserProfileScreen(),
+  final List<Widget> _screens = const [
+    HomeView(),
+    CategoriesView(),
+    PopularCoursesView(),
+    FetchUserProfileView(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (value) {
-          setState(() {
-            _selectedIndex = value;
-          });
-        },
-        backgroundColor: Colors.white,
-        indicatorColor: Colors.grey.shade300, // Change this for selected items
-        shadowColor: Colors.grey, // Change this for unselected items
-
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(
-              icon: Icon(Icons.category), label: 'Categories'),
-          NavigationDestination(icon: Icon(Icons.star), label: 'Popular'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-        ],
+    return GetBuilder<MainBottomNavBarController>(
+      builder: (controller) => Scaffold(
+        body: _screens[controller.selectedIndex],
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: controller.selectedIndex,
+          onDestinationSelected: (value) {
+            controller.changeIndex(value);
+          },
+          backgroundColor: AppColors.white,
+          indicatorColor: AppColors.shadowGrey,
+          shadowColor: AppColors.grey,
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+            NavigationDestination(
+                icon: Icon(Icons.category), label: 'Categories'),
+            NavigationDestination(icon: Icon(Icons.star), label: 'Popular'),
+            NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+          ],
+        ),
       ),
     );
   }
