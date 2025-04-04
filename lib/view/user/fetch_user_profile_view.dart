@@ -1,91 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // Import your controller
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class FetchUserProfileScreen extends StatefulWidget {
-  const FetchUserProfileScreen({super.key});
+class FetchUserProfileView extends StatefulWidget {
+  const FetchUserProfileView({super.key});
 
   @override
-  State<FetchUserProfileScreen> createState() => _FetchUserProfileScreenState();
+  State<FetchUserProfileView> createState() => _FetchUserProfileViewState();
 }
 
-class _FetchUserProfileScreenState extends State<FetchUserProfileScreen> {
+class _FetchUserProfileViewState extends State<FetchUserProfileView> {
   final UserProfileController profileController =
       Get.find<UserProfileController>();
 
   @override
   void initState() {
     super.initState();
-    // Fetch profile data automatically when the screen is opened
     fetchProfileData();
   }
 
-  // Method to fetch profile data
   void fetchProfileData() async {
     final supabase = Supabase.instance.client;
     final session = supabase.auth.currentSession;
-    String email = session?.user.email ?? '';
-    await profileController.fetchUserProfile(email);
+    final email = session?.user.email ?? '';
+    if (email.isNotEmpty) {
+      await profileController.fetchUserProfile(email);
+    } else {
+      profileController.errorMessage;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Profile'),
+        title: const Text('Your Profile'),
+        centerTitle: true,
+        elevation: 1,
       ),
       body: GetBuilder<UserProfileController>(
         builder: (controller) {
           if (controller.inProgress) {
-            // Show loading indicator while fetching data
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (controller.userProfile != null) {
-            // Display fetched profile data
             final profile = controller.userProfile!;
             return SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  if (profile.image != null)
-                    Center(
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(profile.image!),
-                      ),
+                  Center(
+                    child: CircleAvatar(
+                      radius: 55,
+                      backgroundColor: Colors.grey.shade200,
+                      backgroundImage: profile.image != null
+                          ? NetworkImage(profile.image!)
+                          : const AssetImage('assets/images/default_avatar.png')
+                              as ImageProvider,
                     ),
-                  SizedBox(height: 20),
-                  Text('Name: ${profile.name}', style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 10),
-                  Text('Email: ${profile.email}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 10),
-                  Text('What You Do: ${profile.whatYouDo}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 10),
-                  Text('Account Type: ${profile.accountType}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 10),
-                  Text('Date of Birth: ${profile.dateOfBirth}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 10),
-                  Text('Gender: ${profile.gender}',
-                      style: TextStyle(fontSize: 16)),
+                  ),
+                  const SizedBox(height: 25),
+                  ProfileField(title: 'Name', value: profile.name),
+                  ProfileField(title: 'Email', value: profile.email),
+                  ProfileField(title: 'What You Do', value: profile.whatYouDo),
+                  ProfileField(
+                      title: 'Account Type', value: profile.accountType),
+                  ProfileField(
+                      title: 'Date of Birth', value: profile.dateOfBirth),
+                  ProfileField(title: 'Gender', value: profile.gender),
                 ],
               ),
             );
           } else if (controller.errorMessage != null) {
-            // Show error message if fetching fails
             return Center(
               child: Text(
                 controller.errorMessage!,
-                style: TextStyle(color: Colors.red, fontSize: 16),
+                style: const TextStyle(color: Colors.red, fontSize: 16),
               ),
             );
           } else {
-            // Show a message if no profile is found
-            return Center(
+            return const Center(
               child: Text(
                 'No user profile found.',
                 style: TextStyle(color: Colors.grey, fontSize: 16),
@@ -93,6 +88,35 @@ class _FetchUserProfileScreenState extends State<FetchUserProfileScreen> {
             );
           }
         },
+      ),
+    );
+  }
+}
+
+class ProfileField extends StatelessWidget {
+  final String title;
+  final String value;
+
+  const ProfileField({super.key, required this.title, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$title: ',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
       ),
     );
   }
