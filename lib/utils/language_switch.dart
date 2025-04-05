@@ -1,5 +1,5 @@
 // widgets/language_switch.dart
-import 'package:edu_bridge_app/view_model/theming%20and%20localization/localization_controller.dart';
+import 'package:edu_bridge_app/view_model/theming_and_localization/localization_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

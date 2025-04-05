@@ -1,5 +1,4 @@
-// widgets/theme_switch.dart
-import 'package:edu_bridge_app/view_model/theming%20and%20localization/theme_controller.dart';
+import 'package:edu_bridge_app/view_model/theming_and_localization/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
