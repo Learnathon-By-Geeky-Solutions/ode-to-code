@@ -7,8 +7,8 @@ import 'package:edu_bridge_app/view_model/main_bottom_navbar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainBottomNavScreen extends StatelessWidget {
-  MainBottomNavScreen({super.key});
+class MainBottomNavView extends StatelessWidget {
+  MainBottomNavView({super.key});
 
   final MainBottomNavBarController controller =
       Get.put(MainBottomNavBarController());
@@ -30,7 +30,7 @@ class MainBottomNavScreen extends StatelessWidget {
           onDestinationSelected: (value) {
             controller.changeIndex(value);
           },
-          backgroundColor: AppColors.white,
+          backgroundColor: AppColors.bg,
           indicatorColor: AppColors.shadowGrey,
           shadowColor: AppColors.grey,
           destinations: const [
