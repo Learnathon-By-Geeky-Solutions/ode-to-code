@@ -36,7 +36,7 @@ class MainBottomNavView extends StatelessWidget {
             NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
             NavigationDestination(
               icon: Icon(Icons.menu_book),
-              label: 'Courses',
+              label: 'Saved Item',
             ),
             NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
           ],
