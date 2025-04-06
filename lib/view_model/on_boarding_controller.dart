@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/sign_in_view.dart';
 
 class OnBoardingController extends GetxController {
   PageController controller = PageController();
