@@ -31,6 +31,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Run tests with coverage
+        run: flutter test --coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5
@@ -43,4 +45,3 @@ jobs:
             -Dsonar.organization=learnathon-by-geeky-solutions
             -Dsonar.java.version=17
             -Dsonar.verbose=true
-            -Dsonar.dart.coverage.reportPath=coverage/lcov.info
