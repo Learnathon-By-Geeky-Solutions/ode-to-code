@@ -15,7 +15,6 @@ class MainBottomNavView extends StatelessWidget {
 
   final List<Widget> _screens = const [
     HomeView(),
-    CategoriesView(),
     PopularCoursesView(),
     FetchUserProfileView(),
   ];
@@ -36,8 +35,9 @@ class MainBottomNavView extends StatelessWidget {
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
             NavigationDestination(
-                icon: Icon(Icons.category), label: 'Categories'),
-            NavigationDestination(icon: Icon(Icons.star), label: 'Popular'),
+              icon: Icon(Icons.menu_book),
+              label: 'Courses',
+            ),
             NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
           ],
         ),
