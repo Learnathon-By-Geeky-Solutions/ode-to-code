@@ -1,41 +1,38 @@
-name: Flutter CI with SonarCloud
+name: Flutter SonarCloud Analysis
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
-  build-analyze:
-    name: Build, Test & Analyze
+  sonarcloud-analysis:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.2' # Update if using a different version
+          channel: stable
+          cache: true
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze
-        run: flutter analyze
-
-      - name: Run Tests with Coverage
+      - name: Run tests with coverage
         run: flutter test --coverage
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5
@@ -43,9 +40,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_ode_to_code
-            -Dsonar.organization=learnathon-by-geeky-solutions
             -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.projectKey=Learnathon-By-Geeky-Solutions_ode-to-code
+            -Dsonar.organization=learnathon-by-geeky-solutions
+            -Dsonar.java.version=17
             -Dsonar.verbose=true
-            -Dsonar.coverage.exclusions=**/*.g.dart
-            -Dsonar.dart.coverage.reportPaths=coverage/lcov.info
+            -Dsonar.dart.coverage.reportPath=coverage/lcov.info
