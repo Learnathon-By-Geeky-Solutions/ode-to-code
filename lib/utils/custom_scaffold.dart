@@ -32,7 +32,6 @@ class CustomScaffold extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: AppColors.bg,
       title: GetBuilder<UserController>(builder: (controller) {
         return InkWell(
           onTap: () =>
