@@ -29,27 +29,24 @@ class CustomScaffoldHome extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
           child: AppBar(
             backgroundColor: AppColors.white,
-            elevation: 0, // Remove shadow
-            title: InkWell(
-              onTap: () => Get.to(() => FetchUserProfileScreen(email: email!)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    text: name ?? "Hi there!",
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
+            elevation: 0,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: name ?? "Hi there!",
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
+                Text(
+                  "What would you like to learn today? \nSearch below",
+                  style: GoogleFonts.mulish(
+                    color: AppColors.blackGray,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
                   ),
-                  Text(
-                    "What would you like to learn today? \nSearch below",
-                    style: GoogleFonts.mulish(
-                      color: AppColors.blackGray,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             actions: [
               ...?actions,
@@ -70,7 +67,7 @@ class CustomScaffoldHome extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +90,7 @@ class CustomScaffoldHome extends StatelessWidget {
             leading: const Icon(Icons.person),
             title: const Text("Your Profile"),
             onTap: () {
-              Get.to(() => FetchUserProfileScreen(email: email!));
+              Get.to(() => const FetchUserProfileView());
             },
           ),
           ListTile(
