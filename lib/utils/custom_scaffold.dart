@@ -1,9 +1,7 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/sign_in_view.dart';
 import 'package:edu_bridge_app/view/user/user_profile_view.dart';
-import 'package:edu_bridge_app/view/user/user_view.dart';
 import 'package:edu_bridge_app/view_model/user_controller.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CustomScaffold extends StatelessWidget {
@@ -32,7 +30,6 @@ class CustomScaffold extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: AppColors.bg,
       title: GetBuilder<UserController>(builder: (controller) {
         return InkWell(
           onTap: () =>
@@ -57,7 +54,7 @@ class CustomScaffold extends StatelessWidget {
           ),
         );
       }),
-      /*actions: [
+      actions: [
         ...?actions, // Include additional actions if provided
         GestureDetector(
           onTap: () async {
@@ -70,7 +67,7 @@ class CustomScaffold extends StatelessWidget {
             child: Icon(Icons.logout),
           ),
         ),
-      ],*/
+      ],
     );
   }
 }

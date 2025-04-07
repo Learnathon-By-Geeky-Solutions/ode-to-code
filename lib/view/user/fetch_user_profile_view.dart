@@ -1,3 +1,9 @@
+import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/utils/custom_scaffold.dart';
+import 'package:edu_bridge_app/utils/language_switch.dart';
+import 'package:edu_bridge_app/utils/theme_switch.dart';
+import 'package:edu_bridge_app/view/home/categories/categories_view.dart';
+import 'package:edu_bridge_app/view/settings/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
@@ -22,101 +28,153 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
 
   void fetchProfileData() async {
     final supabase = Supabase.instance.client;
-    final session = supabase.auth.currentSession;
-    final email = session?.user.email ?? '';
+    final email = supabase.auth.currentSession?.user.email ?? '';
     if (email.isNotEmpty) {
       await profileController.fetchUserProfile(email);
-    } else {
-      profileController.errorMessage;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Your Profile'),
-        centerTitle: true,
-        elevation: 1,
-      ),
+    return CustomScaffold(
+      name: 'Your Profile',
       body: GetBuilder<UserProfileController>(
         builder: (controller) {
           if (controller.inProgress) {
             return const Center(child: CircularProgressIndicator());
-          } else if (controller.userProfile != null) {
+          }
+
+          if (controller.userProfile != null) {
             final profile = controller.userProfile!;
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: CircleAvatar(
-                      radius: 55,
-                      backgroundColor: Colors.grey.shade200,
-                      backgroundImage: profile.image != null
-                          ? NetworkImage(profile.image!)
-                          : const AssetImage('assets/images/default_avatar.png')
-                              as ImageProvider,
+
+            final List<Map<String, dynamic>> options = [
+              {
+                "title": "About User",
+                "icon": Icons.person,
+                "onTap": () {},
+              },
+              {
+                "title": "Notification",
+                "icon": Icons.notifications,
+                "onTap": () {},
+              },
+              {
+                "title": "Language",
+                "icon": Icons.language,
+                "onTap": () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text('Select Language'),
+                      content: const LanguageSwitch(),
                     ),
-                  ),
-                  const SizedBox(height: 25),
-                  ProfileField(title: 'Name', value: profile.name),
-                  ProfileField(title: 'Email', value: profile.email),
-                  ProfileField(title: 'What You Do', value: profile.whatYouDo),
-                  ProfileField(
-                      title: 'Account Type', value: profile.accountType),
-                  ProfileField(
-                      title: 'Date of Birth', value: profile.dateOfBirth),
-                  ProfileField(title: 'Gender', value: profile.gender),
-                ],
+                  );
+                },
+              },
+              {
+                "title": "Dark Mode",
+                "icon": Icons.dark_mode,
+                "onTap": () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text('Toggle Theme'),
+                      content: const ThemeSwitch(),
+                    ),
+                  );
+                },
+              },
+              {
+                "title": "Help Center",
+                "icon": Icons.help,
+                "onTap": () {},
+              },
+              {
+                "title": "Invite Friends",
+                "icon": Icons.group_add,
+                "onTap": () {},
+              },
+              {
+                "title": "Settings",
+                "icon": Icons.settings,
+                "onTap": () => Get.to(() => const SettingsView()),
+              },
+            ];
+
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: AppColors.bgWhite,
+                ),
+                child: ListView(
+                  padding: const EdgeInsets.all(16),
+                  children: [
+                    const SizedBox(height: 16),
+                    Center(
+                      child: Container(
+                        height: 110,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.green, width: 4),
+                          color: Colors.greenAccent,
+                        ),
+                        child: CircleAvatar(
+                          backgroundImage: profile.image != null
+                              ? NetworkImage(profile.image!)
+                              : const AssetImage(
+                                      'assets/images/default_avatar.png')
+                                  as ImageProvider,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Center(child: CustomText(text: profile.name)),
+                    Center(child: CustomText(text: profile.email)),
+                    const SizedBox(height: 24),
+                    ...options.map((item) => buildCard(
+                          item["title"],
+                          item["icon"],
+                          Icons.arrow_forward_ios,
+                          item["onTap"],
+                        )),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             );
-          } else if (controller.errorMessage != null) {
+          }
+
+          if (controller.errorMessage != null) {
             return Center(
               child: Text(
                 controller.errorMessage!,
                 style: const TextStyle(color: Colors.red, fontSize: 16),
               ),
             );
-          } else {
-            return const Center(
-              child: Text(
-                'No user profile found.',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
-            );
           }
+
+          return const Center(
+            child: Text(
+              'No user profile found.',
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+            ),
+          );
         },
       ),
     );
   }
-}
 
-class ProfileField extends StatelessWidget {
-  final String title;
-  final String value;
-
-  const ProfileField({super.key, required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '$title: ',
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 16),
-            ),
-          ),
-        ],
+  Widget buildCard(
+      String title, IconData leading, IconData trailing, VoidCallback onTap) {
+    return Card(
+      child: ListTile(
+        onTap: onTap,
+        title: CustomText(text: title, fontSize: 16),
+        leading: Icon(leading),
+        trailing: Icon(trailing),
       ),
     );
   }
