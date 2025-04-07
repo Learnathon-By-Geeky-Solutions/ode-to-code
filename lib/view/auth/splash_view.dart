@@ -51,7 +51,7 @@ class _SplashViewState extends State<SplashView>
     final session = supabase.auth.currentSession;
 
     if (session?.user != null) {
-      Get.offAll(() => MainBottomNavScreen());
+      Get.offAll(() => MainBottomNavView());
     } else {
       Get.offAll(() => const OnBoarding());
     }

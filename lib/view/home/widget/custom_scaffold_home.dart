@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/sign_in_view.dart';
 import 'package:edu_bridge_app/view/user/fetch_user_profile_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -28,7 +28,7 @@ class CustomScaffoldHome extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
           child: AppBar(
-            backgroundColor: AppColors.white,
+            backgroundColor: AppColors.bg,
             elevation: 0,
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,4 +1,3 @@
-// controllers/theme_controller.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +8,10 @@ class ThemeController extends GetxController {
 
   void toggleTheme(bool isDark) {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
-    update(); // This will trigger GetBuilder to rebuild
+
+    // This line is crucial!
+    Get.changeThemeMode(_themeMode);
+
+    update(); // Trigger GetBuilder to rebuild
   }
 }

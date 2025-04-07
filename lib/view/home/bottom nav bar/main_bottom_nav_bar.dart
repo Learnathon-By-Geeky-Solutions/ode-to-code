@@ -7,15 +7,14 @@ import 'package:edu_bridge_app/view_model/main_bottom_navbar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainBottomNavScreen extends StatelessWidget {
-  MainBottomNavScreen({super.key});
+class MainBottomNavView extends StatelessWidget {
+  MainBottomNavView({super.key});
 
   final MainBottomNavBarController controller =
       Get.put(MainBottomNavBarController());
 
   final List<Widget> _screens = const [
     HomeView(),
-    CategoriesView(),
     PopularCoursesView(),
     FetchUserProfileView(),
   ];
@@ -30,14 +29,15 @@ class MainBottomNavScreen extends StatelessWidget {
           onDestinationSelected: (value) {
             controller.changeIndex(value);
           },
-          backgroundColor: AppColors.white,
+          backgroundColor: AppColors.bg,
           indicatorColor: AppColors.shadowGrey,
           shadowColor: AppColors.grey,
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
             NavigationDestination(
-                icon: Icon(Icons.category), label: 'Categories'),
-            NavigationDestination(icon: Icon(Icons.star), label: 'Popular'),
+              icon: Icon(Icons.menu_book),
+              label: 'Saved Item',
+            ),
             NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
           ],
         ),
