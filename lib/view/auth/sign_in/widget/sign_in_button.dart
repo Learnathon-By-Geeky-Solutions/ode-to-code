@@ -1,8 +1,6 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/home/bottom%20nav%20bar/main_bottom_nav_bar.dart';
 import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view_model/auth/sign_in_controller.dart';
-import 'package:edu_bridge_app/view_model/main_bottom_navbar_controller.dart';
 
 class SignInButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -32,7 +30,9 @@ class SignInButton extends StatelessWidget {
               );
               if (success) {
                 Get.offAll(
-                  () => MainBottomNavView(),
+                  () => HomeView(
+                    email: emailController.text,
+                  ),
                 );
               }
             }

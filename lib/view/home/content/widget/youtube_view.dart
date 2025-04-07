@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YouTubePlayerView extends StatefulWidget {
-  const YouTubePlayerView({super.key, required this.link, required this.title});
+  const YouTubePlayerView({super.key, required this.link});
   final String link;
-  final String title;
 
   @override
   State<YouTubePlayerView> createState() => _YouTubePlayerViewState();
@@ -12,26 +11,27 @@ class YouTubePlayerView extends StatefulWidget {
 
 class _YouTubePlayerViewState extends State<YouTubePlayerView> {
   late YoutubePlayerController _controller;
-  final List<String> _notes = [];
-  final TextEditingController _noteController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
+    // Extract the video ID from the YouTube URL
     final videoId = YoutubePlayer.convertUrlToId(widget.link) ?? '';
 
+    // Initialize the YouTube player controller
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
         enableCaption: true,
-        useHybridComposition: true,
+        useHybridComposition: true, // Add this
       ),
     );
   }
 
+  // Method to seek forward 10 seconds
   void seekForward() {
     final currentPosition = _controller.value.position;
     final duration = _controller.value.metaData.duration;
@@ -42,6 +42,7 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
     }
   }
 
+  // Method to seek backward 10 seconds
   void seekBackward() {
     final currentPosition = _controller.value.position;
     if (currentPosition.inSeconds - 10 > 0) {
@@ -49,116 +50,43 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
     }
   }
 
-  void _addNote() {
-    if (_noteController.text.trim().isNotEmpty) {
-      setState(() {
-        _notes.add(_noteController.text.trim());
-        _noteController.clear();
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('YouTube Player'),
       ),
-      body: Column(
+      body: Stack(
         children: [
           YoutubePlayer(
             controller: _controller,
-            showVideoProgressIndicator: true,
-            progressIndicatorColor: Colors.blueAccent,
+            showVideoProgressIndicator: true, // Show progress indicator
+            progressIndicatorColor:
+                Colors.blueAccent, // Customize progress bar color
             onReady: () {
-              print('Player is ready.');
+              print('Player is ready.'); // Callback when the player is ready
             },
           ),
-          // Seek buttons
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+          Positioned(
+            top: 100,
+            right: 100,
+            left: 100,
+            bottom: 100,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
                   onPressed: seekBackward,
-                  icon:
-                      const Icon(Icons.replay_10, size: 30, color: Colors.grey),
+                  icon: const Icon(Icons.replay_10,
+                      size: 30, color: Colors.white54),
                 ),
                 const SizedBox(width: 30),
                 IconButton(
                   onPressed: seekForward,
                   icon: const Icon(Icons.forward_10,
-                      size: 30, color: Colors.grey),
+                      size: 30, color: Colors.white54),
                 ),
               ],
-            ),
-          ),
-
-          // Notes UI
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    '📝 Notes',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _noteController,
-                          decoration: InputDecoration(
-                            hintText: 'Type your note...',
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 12),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: _addNote,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: const Text('Add'),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  Expanded(
-                    child: _notes.isEmpty
-                        ? const Center(
-                            child: Text('No notes yet. Add one above!'),
-                          )
-                        : ListView.separated(
-                            itemCount: _notes.length,
-                            separatorBuilder: (_, __) => const Divider(),
-                            itemBuilder: (context, index) => ListTile(
-                              leading: const Icon(Icons.note),
-                              title: Text(_notes[index]),
-                            ),
-                          ),
-                  ),
-                ],
-              ),
             ),
           ),
         ],
@@ -168,8 +96,8 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
 
   @override
   void dispose() {
+    // Dispose the controller when the widget is removed from the widget tree
     _controller.dispose();
-    _noteController.dispose();
     super.dispose();
   }
 }

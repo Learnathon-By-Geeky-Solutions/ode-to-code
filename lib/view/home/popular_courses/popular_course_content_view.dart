@@ -48,10 +48,7 @@ class _PopularCourseContentViewState extends State<PopularCourseContentView> {
                         final content = controller.contents[index];
                         return InkWell(
                           onTap: () {
-                            Get.to(() => YouTubePlayerView(
-                                  link: content.link,
-                                  title: content.title,
-                                ));
+                            Get.to(() => YouTubePlayerView(link: content.link));
                           },
                           child: ContentCard(
                             number: content.number,

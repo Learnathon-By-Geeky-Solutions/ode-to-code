@@ -15,7 +15,7 @@ class HomeBanner extends StatefulWidget {
 
 class _HomeBannerState extends State<HomeBanner> {
   final BannerController _bannerController = Get.put(BannerController());
-  int _current = 0;
+  int _current = 0; // To keep track of the current page
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _HomeBannerState extends State<HomeBanner> {
                 height: 180.0,
                 autoPlay: true,
                 enlargeCenterPage: true,
-                viewportFraction: 0.9,
+                viewportFraction: 0.9, // Adjust the width of the carousel items
                 onPageChanged: (index, reason) {
                   setState(() {
                     _current = index;

@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/home/bottom%20nav%20bar/main_bottom_nav_bar.dart';
+import 'package:edu_bridge_app/view/home/home_view.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -32,10 +32,12 @@ class _SplashViewState extends State<SplashView>
     );
 
     _controller.forward();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _moveToNextScreen();
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller.reverse();
+      }
     });
+    _moveToNextScreen();
   }
 
   @override
@@ -50,10 +52,11 @@ class _SplashViewState extends State<SplashView>
     final supabase = Supabase.instance.client;
     final session = supabase.auth.currentSession;
 
-    if (session?.user != null) {
-      Get.offAll(() => MainBottomNavView());
+    if (session != null && session.user != null) {
+      String email = session.user!.email ?? ''; // Retrieve the email
+      Get.offAll(HomeView(email: email)); // Pass email to HomeView
     } else {
-      Get.offAll(() => const OnBoarding());
+      Get.offAll(OnBoarding());
     }
   }
 
@@ -61,13 +64,21 @@ class _SplashViewState extends State<SplashView>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: Image.asset(
-            AssetsPath.appLogo2,
-            width: 200,
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedBuilder(
+              animation: _fadeAnimation,
+              builder: (context, child) {
+                return Opacity(
+                  opacity: _fadeAnimation.value,
+                  child: Image.asset(AssetsPath.appLogo2),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

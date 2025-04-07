@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 class BannerController extends GetxController {
   final BannerRepository _repository = BannerRepository();
-  final ImagePicker _picker = ImagePicker();
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;
@@ -20,22 +19,15 @@ class BannerController extends GetxController {
   List<BannerModel> _banners = [];
   List<BannerModel> get banners => _banners;
 
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void onInit() {
     super.onInit();
-    fetchBanners();
+    fetchBanners(); // Fetch banners when controller is initialized
   }
 
-  void _setInProgress(bool value) {
-    _inProgress = value;
-    update();
-  }
-
-  void _handleError(String message) {
-    _errorMessage = message;
-    Get.snackbar("Error", message);
-  }
-
+  // Picking banner image from gallery
   void pickBannerImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -44,55 +36,67 @@ class BannerController extends GetxController {
     }
   }
 
+  // Method to add a banner with details
   Future<bool> addBanner(String details) async {
     if (details.isEmpty || _bannerImage == null) {
-      _handleError("Please enter banner details and select an image");
+      Get.snackbar("Error", "Please enter banner details and select an image");
       return false;
     }
 
-    _setInProgress(true);
     bool isSuccess = false;
+    _inProgress = true;
+    _errorMessage = null;
+    update();
 
-    try {
-      final imageUrl = await _repository.uploadBannerImage(_bannerImage!);
-      if (imageUrl == null) {
-        _handleError("Image upload failed.");
-        return false;
-      }
+    final imageUrl = await _repository.uploadBannerImage(_bannerImage!);
 
-      final banner = BannerModel(details: details, imageLink: imageUrl);
-      isSuccess = await _repository.addBanner(banner);
+    if (imageUrl != null) {
+      final newBanner = BannerModel(details: details, imageLink: imageUrl);
+      final success = await _repository.addBanner(newBanner);
 
-      if (isSuccess) {
-        Get.snackbar("Success", "Banner added successfully!");
-        fetchBanners();
+      if (success) {
+        isSuccess = true;
+        // Show success message before fetching banners23
+        Future.delayed(Duration(milliseconds: 200), () {
+          Get.snackbar("Success", "Banner added successfully!");
+        });
+        fetchBanners(); // Fetch banners after success
       } else {
-        _handleError("Failed to add banner.");
+        _errorMessage = "Failed to add banner.";
+        Get.snackbar("Error", _errorMessage!);
       }
-    } catch (e) {
-      _handleError("An error occurred: $e");
+    } else {
+      _errorMessage = "Image upload failed.";
+      Get.snackbar("Error", _errorMessage!);
     }
 
-    _setInProgress(false);
+    _inProgress = false;
+    update();
     return isSuccess;
   }
 
+  // Fetching all banners from the database
   Future<void> fetchBanners() async {
-    _setInProgress(true);
+    _inProgress = true;
     _errorMessage = null;
+    update(); // Update UI for loading state
 
     try {
+      // Fetch banners from the repository
       _banners = await _repository.fetchBanners();
-      // No snackbar for successful fetch
     } catch (e) {
-      _handleError("Failed to load banners: $e");
+      _errorMessage = 'Failed to load banners: $e';
+      Get.snackbar(
+          "Error", _errorMessage!); // Show error message if fetching fails
     }
 
-    _setInProgress(false);
+    _inProgress = false;
+    update(); // Update the UI after fetching
   }
 
+  // Clearing the fields (image and other states)
   void clearFields() {
     _bannerImage = null;
-    update();
+    update(); // Update the UI state
   }
 }

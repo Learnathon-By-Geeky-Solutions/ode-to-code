@@ -1,180 +1,97 @@
-import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/utils/custom_scaffold.dart';
-import 'package:edu_bridge_app/utils/language_switch.dart';
-import 'package:edu_bridge_app/utils/theme_switch.dart';
-import 'package:edu_bridge_app/view/home/categories/categories_view.dart';
-import 'package:edu_bridge_app/view/settings/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/view_model/user_profile_controller.dart'; // Import your controller
 
-class FetchUserProfileView extends StatefulWidget {
-  const FetchUserProfileView({super.key});
+class FetchUserProfileScreen extends StatefulWidget {
+  final String email; // Email to fetch profile data
+
+  const FetchUserProfileScreen({Key? key, required this.email})
+      : super(key: key);
 
   @override
-  State<FetchUserProfileView> createState() => _FetchUserProfileViewState();
+  State<FetchUserProfileScreen> createState() => _FetchUserProfileScreenState();
 }
 
-class _FetchUserProfileViewState extends State<FetchUserProfileView> {
+class _FetchUserProfileScreenState extends State<FetchUserProfileScreen> {
   final UserProfileController profileController =
       Get.find<UserProfileController>();
 
   @override
   void initState() {
     super.initState();
+    // Fetch profile data automatically when the screen is opened
     fetchProfileData();
   }
 
+  // Method to fetch profile data
   void fetchProfileData() async {
-    final supabase = Supabase.instance.client;
-    final email = supabase.auth.currentSession?.user.email ?? '';
-    if (email.isNotEmpty) {
-      await profileController.fetchUserProfile(email);
-    }
+    await profileController.fetchUserProfile(widget.email);
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      name: 'Your Profile',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Profile'),
+      ),
       body: GetBuilder<UserProfileController>(
         builder: (controller) {
           if (controller.inProgress) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (controller.userProfile != null) {
+            // Show loading indicator while fetching data
+            return Center(child: CircularProgressIndicator());
+          } else if (controller.userProfile != null) {
+            // Display fetched profile data
             final profile = controller.userProfile!;
-
-            final List<Map<String, dynamic>> options = [
-              {
-                "title": "About User",
-                "icon": Icons.person,
-                "onTap": () {},
-              },
-              {
-                "title": "Notification",
-                "icon": Icons.notifications,
-                "onTap": () {},
-              },
-              {
-                "title": "Language",
-                "icon": Icons.language,
-                "onTap": () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: Text('Select Language'),
-                      content: const LanguageSwitch(),
-                    ),
-                  );
-                },
-              },
-              {
-                "title": "Dark Mode",
-                "icon": Icons.dark_mode,
-                "onTap": () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: Text('Toggle Theme'),
-                      content: const ThemeSwitch(),
-                    ),
-                  );
-                },
-              },
-              {
-                "title": "Help Center",
-                "icon": Icons.help,
-                "onTap": () {},
-              },
-              {
-                "title": "Invite Friends",
-                "icon": Icons.group_add,
-                "onTap": () {},
-              },
-              {
-                "title": "Settings",
-                "icon": Icons.settings,
-                "onTap": () => Get.to(() => const SettingsView()),
-              },
-            ];
-
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: AppColors.bgWhite,
-                ),
-                child: ListView(
-                  padding: const EdgeInsets.all(16),
-                  children: [
-                    const SizedBox(height: 16),
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (profile.image != null)
                     Center(
-                      child: Container(
-                        height: 110,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.green, width: 4),
-                          color: Colors.greenAccent,
-                        ),
-                        child: CircleAvatar(
-                          backgroundImage: profile.image != null
-                              ? NetworkImage(profile.image!)
-                              : const AssetImage(
-                                      'assets/images/default_avatar.png')
-                                  as ImageProvider,
-                        ),
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(profile.image!),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Center(child: CustomText(text: profile.name)),
-                    Center(child: CustomText(text: profile.email)),
-                    const SizedBox(height: 24),
-                    ...options.map((item) => buildCard(
-                          item["title"],
-                          item["icon"],
-                          Icons.arrow_forward_ios,
-                          item["onTap"],
-                        )),
-                    const SizedBox(height: 16),
-                  ],
-                ),
+                  SizedBox(height: 20),
+                  Text('Name: ${profile.name}', style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('Email: ${profile.email}',
+                      style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('What You Do: ${profile.whatYouDo}',
+                      style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('Account Type: ${profile.accountType}',
+                      style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('Date of Birth: ${profile.dateOfBirth}',
+                      style: TextStyle(fontSize: 16)),
+                  SizedBox(height: 10),
+                  Text('Gender: ${profile.gender}',
+                      style: TextStyle(fontSize: 16)),
+                ],
               ),
             );
-          }
-
-          if (controller.errorMessage != null) {
+          } else if (controller.errorMessage != null) {
+            // Show error message if fetching fails
             return Center(
               child: Text(
                 controller.errorMessage!,
-                style: const TextStyle(color: Colors.red, fontSize: 16),
+                style: TextStyle(color: Colors.red, fontSize: 16),
+              ),
+            );
+          } else {
+            // Show a message if no profile is found
+            return Center(
+              child: Text(
+                'No user profile found.',
+                style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
             );
           }
-
-          return const Center(
-            child: Text(
-              'No user profile found.',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-            ),
-          );
         },
-      ),
-    );
-  }
-
-  Widget buildCard(
-      String title, IconData leading, IconData trailing, VoidCallback onTap) {
-    return Card(
-      child: ListTile(
-        onTap: onTap,
-        title: CustomText(text: title, fontSize: 16),
-        leading: Icon(leading),
-        trailing: Icon(trailing),
       ),
     );
   }

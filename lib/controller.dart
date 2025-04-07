@@ -10,8 +10,6 @@ import 'package:edu_bridge_app/view_model/mentor_controller.dart';
 import 'package:edu_bridge_app/view_model/popular_course_content_controller.dart';
 import 'package:edu_bridge_app/view_model/popularcourse_controller.dart';
 import 'package:edu_bridge_app/view_model/subject_controller.dart';
-import 'package:edu_bridge_app/view_model/theming_and_localization/localization_controller.dart';
-import 'package:edu_bridge_app/view_model/theming_and_localization/theme_controller.dart';
 import 'package:edu_bridge_app/view_model/user_controller.dart';
 import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
 
@@ -20,8 +18,10 @@ import 'package:get/get.dart';
 class ControllerBinder extends Bindings {
   @override
   void dependencies() {
-    Get.put(ThemeController());
-    Get.put(LocalizationController());
+    //Get.put(SignInController(authService: FirebaseAuthServices()));
+    //Get.put(SignUpController(authService: FirebaseAuthServices()));
+    //Get.put(ForgotPasswordController());
+    //Get.put(SubjectsController());
     Get.put(SignInController());
     Get.put(SignUpController());
     Get.put(UserController());

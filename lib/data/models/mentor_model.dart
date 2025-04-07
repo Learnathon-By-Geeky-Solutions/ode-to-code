@@ -14,7 +14,7 @@ class MentorModel {
     required this.whatHeDo,
     required this.description,
     this.createdAt,
-    required this.image,
+    required this.image, // Add image to the constructor
   });
 
   Map<String, dynamic> toMap() {
@@ -23,7 +23,7 @@ class MentorModel {
       'designation': designation,
       'what_he_do': whatHeDo,
       'description': description,
-      'image': image,
+      'image': image, // Include image in the map
     };
   }
 
@@ -35,7 +35,7 @@ class MentorModel {
       whatHeDo: map['what_he_do'] ?? '',
       description: map['description'] ?? '',
       createdAt: map['created_at'] ?? '',
-      image: map['image'] ?? '',
+      image: map['image'] ?? '', // Ensure the image field is handled
     );
   }
 }

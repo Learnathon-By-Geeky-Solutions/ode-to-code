@@ -18,21 +18,13 @@ class UserProfileController extends GetxController {
   File? _profileImage;
   File? get profileImage => _profileImage;
 
-  void _setInProgress(bool value) {
-    _inProgress = value;
-    update();
-  }
-
-  void _handleError(String message) {
-    _errorMessage = message;
-    Get.snackbar("Error", message);
-  }
-
+  // Method to set the profile image
   void setProfileImage(File image) {
     _profileImage = image;
-    update();
+    update(); // Update UI state
   }
 
+  // Method to add a new user profile
   Future<bool> addUserProfile({
     required String fullName,
     required String email,
@@ -41,24 +33,34 @@ class UserProfileController extends GetxController {
     required String dateOfBirth,
     required String gender,
   }) async {
-    if ([fullName, email, whatYouDo, accountType, dateOfBirth, gender]
-            .any((element) => element.isEmpty) ||
+    if (fullName.isEmpty ||
+        email.isEmpty ||
+        whatYouDo.isEmpty ||
+        accountType.isEmpty ||
+        dateOfBirth.isEmpty ||
+        gender.isEmpty ||
         _profileImage == null) {
-      _handleError("Please fill in all fields and select a profile image.");
+      Get.snackbar(
+          "Error", "Please fill in all fields and select a profile image.");
       return false;
     }
 
-    _setInProgress(true);
     bool isSuccess = false;
+    _inProgress = true;
+    _errorMessage = null;
+    update(); // Update UI state
 
     try {
+      // Step 1: Upload the profile image
       final imageUrl = await _repository.uploadUserProfileImage(_profileImage!);
       if (imageUrl == null) {
-        _handleError("Failed to upload profile image.");
+        _errorMessage = "Failed to upload profile image.";
+        Get.snackbar("Error", _errorMessage!);
         return false;
       }
 
-      final profile = UserProfileModel(
+      // Step 2: Create the user profile with the image URL
+      final newUserProfile = UserProfileModel(
         name: fullName,
         email: email,
         whatYouDo: whatYouDo,
@@ -68,34 +70,46 @@ class UserProfileController extends GetxController {
         gender: gender,
       );
 
-      isSuccess = await _repository.addUserProfile(profile);
-      if (isSuccess) {
+      // Step 3: Add the user profile to the database
+      final success = await _repository.addUserProfile(newUserProfile);
+      if (success) {
+        isSuccess = true;
         Get.snackbar("Success", "User profile added successfully!");
       } else {
-        _handleError("Failed to add user profile.");
+        _errorMessage = "Failed to add user profile.";
+        Get.snackbar("Error", _errorMessage!);
       }
     } catch (e) {
-      _handleError("An error occurred: $e");
+      _errorMessage = "An error occurred: $e";
+      Get.snackbar("Error", _errorMessage!);
+    } finally {
+      _inProgress = false;
+      update(); // Update UI state
     }
 
-    _setInProgress(false);
     return isSuccess;
   }
 
+  // Method to fetch a user profile by email
   Future<void> fetchUserProfile(String email) async {
-    _setInProgress(true);
+    _inProgress = true;
     _errorMessage = null;
+    update(); // Update UI state
 
     try {
       _userProfile = await _repository.fetchUserProfileByEmail(email);
-      if (_userProfile == null) {
-        _handleError("No user profile found for this email.");
+      if (_userProfile != null) {
+        Get.snackbar("Success", "User profile fetched successfully!");
+      } else {
+        _errorMessage = "No user profile found for this email.";
+        Get.snackbar("Error", _errorMessage!);
       }
-      // No snackbar for success here — silent fetch
     } catch (e) {
-      _handleError("Failed to load user profile: $e");
+      _errorMessage = 'Failed to load user profile: $e';
+      Get.snackbar("Error", _errorMessage!);
     }
 
-    _setInProgress(false);
+    _inProgress = false;
+    update(); // Update UI state
   }
 }

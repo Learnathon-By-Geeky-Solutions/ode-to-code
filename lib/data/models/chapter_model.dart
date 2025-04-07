@@ -17,6 +17,7 @@ class ChapterModel {
     return {
       'subject_id': subjectId,
       'chapter_name': chapterName,
+      //'image': image,
     };
   }
 
@@ -25,6 +26,7 @@ class ChapterModel {
       id: map['id'],
       subjectId: map['subject_id'] ?? '',
       chapterName: map['chapter_name'] ?? '',
+      //image: map['image'],
       createdAt: map['created_at'] ?? '',
     );
   }

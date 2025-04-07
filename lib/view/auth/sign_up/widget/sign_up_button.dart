@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/auth/sign_in/sign_in_view.dart';
+import 'package:edu_bridge_app/view/auth/sign_in/Sign_In_view.dart';
 import 'package:edu_bridge_app/view_model/auth/sign_up_controller.dart';
 
 class SignUpButton extends StatelessWidget {

@@ -46,10 +46,7 @@ class _ContentViewState extends State<ContentView> {
                         final content = controller.contents[index];
                         return InkWell(
                           onTap: () {
-                            Get.to(() => YouTubePlayerView(
-                                  link: content.link,
-                                  title: content.name,
-                                ));
+                            Get.to(() => YouTubePlayerView(link: content.link));
                           },
                           child: ContentCard(
                             number: content.number,

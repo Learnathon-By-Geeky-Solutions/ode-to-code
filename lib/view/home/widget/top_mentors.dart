@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view/home/top_mentors/top_mentor_details_view.dart';
 import 'package:edu_bridge_app/view/home/top_mentors/top_mentors_view.dart';
 import 'package:edu_bridge_app/view_model/mentor_controller.dart';
 
@@ -65,36 +64,23 @@ class TopMentorSection extends StatelessWidget {
                     final mentor = controller.mentors[index];
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () {
-                          Get.to(
-                            () => TopMentorDetailsView(
-                              name: mentor.name,
-                              designation: mentor.designation,
-                              whatHeDo: mentor.whatHeDo,
-                              description: mentor.description,
-                              image: mentor.image,
+                      child: Container(
+                        width: 80,
+                        height: 96,
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                mentor.image,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          );
-                        },
-                        child: SizedBox(
-                          width: 80,
-                          height: 96,
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                  mentor.image,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Text(
-                                mentor.name,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
+                            Text(
+                              mentor.name,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     );

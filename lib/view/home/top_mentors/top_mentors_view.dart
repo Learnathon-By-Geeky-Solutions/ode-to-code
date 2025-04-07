@@ -1,7 +1,5 @@
 import 'package:edu_bridge_app/data/models/mentor_model.dart';
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/utils/custom_scaffold.dart';
-import 'package:edu_bridge_app/view/home/top_mentors/top_mentor_details_view.dart';
 import 'package:edu_bridge_app/view_model/mentor_controller.dart';
 
 class TopMentorsView extends StatefulWidget {
@@ -14,8 +12,16 @@ class TopMentorsView extends StatefulWidget {
 class _TopMentorsViewState extends State<TopMentorsView> {
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      name: "Top Mentors",
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        title: const CustomText(
+          text: "Top Mentors",
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
       body: GetBuilder<MentorController>(
         init: MentorController(), // Initialize the controller
         builder: (controller) {
@@ -43,20 +49,7 @@ class _TopMentorsViewState extends State<TopMentorsView> {
                     final mentor = controller.mentors[index];
                     return Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: InkWell(
-                        onTap: () {
-                          Get.to(
-                            () => TopMentorDetailsView(
-                              name: mentor.name,
-                              designation: mentor.designation,
-                              whatHeDo: mentor.whatHeDo,
-                              description: mentor.description,
-                              image: mentor.image,
-                            ),
-                          );
-                        },
-                        child: buildContainer(mentor),
-                      ),
+                      child: buildContainer(mentor),
                     );
                   },
                 ),
