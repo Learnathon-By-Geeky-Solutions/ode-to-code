@@ -30,9 +30,7 @@ class SignInButton extends StatelessWidget {
               );
               if (success) {
                 Get.offAll(
-                  () => HomeView(
-                    email: emailController.text,
-                  ),
+                  () => HomeView(),
                 );
               }
             }
