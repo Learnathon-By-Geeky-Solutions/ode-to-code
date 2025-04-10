@@ -11,19 +11,15 @@ class BannerModel {
     required this.imageLink,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'details': details,
-      'image_link': imageLink,
-    };
-  }
+  Map<String, dynamic> toMap() => {
+        'details': details,
+        'image_link': imageLink,
+      };
 
-  factory BannerModel.fromMap(Map<String, dynamic> map) {
-    return BannerModel(
-      id: map['id'],
-      details: map['details'] ?? '',
-      createdAt: map['created_at'] ?? '',
-      imageLink: map['image_link'] ?? '',
-    );
-  }
+  factory BannerModel.fromMap(Map<String, dynamic> map) => BannerModel(
+        id: map['id'] as String?,
+        details: map['details']?.toString() ?? '',
+        createdAt: map['created_at']?.toString(),
+        imageLink: map['image_link']?.toString() ?? '',
+      );
 }

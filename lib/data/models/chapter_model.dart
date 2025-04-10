@@ -23,9 +23,10 @@ class ChapterModel {
   factory ChapterModel.fromMap(Map<String, dynamic> map) {
     return ChapterModel(
       id: map['id'],
-      subjectId: map['subject_id'] ?? '',
-      chapterName: map['chapter_name'] ?? '',
-      createdAt: map['created_at'] ?? '',
+      subjectId: map['subject_id']?.toString() ?? '',
+      chapterName: map['chapter_name']?.toString() ?? '',
+      createdAt: map['created_at']?.toString(),
+      image: map['image']?.toString(),
     );
   }
 }

@@ -24,10 +24,10 @@ class SubjectModel {
   factory SubjectModel.fromMap(Map<String, dynamic> map) {
     return SubjectModel(
       id: map['id'],
-      classId: map['class_id'] ?? '',
-      subjectName: map['subject_name'] ?? '',
-      image: map['image'],
-      createdAt: map['created_at'] ?? '',
+      classId: map['class_id']?.toString() ?? '',
+      subjectName: map['subject_name']?.toString() ?? '',
+      image: map['image']?.toString() ?? '',
+      createdAt: map['created_at']?.toString(),
     );
   }
 }

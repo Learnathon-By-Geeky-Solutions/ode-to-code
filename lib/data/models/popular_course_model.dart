@@ -27,11 +27,11 @@ class PopularCourseModel {
   factory PopularCourseModel.fromMap(Map<String, dynamic> map) {
     return PopularCourseModel(
       id: map['id'],
-      imageLink: map['image_link'] ?? '',
-      title: map['title'] ?? '',
-      price: map['price'] ?? '',
-      type: map['type'] ?? '',
-      createdAt: map['created_at'] ?? '',
+      imageLink: map['image_link']?.toString() ?? '',
+      title: map['title']?.toString() ?? '',
+      price: map['price']?.toString() ?? '',
+      type: map['type']?.toString() ?? '',
+      createdAt: map['created_at']?.toString(),
     );
   }
 }
