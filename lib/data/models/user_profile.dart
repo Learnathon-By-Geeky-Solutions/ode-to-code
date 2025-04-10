@@ -7,7 +7,6 @@ class UserProfileModel {
   final String accountType;
   final String image;
   final String dateOfBirth;
-
   final String? createdAt;
 
   UserProfileModel({
@@ -21,6 +20,7 @@ class UserProfileModel {
     required this.gender,
     this.createdAt,
   });
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -36,14 +36,14 @@ class UserProfileModel {
   factory UserProfileModel.fromMap(Map<String, dynamic> map) {
     return UserProfileModel(
       id: map['id'],
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      whatYouDo: map['what_you_do'] ?? '',
-      accountType: map['account_type'] ?? '',
-      image: map['image'] ?? '',
-      dateOfBirth: map['date_of_birth'] ?? '',
-      gender: map['gender'] ?? '',
-      createdAt: map['created_at'] ?? '',
+      name: map['name']?.toString() ?? '',
+      email: map['email']?.toString() ?? '',
+      whatYouDo: map['what_you_do']?.toString() ?? '',
+      accountType: map['account_type']?.toString() ?? '',
+      image: map['image']?.toString() ?? '',
+      dateOfBirth: map['date_of_birth']?.toString() ?? '',
+      gender: map['gender']?.toString() ?? '',
+      createdAt: map['created_at']?.toString(),
     );
   }
 }

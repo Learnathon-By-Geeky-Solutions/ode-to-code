@@ -5,7 +5,7 @@ class MentorModel {
   final String whatHeDo;
   final String description;
   final String? createdAt;
-  final String image; // New image field
+  final String image;
 
   MentorModel({
     this.id,
@@ -30,12 +30,12 @@ class MentorModel {
   factory MentorModel.fromMap(Map<String, dynamic> map) {
     return MentorModel(
       id: map['id'],
-      name: map['name'] ?? '',
-      designation: map['designation'] ?? '',
-      whatHeDo: map['what_he_do'] ?? '',
-      description: map['description'] ?? '',
-      createdAt: map['created_at'] ?? '',
-      image: map['image'] ?? '',
+      name: map['name']?.toString() ?? '',
+      designation: map['designation']?.toString() ?? '',
+      whatHeDo: map['what_he_do']?.toString() ?? '',
+      description: map['description']?.toString() ?? '',
+      createdAt: map['created_at']?.toString(),
+      image: map['image']?.toString() ?? '',
     );
   }
 }

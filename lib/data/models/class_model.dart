@@ -3,7 +3,6 @@ class ClassModel {
   final String categoryId;
   final String className;
   final String? createdAt;
-
   final String image;
 
   ClassModel({
@@ -25,10 +24,10 @@ class ClassModel {
   factory ClassModel.fromMap(Map<String, dynamic> map) {
     return ClassModel(
       id: map['id'],
-      categoryId: map['category_id'] ?? '',
-      className: map['class_name'] ?? '',
-      image: map['image'],
-      createdAt: map['created_at'] ?? '',
+      categoryId: map['category_id']?.toString() ?? '',
+      className: map['class_name']?.toString() ?? '',
+      image: map['image']?.toString() ?? '',
+      createdAt: map['created_at']?.toString(),
     );
   }
 }

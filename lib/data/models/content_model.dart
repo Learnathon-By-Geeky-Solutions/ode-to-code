@@ -27,11 +27,11 @@ class ContentModel {
   factory ContentModel.fromMap(Map<String, dynamic> map) {
     return ContentModel(
       id: map['id'],
-      chaptersId: map['chapters_id'] ?? '',
-      number: map['number'] ?? ' ',
-      name: map['name'] ?? '',
-      link: map['link'] ?? '',
-      createdAt: map['created_at'] ?? '',
+      chaptersId: map['chapters_id']?.toString() ?? '',
+      number: map['number']?.toString() ?? '',
+      name: map['name']?.toString() ?? '',
+      link: map['link']?.toString() ?? '',
+      createdAt: map['created_at']?.toString() ?? '',
     );
   }
 }
