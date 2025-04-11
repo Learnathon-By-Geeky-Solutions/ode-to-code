@@ -32,7 +32,7 @@ class CustomScaffold extends StatelessWidget {
     return AppBar(
       title: GetBuilder<UserController>(builder: (controller) {
         return InkWell(
-          onTap: () => Get.to(() => UserProfileView()),
+          onTap: () => Get.to(() => const UserProfileView()),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

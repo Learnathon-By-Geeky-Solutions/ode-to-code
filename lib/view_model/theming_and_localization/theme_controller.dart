@@ -8,9 +8,7 @@ class ThemeController extends GetxController {
 
   void toggleTheme(bool isDark) {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
-
     Get.changeThemeMode(_themeMode);
-
     update();
   }
 }
