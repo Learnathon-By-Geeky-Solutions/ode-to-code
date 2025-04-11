@@ -2,7 +2,7 @@ import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/home/content/content_view.dart';
 import 'package:edu_bridge_app/view/home/popular_courses/popular_course_content_view.dart';
 import 'package:edu_bridge_app/view/home/popular_courses/popular_courses_view.dart';
-import 'package:edu_bridge_app/view_model/popularcourse_controller.dart';
+import 'package:edu_bridge_app/view_model/popular_course_controller.dart';
 
 class PopularCourses extends StatelessWidget {
   const PopularCourses({

@@ -69,7 +69,7 @@ class ContentCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.bookmark,
                 color: Colors.green,
               ),

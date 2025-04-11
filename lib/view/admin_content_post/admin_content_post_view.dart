@@ -3,8 +3,6 @@ import 'package:edu_bridge_app/utils/custom_scaffold.dart';
 import 'package:edu_bridge_app/view/admin_content_post/widget/add_offer_slider.dart';
 import 'package:edu_bridge_app/view/admin_content_post/widget/add_popular_course.dart';
 import 'package:edu_bridge_app/view/admin_content_post/widget/add_top_mentor.dart';
-import 'package:edu_bridge_app/view/home/widget/all_categories.dart';
-import 'package:edu_bridge_app/view/home/widget/category_section.dart';
 
 class AdminContentPostView extends StatefulWidget {
   const AdminContentPostView({super.key});
@@ -25,16 +23,12 @@ class _AdminContentPostViewState extends State<AdminContentPostView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Slider
-
-              AddOfferSlider(),
+              const AddOfferSlider(),
               SizedBox(height: 3.h),
-              /* CategoriesSection(
-                widgets: AllCategories(categoriesList: []),
-              ),*/
               // Popular Course
-              AddPopularCourse(),
+              const AddPopularCourse(),
               // Top Mentor
-              AddTopMentor(),
+              const AddTopMentor(),
             ],
           ),
         ),

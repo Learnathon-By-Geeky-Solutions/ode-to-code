@@ -93,19 +93,6 @@ class _ChaptersViewState extends State<ChaptersView> {
                     hintText: "Enter chapter name",
                   ),
                 ),
-                /*const SizedBox(height: 10),
-                OutlinedButton(
-                  onPressed: controller.pickChapterImage,
-                  child: const Text("Add Image"),
-                ),
-                const SizedBox(height: 10),
-                if (controller.chapterImage != null)
-                  Image.file(
-                    controller.chapterImage!,
-                    height: 80,
-                    width: 80,
-                    fit: BoxFit.cover,
-                  ),*/
               ],
             ),
             actions: [

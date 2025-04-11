@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
     this.width = 350,
     this.height = 60,
     this.borderRadius = 30,
-    this.buttonType = ButtonType.elevated, // Default to ElevatedButton
+    this.buttonType = ButtonType.elevated,
   });
 
   @override
@@ -44,7 +44,7 @@ class CustomButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
             ),
             side: BorderSide(color: backgroundColor),
-            foregroundColor: AppColors.themeColor, // Text color
+            foregroundColor: AppColors.themeColor,
           ),
           child: _buildButtonContent(),
         );
@@ -77,7 +77,6 @@ class CustomButton extends StatelessWidget {
     }
   }
 
-  // Common button content (text + icon)
   Widget _buildButtonContent() {
     return Row(
       children: [

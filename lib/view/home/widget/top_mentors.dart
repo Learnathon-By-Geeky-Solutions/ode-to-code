@@ -27,9 +27,9 @@ class TopMentorSection extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => TopMentorsView());
+                    Get.to(() => const TopMentorsView());
                   },
-                  child: CustomText(
+                  child: const CustomText(
                     text: "SEE ALL",
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -41,14 +41,12 @@ class TopMentorSection extends StatelessWidget {
           ),
           Expanded(
             child: GetBuilder<MentorController>(
-              init: MentorController(), // Initialize the controller
+              init: MentorController(),
               builder: (controller) {
-                // If still loading, show a loading indicator
                 if (controller.inProgress) {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                // If there is an error message, show it
                 if (controller.errorMessage != null) {
                   return Center(
                     child: CustomText(

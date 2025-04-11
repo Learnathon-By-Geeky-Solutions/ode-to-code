@@ -83,7 +83,6 @@ class BannerController extends GetxController {
 
     try {
       _banners = await _repository.fetchBanners();
-      // No snackbar for successful fetch
     } catch (e) {
       _handleError("Failed to load banners: $e");
     }

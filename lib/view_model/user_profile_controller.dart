@@ -91,7 +91,6 @@ class UserProfileController extends GetxController {
       if (_userProfile == null) {
         _handleError("No user profile found for this email.");
       }
-      // No snackbar for success here — silent fetch
     } catch (e) {
       _handleError("Failed to load user profile: $e");
     }

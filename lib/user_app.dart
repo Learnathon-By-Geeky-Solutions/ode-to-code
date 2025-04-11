@@ -15,7 +15,6 @@ class EduBridgeUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) {
-        // Initialize controllers before using them
         Get.put(ThemeController());
         Get.put(LocalizationController());
 

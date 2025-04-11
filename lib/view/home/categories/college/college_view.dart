@@ -29,15 +29,15 @@ class _CollegeViewState extends State<CollegeView> {
             crossAxisCount: 2,
             crossAxisSpacing: 1,
             mainAxisSpacing: 1,
-            childAspectRatio: 1, // This makes the height and width equal
+            childAspectRatio: 1,
           ),
           itemCount: college.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                width: 50, // Fixed width for the Card
-                height: 50, // Fixed height for the Card
+                width: 50,
+                height: 50,
                 child: Card(
                   elevation: 3,
                   color: AppColors.white,

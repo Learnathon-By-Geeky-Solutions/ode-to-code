@@ -32,30 +32,21 @@ class CustomScaffold extends StatelessWidget {
     return AppBar(
       title: GetBuilder<UserController>(builder: (controller) {
         return InkWell(
-          onTap: () =>
-              Get.to(() => UserProfileView()), // Navigate to User Profile
+          onTap: () => Get.to(() => const UserProfileView()),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: name ?? "Welcome!", // Handle null case
+                text: name ?? "Welcome!",
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
               ),
-              /*Text(
-                "What would you like to learn today? \nSearch below",
-                style: GoogleFonts.mulish(
-                  color: AppColors.blackGray,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                ),
-              ),*/
             ],
           ),
         );
       }),
       actions: [
-        ...?actions, // Include additional actions if provided
+        ...?actions,
         GestureDetector(
           onTap: () async {
             final supabase = Supabase.instance.client;

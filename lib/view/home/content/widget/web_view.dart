@@ -15,17 +15,16 @@ class _WebViewState extends State<WebView> {
   @override
   void initState() {
     super.initState();
-    // Initialize the WebViewController and load the link
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse(widget.link)); // Load the full YouTube URL
+      ..loadRequest(Uri.parse(widget.link));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: WebViewWidget(controller: controller), // Display the WebView
+        child: WebViewWidget(controller: controller),
       ),
     );
   }

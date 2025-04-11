@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view_model/popularcourse_controller.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:edu_bridge_app/view_model/popular_course_controller.dart';
 
 class AddPopularCourse extends StatefulWidget {
   const AddPopularCourse({super.key});
@@ -86,8 +83,8 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
                 bottomLeft: Radius.circular(24),
                 bottomRight: Radius.circular(24),
               )),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -100,7 +97,7 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
-                        const Icon(Icons.bookmark_border)
+                        Icon(Icons.bookmark_border)
                       ],
                     ),
                     CustomText(
@@ -188,7 +185,6 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
                   final coursePriceText = coursePrice.text.trim();
                   final courseTypeText = courseType.text.trim();
 
-                  // Validate input fields
                   if (courseTitleText.isNotEmpty &&
                       coursePriceText.isNotEmpty &&
                       courseTypeText.isNotEmpty &&
@@ -199,7 +195,7 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
                       courseTypeText,
                     );
                     if (success) {
-                      Get.back(); // Close the dialog on success
+                      Get.back();
                     }
                   } else {
                     Get.snackbar(

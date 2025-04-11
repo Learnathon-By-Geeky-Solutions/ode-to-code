@@ -13,14 +13,12 @@ class SubjectsView extends StatefulWidget {
 }
 
 class _SubjectsViewState extends State<SubjectsView> {
-  final SubjectController _controller =
-      Get.put(SubjectController()); // Ensures singleton instance
+  final SubjectController _controller = Get.put(SubjectController());
 
   @override
   void initState() {
     super.initState();
-    _controller
-        .fetchSubjects(widget.classId); // Fetch classes on initialization
+    _controller.fetchSubjects(widget.classId);
   }
 
   @override
@@ -46,8 +44,7 @@ class _SubjectsViewState extends State<SubjectsView> {
                         mainAxisSpacing: 1,
                         childAspectRatio: 1,
                       ),
-                      itemCount: controller
-                          .subjects.length, // Static count for UI purpose
+                      itemCount: controller.subjects.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
@@ -152,8 +149,8 @@ class _SubjectsViewState extends State<SubjectsView> {
                     if (success) {
                       controller.fetchSubjects(
                         widget.classId,
-                      ); // Refresh data
-                      Get.back(); // Close the dialog
+                      );
+                      Get.back();
                     }
                     print(widget.classId);
                     print(subjectNameController.text);
