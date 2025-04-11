@@ -14,13 +14,11 @@ class AppColors {
   static const Color grey = Colors.grey;
 
   // Add these new color properties to match the theme
-  static const Color primary =
-      themeColor; // Using existing themeColor as primary
-  static const Color secondary = orange; // Using orange as secondary
-  static const Color background = bgWhite; // Using bgWhite as background
-  static const Color surface = white; // Using white as surface
+  static const Color primary = themeColor;
+  static const Color secondary = orange;
+  static const Color background = bgWhite;
+  static const Color surface = white;
 
-  // These are text/icon colors that appear "on" top of other colors
   static const Color onPrimary = white;
   static const Color onSecondary = white;
   static const Color onBackground = blackGray;

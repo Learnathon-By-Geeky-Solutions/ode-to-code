@@ -27,20 +27,17 @@ class PopularCourseController extends GetxController {
     fetchPopularCourses();
   }
 
-  // Method to pick course image from gallery
   void pickCourseImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       _courseImage = File(pickedFile.path);
       update();
     } else {
-      _courseImage =
-          null; // Explicitly handle the case where no image is picked
+      _courseImage = null;
       update();
     }
   }
 
-  // Method to add a new popular course
   Future<bool> addPopularCourse(
       String courseTitle, String price, String type) async {
     if (courseTitle.isEmpty || _courseImage == null) {
@@ -55,7 +52,6 @@ class PopularCourseController extends GetxController {
     update();
 
     try {
-      // Upload the course image
       final imageUrl = await _repository.uploadCourseImage(_courseImage!);
       if (imageUrl != null) {
         final newCourse = PopularCourseModel(
@@ -65,11 +61,10 @@ class PopularCourseController extends GetxController {
           type: type,
         );
 
-        // Add the course to the database
         final success = await _repository.addPopularCourse(newCourse);
         if (success) {
           isSuccess = true;
-          Future.delayed(Duration(milliseconds: 200), () {
+          Future.delayed(const Duration(milliseconds: 200), () {
             Get.snackbar("Success", "Course added successfully!");
           });
         }
@@ -88,15 +83,13 @@ class PopularCourseController extends GetxController {
     return isSuccess;
   }
 
-  // Method to fetch popular courses from the database
   Future<void> fetchPopularCourses() async {
     _inProgress = true;
     _errorMessage = null;
     update();
 
     try {
-      _popularCourses = await _repository.fetchPopularCourses() ??
-          []; // Ensure no null list is returned
+      _popularCourses = await _repository.fetchPopularCourses() ?? [];
     } catch (e) {
       _errorMessage = 'Failed to load popular courses: $e';
       Get.snackbar("Error", _errorMessage!);
@@ -106,7 +99,6 @@ class PopularCourseController extends GetxController {
     update();
   }
 
-  // Method to clear the course fields (image, title, price, type)
   void clearFields() {
     _courseImage = null;
     update();

@@ -35,11 +35,11 @@ class _FillProfileViewState extends State<FillProfileView> {
                   width: 100,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: Color(0xffE8F1FF)),
+                      color: AppColors.bg),
                   child: const Icon(
                     Icons.person,
                     size: 95,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ),
@@ -64,7 +64,7 @@ class _FillProfileViewState extends State<FillProfileView> {
                 backgroundColor: AppColors.themeColor,
                 textColor: Colors.white,
                 icon: Icons.arrow_forward,
-                buttonType: ButtonType.elevated, // Elevated button style
+                buttonType: ButtonType.elevated,
               ),
             ],
           ),

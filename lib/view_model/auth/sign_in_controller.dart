@@ -1,7 +1,6 @@
 import 'package:edu_bridge_app/data/repositories/auth_resposity.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:edu_bridge_app/data/services/auth_service.dart';
 
 class SignInController extends GetxController {
   final AuthService _authService = AuthService();

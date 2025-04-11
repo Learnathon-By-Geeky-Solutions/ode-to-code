@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/utils/custom_scaffold.dart';
 import 'package:edu_bridge_app/utils/custom_text_field.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
 import 'package:image_picker/image_picker.dart'; // For image picking
 import 'package:edu_bridge_app/view_model/auth/sign_up_controller.dart'; // Import SignUpController
 
 class UserProfileView extends StatefulWidget {
+  const UserProfileView({super.key});
+
   @override
   State<UserProfileView> createState() => _UserProfileViewState();
 }
@@ -17,16 +17,14 @@ class UserProfileView extends StatefulWidget {
 class _UserProfileViewState extends State<UserProfileView> {
   final UserProfileController profileController =
       Get.put(UserProfileController());
-  final SignUpController signUpController =
-      Get.put(SignUpController()); // Add SignUpController
+  final SignUpController signUpController = Get.put(SignUpController());
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController =
-      TextEditingController(); // Add password field
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController whatYouDoController = TextEditingController();
   final TextEditingController accountTypeController =
-      TextEditingController(text: 'Student'); // Set default value
+      TextEditingController(text: 'Student');
   final TextEditingController dateOfBirthController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController fetchEmailController = TextEditingController();
@@ -43,8 +41,7 @@ class _UserProfileViewState extends State<UserProfileView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 20),
-              // Profile Image Picker
+              const SizedBox(height: 20),
               GetBuilder<UserProfileController>(
                 builder: (controller) {
                   return InkWell(
@@ -105,7 +102,7 @@ class _UserProfileViewState extends State<UserProfileView> {
               CustomTextFormField(
                 labelText: 'Password',
                 controller: passwordController,
-                obscureText: true, // Hide password input
+                obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your password';
@@ -125,7 +122,7 @@ class _UserProfileViewState extends State<UserProfileView> {
               CustomTextFormField(
                 labelText: 'Account Type',
                 controller: accountTypeController,
-                enabled: false, // Disable editing
+                enabled: false,
               ),
               SizedBox(height: 1.h),
               // Date of Birth Picker
@@ -150,12 +147,11 @@ class _UserProfileViewState extends State<UserProfileView> {
                 ),
               ),
               SizedBox(height: 1.h),
-              // Gender Dropdown
               DropdownButtonFormField<String>(
                 value: genderController.text.isEmpty
                     ? null
                     : genderController.text,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Gender',
                   border: OutlineInputBorder(),
                 ),
@@ -175,18 +171,16 @@ class _UserProfileViewState extends State<UserProfileView> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
-              // Sign Up & Add User Button
+              const SizedBox(height: 20),
               GetBuilder<UserProfileController>(
                 builder: (profileController) {
                   return GetBuilder<SignUpController>(
                     builder: (signUpController) {
                       return profileController.inProgress ||
                               signUpController.inProgress
-                          ? Center(child: CircularProgressIndicator())
+                          ? const Center(child: CircularProgressIndicator())
                           : CustomButton(
                               onPressed: () async {
-                                // Validate all fields
                                 if (nameController.text.isEmpty ||
                                     emailController.text.isEmpty ||
                                     passwordController.text.isEmpty ||
@@ -199,7 +193,6 @@ class _UserProfileViewState extends State<UserProfileView> {
                                   return;
                                 }
 
-                                // Perform sign-up
                                 bool signUpSuccess =
                                     await signUpController.signUp(
                                   emailController.text,
@@ -207,7 +200,6 @@ class _UserProfileViewState extends State<UserProfileView> {
                                 );
 
                                 if (signUpSuccess) {
-                                  // Add user profile after successful sign-up
                                   bool profileSuccess =
                                       await profileController.addUserProfile(
                                     fullName: nameController.text,
@@ -219,7 +211,6 @@ class _UserProfileViewState extends State<UserProfileView> {
                                   );
 
                                   if (profileSuccess) {
-                                    // Clear all fields and show success message
                                     nameController.clear();
                                     emailController.clear();
                                     passwordController.clear();

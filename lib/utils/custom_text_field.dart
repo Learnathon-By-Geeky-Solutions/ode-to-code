@@ -21,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly = false,
     this.prefixIcon,
     this.suffixIcon,
-    this.enabled, // Add enabled parameter
+    this.enabled,
   });
 
   @override
@@ -32,7 +32,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       readOnly: readOnly,
       onTap: onTap,
-      enabled: enabled ?? true, // Use provided value or default to true
+      enabled: enabled ?? true,
       decoration: InputDecoration(
         labelText: labelText,
         contentPadding:

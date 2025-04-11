@@ -1,6 +1,6 @@
 import 'package:edu_bridge_app/data/models/popular_course_model.dart';
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view_model/popularcourse_controller.dart';
+import 'package:edu_bridge_app/view_model/popular_course_controller.dart';
 import 'package:get/get.dart'; // Ensure Get is imported
 
 class PopularCoursesView extends StatelessWidget {
@@ -19,21 +19,18 @@ class PopularCoursesView extends StatelessWidget {
         ),
       ),
       body: GetBuilder<PopularCourseController>(
-        init: PopularCourseController(), // Initialize the controller
+        init: PopularCourseController(),
         builder: (controller) {
-          // Show a loading spinner while the courses are being fetched
           if (controller.inProgress) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // Show an error message if something goes wrong
           if (controller.errorMessage != null) {
             return Center(
               child: Text(controller.errorMessage!),
             );
           }
 
-          // If courses are fetched, display them in a list
           return controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.popularCourses.isEmpty
@@ -42,12 +39,10 @@ class PopularCoursesView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ListView.builder(
-                            itemCount: controller.popularCourses
-                                .length, // Dynamically use the length of fetched courses
+                            itemCount: controller.popularCourses.length,
                             itemBuilder: (context, index) {
                               final course = controller.popularCourses[index];
-                              return popularCoursesCard(
-                                  course); // Pass the course data to the card widget
+                              return popularCoursesCard(course);
                             },
                           ),
                         ),
@@ -58,7 +53,6 @@ class PopularCoursesView extends StatelessWidget {
     );
   }
 
-  // Modify this to accept the actual course data
   Widget popularCoursesCard(PopularCourseModel course) {
     return Card(
       color: AppColors.white,
@@ -71,7 +65,6 @@ class PopularCoursesView extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Image will be loaded dynamically if it exists
             Container(
               width: 130,
               height: 130,
@@ -97,28 +90,27 @@ class PopularCoursesView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CustomText(
-                            text: course.type, // Dynamic course type
+                            text: course.type,
                             color: AppColors.orange,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.bookmark_add,
                           color: Colors.green,
                         ),
                       ],
                     ),
                     CustomText(
-                      text: course.title, // Dynamic course title
+                      text: course.title,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                     Row(
                       children: [
                         CustomText(
-                          text:
-                              "Price : ${course.price}", // Dynamic course price
+                          text: "Price : ${course.price}",
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: AppColors.themeColor,

@@ -26,7 +26,6 @@ class ForgotPasswordButton extends StatelessWidget {
           return;
         }
 
-        // Password reset logic should be implemented separately
         Get.snackbar(
           'Success',
           'A password reset link has been sent to your email.',

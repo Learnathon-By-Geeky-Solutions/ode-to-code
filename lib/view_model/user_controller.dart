@@ -21,7 +21,6 @@ class UserController extends GetxController {
 
   final ImagePicker _picker = ImagePicker();
 
-  // Method to pick the user profile image from gallery
   void pickProfileImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -67,7 +66,6 @@ class UserController extends GetxController {
         gender: gender,
       );
 
-      // Add user to the database
       final success = await _repository.addUser(newUser);
       if (success) {
         isSuccess = true;
@@ -86,28 +84,6 @@ class UserController extends GetxController {
     return isSuccess;
   }
 
-  // Method to fetch user by ID
-  /*Future<void> fetchUserById(String userId) async {
-    _inProgress = true;
-    _errorMessage = null;
-    update();
-
-    try {
-      _user = await _repository.fetchUser(userId);
-      if (_user == null) {
-        _errorMessage = "User not found.";
-        Get.snackbar("Error", _errorMessage!);
-      }
-    } catch (e) {
-      _errorMessage = 'Failed to load user: $e';
-      Get.snackbar("Error", _errorMessage!);
-    }
-
-    _inProgress = false;
-    update();
-  }*/
-
-  // Method to clear all fields
   void clearFields() {
     _profileImage = null;
     _user = null;

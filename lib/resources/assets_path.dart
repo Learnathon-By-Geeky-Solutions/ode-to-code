@@ -11,15 +11,7 @@ class AssetsPath {
   //Logo
   static const String appLogo = '$appLogoPath/edu_bridge_logo.png';
   static const String appLogo2 = '$appLogoPath/edu_bridge_logo1.png';
-  /*
-  static const String school = '$logo/1_school.svg';
-  static const String college = '$logo/2_college.svg';
-  static const String english = '$logo/3_english.svg';
-  static const String skill = '$logo/4_skill.svg';
-  static const String health = '$logo/5_health.svg';
-  static const String creative = '$logo/6_creative.svg';
-  static const String life = '$logo/7_life.svg';
-  */
+
   //Categories
   static const String school = '$categoriesPath/01.svg';
   static const String college = '$categoriesPath/02.svg';

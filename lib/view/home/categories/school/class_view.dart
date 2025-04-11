@@ -18,14 +18,12 @@ class ClassView extends StatefulWidget {
 }
 
 class _ClassViewState extends State<ClassView> {
-  final ClassController _controller =
-      Get.put(ClassController()); // Ensures singleton instance
+  final ClassController _controller = Get.put(ClassController());
 
   @override
   void initState() {
     super.initState();
-    _controller
-        .fetchClasses(widget.categoryId); // Fetch classes on initialization
+    _controller.fetchClasses(widget.categoryId);
   }
 
   @override
@@ -128,9 +126,8 @@ class _ClassViewState extends State<ClassView> {
                       classNameController.text,
                     );
                     if (success) {
-                      controller
-                          .fetchClasses(widget.categoryId); // Refresh data
-                      Get.back(); // Close the dialog
+                      controller.fetchClasses(widget.categoryId);
+                      Get.back();
                     }
                   } else {
                     Get.snackbar("Error", "Class name cannot be empty");

@@ -5,7 +5,6 @@ import 'package:edu_bridge_app/utils/custom_spacing.dart';
 import 'package:edu_bridge_app/utils/custom_text_field.dart';
 import 'package:edu_bridge_app/utils/validators.dart';
 import 'package:edu_bridge_app/view/auth/forgot_password/widgets/forgot_password_button.dart';
-import 'package:get/get.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});

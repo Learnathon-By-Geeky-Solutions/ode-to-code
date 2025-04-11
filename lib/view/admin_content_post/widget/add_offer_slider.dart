@@ -13,7 +13,7 @@ class AddOfferSlider extends StatelessWidget {
       child: Stack(
         children: [
           Image.asset(AssetsPath.sliderCard),
-          Positioned(
+          const Positioned(
             left: 0,
             right: 0,
             top: 0,
@@ -83,8 +83,6 @@ class AddOfferSlider extends StatelessWidget {
                     if (success) {
                       Get.back(); // Close the dialog on success
                     }
-                    print(bannerTitleText);
-                    print('controller.bannerImage');
                   }
                 },
                 child: const Text("Add"),

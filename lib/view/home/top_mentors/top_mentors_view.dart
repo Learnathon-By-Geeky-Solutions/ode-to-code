@@ -17,14 +17,12 @@ class _TopMentorsViewState extends State<TopMentorsView> {
     return CustomScaffold(
       name: "Top Mentors",
       body: GetBuilder<MentorController>(
-        init: MentorController(), // Initialize the controller
+        init: MentorController(),
         builder: (controller) {
-          // Show loading indicator if still fetching mentors
           if (controller.inProgress) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // Show error message if fetching mentors failed
           if (controller.errorMessage != null) {
             return Center(
               child: CustomText(
@@ -78,15 +76,13 @@ class _TopMentorsViewState extends State<TopMentorsView> {
           height: 93,
           child: Row(
             children: [
-              // Display mentor's image
               Container(
                 width: 66,
                 height: 66,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(66),
                   image: DecorationImage(
-                    image:
-                        NetworkImage(mentor.image), // Image URL of the mentor
+                    image: NetworkImage(mentor.image),
                     fit: BoxFit.cover,
                   ),
                 ),

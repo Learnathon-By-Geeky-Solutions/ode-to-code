@@ -24,7 +24,7 @@ class CustomScaffoldHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80), // Custom height for AppBar
+        preferredSize: const Size.fromHeight(80),
         child: Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
           child: AppBar(

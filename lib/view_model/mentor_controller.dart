@@ -27,7 +27,6 @@ class MentorController extends GetxController {
     fetchMentors();
   }
 
-  // Method to pick mentor image from gallery
   void pickMentorImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -36,7 +35,6 @@ class MentorController extends GetxController {
     }
   }
 
-  // Method to add a new mentor
   Future<bool> addMentor(String name, String designation, String whatHeDo,
       String description) async {
     if (name.isEmpty ||
@@ -53,7 +51,6 @@ class MentorController extends GetxController {
     _errorMessage = null;
     update();
 
-    // Upload the mentor image
     final imageUrl = await _repository.uploadMentorImage(_mentorImage!);
     if (imageUrl != null) {
       final newMentor = MentorModel(
@@ -61,10 +58,9 @@ class MentorController extends GetxController {
         designation: designation,
         whatHeDo: whatHeDo,
         description: description,
-        image: imageUrl, // Ensure the image URL is part of the model
+        image: imageUrl,
       );
 
-      // Add the mentor to the database
       final success = await _repository.addMentor(newMentor);
       if (success) {
         isSuccess = true;
@@ -86,7 +82,6 @@ class MentorController extends GetxController {
     return isSuccess;
   }
 
-  // Method to fetch mentors from the database
   Future<void> fetchMentors() async {
     _inProgress = true;
     _errorMessage = null;
@@ -102,7 +97,6 @@ class MentorController extends GetxController {
     update();
   }
 
-  // Method to clear the mentor fields (image, name, designation, etc.)
   void clearFields() {
     _mentorImage = null;
     update();

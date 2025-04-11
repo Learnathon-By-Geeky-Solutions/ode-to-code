@@ -40,13 +40,11 @@ class CourseContentController extends GetxController {
     final success = await _repository.addContent(newContent);
     if (success) {
       isSuccess = true;
-      // Using Future.delayed to ensure snackbar appears immediately
       Future.delayed(Duration.zero, () {
         Get.snackbar("Success", "Content added successfully!");
       });
     } else {
       _errorMessage = "Failed to add content.";
-      // Using Future.delayed to ensure snackbar appears immediately
       Future.delayed(Duration.zero, () {
         Get.snackbar("Error", _errorMessage!);
       });
@@ -64,11 +62,9 @@ class CourseContentController extends GetxController {
 
     try {
       _contents = await _repository.fetchContentsByChapterId(chaptersId);
-      // Log the fetched contents for debugging
       print("Fetched contents: $_contents");
     } catch (e) {
       _errorMessage = 'Failed to load contents: \$e';
-      // Using Future.delayed to ensure snackbar appears immediately
       Future.delayed(Duration.zero, () {
         Get.snackbar("Error", _errorMessage!);
       });
