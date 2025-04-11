@@ -1,58 +1,52 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/class_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class ClassRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to upload class image to Supabase Storage
   Future<String?> uploadClassImage(File imageFile) async {
-    try {
-      final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final String filePath = 'class_images/$fileName';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filePath = 'class_images/$fileName';
 
-      // Uploading the file to Supabase storage
-      await _supabase.storage.from('class_images').upload(filePath, imageFile);
+    final response = await _networkCaller.uploadFile(
+      bucketName: 'class_images',
+      filePath: filePath,
+      file: imageFile,
+    );
 
-      // Returning the public URL of the uploaded image
-      return _supabase.storage.from('class_images').getPublicUrl(filePath);
-    } catch (e) {
-      return null;
-    }
+    return response.isSuccess ? response.responseData : null;
   }
 
-  // Method to add a new class to the database
   Future<bool> addClass(ClassModel classModel) async {
-    try {
-      final classData = classModel.toMap();
-      print("Class Data being sent to Supabase: $classData"); // Debugging
+    final response = await _networkCaller.postRequest(
+      tableName: "classes",
+      data: classModel.toMap(),
+    );
 
-      // Inserting into Supabase
-      await _supabase.from("classes").insert(classData);
-
+    if (response.isSuccess) {
       print("Class added successfully!");
       return true;
-    } catch (e) {
-      print("Error adding class: $e"); // Debugging
+    } else {
+      print("Error adding class: ${response.errorMessage}");
       return false;
     }
   }
 
-  // Method to fetch a class by its ID
   Future<List<ClassModel>> fetchClassesByCategoryId(String categoryId) async {
-    try {
-      // Query to fetch classes based on categoryId
-      final response = await _supabase
-          .from('classes')
-          .select()
-          .eq('category_id', categoryId);
+    final response = await _networkCaller.getRequest(
+      tableName: 'classes',
+      eqColumn: 'category_id',
+      eqValue: categoryId,
+    );
 
-      // Mapping the response data to a list of ClassModel objects
-      return response
+    if (response.isSuccess) {
+      return (response.responseData as List)
           .map<ClassModel>((data) => ClassModel.fromMap(data))
           .toList();
-    } catch (e) {
-      return []; // Returning an empty list if an error occurs
+    } else {
+      print("Error fetching classes: ${response.errorMessage}");
+      return [];
     }
   }
 }

@@ -1,42 +1,42 @@
 import 'package:edu_bridge_app/data/models/popular_course_content_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class PopularCourseContentRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
   Future<bool> addPopularCourseContent(
       PopularCourseContentModel courseModel) async {
-    try {
-      final response = await _supabase
-          .from("popular_course_content")
-          .insert(courseModel.toMap());
+    final response = await _networkCaller.postRequest(
+      tableName: "popular_course_content",
+      data: courseModel.toMap(),
+    );
 
-      print("Supabase Response: $response");
-
+    if (response.isSuccess) {
+      print("Popular course content added successfully!");
       return true;
-    } catch (e) {
-      print("Supabase Error: $e");
+    } else {
+      print("Error adding popular course content: ${response.errorMessage}");
       return false;
     }
   }
 
   Future<List<PopularCourseContentModel>> fetchPopularCourseContentById(
       String courseId) async {
-    try {
-      // Query to fetch popular courses based on courseId
-      final response = await _supabase
-          .from('popular_course_content')
-          .select()
-          .eq('courses_id', courseId);
+    final response = await _networkCaller.getRequest(
+      tableName: 'popular_course_content',
+      eqColumn: 'courses_id',
+      eqValue: courseId,
+    );
 
-      // Mapping the response data to a list of PopularCourseModel objects
-      return response
+    if (response.isSuccess) {
+      return (response.responseData as List)
           .map<PopularCourseContentModel>(
             (data) => PopularCourseContentModel.fromMap(data),
           )
           .toList();
-    } catch (e) {
-      return []; // Returning an empty list if an error occurs
+    } else {
+      print("Error fetching popular course content: ${response.errorMessage}");
+      return [];
     }
   }
 }

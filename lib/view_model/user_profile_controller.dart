@@ -68,11 +68,13 @@ class UserProfileController extends GetxController {
         gender: gender,
       );
 
-      isSuccess = await _repository.addUserProfile(profile);
-      if (isSuccess) {
+      final response = await _repository
+          .addUserProfile(profile); // This returns an ApiResponse
+      if (response.isSuccess) {
         Get.snackbar("Success", "User profile added successfully!");
+        isSuccess = true;
       } else {
-        _handleError("Failed to add user profile.");
+        _handleError("Failed to add user profile: ${response.errorMessage}");
       }
     } catch (e) {
       _handleError("An error occurred: $e");

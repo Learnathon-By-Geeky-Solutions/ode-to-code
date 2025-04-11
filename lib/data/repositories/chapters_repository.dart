@@ -1,39 +1,38 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:edu_bridge_app/data/models/chapter_model.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class ChapterRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to add a new chapter to the database
   Future<bool> addChapter(ChapterModel chapterModel) async {
-    try {
-      final chapterData = chapterModel.toMap();
-      print("Chapter Data being sent to Supabase: \$chapterData"); // Debugging
+    final response = await _networkCaller.postRequest(
+      tableName: "chapters",
+      data: chapterModel.toMap(),
+    );
 
-      // Inserting into Supabase
-      await _supabase.from("chapters").insert(chapterData);
-
+    if (response.isSuccess) {
       print("Chapter added successfully!");
       return true;
-    } catch (e) {
-      print("Error adding chapter: \$e"); // Debugging
+    } else {
+      print("Error adding chapter: ${response.errorMessage}");
       return false;
     }
   }
 
-  // Method to fetch chapters by subject ID
   Future<List<ChapterModel>> fetchChaptersBySubjectId(String subjectId) async {
-    try {
-      // Query to fetch chapters based on subjectId
-      final response =
-          await _supabase.from('chapters').select().eq('subject_id', subjectId);
+    final response = await _networkCaller.getRequest(
+      tableName: 'chapters',
+      eqColumn: 'subject_id',
+      eqValue: subjectId,
+    );
 
-      // Mapping the response data to a list of ChapterModel objects
-      return response
+    if (response.isSuccess) {
+      return (response.responseData as List)
           .map<ChapterModel>((data) => ChapterModel.fromMap(data))
           .toList();
-    } catch (e) {
-      return []; // Returning an empty list if an error occurs
+    } else {
+      print("Error fetching chapters: ${response.errorMessage}");
+      return [];
     }
   }
 }

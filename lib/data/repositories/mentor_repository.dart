@@ -1,42 +1,50 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/mentor_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class MentorRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to upload mentor image to Supabase Storage
   Future<String?> uploadMentorImage(File imageFile) async {
-    try {
-      final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final String filePath = 'mentor_images/$fileName';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filePath = 'mentor_images/$fileName';
 
-      // Uploading the file to Supabase storage
-      await _supabase.storage.from('mentor_images').upload(filePath, imageFile);
+    final response = await _networkCaller.uploadFile(
+      bucketName: 'mentor_images',
+      filePath: filePath,
+      file: imageFile,
+    );
 
-      // Returning the public URL of the uploaded image
-      return _supabase.storage.from('mentor_images').getPublicUrl(filePath);
-    } catch (e) {
-      return null;
-    }
+    return response.isSuccess ? response.responseData : null;
   }
 
-  // Method to add a new mentor to the database
   Future<bool> addMentor(MentorModel mentor) async {
-    try {
-      // Inserting the mentor into the "mentors" table
-      await _supabase.from("mentors").insert(mentor.toMap());
+    final response = await _networkCaller.postRequest(
+      tableName: "mentors",
+      data: mentor.toMap(),
+    );
+
+    if (response.isSuccess) {
       print("Mentor added successfully!");
       return true;
-    } catch (e) {
-      print("Error adding mentor: $e"); // Debugging
+    } else {
+      print("Error adding mentor: ${response.errorMessage}");
       return false;
     }
   }
 
-  // Method to fetch all mentors from the database
   Future<List<MentorModel>> fetchMentors() async {
-    final response = await _supabase.from("mentors").select();
-    return response.map((data) => MentorModel.fromMap(data)).toList();
+    final response = await _networkCaller.getRequest(
+      tableName: 'mentors',
+    );
+
+    if (response.isSuccess) {
+      return (response.responseData as List)
+          .map((data) => MentorModel.fromMap(data))
+          .toList();
+    } else {
+      print("Error fetching mentors: ${response.errorMessage}");
+      return [];
+    }
   }
 }

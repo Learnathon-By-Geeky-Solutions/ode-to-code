@@ -1,21 +1,29 @@
 import 'package:edu_bridge_app/data/models/user_profile.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:io';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart'; // Ensure to import your NetworkCaller
 
 class UserProfileRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
   // Method to upload user profile image to Supabase Storage
   Future<String?> uploadUserProfileImage(File imageFile) async {
     try {
-      final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final String filePath = 'user/$fileName';
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final filePath = 'user/$fileName';
 
-      // Uploading the file to Supabase storage
-      await _supabase.storage.from('user').upload(filePath, imageFile);
+      final response = await _networkCaller.uploadFile(
+        bucketName: 'user',
+        filePath: filePath,
+        file: imageFile,
+      );
 
-      // Returning the public URL of the uploaded image
-      return _supabase.storage.from('user').getPublicUrl(filePath);
+      if (response.isSuccess) {
+        return response.responseData;
+      } else {
+        print("Error uploading user profile image: ${response.errorMessage}");
+        return null;
+      }
     } catch (e) {
       print("Error uploading user profile image: $e");
       return null;
@@ -23,33 +31,42 @@ class UserProfileRepository {
   }
 
   // Method to add a new user profile to the database
-  Future<bool> addUserProfile(UserProfileModel userProfile) async {
+  Future<ApiResponse> addUserProfile(UserProfileModel userProfile) async {
     try {
       final userData = userProfile.toMap();
-      print("User Data being sent to Supabase: $userData"); // Debugging
+      print("User Data being sent to Supabase: $userData");
 
-      // Inserting into Supabase
-      await _supabase.from('users_profile').insert(userData);
+      final response = await _networkCaller.postRequest(
+        tableName: 'users_profile',
+        data: userData,
+      );
 
-      print("User profile added successfully!");
-      return true;
+      return response;
     } catch (e) {
-      print("Error adding user profile: $e"); // Debugging
-      return false;
+      print("Error adding user profile: $e");
+      return ApiResponse(
+        isSuccess: false,
+        responseData: null,
+        errorMessage: e.toString(),
+      );
     }
   }
 
   // Method to fetch a user profile by email
   Future<UserProfileModel?> fetchUserProfileByEmail(String email) async {
     try {
-      // Query to fetch user profile based on email
-      final response = await _supabase
-          .from('users_profile')
-          .select()
-          .eq('email', email)
-          .single();
+      final response = await _networkCaller.getRequest(
+        tableName: 'users_profile',
+        eqColumn: 'email',
+        eqValue: email,
+      );
 
-      return UserProfileModel.fromMap(response);
+      if (response.isSuccess) {
+        return UserProfileModel.fromMap(response.responseData[0]);
+      } else {
+        print("Error fetching user profile: ${response.errorMessage}");
+        return null;
+      }
     } catch (e) {
       print("Error fetching user profile: $e");
       return null;
@@ -57,20 +74,24 @@ class UserProfileRepository {
   }
 
   // Method to update user profile
-  Future<bool> updateUserProfile(UserProfileModel userProfile) async {
+  Future<ApiResponse> updateUserProfile(UserProfileModel userProfile) async {
     try {
       final userData = userProfile.toMap();
-      print("User Data being updated: $userData"); // Debugging
+      print("User Data being updated: $userData");
 
-      // Updating user profile in Supabase
-      await _supabase.from('users_profile').update(userData).eq('id',
-          userProfile); // Ensure the correct column is used for the condition
+      final response = await _networkCaller.postRequest(
+        tableName: 'users_profile',
+        data: userData,
+      );
 
-      print("User profile updated successfully!");
-      return true;
+      return response;
     } catch (e) {
       print("Error updating user profile: $e");
-      return false;
+      return ApiResponse(
+        isSuccess: false,
+        responseData: null,
+        errorMessage: e.toString(),
+      );
     }
   }
 }
