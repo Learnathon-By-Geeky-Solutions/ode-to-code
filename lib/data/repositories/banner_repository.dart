@@ -1,42 +1,39 @@
 import 'dart:io';
+
 import 'package:edu_bridge_app/data/models/banner_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class BannerRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to upload banner image to Supabase Storage
   Future<String?> uploadBannerImage(File imageFile) async {
-    try {
-      final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final String filePath = 'banners/$fileName';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filePath = 'banners/$fileName';
 
-      // Uploading the file to Supabase storage
-      await _supabase.storage.from('banners').upload(filePath, imageFile);
+    final response = await _networkCaller.uploadFile(
+      bucketName: 'banners',
+      filePath: filePath,
+      file: imageFile,
+    );
 
-      // Returning the public URL of the uploaded image
-      return _supabase.storage.from('banners').getPublicUrl(filePath);
-    } catch (e) {
-      return null;
-    }
+    return response.isSuccess ? response.responseData : null;
   }
 
-  // Method to add a new banner to the database
   Future<bool> addBanner(BannerModel banner) async {
-    try {
-      // Inserting the banner into the "banners" table
-      await _supabase.from("banners").insert(banner.toMap());
-      print("Banner added successfully!");
-      return true;
-    } catch (e) {
-      print("Error adding class: $e"); // Debugging
-      return false;
-    }
+    final response = await _networkCaller.postRequest(
+      tableName: 'banners',
+      data: banner.toMap(),
+    );
+    return response.isSuccess;
   }
 
-  // Method to fetch all banners from the database
   Future<List<BannerModel>> fetchBanners() async {
-    final response = await _supabase.from("banners").select();
-    return response.map((data) => BannerModel.fromMap(data)).toList();
+    final response = await _networkCaller.getRequest(tableName: 'banners');
+    if (response.isSuccess) {
+      return (response.responseData as List)
+          .map((data) => BannerModel.fromMap(data))
+          .toList();
+    }
+    return [];
   }
 }

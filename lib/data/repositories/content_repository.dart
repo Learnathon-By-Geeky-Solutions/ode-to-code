@@ -1,36 +1,38 @@
-import 'dart:io';
 import 'package:edu_bridge_app/data/models/content_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class ContentRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
   Future<bool> addContent(ContentModel contentModel) async {
-    try {
-      final response =
-          await _supabase.from("content").insert(contentModel.toMap());
+    final response = await _networkCaller.postRequest(
+      tableName: "content",
+      data: contentModel.toMap(),
+    );
 
-      print("Supabase Response: $response");
-
+    if (response.isSuccess) {
+      print("Content added successfully!");
       return true;
-    } catch (e) {
-      print("Supabase Error: $e");
+    } else {
+      print("Error adding content: ${response.errorMessage}");
       return false;
     }
   }
 
   Future<List<ContentModel>> fetchContentsByChapterId(String chapterId) async {
-    try {
-      // Query to fetch contents based on chapterId
-      final response =
-          await _supabase.from('content').select().eq('chapters_id', chapterId);
+    final response = await _networkCaller.getRequest(
+      tableName: 'content',
+      eqColumn: 'chapters_id',
+      eqValue: chapterId,
+    );
 
-      // Mapping the response data to a list of ContentModel objects
-      return response
+    if (response.isSuccess) {
+      return (response.responseData as List)
           .map<ContentModel>((data) => ContentModel.fromMap(data))
           .toList();
-    } catch (e) {
-      return []; // Returning an empty list if an error occurs
+    } else {
+      print("Error fetching content: ${response.errorMessage}");
+      return [];
     }
   }
 }

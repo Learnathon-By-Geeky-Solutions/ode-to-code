@@ -1,55 +1,51 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/subject_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class SubjectRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to upload subject image to Supabase Storage
   Future<String?> uploadSubjectImage(File imageFile) async {
-    try {
-      final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final String filePath = 'subject_images/$fileName';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filePath = 'subject_images/$fileName';
 
-      // Uploading the file to Supabase storage
-      await _supabase.storage
-          .from('subject_images')
-          .upload(filePath, imageFile);
+    final response = await _networkCaller.uploadFile(
+      bucketName: 'subject_images',
+      filePath: filePath,
+      file: imageFile,
+    );
 
-      // Returning the public URL of the uploaded image
-      return _supabase.storage.from('subject_images').getPublicUrl(filePath);
-    } catch (e) {
-      return null;
-    }
+    return response.isSuccess ? response.responseData : null;
   }
 
-  // Method to add a new subject to the database
   Future<bool> addSubject(SubjectModel subjectModel) async {
-    try {
-      final subjectData = subjectModel.toMap();
-      print("Subject Data being sent to Supabase: $subjectData"); // Debugging
+    final response = await _networkCaller.postRequest(
+      tableName: "subjects",
+      data: subjectModel.toMap(),
+    );
 
-      // Inserting into Supabase
-      await _supabase.from("subjects").insert(subjectData);
-
+    if (response.isSuccess) {
       print("Subject added successfully!");
       return true;
-    } catch (e) {
-      print("Error adding subject: $e"); // Debugging
+    } else {
+      print("Error adding subject: ${response.errorMessage}");
       return false;
     }
   }
 
-  // Method to fetch subjects by class ID
   Future<List<SubjectModel>> fetchSubjectsByClassId(String classId) async {
-    try {
-      final response =
-          await _supabase.from('subjects').select().eq('class_id', classId);
+    final response = await _networkCaller.getRequest(
+      tableName: 'subjects',
+      eqColumn: 'class_id',
+      eqValue: classId,
+    );
 
-      return response
+    if (response.isSuccess) {
+      return (response.responseData as List)
           .map<SubjectModel>((data) => SubjectModel.fromMap(data))
           .toList();
-    } catch (e) {
+    } else {
+      print("Error fetching subjects: ${response.errorMessage}");
       return [];
     }
   }

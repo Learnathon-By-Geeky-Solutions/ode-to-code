@@ -11,7 +11,6 @@ import 'package:edu_bridge_app/view_model/popular_course_controller.dart';
 import 'package:edu_bridge_app/view_model/subject_controller.dart';
 import 'package:edu_bridge_app/view_model/theming_and_localization/localization_controller.dart';
 import 'package:edu_bridge_app/view_model/theming_and_localization/theme_controller.dart';
-import 'package:edu_bridge_app/view_model/user_controller.dart';
 import 'package:edu_bridge_app/view_model/user_profile_controller.dart';
 
 import 'package:get/get.dart';
@@ -23,7 +22,6 @@ class ControllerBinder extends Bindings {
     Get.put(LocalizationController());
     Get.put(SignInController());
     Get.put(SignUpController());
-    Get.put(UserController());
     Get.put(BannerController());
     Get.put(CategoryController());
     Get.put(ChapterController());

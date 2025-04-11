@@ -1,42 +1,50 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/popular_course_model.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
 
 class PopularCourseRepository {
-  final SupabaseClient _supabase = Supabase.instance.client;
+  final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to upload course image to Supabase Storage
   Future<String?> uploadCourseImage(File imageFile) async {
-    try {
-      final String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final String filePath = 'course_images/$fileName';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filePath = 'course_images/$fileName';
 
-      // Uploading the file to Supabase storage
-      await _supabase.storage.from('course_images').upload(filePath, imageFile);
+    final response = await _networkCaller.uploadFile(
+      bucketName: 'course_images',
+      filePath: filePath,
+      file: imageFile,
+    );
 
-      // Returning the public URL of the uploaded image
-      return _supabase.storage.from('course_images').getPublicUrl(filePath);
-    } catch (e) {
-      return null;
-    }
+    return response.isSuccess ? response.responseData : null;
   }
 
-  // Method to add a new popular course to the database
   Future<bool> addPopularCourse(PopularCourseModel course) async {
-    try {
-      // Inserting the popular course into the "popular_courses" table
-      await _supabase.from("courses").insert(course.toMap());
+    final response = await _networkCaller.postRequest(
+      tableName: "courses",
+      data: course.toMap(),
+    );
+
+    if (response.isSuccess) {
       print("Popular course added successfully!");
       return true;
-    } catch (e) {
-      print("Error adding popular course: $e"); // Debugging
+    } else {
+      print("Error adding popular course: ${response.errorMessage}");
       return false;
     }
   }
 
-  // Method to fetch all popular courses from the database
   Future<List<PopularCourseModel>> fetchPopularCourses() async {
-    final response = await _supabase.from("courses").select();
-    return response.map((data) => PopularCourseModel.fromMap(data)).toList();
+    final response = await _networkCaller.getRequest(
+      tableName: 'courses',
+    );
+
+    if (response.isSuccess) {
+      return (response.responseData as List)
+          .map((data) => PopularCourseModel.fromMap(data))
+          .toList();
+    } else {
+      print("Error fetching popular courses: ${response.errorMessage}");
+      return [];
+    }
   }
 }

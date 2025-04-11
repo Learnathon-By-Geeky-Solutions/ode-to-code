@@ -1,7 +1,6 @@
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/auth/sign_in/sign_in_view.dart';
 import 'package:edu_bridge_app/view/user/user_profile_view.dart';
-import 'package:edu_bridge_app/view_model/user_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CustomScaffold extends StatelessWidget {
@@ -30,21 +29,19 @@ class CustomScaffold extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: GetBuilder<UserController>(builder: (controller) {
-        return InkWell(
-          onTap: () => Get.to(() => const UserProfileView()),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                text: name ?? "Welcome!",
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-              ),
-            ],
-          ),
-        );
-      }),
+      title: InkWell(
+        onTap: () => Get.to(() => const UserProfileView()),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+              text: name ?? "Welcome!",
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+            ),
+          ],
+        ),
+      ),
       actions: [
         ...?actions,
         GestureDetector(
