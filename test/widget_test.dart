@@ -1,31 +1,38 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:edu_bridge_app/user_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:edu_bridge_app/user_main.dart'
+    as app; // Adjust according to your import path
+import 'package:edu_bridge_app/user_app.dart';
+
+// Create a mock class for SharedPreferences
+class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    //await tester.pumpWidget(const EduBridgeUser());
+  // Initialize mocks before tests
+  setUpAll(() {
+    // Register SharedPreferences mock
+    registerFallbackValue(MockSharedPreferences());
+  });
 
-    expect(1, 1);
+  // Set up mock SharedPreferences before each test
+  setUp(() {
+    final mockPrefs = MockSharedPreferences();
+    // Mock the behavior of SharedPreferences.getInstance
+    when(() => mockPrefs.getString(any())).thenReturn(null); // Adjust as needed
+    SharedPreferences.setMockInitialValues({});
+  });
 
-    /*// Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('App launches and shows home screen widget',
+      (WidgetTester tester) async {
+    // Run the app and test the widget
+    await tester.pumpWidget(const EduBridgeUser());
+    expect(find.byType(EduBridgeUser), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);*/
+  test('App initializes without errors', () async {
+    // Test your initialization logic
+    await app.initializeApp();
   });
 }

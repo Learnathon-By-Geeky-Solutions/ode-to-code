@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/data/models/content_model.dart';
-import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 
 class ContentRepository {
   final NetworkCaller _networkCaller = NetworkCaller();
@@ -27,9 +27,25 @@ class ContentRepository {
     );
 
     if (response.isSuccess) {
-      return (response.responseData as List)
-          .map<ContentModel>((data) => ContentModel.fromMap(data))
-          .toList();
+      if (response.responseData != null && response.responseData.isNotEmpty) {
+        // Filter the results explicitly by chapters_id if needed
+        final filteredData = (response.responseData as List).where((data) {
+          return data['chapters_id'] == chapterId;
+        }).toList();
+
+        if (filteredData.isNotEmpty) {
+          print("Fetched filtered content: $filteredData");
+          return filteredData
+              .map<ContentModel>((data) => ContentModel.fromMap(data))
+              .toList();
+        } else {
+          print("No content found for chapters_id: $chapterId");
+          return [];
+        }
+      } else {
+        print("No content found for chapters_id: $chapterId");
+        return [];
+      }
     } else {
       print("Error fetching content: ${response.errorMessage}");
       return [];

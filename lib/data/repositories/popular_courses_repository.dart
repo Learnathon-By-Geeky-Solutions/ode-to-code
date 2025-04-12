@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/popular_course_model.dart';
-import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 
 class PopularCourseRepository {
   final NetworkCaller _networkCaller = NetworkCaller();

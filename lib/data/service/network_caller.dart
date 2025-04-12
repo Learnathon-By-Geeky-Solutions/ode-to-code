@@ -39,6 +39,9 @@ class NetworkCaller {
         _logger.d('Added ordering: $orderBy ($orderDirection)');
       }
 
+      // Log the query to check what is actually being sent
+      _logger.d('Query: $query');
+
       final response = await query;
       _logger.i(
           'GET Request Successful | Table: $tableName | Results: ${response.length}');

@@ -18,19 +18,22 @@ import 'package:get/get.dart';
 class ControllerBinder extends Bindings {
   @override
   void dependencies() {
-    Get.put(ThemeController());
-    Get.put(LocalizationController());
-    Get.put(SignInController());
-    Get.put(SignUpController());
-    Get.put(BannerController());
-    Get.put(CategoryController());
-    Get.put(ChapterController());
-    Get.put(ClassController());
-    Get.put(CourseContentController());
-    Get.put(MentorController());
-    Get.put(PopularCourseController());
-    Get.put(PopularCourseContentController());
-    Get.put(SubjectController());
-    Get.put(UserProfileController());
+    Get.lazyPut<ThemeController>(() => ThemeController());
+    Get.lazyPut<LocalizationController>(() => LocalizationController());
+    Get.lazyPut<SignInController>(() => SignInController());
+    Get.lazyPut<SignUpController>(() => SignUpController());
+    Get.lazyPut<BannerController>(() => BannerController(),
+        fenix:
+            true); // Optional: 'fenix: true' keeps the controller alive after the first use
+    Get.lazyPut<CategoryController>(() => CategoryController());
+    Get.lazyPut<ChapterController>(() => ChapterController());
+    Get.lazyPut<ClassController>(() => ClassController());
+    Get.lazyPut<CourseContentController>(() => CourseContentController());
+    Get.lazyPut<MentorController>(() => MentorController());
+    Get.lazyPut<PopularCourseController>(() => PopularCourseController());
+    Get.lazyPut<PopularCourseContentController>(
+        () => PopularCourseContentController());
+    Get.lazyPut<SubjectController>(() => SubjectController());
+    Get.lazyPut<UserProfileController>(() => UserProfileController());
   }
 }
