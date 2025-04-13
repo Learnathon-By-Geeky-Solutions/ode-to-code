@@ -1,16 +1,11 @@
-# EduBridge:🎓
-
 <div align="center">
 
 ![EduBridge Logo](https://github.com/user-attachments/assets/c811683b-575e-44d4-a31c-d9661b6c3c60)
 
   
-  <h2>Bridging the Education Gap Through Community Learning</h2>
-</div>
+# 🎓 EduBridge  
+**Bridging the Education Gap Through Community Learning**
 
----
-
-## 📌 **Project Status**  
 ![Dart](https://img.shields.io/badge/Dart-3.0-blue?logo=dart&logoColor=white)
 ![Flutter](https://img.shields.io/badge/Flutter-3.10-blue?logo=flutter&logoColor=white)
 ![GetX](https://img.shields.io/badge/GetX-State_Management-purple?logo=getx&logoColor=white)
@@ -19,15 +14,70 @@
 ![Android Studio](https://img.shields.io/badge/Android_Studio-Giraffe-green?logo=androidstudio&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
+</div>
 
-## **📖 About EduBridge**  
-EduBridge is a **free, community-powered education app** designed to bridge the learning gap for students across Bangladesh. Built on the belief that education should be accessible to all regardless of financial constraints, the platform empowers students (Grades 8–12, IELTS/Spoken English learners) to **learn, share, and grow together**.  
+<table>
+<tr>
+<td>
 
----   
 
----
+## 📖 About EduBridge
 
-## 📋 **Table of Contents**  
+**EduBridge** is a **free, community-driven education platform** built to democratize learning across Bangladesh. Aimed at students in **Grades 8–12** and **IELTS/Spoken English learners**, it empowers users to **learn, share, and grow** — regardless of financial background. Developed using **Flutter (MVVM)** and **Supabase**, the platform promotes peer-to-peer knowledge sharing in localized Bengali content.
+
+## The Problem We Solve
+
+Education in Bangladesh is often:
+
+- ❌ Expensive
+- ❌ Tutor-dependent
+- ❌ Lacking Bengali content
+- ❌ Passive and one-sided
+
+## ✅ Our Solution
+
+**EduBridge empowers students and educators through:**
+
+✅ Free and open access — always  
+✅ Uploading and sharing of videos, notes, and MCQs  
+✅ Real-time feedback and localized content in Bengali  
+✅ Donation-based rewards to recognize and support contributors  
+✅ Built using **Flutter** and **Supabase** (PostgreSQL, Auth, Storage)  
+
+## 🌍 Vision: The Bigger Picture
+
+*** "When students teach, they don’t just learn better — they uplift entire communities."
+
+- Over 60% of students in Bangladesh lack access to quality academic support  
+- Smartphones are widespread — EduBridge transforms them into learning tools  
+- Focused not just on academics but also on soft skills and future readiness  
+
+
+## 💡Key Features
+
+| Feature                  | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| Free Access              | No subscriptions, paywalls, or limitations                                  |
+| Community-Driven         | Users can contribute as both learners and educators                         |
+| Localized Learning       | Bengali-first approach with immediate feedback                              |
+| Modern Tech Stack        | Built with Flutter and Supabase (PostgreSQL, Auth, Realtime, Storage)       |
+| Forward-Looking Roadmap  | AI tutors, gamification, and job-oriented modules are on the horizon        |
+
+
+
+</td>
+</tr>
+</table>
+
+
+<table>
+<tr>
+<td>
+
+
+<details>
+<summary><h2>📋 Table of Contents</h2></summary>
+
 1. 👥 [Team Members](#-team-members)  
 2. 🚀 [Project Overview](#-project-overview)  
 3. 🎯 [Key Goals](#-key-goals)  
@@ -41,58 +91,33 @@ EduBridge is a **free, community-powered education app** designed to bridge the 
 11. 📚 [Resources](#-resources)  
 12. 🤝 [Contributing](#-contributing)  
 
+</details>
 
----
+<div align="center">
 
-## 👥 **Team Members**  
-- **mishad01** (Team Leader)  
-- **saif-gitreps**  
-- **IsratJahan09**  
+## 👥 Team Members
 
-### 🎓 **Project Mentor**  
-- **ihjohny**  
+| Name            | Role         | GitHub Profile                             |
+|-----------------|--------------|--------------------------------------------|
+| mishad01        | Team Leader  | [@mishad01](https://github.com/mishad01)   |
+| saif-gitreps    | Member       | [@saif-gitreps](https://github.com/saif-gitreps) |
+| IsratJahan09    | Member       | [@IsratJahan09](https://github.com/IsratJahan09) |
+| ihjohny  | Project Mentor   | [@ihjohny](https://github.com/ihjohny)    |
 
----
 
-## 🚀 **Project Overview**  
-**EduBridge** is a free, community-powered education app designed to democratize learning for Bangladeshi students (Grades 8-12, IELTS/Spoken English learners). Built with **Flutter (MVVM)** and **Supabase**, it enables peer-to-peer knowledge sharing through localized Bengali content, interactive MCQs, and a donation-based reward system.  
-
-Unlike paid platforms, EduBridge turns students into both learners and teachers, creating a self-sustaining ecosystem where smartphones become tools for accessible education.  
----
-
----
-
-## 🎯 Key Goals
-
-- **Eliminate Financial Barriers**  
-  → 100% free, high-quality resources tailored to the Bangladeshi curriculum.
-
-- **Foster Collaborative Learning**  
-  → Students can upload & share videos, notes, MCQs — like an educational Stack Overflow.
-
-- **Localize Content**  
-  → Bengali-medium lessons with instant feedback to fill the gaps left by global platforms.
-
-- **Leverage Technology for Scale**  
-  → Use **Supabase** (Auth, PostgreSQL, Storage) for an affordable backend.  
-  → Apply **MVVM** architecture for clean, scalable Flutter code.
-
-- **Build a Sustainable Model**  
-  → Donations reward contributors — peer support over paywalls.
-
-- **Future-Proof Education**  
-  → Pilot AI-driven tutoring and vocational training to fight unemployment.
-
-## 🌟 **Why This Matters**  
-- 📌 **Impact**: 60% of Bangladeshi students lack access to quality tutors. EduBridge bridges this gap.  
-- 📌 **Innovation**: First community-driven app combining peer learning + donations in Bangladesh.  
-- 📌 **Scalability**: Designed to expand into AI/gamification with Supabase’s flexibility.  
-
----  
 
 ## 🔧 **Technical Alignment**  
 - **Flutter MVVM**: Ensures testable, modular code (Views ↔ ViewModels ↔ Supabase).  
 - **Supabase**: Handles auth, user-generated content, and donations securely.  
+
+## 📚 **Learning & Resources**
+
+[![Figma](https://img.shields.io/badge/Figma-UI_Designs-blueviolet?logo=figma&logoColor=white)](https://www.figma.com/proto/e4OYzhQK75LW0kQBk9j5XL/EDU-BRIDGE?node-id=0-1&t=14BMsrBnyiJX5mql-1)  [![Supabase Docs](https://img.shields.io/badge/Supabase-Documentation-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/docs) [![Flutter MVVM](https://img.shields.io/badge/Flutter-MVVM_Tutorials-blue?logo=flutter&logoColor=white)](https://resocoder.com/flutter-clean-architecture-tdd/)
+
+![image](https://github.com/user-attachments/assets/32e52ca1-84b1-4111-bef3-c3bf9a4b90bb)
+
+
+</div>
 
 ## 🏗️ **Project Structure: MVVM Architecture with Repository Pattern**  
 ```
@@ -170,43 +195,38 @@ EduBridge/
 
 ![Supabase Schema](https://github.com/user-attachments/assets/7062c197-3366-409a-8f14-eaf8de769ea8)
 
----
-
+  
+<div align="center">
+  
 ## 🌐 **API Documentation**  
-📌 **Auth Endpoints** → (Sign up, Login, OAuth)  
-📌 **Storage** → (Video uploads, document sharing)  
-📌 **Database** → (CRUD for notes, MCQs, progress tracking)  
-📌 **Example Requests** → (Dart code snippets)  
+| Category | Description |
+|----------|-------------|
+| 🔐 **Auth Endpoints** | Sign Up, Login, OAuth |
+| 📦 **Storage** | Upload & access videos, notes, documents |
+| 🗄️ **Database** | Full CRUD: Notes, MCQs, Progress tracking |
+| 💻 **Dart Examples** | Code snippets with `http` and `supabase_flutter` |
 
----
 
 ## 💻 **Development Guidelines**  
-📌 **MVVM structure** (`/lib/view`, `/lib/viewmodel`, `/lib/model`)  
-📌 **State management** (GetX)  
-📌 **Supabase best practices**  
 
-## 🧪 **Testing**  
-📌 **Unit tests** (ViewModel logic)  
-📌 **Widget tests** (UI components)  
-📌 **Supabase mock testing**  
-
----
-
-## 📚 **Resources**  
-📌 **Figma designs**  
-📌 **Supabase docs**  
-📌 **Flutter MVVM tutorials**  
-
----
-
-## 🤝 **Contributing**  
-📌 **Git workflow** (feature branches)  
-📌 **Issue templates**  
-📌 **Code review process**  
-
----
-
-🔹 **Built with ❤️ by the EduBridge Team** 🔹
+| 🔧 Topic | ✅ Best Practices |
+|---------|------------------|
+| 📐 **Architecture** | MVVM: `/lib/view`, `/lib/viewmodel`, `/lib/model` |
+| 🧠 **State Management** | GetX (minimal, reactive) |
+| 🛡️ **Security & Clean Code** | Follow Supabase + Flutter safety standards |
 
 
-I want to see copy option for the project structure
+## 🧪 **Testing Strategy**
+
+| 🧪 Test Type | 🔍 Description |
+|-------------|----------------|
+| 🧠 **Unit Tests** | Validates ViewModel logic & services |
+| 🧩 **Widget Tests** | UI components and layouts |
+| 🧪 **Supabase Mock Tests** | Use mocks for secure backend logic testing |
+
+
+
+
+</td>
+</tr>
+</table>
