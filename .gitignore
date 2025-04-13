@@ -32,6 +32,7 @@ migrate_working_dir/
 /build/
 
 # Ignore specific Dart files
+
 # Symbolication related
 app.*.symbols
 

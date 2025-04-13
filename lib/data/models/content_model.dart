@@ -3,16 +3,18 @@ class ContentModel {
   final String chaptersId;
   final String number;
   final String name;
-  final String link;
+  final String? link;
   final String createdAt;
+  final String? note;
 
   ContentModel({
     this.id,
     required this.chaptersId,
     required this.number,
     required this.name,
-    required this.link,
+    this.link,
     required this.createdAt,
+    this.note,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,6 +23,7 @@ class ContentModel {
       'number': number,
       'name': name,
       'link': link,
+      'note': note,
     };
   }
 
@@ -30,8 +33,9 @@ class ContentModel {
       chaptersId: map['chapters_id']?.toString() ?? '',
       number: map['number']?.toString() ?? '',
       name: map['name']?.toString() ?? '',
-      link: map['link']?.toString() ?? '',
+      link: map['link']?.toString(),
       createdAt: map['created_at']?.toString() ?? '',
+      note: map['note']?.toString(),
     );
   }
 }

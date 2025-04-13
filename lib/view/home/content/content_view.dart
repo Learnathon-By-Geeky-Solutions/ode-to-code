@@ -1,4 +1,3 @@
-// content_view.dart
 import 'package:edu_bridge_app/utils/reusable_content_view.dart';
 import 'package:edu_bridge_app/view_model/content_controller.dart';
 import 'package:flutter/material.dart';

@@ -3,27 +3,22 @@ import 'package:edu_bridge_app/view/home/categories/categories_view.dart';
 import 'package:edu_bridge_app/view/home/widget/all_categories.dart';
 
 class CategoriesSection extends StatelessWidget {
-  const CategoriesSection({
-    super.key,
-  });
+  const CategoriesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 14.h,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _header(),
-          const AllCategories(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _header(),
+        const AllCategories(),
+      ],
     );
   }
 
   Widget _header() {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

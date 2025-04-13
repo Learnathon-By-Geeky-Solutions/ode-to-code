@@ -3,7 +3,8 @@ class PopularCourseContentModel {
   final String coursesId;
   final String number;
   final String title;
-  final String link;
+  final String? link; // Make link nullable (optional)
+  final String? note; // Add note as an optional field
   final String? createdAt;
 
   PopularCourseContentModel({
@@ -11,7 +12,8 @@ class PopularCourseContentModel {
     required this.coursesId,
     required this.number,
     required this.title,
-    required this.link,
+    this.link, // Make link nullable
+    this.note, // Make note nullable
     this.createdAt,
   });
 
@@ -20,7 +22,8 @@ class PopularCourseContentModel {
       'courses_id': coursesId,
       'number': number,
       'title': title,
-      'link': link,
+      'link': link, // Link can now be null
+      'note': note, // Include note in the map
     };
   }
 
@@ -30,7 +33,8 @@ class PopularCourseContentModel {
       coursesId: map['courses_id']?.toString() ?? '',
       number: map['number']?.toString() ?? '',
       title: map['title']?.toString() ?? '',
-      link: map['link']?.toString() ?? '',
+      link: map['link']?.toString(), // Link can be null
+      note: map['note']?.toString(), // Note can be null
       createdAt: map['created_at']?.toString(),
     );
   }

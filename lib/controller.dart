@@ -25,7 +25,7 @@ class ControllerBinder extends Bindings {
     Get.lazyPut<BannerController>(() => BannerController(),
         fenix:
             true); // Optional: 'fenix: true' keeps the controller alive after the first use
-    Get.lazyPut<CategoryController>(() => CategoryController());
+    Get.put(CategoryController());
     Get.lazyPut<ChapterController>(() => ChapterController());
     Get.lazyPut<ClassController>(() => ClassController());
     Get.lazyPut<CourseContentController>(() => CourseContentController());

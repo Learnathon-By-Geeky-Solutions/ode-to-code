@@ -117,6 +117,55 @@ class NetworkCaller {
   }
 
 // Add similar methods for PUT, DELETE, etc. with logging
+  Future<ApiResponse> deleteRequest({
+    required String tableName,
+    Map<String, dynamic>? queryParams,
+  }) async {
+    try {
+      _logger.i('DELETE Request Initiated | Table: $tableName');
+
+      var query = _supabase.from(tableName).delete();
+
+      if (queryParams != null) {
+        for (final param in queryParams.entries) {
+          query = query.eq(param.key, param.value);
+        }
+      }
+
+      final response = await query;
+      _logger.i('DELETE Request Successful | Table: $tableName');
+
+      return ApiResponse(
+        isSuccess: true,
+        responseData: response,
+        errorMessage: '',
+      );
+    } catch (e) {
+      _logger.e('DELETE Request Failed | Table: $tableName', error: e);
+      return ApiResponse(
+        isSuccess: false,
+        responseData: null,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
+  String? getCurrentUserId() {
+    return _supabase.auth.currentUser?.id;
+  }
+
+  Future<ApiResponse> saveUserCourse({
+    required String userId,
+    required String courseId,
+  }) async {
+    return await postRequest(
+      tableName: 'user_saved_courses',
+      data: {
+        'user_id': userId,
+        'course_id': courseId,
+      },
+    );
+  }
 }
 
 class ApiResponse {
