@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/subject_model.dart';
-import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 
 class SubjectRepository {
   final NetworkCaller _networkCaller = NetworkCaller();
@@ -41,9 +41,25 @@ class SubjectRepository {
     );
 
     if (response.isSuccess) {
-      return (response.responseData as List)
-          .map<SubjectModel>((data) => SubjectModel.fromMap(data))
-          .toList();
+      if (response.responseData != null && response.responseData.isNotEmpty) {
+        // Filter the results explicitly by class_id if needed
+        final filteredData = (response.responseData as List).where((data) {
+          return data['class_id'] == classId;
+        }).toList();
+
+        if (filteredData.isNotEmpty) {
+          print("Fetched filtered subjects: $filteredData");
+          return filteredData
+              .map<SubjectModel>((data) => SubjectModel.fromMap(data))
+              .toList();
+        } else {
+          print("No subjects found for class_id: $classId");
+          return [];
+        }
+      } else {
+        print("No subjects found for class_id: $classId");
+        return [];
+      }
     } else {
       print("Error fetching subjects: ${response.errorMessage}");
       return [];

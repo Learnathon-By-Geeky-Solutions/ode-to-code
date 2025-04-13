@@ -1,12 +1,10 @@
 import 'package:edu_bridge_app/data/models/user_profile.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:io';
-import 'package:edu_bridge_app/data/network_caller/network_caller.dart'; // Ensure to import your NetworkCaller
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 
 class UserProfileRepository {
   final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to upload user profile image to Supabase Storage
   Future<String?> uploadUserProfileImage(File imageFile) async {
     try {
       final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
@@ -30,7 +28,6 @@ class UserProfileRepository {
     }
   }
 
-  // Method to add a new user profile to the database
   Future<ApiResponse> addUserProfile(UserProfileModel userProfile) async {
     try {
       final userData = userProfile.toMap();
@@ -52,7 +49,6 @@ class UserProfileRepository {
     }
   }
 
-  // Method to fetch a user profile by email
   Future<UserProfileModel?> fetchUserProfileByEmail(String email) async {
     try {
       final response = await _networkCaller.getRequest(
@@ -73,7 +69,6 @@ class UserProfileRepository {
     }
   }
 
-  // Method to update user profile
   Future<ApiResponse> updateUserProfile(UserProfileModel userProfile) async {
     try {
       final userData = userProfile.toMap();

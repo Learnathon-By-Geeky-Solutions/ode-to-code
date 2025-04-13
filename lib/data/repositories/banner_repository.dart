@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:edu_bridge_app/data/models/banner_model.dart';
-import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 
 class BannerRepository {
   final NetworkCaller _networkCaller = NetworkCaller();

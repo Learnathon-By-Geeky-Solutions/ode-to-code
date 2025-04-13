@@ -2,6 +2,7 @@ import 'package:edu_bridge_app/data/models/content_model.dart';
 import 'package:edu_bridge_app/data/models/popular_course_content_model.dart';
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/utils/custom_scaffold.dart';
+import 'package:edu_bridge_app/view/home/content/add_content_view/add_content_view.dart';
 import 'package:edu_bridge_app/view/home/content/widget/content_card.dart';
 import 'package:edu_bridge_app/view/home/content/widget/youtube_view.dart';
 import 'package:edu_bridge_app/view_model/content_controller.dart';
@@ -13,7 +14,12 @@ class ReusableContentView extends StatefulWidget {
   final List<dynamic> Function() getContents;
   final bool Function() isLoading;
   final Future<bool> Function(
-      String id, String number, String title, String link) addContent;
+    String id,
+    String number,
+    String title, {
+    String? link,
+    String? note,
+  }) addContent;
 
   const ReusableContentView({
     super.key,
@@ -38,6 +44,15 @@ class _ReusableContentViewState extends State<ReusableContentView> {
     });
   }
 
+  String _getContentTitle(dynamic content) {
+    if (content is PopularCourseContentModel) {
+      return content.title ?? 'Untitled';
+    } else if (content is ContentModel) {
+      return content.name ?? 'Untitled';
+    }
+    return content.title ?? content.name ?? 'Untitled';
+  }
+
   @override
   Widget build(BuildContext context) {
     final contents = widget.getContents();
@@ -53,109 +68,31 @@ class _ReusableContentViewState extends State<ReusableContentView> {
                   itemCount: contents.length,
                   itemBuilder: (context, index) {
                     final content = contents[index];
-
-                    // Handle both ContentModel and PopularCourseContentModel
                     final title = _getContentTitle(content);
                     final link = content.link ?? '';
                     final number = content.number ?? '';
 
                     return InkWell(
                       onTap: () => link.isNotEmpty
-                          ? Get.to(() => YouTubePlayerView(
-                                link: link,
-                                title: title,
-                              ))
+                          ? Get.to(
+                              () => YouTubePlayerView(link: link, title: title))
                           : null,
                       child: ContentCard(
                         number: number,
                         title: title,
                         link: link,
+                        note: content.note ?? '',
                       ),
                     );
                   },
                 ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddContentDialog,
+        onPressed: () => Get.to(() => AddContentView(
+              id: widget.id,
+              addContent: widget.addContent,
+              fetchContents: widget.fetchContents,
+            )),
         child: const Icon(Icons.add),
-      ),
-    );
-  }
-
-  String _getContentTitle(dynamic content) {
-    // Handle both models' title properties
-    if (content is PopularCourseContentModel) {
-      return content.title ?? 'Untitled';
-    } else if (content is ContentModel) {
-      return content.name ?? 'Untitled';
-    }
-    // Fallback for any other model type
-    return content.title ?? content.name ?? 'Untitled';
-  }
-
-  void _showAddContentDialog() {
-    final titleController = TextEditingController();
-    final linkController = TextEditingController();
-    final numberController = TextEditingController();
-
-    Get.dialog(
-      AlertDialog(
-        title: const Text("Add Content"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: numberController,
-              decoration: const InputDecoration(hintText: "Enter number"),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(
-                hintText: "Enter title/name",
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: linkController,
-              decoration: const InputDecoration(
-                hintText: "Enter YouTube or content link",
-              ),
-              keyboardType: TextInputType.url,
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text("Cancel"),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              if (titleController.text.isNotEmpty &&
-                  linkController.text.isNotEmpty &&
-                  numberController.text.isNotEmpty) {
-                final success = await widget.addContent(
-                  widget.id,
-                  numberController.text,
-                  titleController.text,
-                  linkController.text,
-                );
-                if (success && mounted) {
-                  await widget.fetchContents(widget.id);
-                  Get.back();
-                }
-              } else {
-                Get.snackbar(
-                  "Error",
-                  "Please fill all fields",
-                  snackPosition: SnackPosition.BOTTOM,
-                );
-              }
-            },
-            child: const Text("Add Content"),
-          ),
-        ],
       ),
     );
   }

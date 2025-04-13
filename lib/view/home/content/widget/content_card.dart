@@ -1,21 +1,49 @@
-import 'package:edu_bridge_app/resources/app_colors.dart';
+import 'package:edu_bridge_app/resources/assets_path.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:edu_bridge_app/resources/app_colors.dart';
 
 class ContentCard extends StatelessWidget {
   final String number;
   final String title;
-  final String link;
+  final String? link;
+  final String? note;
 
   const ContentCard({
     super.key,
     required this.number,
     required this.title,
-    required this.link,
+    this.link,
+    this.note,
   });
 
   @override
   Widget build(BuildContext context) {
+    final hasLink = link?.isNotEmpty == true;
+    final hasNote = note?.isNotEmpty == true;
+    final content = hasLink ? link : (hasNote ? note : 'No content available');
+
+    final Widget iconWidget;
+    if (hasLink) {
+      iconWidget = Image.asset(
+        AssetsPath.videPlayIcon,
+        height: 28,
+        width: 28,
+      );
+    } else if (hasNote) {
+      iconWidget = Image.asset(
+        AssetsPath.noteIcon,
+        height: 28,
+        width: 28,
+      );
+    } else {
+      iconWidget = Image.asset(
+        AssetsPath.videPlayIcon,
+        height: 28,
+        width: 28,
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
       child: Container(
@@ -27,7 +55,7 @@ class ContentCard extends StatelessWidget {
               color: Colors.black12,
               blurRadius: 4,
               offset: Offset(0, 2),
-            ),
+            )
           ],
         ),
         padding: const EdgeInsets.all(12),
@@ -36,7 +64,7 @@ class ContentCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 12.0),
+                padding: const EdgeInsets.only(right: 12),
                 child: Text(
                   number,
                   style: GoogleFonts.mulish(
@@ -58,21 +86,19 @@ class ContentCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      link,
-                      style: GoogleFonts.mulish(
-                        color: AppColors.blackGray,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                    if (content != null)
+                      Text(
+                        content!,
+                        style: GoogleFonts.mulish(
+                          color: AppColors.blackGray,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
-              const Icon(
-                Icons.bookmark,
-                color: Colors.green,
-              ),
+              iconWidget,
             ],
           ),
         ),

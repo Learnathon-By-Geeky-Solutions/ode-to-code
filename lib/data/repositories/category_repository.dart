@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/category_model.dart';
-import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 
 class CategoryRepository {
   final NetworkCaller _networkCaller = NetworkCaller();
 
-  // Method to upload category image to Supabase Storage
+  // Upload category image to Supabase Storage
   Future<String?> uploadCategoryImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'category_images/$fileName';
@@ -19,7 +19,7 @@ class CategoryRepository {
     return response.isSuccess ? response.responseData : null;
   }
 
-  // Method to add a new category to the database
+  // Add a new category to the database
   Future<bool> addCategory(CategoryModel category) async {
     final response = await _networkCaller.postRequest(
       tableName: 'categories',
@@ -29,13 +29,12 @@ class CategoryRepository {
     if (response.isSuccess) {
       return true;
     } else {
-      // You might want to log the error for debugging
       print('Error adding category: ${response.errorMessage}');
       return false;
     }
   }
 
-  // Method to fetch all categories from the database
+  // Fetch all categories from the database
   Future<List<CategoryModel>> fetchCategories() async {
     final response = await _networkCaller.getRequest(
       tableName: 'categories',
@@ -46,21 +45,21 @@ class CategoryRepository {
           .map((data) => CategoryModel.fromMap(data, data['id']))
           .toList();
     } else {
-      // Return empty list on error and log the issue
       print('Error fetching categories: ${response.errorMessage}');
       return [];
     }
   }
 
-  // Optional: Add method to fetch categories with specific conditions
+  // Fetch categories with specific condition
   Future<List<CategoryModel>> fetchCategoriesWithCondition({
     required String column,
     required dynamic value,
   }) async {
     final response = await _networkCaller.getRequest(
       tableName: 'categories',
-      eqColumn: column,
-      eqValue: value,
+      queryParams: {
+        column: value,
+      },
     );
 
     if (response.isSuccess) {

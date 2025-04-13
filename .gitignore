@@ -32,7 +32,6 @@ migrate_working_dir/
 /build/
 
 # Ignore specific Dart files
-lib/resources/urls.dart
 
 # Symbolication related
 app.*.symbols
@@ -44,3 +43,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.env

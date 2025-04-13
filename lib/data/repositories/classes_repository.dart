@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/class_model.dart';
-import 'package:edu_bridge_app/data/network_caller/network_caller.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 
 class ClassRepository {
   final NetworkCaller _networkCaller = NetworkCaller();
@@ -41,9 +41,25 @@ class ClassRepository {
     );
 
     if (response.isSuccess) {
-      return (response.responseData as List)
-          .map<ClassModel>((data) => ClassModel.fromMap(data))
-          .toList();
+      if (response.responseData != null && response.responseData.isNotEmpty) {
+        // Filter the results explicitly by category_id if needed
+        final filteredData = (response.responseData as List).where((data) {
+          return data['category_id'] == categoryId;
+        }).toList();
+
+        if (filteredData.isNotEmpty) {
+          print("Fetched filtered classes: $filteredData");
+          return filteredData
+              .map<ClassModel>((data) => ClassModel.fromMap(data))
+              .toList();
+        } else {
+          print("No classes found for category_id: $categoryId");
+          return [];
+        }
+      } else {
+        print("No classes found for category_id: $categoryId");
+        return [];
+      }
     } else {
       print("Error fetching classes: ${response.errorMessage}");
       return [];

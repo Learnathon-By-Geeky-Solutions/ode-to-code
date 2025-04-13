@@ -39,6 +39,8 @@ class AssetsPath {
   static String notification = '$icons/notification.svg';
   static String subjectsBook = '$icons/subjects_book.svg';
   static String sliderCard = '$images/offer.png';
+  static String videPlayIcon = '$icons/video_play_icon.png';
+  static String noteIcon = '$icons/note_icon.png';
 
   static String google1 =
       "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png";

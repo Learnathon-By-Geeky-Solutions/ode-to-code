@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view/home/bottom%20nav%20bar/main_bottom_nav_bar.dart';
 import 'package:edu_bridge_app/view/on_boarding/on_boarding.dart';
@@ -16,6 +18,7 @@ class _SplashViewState extends State<SplashView>
   late Animation<double> _fadeAnimation;
 
   @override
+  @override
   void initState() {
     super.initState();
 
@@ -33,9 +36,11 @@ class _SplashViewState extends State<SplashView>
 
     _controller.forward();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _moveToNextScreen();
-    });
+    if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _moveToNextScreen();
+      });
+    }
   }
 
   @override

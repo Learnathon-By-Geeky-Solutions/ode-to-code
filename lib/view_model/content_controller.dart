@@ -15,10 +15,14 @@ class CourseContentController extends GetxController {
   List<ContentModel> get contents => _contents;
 
   Future<bool> addContent(
-      String chaptersId, String number, String name, String link) async {
-    if (name.isEmpty || link.isEmpty || chaptersId.isEmpty) {
-      Get.snackbar(
-          "Error", "Please enter content name, link, and select chapter");
+    String chaptersId,
+    String number,
+    String name, {
+    String? link,
+    String? note,
+  }) async {
+    if (name.isEmpty || chaptersId.isEmpty) {
+      Get.snackbar("Error", "Please enter content name and select chapter");
       return false;
     }
 
@@ -32,10 +36,11 @@ class CourseContentController extends GetxController {
       number: number,
       name: name,
       link: link,
+      note: note,
       createdAt: DateTime.now().toIso8601String(),
     );
 
-    print('Test : \$newContent');
+    print('Test : $newContent');
 
     final success = await _repository.addContent(newContent);
     if (success) {
@@ -64,7 +69,7 @@ class CourseContentController extends GetxController {
       _contents = await _repository.fetchContentsByChapterId(chaptersId);
       print("Fetched contents: $_contents");
     } catch (e) {
-      _errorMessage = 'Failed to load contents: \$e';
+      _errorMessage = 'Failed to load contents: $e';
       Future.delayed(Duration.zero, () {
         Get.snackbar("Error", _errorMessage!);
       });
