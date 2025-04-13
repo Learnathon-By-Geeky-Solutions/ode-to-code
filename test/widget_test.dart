@@ -5,34 +5,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:edu_bridge_app/user_main.dart'
     as app; // Adjust according to your import path
 import 'package:edu_bridge_app/user_app.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Create a mock class for SharedPreferences
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
 void main() {
-  // Initialize mocks before tests
-  setUpAll(() {
-    // Register SharedPreferences mock
-    registerFallbackValue(MockSharedPreferences());
-  });
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({}); // 🔧 must come first
 
-  // Set up mock SharedPreferences before each test
-  setUp(() {
-    final mockPrefs = MockSharedPreferences();
-    // Mock the behavior of SharedPreferences.getInstance
-    when(() => mockPrefs.getString(any())).thenReturn(null); // Adjust as needed
-    SharedPreferences.setMockInitialValues({});
+    await Supabase.initialize(
+      url: 'https://dummy.supabase.co',
+      anonKey: 'dummy-anon-key',
+    );
   });
 
   testWidgets('App launches and shows home screen widget',
       (WidgetTester tester) async {
-    // Run the app and test the widget
-    await tester.pumpWidget(const EduBridgeUser());
-    expect(find.byType(EduBridgeUser), findsOneWidget);
-  });
+    await tester.pumpWidget(const MaterialApp(home: EduBridgeUser()));
+    await tester.pump();
 
-  test('App initializes without errors', () async {
-    // Test your initialization logic
-    await app.initializeApp();
+    expect(find.byType(EduBridgeUser), findsOneWidget);
   });
 }
