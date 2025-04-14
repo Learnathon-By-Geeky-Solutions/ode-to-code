@@ -45,6 +45,10 @@ jobs:
             -Dsonar.organization=learnathon-by-geeky-solutions
             -Dsonar.java.version=17
             -Dsonar.verbose=true
-            -Dsonar.dart.coverage.reportPath=coverage/lcov.info
-            -Dsonar.exclusions=**/*.css
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.sources=lib
+            -Dsonar.tests=test
+            -Dsonar.test.inclusions=test/features/**/*_test.dart
+            -Dsonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/__generated__/**,**/mocks.dart,**/*.css
+        
       

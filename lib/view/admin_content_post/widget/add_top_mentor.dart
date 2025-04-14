@@ -18,15 +18,15 @@ class _AddTopMentorState extends State<AddTopMentor> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CustomText(
-                text: "Top Mentor",
+              CustomText(
+                text: 'top_mentor'.tr,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
               InkWell(
                 onTap: () {},
                 child: CustomText(
-                  text: "SEE ALL",
+                  text: 'see_all'.tr,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   color: AppColors.themeColor,
@@ -70,8 +70,8 @@ class _AddTopMentorState extends State<AddTopMentor> {
             ),
           ],
         ),
-        const CustomText(
-          text: "Add Mentor Name",
+        CustomText(
+          text: 'add_mentor_name'.tr,
           color: Colors.black,
           fontSize: 12,
           fontWeight: FontWeight.bold,

@@ -13,7 +13,7 @@ class AddOfferSlider extends StatelessWidget {
       child: Stack(
         children: [
           Image.asset(AssetsPath.sliderCard),
-          const Positioned(
+          Positioned(
             left: 0,
             right: 0,
             top: 0,
@@ -23,9 +23,10 @@ class AddOfferSlider extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.add, color: AppColors.white),
+                  const Icon(Icons.add, color: AppColors.white),
                   CustomText(
-                      text: "Insert a 360x180 banner", color: Colors.white),
+                      text: 'insert_banner_instruction'.tr,
+                      color: Colors.white),
                 ],
               ),
             ),

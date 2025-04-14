@@ -35,7 +35,7 @@ class CustomScaffold extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              text: name ?? "Welcome!",
+              text: name ?? 'welcome'.tr,
               fontSize: 24,
               fontWeight: FontWeight.w600,
             ),

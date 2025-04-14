@@ -18,15 +18,15 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CustomText(
-                text: "Popular Course",
+              CustomText(
+                text: 'popular_course'.tr,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
               InkWell(
                 onTap: () {},
-                child: const CustomText(
-                  text: "SEE ALL",
+                child: CustomText(
+                  text: 'see_all'.tr,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   color: AppColors.themeColor,
@@ -83,8 +83,8 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
                 bottomLeft: Radius.circular(24),
                 bottomRight: Radius.circular(24),
               )),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -92,23 +92,23 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomText(
-                          text: "Add Course Type",
+                          text: 'add_course_type'.tr,
                           color: AppColors.orange,
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
-                        Icon(Icons.bookmark_border)
+                        const Icon(Icons.bookmark_border)
                       ],
                     ),
                     CustomText(
-                      text: "Add Course Title",
+                      text: 'add_course_title'.tr,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                     Row(
                       children: [
                         CustomText(
-                          text: "Add Price",
+                          text: 'add_price'.tr,
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: AppColors.themeColor,

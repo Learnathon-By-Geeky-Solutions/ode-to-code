@@ -10,8 +10,8 @@ class ForgotPasswordTextButton extends StatelessWidget {
       alignment: Alignment.topRight,
       child: GestureDetector(
         onTap: () => Get.to(() => const ForgotPasswordView()),
-        child: const CustomText(
-          text: "Forget Password",
+        child: CustomText(
+          text: 'forget_password'.tr,
           fontWeight: FontWeight.w900,
           fontSize: 16,
           color: AppColors.blackGray,
