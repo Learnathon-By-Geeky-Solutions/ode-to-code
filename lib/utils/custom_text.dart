@@ -6,7 +6,7 @@ class CustomText extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final Color color;
-  final TextStyle? customStyle; // Allow full customizability of style
+  final TextStyle? customStyle;
 
   const CustomText({
     required this.text,

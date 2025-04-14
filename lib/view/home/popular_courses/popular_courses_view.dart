@@ -12,8 +12,8 @@ class PopularCoursesView extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: const CustomText(
-          text: "Popular Courses",
+        title: CustomText(
+          text: 'popular_course'.tr,
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
@@ -24,13 +24,11 @@ class PopularCoursesView extends StatelessWidget {
           if (controller.inProgress) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (controller.errorMessage != null) {
             return Center(
               child: Text(controller.errorMessage!),
             );
           }
-
           return controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.popularCourses.isEmpty
@@ -110,7 +108,7 @@ class PopularCoursesView extends StatelessWidget {
                     Row(
                       children: [
                         CustomText(
-                          text: "Price : ${course.price}",
+                          text: '${'price'.tr} : ${course.price}',
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: AppColors.themeColor,

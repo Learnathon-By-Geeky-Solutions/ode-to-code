@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
+import 'package:edu_bridge_app/utils/add_banner_form.dart';
 import 'package:edu_bridge_app/view_model/banner_controller.dart';
 
 class AddOfferSlider extends StatelessWidget {
@@ -13,7 +14,7 @@ class AddOfferSlider extends StatelessWidget {
       child: Stack(
         children: [
           Image.asset(AssetsPath.sliderCard),
-          const Positioned(
+          Positioned(
             left: 0,
             right: 0,
             top: 0,
@@ -23,9 +24,11 @@ class AddOfferSlider extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.add, color: AppColors.white),
+                  const Icon(Icons.add, color: AppColors.white),
                   CustomText(
-                      text: "Insert a 360x180 banner", color: Colors.white),
+                    text: 'insert_banner_instruction'.tr,
+                    color: Colors.white,
+                  ),
                 ],
               ),
             ),
@@ -37,7 +40,6 @@ class AddOfferSlider extends StatelessWidget {
 
   void showAddBanner(BuildContext context) {
     final TextEditingController bannerTitle = TextEditingController();
-
     Get.dialog(
       GetBuilder<BannerController>(
         builder: (controller) {
@@ -45,39 +47,15 @@ class AddOfferSlider extends StatelessWidget {
             title: const Text("Add Banner"),
             content: SizedBox(
               width: double.maxFinite,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: bannerTitle,
-                    decoration:
-                        const InputDecoration(hintText: "Enter banner name"),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      controller.pickBannerImage();
-                    },
-                    child: const Text("Add Image"),
-                  ),
-                  const SizedBox(height: 10),
-                  controller.bannerImage != null
-                      ? Image.file(
-                          controller.bannerImage!,
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        )
-                      : const Text('No image selected'),
-                ],
+              child: AddBannerForm(
+                bannerTitleController: bannerTitle,
+                controller: controller,
               ),
             ),
             actions: [
               TextButton(
                 onPressed: () async {
                   final bannerTitleText = bannerTitle.text.trim();
-                  // Ensure that the controller is being accessed correctly here.
-
                   if (bannerTitleText.isNotEmpty) {
                     final success = await controller.addBanner(bannerTitleText);
                     if (success) {
