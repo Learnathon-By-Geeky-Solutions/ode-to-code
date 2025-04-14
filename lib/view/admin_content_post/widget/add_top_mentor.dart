@@ -3,7 +3,6 @@ import 'package:edu_bridge_app/utils/add_mentor_dialog.dart';
 
 class AddTopMentor extends StatefulWidget {
   const AddTopMentor({super.key});
-
   @override
   State<AddTopMentor> createState() => _AddTopMentorState();
 }
@@ -18,17 +17,11 @@ class _AddTopMentorState extends State<AddTopMentor> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(
-                text: 'top_mentor'.tr,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              _buildCustomText('top_mentor'.tr),
               InkWell(
                 onTap: () {},
-                child: CustomText(
-                  text: 'see_all'.tr,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                child: _buildCustomText(
+                  'see_all'.tr,
                   color: AppColors.themeColor,
                 ),
               ),
@@ -42,6 +35,15 @@ class _AddTopMentorState extends State<AddTopMentor> {
           child: topMentor(),
         ),
       ],
+    );
+  }
+
+  Widget _buildCustomText(String text, {Color? color, double fontSize = 18}) {
+    return CustomText(
+      text: text,
+      fontWeight: FontWeight.bold,
+      fontSize: fontSize,
+      color: color ?? Colors.black,
     );
   }
 
@@ -70,12 +72,7 @@ class _AddTopMentorState extends State<AddTopMentor> {
             ),
           ],
         ),
-        CustomText(
-          text: 'add_mentor_name'.tr,
-          color: Colors.black,
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-        ),
+        _buildCustomText('add_mentor_name'.tr, fontSize: 12),
       ],
     );
   }
