@@ -24,13 +24,11 @@ class PopularCoursesView extends StatelessWidget {
           if (controller.inProgress) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (controller.errorMessage != null) {
             return Center(
               child: Text(controller.errorMessage!),
             );
           }
-
           return controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.popularCourses.isEmpty

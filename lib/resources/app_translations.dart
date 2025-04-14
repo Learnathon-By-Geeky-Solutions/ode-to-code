@@ -12,7 +12,6 @@ class AppTranslations extends Translations {
           'settings': 'Settings',
           'dark_mode': 'Dark Mode',
           'language': 'Language',
-
           // Course UI
           'popular_courses': 'Popular Courses',
           'add_course_details': 'Add Course Details',
@@ -25,13 +24,11 @@ class AppTranslations extends Translations {
           'add': 'Add',
           'error_fill_fields': 'Please fill all fields and add an image.',
           'price': 'Price',
-
           // Banner UI
           'add_banner': 'Add Banner',
           'enter_banner_name': 'Enter banner name',
           'add_image': 'Add Image',
           'no_image_selected': 'No image selected',
-
           // Mentor UI
           'top_mentor': 'Top Mentor',
           'add_mentor_name': 'Add Mentor Name',
@@ -39,7 +36,6 @@ class AppTranslations extends Translations {
           'designation_hint': 'Designation',
           'what_he_do_hint': 'What he do',
           'description_hint': 'Description',
-
           // English additions
           'label_name': 'Name',
           'label_designation': 'Designation',
@@ -47,7 +43,6 @@ class AppTranslations extends Translations {
           'label_description': 'Description',
           'user_email': 'User Email',
           'warning': 'Warning',
-
           // Other
           'popular_course': 'Popular Course',
           'see_all': 'SEE ALL',
@@ -65,7 +60,6 @@ class AppTranslations extends Translations {
           'settings': 'সেটিংস',
           'dark_mode': 'ডার্ক মোড',
           'language': 'ভাষা',
-
           // Course UI
           'popular_courses': 'জনপ্রিয় কোর্স',
           'add_course_details': 'কোর্সের বিস্তারিত যোগ করুন',
@@ -78,14 +72,12 @@ class AppTranslations extends Translations {
           'add': 'যোগ করুন',
           'error_fill_fields': 'সব ঘর পূরণ করুন এবং একটি ছবি যোগ করুন।',
           'price': 'মূল্য',
-
           // Banner UI
           'add_banner': 'ব্যানার যোগ করুন',
           'enter_banner_name': 'ব্যানারের নাম লিখুন',
           'add_image': 'ছবি যোগ করুন',
           'no_image_selected': 'কোনো ছবি নির্বাচন করা হয়নি',
           'insert_banner_instruction': '৩৬০x১৮০ ব্যানার দিন',
-
           // Mentor UI
           'top_mentor': 'শ্রেষ্ঠ মেন্টর',
           'add_mentor_name': 'মেন্টরের নাম যোগ করুন',
@@ -93,7 +85,6 @@ class AppTranslations extends Translations {
           'designation_hint': 'পদবী',
           'what_he_do_hint': 'তিনি কি করেন',
           'description_hint': 'বর্ণনা',
-
           // Bangla additions
           'label_name': 'নাম',
           'label_designation': 'পদবী',
@@ -101,7 +92,6 @@ class AppTranslations extends Translations {
           'label_description': 'বর্ণনা',
           'user_email': 'ইউজার ইমেইল',
           'warning': 'সতর্কতা',
-
           // Other
           'popular_course': 'জনপ্রিয় কোর্স',
           'see_all': 'সব দেখুন',

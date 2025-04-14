@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/resources/export.dart';
-import 'package:edu_bridge_app/view_model/popular_course_controller.dart';
+import 'package:edu_bridge_app/utils/add_course_dialouge.dart';
 
 class AddPopularCourse extends StatefulWidget {
   const AddPopularCourse({super.key});
@@ -37,7 +37,7 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
         ),
         InkWell(
           onTap: () {
-            showAddCourse();
+            Get.dialog(const AddCourseDialog());
           },
           child: courseCard(),
         ),
@@ -48,7 +48,7 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
   Widget courseCard() {
     return InkWell(
       onTap: () {
-        showAddCourse();
+        Get.dialog(const AddCourseDialog());
       },
       child: Card(
         color: AppColors.white,
@@ -62,27 +62,29 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
             Stack(
               children: [
                 Container(
-                    width: 280,
-                    height: 134,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                      ),
-                      color: Colors.black,
+                  width: 280,
+                  height: 134,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
                     ),
-                    child: const Icon(Icons.add,
-                        color: AppColors.white, size: 40)),
+                    color: Colors.black,
+                  ),
+                  child:
+                      const Icon(Icons.add, color: AppColors.white, size: 40),
+                ),
               ],
             ),
             Container(
               width: 280,
               height: 95,
               decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
-              )),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -121,92 +123,6 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void showAddCourse() {
-    final TextEditingController courseName = TextEditingController();
-    final TextEditingController coursePrice = TextEditingController();
-    final TextEditingController courseType = TextEditingController();
-
-    Get.dialog(
-      GetBuilder<PopularCourseController>(
-        builder: (controller) {
-          return AlertDialog(
-            title: const Text("Add Course Details"),
-            content: SizedBox(
-              width: double.maxFinite,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextField(
-                      controller: courseName,
-                      decoration:
-                          const InputDecoration(hintText: "Course Name"),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      controller: coursePrice,
-                      decoration:
-                          const InputDecoration(hintText: "Course price"),
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      controller: courseType,
-                      decoration:
-                          const InputDecoration(hintText: "Course type"),
-                    ),
-                    const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        controller.pickCourseImage();
-                      },
-                      child: const Text("Add Image"),
-                    ),
-                    const SizedBox(height: 10),
-                    controller.courseImage != null
-                        ? Image.file(
-                            controller.courseImage!,
-                            height: 80,
-                            width: 80,
-                            fit: BoxFit.cover,
-                          )
-                        : const Icon(Icons.image, size: 80, color: Colors.grey),
-                  ],
-                ),
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  final courseTitleText = courseName.text.trim();
-                  final coursePriceText = coursePrice.text.trim();
-                  final courseTypeText = courseType.text.trim();
-
-                  if (courseTitleText.isNotEmpty &&
-                      coursePriceText.isNotEmpty &&
-                      courseTypeText.isNotEmpty &&
-                      controller.courseImage != null) {
-                    final success = await controller.addPopularCourse(
-                      courseTitleText,
-                      coursePriceText,
-                      courseTypeText,
-                    );
-                    if (success) {
-                      Get.back();
-                    }
-                  } else {
-                    Get.snackbar(
-                        "Error", "Please fill all fields and add an image.");
-                  }
-                },
-                child: const Text("Add"),
-              ),
-            ],
-          );
-        },
       ),
     );
   }
