@@ -26,7 +26,11 @@ class AddBannerForm extends StatelessWidget {
           onPressed: () {
             controller.pickBannerImage();
           },
-          child: const Text("Add Image"),
+          child: CustomText(
+            text: 'add_image'.tr,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
         const SizedBox(height: 10),
         controller.bannerImage != null
@@ -36,7 +40,7 @@ class AddBannerForm extends StatelessWidget {
                 width: 80,
                 fit: BoxFit.cover,
               )
-            : const Text('No image selected'),
+            : CustomText(text: 'no_image_selected'.tr),
       ],
     );
   }

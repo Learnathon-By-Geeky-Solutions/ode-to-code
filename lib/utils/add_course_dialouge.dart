@@ -14,7 +14,7 @@ class AddCourseDialog extends StatelessWidget {
     return GetBuilder<PopularCourseController>(
       builder: (controller) {
         return AlertDialog(
-          title: const Text("Add Course Details"),
+          title: CustomText(text: 'add_course_details'.tr),
           content: SizedBox(
             width: double.maxFinite,
             child: SingleChildScrollView(
@@ -23,24 +23,28 @@ class AddCourseDialog extends StatelessWidget {
                 children: [
                   CustomTextFormField(
                     controller: courseName,
-                    labelText: "Course Name",
+                    labelText: 'course_name_hint'.tr,
                   ),
                   const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: coursePrice,
-                    labelText: "Course Price",
+                    labelText: 'course_price_hint'.tr,
                   ),
                   const SizedBox(height: 10),
                   CustomTextFormField(
                     controller: courseType,
-                    labelText: "Course Type",
+                    labelText: 'course_type_hint'.tr,
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
                       controller.pickCourseImage();
                     },
-                    child: const Text("Add Image"),
+                    child: CustomText(
+                      text: 'add_image'.tr,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   controller.courseImage != null
@@ -82,7 +86,7 @@ class AddCourseDialog extends StatelessWidget {
                       "Error", "Please fill all fields and add an image.");
                 }
               },
-              child: const Text("Add"),
+              child: Text('add'.tr),
             ),
           ],
         );

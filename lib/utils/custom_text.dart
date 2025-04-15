@@ -19,9 +19,9 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: customStyle ??
+    return CustomText(
+      text: text,
+      customStyle: customStyle ??
           GoogleFonts.jost(
             fontWeight: fontWeight,
             fontSize: fontSize,

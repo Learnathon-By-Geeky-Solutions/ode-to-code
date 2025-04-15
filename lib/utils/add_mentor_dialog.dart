@@ -14,7 +14,7 @@ class AddMentorDialog extends StatelessWidget {
 
     return GetBuilder<MentorController>(builder: (controller) {
       return AlertDialog(
-        title: const Text("Add Mentor Information"),
+        title: CustomText(text: 'add_mentor_info'.tr),
         content: SizedBox(
           width: double.maxFinite,
           child: SingleChildScrollView(
@@ -23,29 +23,29 @@ class AddMentorDialog extends StatelessWidget {
               children: [
                 CustomTextFormField(
                   controller: name,
-                  labelText: "Name",
+                  labelText: 'label_name'.tr,
                 ),
                 const SizedBox(height: 10),
                 CustomTextFormField(
                   controller: designation,
-                  labelText: "Designation",
+                  labelText: 'label_designation'.tr,
                 ),
                 const SizedBox(height: 10),
                 CustomTextFormField(
                   controller: whatHeDo,
-                  labelText: "What he do",
+                  labelText: 'label_what_he_do'.tr,
                 ),
                 const SizedBox(height: 10),
                 CustomTextFormField(
                   controller: description,
-                  labelText: "Description",
+                  labelText: 'label_description'.tr,
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
                     controller.pickMentorImage();
                   },
-                  child: const Text("Add Image"),
+                  child: CustomText(text: 'add_image'.tr),
                 ),
                 const SizedBox(height: 10),
                 controller.mentorImage != null
@@ -55,7 +55,7 @@ class AddMentorDialog extends StatelessWidget {
                         width: 80,
                         fit: BoxFit.cover,
                       )
-                    : const Text('No image selected'),
+                    : CustomText(text: 'no_image_selected'.tr),
               ],
             ),
           ),
@@ -88,7 +88,7 @@ class AddMentorDialog extends StatelessWidget {
                 Get.snackbar("Warning", "Please fill in all fields.");
               }
             },
-            child: const Text("Add"),
+            child: CustomText(text: 'add'.tr),
           ),
         ],
       );

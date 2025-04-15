@@ -20,8 +20,8 @@ class TopMentorSection extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CustomText(
-                  text: "Top Mentor",
+                CustomText(
+                  text: 'top_mentor'.tr,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -29,8 +29,8 @@ class TopMentorSection extends StatelessWidget {
                   onTap: () {
                     Get.to(() => const TopMentorsView());
                   },
-                  child: const CustomText(
-                    text: "SEE ALL",
+                  child: CustomText(
+                    text: 'see_all'.tr,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: AppColors.themeColor,

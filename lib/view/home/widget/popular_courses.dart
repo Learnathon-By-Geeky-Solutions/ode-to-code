@@ -24,8 +24,8 @@ class PopularCourses extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CustomText(
-                  text: "Popular Course",
+                CustomText(
+                  text: 'popular_courses'.tr,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -33,8 +33,8 @@ class PopularCourses extends StatelessWidget {
                   onTap: () {
                     Get.to(() => PopularCoursesView());
                   },
-                  child: const CustomText(
-                    text: "SEE ALL",
+                  child: CustomText(
+                    text: 'see_all'.tr,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: AppColors.themeColor,
@@ -143,7 +143,7 @@ class PopularCourses extends StatelessWidget {
                     children: [
                       CustomText(
                         text:
-                            "Price : ${controller.popularCourses[index].price}",
+                            "${'price'.tr} : ${controller.popularCourses[index].price}",
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                         color: AppColors.themeColor,
