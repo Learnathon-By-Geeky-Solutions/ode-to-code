@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/app_colors.dart';
+import 'package:edu_bridge_app/resources/export.dart';
 import 'package:flutter/material.dart';
 
 class IntroView2 extends StatelessWidget {
@@ -14,13 +15,13 @@ class IntroView2 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Learn and Share",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              CustomText(
+                text: 'learn_and_share'.tr,
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
               ),
-              Text(
-                'Learn, Teach, and Inspire Together, We Create Change!',
-                textAlign: TextAlign.center,
+              CustomText(
+                text: 'learn_teach_inspire'.tr,
               ),
             ],
           ),

@@ -41,7 +41,7 @@ class _ClassViewState extends State<ClassView> {
             return controller.inProgress
                 ? const Center(child: CircularProgressIndicator())
                 : controller.classes.isEmpty
-                    ? const Center(child: Text("No content available"))
+                    ? CustomText(text: 'no_content_available'.tr)
                     : GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -90,7 +90,7 @@ class _ClassViewState extends State<ClassView> {
       GetBuilder<ClassController>(
         builder: (controller) {
           return AlertDialog(
-            title: const Text("Add Class"),
+            title: CustomText(text: 'add_class'.tr),
             content: SizedBox(
               width: double.maxFinite,
               child: Column(
@@ -98,13 +98,14 @@ class _ClassViewState extends State<ClassView> {
                 children: [
                   TextField(
                     controller: classNameController,
-                    decoration:
-                        const InputDecoration(hintText: "Enter Class Name"),
+                    decoration: InputDecoration(
+                      hintText: 'enter_class_name'.tr,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: controller.pickClassImage,
-                    child: const Text("Add Image"),
+                    child: CustomText(text: 'add_image'.tr),
                   ),
                   const SizedBox(height: 10),
                   if (controller.classImage != null)
@@ -133,13 +134,13 @@ class _ClassViewState extends State<ClassView> {
                     Get.snackbar("Error", "Class name cannot be empty");
                   }
                 },
-                child: const Text("Add"),
+                child: CustomText(text: 'add'.tr),
               ),
               TextButton(
                 onPressed: () {
                   Get.back();
                 },
-                child: const Text("Cancel"),
+                child: CustomText(text: 'add'.tr),
               ),
             ],
           );

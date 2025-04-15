@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:edu_bridge_app/user_main.dart' as app;
+import 'package:edu_bridge_app/main.dart' as app;
 
 // Create a mock class for SharedPreferences
 class MockSharedPreferences extends Mock implements SharedPreferences {}

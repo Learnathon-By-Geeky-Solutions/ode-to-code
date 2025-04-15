@@ -83,7 +83,7 @@ class _CategoriesViewState extends State<CategoriesView> {
       GetBuilder<CategoryController>(
         builder: (controller) {
           return AlertDialog(
-            title: const Text("Add Categories"),
+            title: CustomText(text: 'add_categories'.tr),
             content: SizedBox(
               width: double.maxFinite,
               child: Column(
@@ -97,7 +97,7 @@ class _CategoriesViewState extends State<CategoriesView> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: controller.pickCategoryImage,
-                    child: const Text("Add Image"),
+                    child: CustomText(text: 'add_image'.tr),
                   ),
                   const SizedBox(height: 10),
                   if (controller.categoryImage != null)
@@ -119,7 +119,7 @@ class _CategoriesViewState extends State<CategoriesView> {
                     Get.back();
                   }
                 },
-                child: const Text("Add"),
+                child: CustomText(text: 'add'.tr),
               ),
             ],
           );

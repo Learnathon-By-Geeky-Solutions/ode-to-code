@@ -1,3 +1,4 @@
+import 'package:edu_bridge_app/resources/export.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -138,15 +139,15 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: const Text('Add'),
+                        child: CustomText(text: 'add'.tr),
                       ),
                     ],
                   ),
                   const SizedBox(height: 15),
                   Expanded(
                     child: _notes.isEmpty
-                        ? const Center(
-                            child: Text('No notes yet. Add one above!'),
+                        ? Center(
+                            child: CustomText(text: 'no_notes_yet'.tr),
                           )
                         : ListView.separated(
                             itemCount: _notes.length,

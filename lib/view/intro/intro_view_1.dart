@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/app_colors.dart';
+import 'package:edu_bridge_app/resources/export.dart';
 import 'package:flutter/material.dart';
 
 class IntroView1 extends StatelessWidget {
@@ -14,13 +15,13 @@ class IntroView1 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Education For Everyone",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              CustomText(
+                text: 'education_for_everyone'.tr,
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
               ),
-              Text(
-                'Empowering Minds, Building a Better Bangladesh\nLearn for Free!',
-                textAlign: TextAlign.center,
+              CustomText(
+                text: 'empowering_minds'.tr,
               ),
             ],
           ),

@@ -65,7 +65,7 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
                   showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: Text('Select Language'),
+                      title: CustomText(text: 'select_language'.tr),
                       content: const LanguageSwitch(),
                     ),
                   );
@@ -78,7 +78,7 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
                   showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: Text('Toggle Theme'),
+                      title: CustomText(text: 'toggle_theme'.tr),
                       content: const ThemeSwitch(),
                     ),
                   );
@@ -149,17 +149,18 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
 
           if (controller.errorMessage != null) {
             return Center(
-              child: Text(
-                controller.errorMessage!,
-                style: const TextStyle(color: Colors.red, fontSize: 16),
+              child: CustomText(
+                text: controller.errorMessage!,
+                customStyle: const TextStyle(color: Colors.red, fontSize: 16),
               ),
             );
           }
 
-          return const Center(
-            child: Text(
-              'No user profile found.',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+          return Center(
+            child: CustomText(
+              text: 'no_user_profile_found'.tr,
+              color: Colors.grey,
+              fontSize: 16,
             ),
           );
         },

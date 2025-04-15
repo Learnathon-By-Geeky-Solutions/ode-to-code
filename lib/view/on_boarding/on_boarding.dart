@@ -35,7 +35,7 @@ class OnBoarding extends StatelessWidget {
                       onTap: controller.skipToLastPage,
                       child: controller.onLastPage
                           ? const Text(" ")
-                          : const Text("Skip"),
+                          : CustomText(text: 'skip'.tr),
                     ),
                     SmoothPageIndicator(
                       controller: controller.controller,
@@ -53,11 +53,11 @@ class OnBoarding extends StatelessWidget {
                               backgroundColor: AppColors.themeColor,
                               foregroundColor: Colors.white,
                             ),
-                            child: const Text("Get Started"),
+                            child: CustomText(text: 'get_started'.tr),
                           )
                         : GestureDetector(
                             onTap: controller.nextPage,
-                            child: const Text("Next"),
+                            child: CustomText(text: 'next'.tr),
                           ),
                   ],
                 ),

@@ -45,6 +45,8 @@ class AppTranslations extends Translations {
           'user_email': 'User Email',
           'warning': 'Warning',
           // Other
+          'add_class': 'Add Class',
+          'enter_class_name': 'Enter Class Name',
           'fill_your_profile': 'Fill Your Profile',
           'your_profile': 'Your Profile',
           'popular_course': 'Popular Course',
@@ -56,11 +58,29 @@ class AppTranslations extends Translations {
           'no_content_available': 'No content available',
           'add_pin_number_security':
               'Add a Pin Number to Make Your Account\n more Secure',
+          'add_new_chapter': 'Add New Chapter',
+          'enter_chapter_name': 'Enter Chapter Name',
+          'add_subject_name': 'Add Subject Name',
+          'no_notes_yet': 'No notes yet. Add one above!',
+          'no_banners_available': 'No banners available',
+          'skip': 'Skip',
+          'get_started': 'Get Started',
+          'next': 'Next',
+          'select_language': 'Select Language',
+          'toggle_theme': 'Toggle Theme',
+          'education_for_everyone': 'Education For Everyone',
+          'empowering_minds':
+              'Empowering Minds, Building a Better Bangladesh\nLearn for Free!',
+          'learn_and_share': 'Learn and Share',
+          'learn_teach_inspire':
+              'Learn, Teach, and Inspire Together, We Create Change!',
+          'transform_the_future': 'Transform the Future',
+          'knowledge_our_progress':
+              'Your Knowledge, Our Progress Shaping a New Bangladesh!',
         },
         'bn': {
           'add_pin_number_security':
               'আপনার অ্যাকাউন্টকে আরও নিরাপদ করতে একটি পিন নম্বর যোগ করুন',
-
           'appTitle': 'এডু ব্রিজ',
           'welcome': 'স্বাগতম!',
           'signIn': 'সাইন ইন',
@@ -83,7 +103,6 @@ class AppTranslations extends Translations {
           'error_fill_fields': 'সব ঘর পূরণ করুন এবং একটি ছবি যোগ করুন।',
           'price': 'মূল্য',
           'add_image': 'ছবি যোগ করুন',
-
           // Banner UI
           'add_banner': 'ব্যানার যোগ করুন',
           'enter_banner_name': 'ব্যানারের নাম লিখুন',
@@ -104,8 +123,10 @@ class AppTranslations extends Translations {
           'user_email': 'ইউজার ইমেইল',
           'warning': 'সতর্কতা',
           // Other
-          'fill_your_profile': 'আপনার প্রোফাইল পূরণ করুন',
 
+          'add_class': 'ক্লাস যোগ করুন',
+          'enter_class_name': 'ক্লাসের নাম লিখুন',
+          'fill_your_profile': 'আপনার প্রোফাইল পূরণ করুন',
           'popular_course': 'জনপ্রিয় কোর্স',
           'see_all': 'সব দেখুন',
           'forget_password': 'পাসওয়ার্ড ভুলে গেছেন',
@@ -114,6 +135,26 @@ class AppTranslations extends Translations {
           'search_prompt': 'আজ আপনি কী শিখতে চান?\nনীচে অনুসন্ধান করুন',
           'your_profile': 'তোমার প্রোফাইল',
           'no_content_available': 'কোনো কনটেন্ট উপলব্ধ নেই',
+          'add_new_chapter': 'নতুন অধ্যায় যোগ করুন',
+          'enter_chapter_name': 'অধ্যায়ের নাম লিখুন',
+          'add_subject_name': 'বিষয়ের নাম যোগ করুন',
+          'no_notes_yet': 'এখনও কোনো নোট নেই। উপরের দিকে একটি যোগ করুন!',
+          'no_banners_available': 'কোনো ব্যানার উপলব্ধ নেই',
+          'skip': 'এড়িয়ে যান',
+          'get_started': 'শুরু করুন',
+          'next': 'পরবর্তী',
+          'select_language': 'ভাষা নির্বাচন করুন',
+          'toggle_theme': 'থিম পরিবর্তন করুন',
+          'sign_out': 'সাইন আউট',
+          'education_for_everyone': 'সবাই জন্য শিক্ষা',
+          'empowering_minds':
+              'মনের শক্তি, একটি উন্নত বাংলাদেশের নির্মাণ\nফ্রি শিখুন!',
+          'learn_and_share': 'শিখুন এবং শেয়ার করুন',
+          'learn_teach_inspire':
+              'শিখুন, শেখান, এবং একসাথে অনুপ্রাণিত করুন, আমরা পরিবর্তন সৃষ্টি করি!',
+          'transform_the_future': 'ভবিষ্যত রূপান্তর করুন',
+          'knowledge_our_progress':
+              'আপনার জ্ঞান, আমাদের অগ্রগতি, একটি নতুন বাংলাদেশের জন্য আকার!',
         },
       };
 }

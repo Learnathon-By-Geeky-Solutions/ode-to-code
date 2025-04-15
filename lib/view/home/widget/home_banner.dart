@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:edu_bridge_app/resources/app_colors.dart';
+import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/user_app.dart';
 import 'package:edu_bridge_app/view_model/banner_controller.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,9 @@ class _HomeBannerState extends State<HomeBanner> {
         }
 
         if (controller.banners.isEmpty) {
-          return const Center(child: Text("No banners available"));
+          return Center(
+            child: CustomText(text: 'no_banners_available'.tr),
+          );
         }
 
         return Column(

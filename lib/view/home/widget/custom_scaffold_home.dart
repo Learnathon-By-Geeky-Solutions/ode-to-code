@@ -86,14 +86,14 @@ class CustomScaffoldHome extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: Text('your_profile'.tr),
+            title: CustomText(text: 'your_profile'.tr),
             onTap: () {
               Get.to(() => const FetchUserProfileView());
             },
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: Text('signOut'.tr),
+            title: CustomText(text: 'sign_out'.tr),
             onTap: () async {
               final supabase = Supabase.instance.client;
               await supabase.auth.signOut();

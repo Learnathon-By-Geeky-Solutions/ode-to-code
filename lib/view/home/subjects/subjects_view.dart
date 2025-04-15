@@ -35,7 +35,7 @@ class _SubjectsViewState extends State<SubjectsView> {
           return controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.subjects.isEmpty
-                  ? const Center(child: Text("No content available"))
+                  ? Center(child: CustomText(text: 'no_content_available'.tr))
                   : GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -111,7 +111,7 @@ class _SubjectsViewState extends State<SubjectsView> {
       GetBuilder<SubjectController>(
         builder: (controller) {
           return AlertDialog(
-            title: const Text("Add Subject Name"),
+            title: CustomText(text: 'add_subject_name'.tr),
             content: SizedBox(
               width: double.maxFinite,
               child: Column(
@@ -125,7 +125,7 @@ class _SubjectsViewState extends State<SubjectsView> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: controller.pickSubjectImage,
-                    child: const Text("Add Image"),
+                    child: CustomText(text: 'add_image'.tr),
                   ),
                   const SizedBox(height: 10),
                   if (controller.subjectImage != null)
@@ -158,13 +158,13 @@ class _SubjectsViewState extends State<SubjectsView> {
                     Get.snackbar("Error", "Class name cannot be empty");
                   }
                 },
-                child: const Text("Add"),
+                child: CustomText(text: 'add'.tr),
               ),
               TextButton(
                 onPressed: () {
                   Get.back();
                 },
-                child: const Text("Cancel"),
+                child: CustomText(text: 'cancel'.tr),
               ),
             ],
           );
