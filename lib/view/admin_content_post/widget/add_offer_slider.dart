@@ -44,7 +44,7 @@ class AddOfferSlider extends StatelessWidget {
       GetBuilder<BannerController>(
         builder: (controller) {
           return AlertDialog(
-            title: const Text("Add Banner"),
+            title: CustomText(text: "add_banner".tr),
             content: SizedBox(
               width: double.maxFinite,
               child: AddBannerForm(
@@ -63,7 +63,7 @@ class AddOfferSlider extends StatelessWidget {
                     }
                   }
                 },
-                child: const Text("Add"),
+                child: CustomText(text: "add".tr),
               ),
             ],
           );

@@ -15,7 +15,7 @@ class _TopMentorsViewState extends State<TopMentorsView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      name: "Top Mentors",
+      name: 'top_mentor'.tr,
       body: GetBuilder<MentorController>(
         init: MentorController(),
         builder: (controller) {

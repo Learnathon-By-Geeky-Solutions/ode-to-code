@@ -22,8 +22,8 @@ class CategoriesSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CustomText(
-            text: "Categories",
+          CustomText(
+            text: 'categories'.tr,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -31,8 +31,8 @@ class CategoriesSection extends StatelessWidget {
             onTap: () {
               Get.to(() => const CategoriesView());
             },
-            child: const CustomText(
-              text: "SEE ALL",
+            child: CustomText(
+              text: 'see_all'.tr,
               fontWeight: FontWeight.bold,
               fontSize: 18,
               color: AppColors.themeColor,

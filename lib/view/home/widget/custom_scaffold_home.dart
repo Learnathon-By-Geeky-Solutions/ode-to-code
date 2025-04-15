@@ -34,17 +34,15 @@ class CustomScaffoldHome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
-                  text: name ?? "Hi there!",
+                  text: name ?? 'hi_there'.tr,
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                 ),
-                Text(
-                  "What would you like to learn today? \nSearch below",
-                  style: GoogleFonts.mulish(
-                    color: AppColors.blackGray,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
+                CustomText(
+                  text: 'search_prompt'.tr,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackGray,
                 ),
               ],
             ),
@@ -73,7 +71,7 @@ class CustomScaffoldHome extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomText(
-                  text: name ?? "User Email",
+                  text: name ?? 'user_email'.tr,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.blackGray,
@@ -88,14 +86,14 @@ class CustomScaffoldHome extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text("Your Profile"),
+            title: Text('your_profile'.tr),
             onTap: () {
               Get.to(() => const FetchUserProfileView());
             },
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: const Text("Sign Out"),
+            title: Text('signOut'.tr),
             onTap: () async {
               final supabase = Supabase.instance.client;
               await supabase.auth.signOut();

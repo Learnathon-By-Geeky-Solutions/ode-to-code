@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/app_colors.dart';
+import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/utils/custom_button.dart';
 import 'package:edu_bridge_app/utils/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,10 @@ class _FillProfileViewState extends State<FillProfileView> {
       backgroundColor: AppColors.bg,
       appBar: AppBar(
           backgroundColor: AppColors.bg,
-          title: const Text(
-            "Fill Your Profile",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: CustomText(
+            text: "fill_your_profile".tr,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
           )),
       body: Padding(
         padding: const EdgeInsets.all(35.0),

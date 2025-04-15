@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/utils/custom_spacing.dart';
-import 'package:flutter/material.dart';
 import 'package:edu_bridge_app/utils/custom_scaffold.dart';
 import 'package:edu_bridge_app/resources/export.dart';
 
@@ -21,7 +20,7 @@ class TopMentorDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      name: 'Your Profile',
+      name: 'your_profile'.tr,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
@@ -45,28 +44,29 @@ class TopMentorDetailsView extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundImage: image.trim().isNotEmpty
                       ? NetworkImage(image)
-                      : const AssetImage('assets/images/default_avatar.png'),
+                      : const AssetImage('assets/images/default_avatar.png')
+                          as ImageProvider,
                 ),
               ),
               const SizedBox(height: 12),
               CustomText(
-                text: "Name : $name",
+                text: "${'label_name'.tr} : $name",
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
               VerticalSpacing(1.h),
               CustomText(
-                text: "Designation : $designation",
+                text: "${'label_designation'.tr} : $designation",
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
               VerticalSpacing(1.h),
               CustomText(
-                text: "What He Do : $whatHeDo",
+                text: "${'label_what_he_do'.tr} : $whatHeDo",
               ),
               VerticalSpacing(1.h),
               CustomText(
-                text: "Description : $description",
+                text: "${'label_description'.tr} : $description",
               ),
             ],
           ),

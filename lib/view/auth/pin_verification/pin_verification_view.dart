@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/resources/app_colors.dart';
+import 'package:edu_bridge_app/resources/export.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -21,9 +22,8 @@ class _PinVerificationViewState extends State<PinVerificationView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Text(
-                'Add a Pin Number to Make Your Account\n more Secure',
-                textAlign: TextAlign.center,
+              child: CustomText(
+                text: 'add_pin_number_security'.tr,
               ),
             ),
             PinCodeTextField(
@@ -58,7 +58,13 @@ class _PinVerificationViewState extends State<PinVerificationView> {
                   foregroundColor: Colors.white),
               child: Row(
                 children: [
-                  Expanded(child: Center(child: Text("Continue"))),
+                  const Expanded(
+                    child: Center(
+                      child: CustomText(
+                        text: "Continue",
+                      ),
+                    ),
+                  ),
                   Container(
                     width: 48,
                     height: 48,

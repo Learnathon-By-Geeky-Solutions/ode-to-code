@@ -63,7 +63,7 @@ class _ReusableContentViewState extends State<ReusableContentView> {
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : contents.isEmpty
-              ? const Center(child: Text("No content available"))
+              ? Center(child: CustomText(text: "no_content_available".tr))
               : ListView.builder(
                   itemCount: contents.length,
                   itemBuilder: (context, index) {

@@ -24,11 +24,11 @@ class CustomTextButton extends StatelessWidget {
               children: [
                 Icon(icon),
                 HorizontalSpacing(3.w),
-                Text(title),
+                CustomText(text: title)
               ],
             ),
           ),
-          Row(
+          const Row(
             children: [
               Icon(Icons.arrow_forward_ios),
             ],

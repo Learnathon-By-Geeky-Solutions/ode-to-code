@@ -7,6 +7,7 @@ class AppTranslations extends Translations {
           'appTitle': 'EduBridge',
           'welcome': 'Welcome!',
           'signIn': 'Sign In',
+          'signOut': 'Sign Out',
           'profile': 'Profile',
           'home': 'Home',
           'settings': 'Settings',
@@ -19,15 +20,15 @@ class AppTranslations extends Translations {
           'add_course_title': 'Add Course Title',
           'add_price': 'Add Price',
           'course_name_hint': 'Course Name',
-          'course_price_hint': 'Course price',
-          'course_type_hint': 'Course type',
+          'course_price_hint': 'Course Price',
+          'course_type_hint': 'Course Type',
+          'add_image': 'Add Image',
           'add': 'Add',
           'error_fill_fields': 'Please fill all fields and add an image.',
           'price': 'Price',
           // Banner UI
           'add_banner': 'Add Banner',
           'enter_banner_name': 'Enter banner name',
-          'add_image': 'Add Image',
           'no_image_selected': 'No image selected',
           // Mentor UI
           'top_mentor': 'Top Mentor',
@@ -44,17 +45,26 @@ class AppTranslations extends Translations {
           'user_email': 'User Email',
           'warning': 'Warning',
           // Other
+          'fill_your_profile': 'Fill Your Profile',
+          'your_profile': 'Your Profile',
           'popular_course': 'Popular Course',
           'see_all': 'SEE ALL',
           'forget_password': 'Forget Password',
           'categories': 'Categories',
           'hi_there': 'Hi there!',
           'search_prompt': 'What would you like to learn today? \nSearch below',
+          'no_content_available': 'No content available',
+          'add_pin_number_security':
+              'Add a Pin Number to Make Your Account\n more Secure',
         },
         'bn': {
+          'add_pin_number_security':
+              'আপনার অ্যাকাউন্টকে আরও নিরাপদ করতে একটি পিন নম্বর যোগ করুন',
+
           'appTitle': 'এডু ব্রিজ',
           'welcome': 'স্বাগতম!',
           'signIn': 'সাইন ইন',
+          'signOut': 'সাইন আউট',
           'profile': 'প্রোফাইল',
           'home': 'হোম',
           'settings': 'সেটিংস',
@@ -72,10 +82,11 @@ class AppTranslations extends Translations {
           'add': 'যোগ করুন',
           'error_fill_fields': 'সব ঘর পূরণ করুন এবং একটি ছবি যোগ করুন।',
           'price': 'মূল্য',
+          'add_image': 'ছবি যোগ করুন',
+
           // Banner UI
           'add_banner': 'ব্যানার যোগ করুন',
           'enter_banner_name': 'ব্যানারের নাম লিখুন',
-          'add_image': 'ছবি যোগ করুন',
           'no_image_selected': 'কোনো ছবি নির্বাচন করা হয়নি',
           'insert_banner_instruction': '৩৬০x১৮০ ব্যানার দিন',
           // Mentor UI
@@ -85,20 +96,24 @@ class AppTranslations extends Translations {
           'designation_hint': 'পদবী',
           'what_he_do_hint': 'তিনি কি করেন',
           'description_hint': 'বর্ণনা',
-          // Bangla additions
           'label_name': 'নাম',
           'label_designation': 'পদবী',
           'label_what_he_do': 'তিনি যা করেন',
           'label_description': 'বর্ণনা',
+          // Bangla additions
           'user_email': 'ইউজার ইমেইল',
           'warning': 'সতর্কতা',
           // Other
+          'fill_your_profile': 'আপনার প্রোফাইল পূরণ করুন',
+
           'popular_course': 'জনপ্রিয় কোর্স',
           'see_all': 'সব দেখুন',
           'forget_password': 'পাসওয়ার্ড ভুলে গেছেন',
           'categories': 'বিভাগসমূহ',
           'hi_there': 'হ্যালো!',
           'search_prompt': 'আজ আপনি কী শিখতে চান?\nনীচে অনুসন্ধান করুন',
+          'your_profile': 'তোমার প্রোফাইল',
+          'no_content_available': 'কোনো কনটেন্ট উপলব্ধ নেই',
         },
       };
 }
