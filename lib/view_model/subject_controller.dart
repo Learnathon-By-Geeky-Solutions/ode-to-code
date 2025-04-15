@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/subject_model.dart';
-import 'package:edu_bridge_app/data/repositories/subjects_repository.dart';
+import 'package:edu_bridge_app/data/repositories/subjects/i_subjects_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 
 class SubjectController extends GetxController {
-  final SubjectRepository _repository = SubjectRepository();
+  final ISubjectRepository _repository;
+
+  SubjectController({required ISubjectRepository repository})
+      : _repository = repository;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;

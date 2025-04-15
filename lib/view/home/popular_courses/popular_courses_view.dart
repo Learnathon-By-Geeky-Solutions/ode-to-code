@@ -1,4 +1,6 @@
 import 'package:edu_bridge_app/data/models/popular_course_model.dart';
+import 'package:edu_bridge_app/data/repositories/popular_course/popular_courses_repository.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/view_model/popular_course_controller.dart';
 import 'package:get/get.dart'; // Ensure Get is imported
@@ -19,7 +21,9 @@ class PopularCoursesView extends StatelessWidget {
         ),
       ),
       body: GetBuilder<PopularCourseController>(
-        init: PopularCourseController(),
+        init: PopularCourseController(
+            repository:
+                PopularCourseRepository(networkCaller: NetworkCaller())),
         builder: (controller) {
           if (controller.inProgress) {
             return const Center(child: CircularProgressIndicator());

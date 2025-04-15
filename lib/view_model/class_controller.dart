@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/class_model.dart';
-import 'package:edu_bridge_app/data/repositories/classes_repository.dart';
+import 'package:edu_bridge_app/data/repositories/classes/i_classes_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 
 class ClassController extends GetxController {
-  final ClassRepository _repository = ClassRepository();
+  final IClassRepository _repository;
+  ClassController({required IClassRepository repository})
+      : _repository = repository;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;

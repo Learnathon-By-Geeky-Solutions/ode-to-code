@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/popular_course_model.dart';
+import 'package:edu_bridge_app/data/repositories/popular_course/i_popular_course_repository.dart';
+import 'package:edu_bridge_app/data/service/i_network_caller.dart';
 import 'package:edu_bridge_app/data/service/network_caller.dart';
 
-class PopularCourseRepository {
-  final NetworkCaller _networkCaller;
-
-  PopularCourseRepository({NetworkCaller? networkCaller})
-      : _networkCaller = networkCaller ?? NetworkCaller();
+class PopularCourseRepository extends IPopularCourseRepository {
+  PopularCourseRepository({required INetworkCaller networkCaller});
+  final NetworkCaller _networkCaller = NetworkCaller();
 
   Future<String?> uploadCourseImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';

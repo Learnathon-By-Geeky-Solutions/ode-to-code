@@ -13,7 +13,7 @@ class SubjectsView extends StatefulWidget {
 }
 
 class _SubjectsViewState extends State<SubjectsView> {
-  final SubjectController _controller = Get.put(SubjectController());
+  final SubjectController _controller = Get.find();
 
   @override
   void initState() {

@@ -1,9 +1,12 @@
-import 'package:edu_bridge_app/data/repositories/chapters_repository.dart';
+import 'package:edu_bridge_app/data/repositories/chapters/chapters_repository.dart';
+import 'package:edu_bridge_app/data/repositories/chapters/i_chapters_repository.dart';
 import 'package:get/get.dart';
 import 'package:edu_bridge_app/data/models/chapter_model.dart';
 
 class ChapterController extends GetxController {
-  final ChapterRepository _repository = ChapterRepository();
+  final IChapterRepository _repository;
+  ChapterController({required IChapterRepository repository})
+      : _repository = repository;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;

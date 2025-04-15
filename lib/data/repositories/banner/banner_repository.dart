@@ -1,11 +1,15 @@
 import 'dart:io';
 
 import 'package:edu_bridge_app/data/models/banner_model.dart';
+import 'package:edu_bridge_app/data/repositories/banner/i_banner_repository.dart';
+import 'package:edu_bridge_app/data/service/i_network_caller.dart';
 import 'package:edu_bridge_app/data/service/network_caller.dart';
 
-class BannerRepository {
+class BannerRepository extends IBannerRepository {
+  BannerRepository({required INetworkCaller networkCaller});
   final NetworkCaller _networkCaller = NetworkCaller();
 
+  @override
   Future<String?> uploadBannerImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'banners/$fileName';

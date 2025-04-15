@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/class_model.dart';
+import 'package:edu_bridge_app/data/repositories/classes/i_classes_repository.dart';
+import 'package:edu_bridge_app/data/service/i_network_caller.dart';
 import 'package:edu_bridge_app/data/service/network_caller.dart';
 
-class ClassRepository {
-  final NetworkCaller _networkCaller = NetworkCaller();
+class ClassRepository extends IClassRepository {
+  ClassRepository({required INetworkCaller networkCaller});
 
+  final NetworkCaller _networkCaller = NetworkCaller();
   Future<String?> uploadClassImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'class_images/$fileName';

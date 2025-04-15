@@ -1,7 +1,8 @@
+import 'package:edu_bridge_app/data/service/i_network_caller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:logger/logger.dart';
 
-class NetworkCaller {
+class NetworkCaller extends INetworkCaller {
   final SupabaseClient _supabase;
   final Logger _logger;
 
@@ -9,6 +10,7 @@ class NetworkCaller {
       : _supabase = client ?? Supabase.instance.client,
         _logger = logger ?? Logger();
 
+  @override
   Future<ApiResponse> getRequest({
     required String tableName,
     Map<String, dynamic>? queryParams,
@@ -61,6 +63,7 @@ class NetworkCaller {
     }
   }
 
+  @override
   Future<ApiResponse> postRequest({
     required String tableName,
     required Map<String, dynamic> data,
@@ -87,6 +90,7 @@ class NetworkCaller {
     }
   }
 
+  @override
   Future<ApiResponse> uploadFile({
     required String bucketName,
     required String filePath,
@@ -117,6 +121,7 @@ class NetworkCaller {
   }
 
 // Add similar methods for PUT, DELETE, etc. with logging
+  @override
   Future<ApiResponse> deleteRequest({
     required String tableName,
     Map<String, dynamic>? queryParams,
@@ -150,10 +155,12 @@ class NetworkCaller {
     }
   }
 
+  @override
   String? getCurrentUserId() {
     return _supabase.auth.currentUser?.id;
   }
 
+  @override
   Future<ApiResponse> saveUserCourse({
     required String userId,
     required String courseId,

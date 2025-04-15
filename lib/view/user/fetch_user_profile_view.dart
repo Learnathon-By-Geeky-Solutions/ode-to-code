@@ -49,17 +49,17 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
 
             final List<Map<String, dynamic>> options = [
               {
-                "title": "About User",
+                "title": 'about_user'.tr,
                 "icon": Icons.person,
                 "onTap": () {},
               },
               {
-                "title": "Notification",
+                "title": 'notification'.tr,
                 "icon": Icons.notifications,
                 "onTap": () {},
               },
               {
-                "title": "Language",
+                "title": 'language'.tr,
                 "icon": Icons.language,
                 "onTap": () {
                   showDialog(
@@ -72,7 +72,7 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
                 },
               },
               {
-                "title": "Dark Mode",
+                "title": 'dark_mode'.tr,
                 "icon": Icons.dark_mode,
                 "onTap": () {
                   showDialog(
@@ -85,17 +85,17 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
                 },
               },
               {
-                "title": "Help Center",
+                "title": 'help_center'.tr,
                 "icon": Icons.help,
                 "onTap": () {},
               },
               {
-                "title": "Invite Friends",
+                "title": 'invite_friends'.tr,
                 "icon": Icons.group_add,
                 "onTap": () {},
               },
               {
-                "title": "Settings",
+                "title": 'settings'.tr,
                 "icon": Icons.settings,
                 "onTap": () => Get.to(() => const SettingsView()),
               },

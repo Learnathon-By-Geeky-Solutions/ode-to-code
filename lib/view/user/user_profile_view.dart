@@ -80,52 +80,52 @@ class _UserProfileViewState extends State<UserProfileView> {
               ),
               SizedBox(height: 2.h),
               CustomTextFormField(
-                labelText: "Full Name",
+                labelText: "full_name".tr,
                 controller: nameController,
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
-                labelText: 'Email',
+                labelText: 'email'.tr,
                 controller: emailController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
+                    return 'enter_email'.tr;
                   }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\$')
                       .hasMatch(value)) {
-                    return 'Please enter a valid email';
+                    return 'enter_valid_email'.tr;
                   }
                   return null;
                 },
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
-                labelText: 'Password',
+                labelText: 'password'.tr,
                 controller: passwordController,
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'enter_password'.tr;
                   }
                   if (value.length < 6) {
-                    return 'Password must be at least 6 characters';
+                    return 'password_min_length'.tr;
                   }
                   return null;
                 },
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
-                labelText: 'What You Do',
+                labelText: 'what_you_do'.tr,
                 controller: whatYouDoController,
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
-                labelText: 'Account Type',
+                labelText: 'account_type'.tr,
                 controller: accountTypeController,
                 enabled: false,
               ),
               SizedBox(height: 1.h),
-              // Date of Birth Picker
+// Date of Birth Picker
               InkWell(
                 onTap: () async {
                   final selectedDate = await showDatePicker(
@@ -136,12 +136,12 @@ class _UserProfileViewState extends State<UserProfileView> {
                   );
                   if (selectedDate != null) {
                     dateOfBirthController.text =
-                        "${selectedDate.toLocal()}".split(' ')[0];
+                        "\${selectedDate.toLocal()}".split(' ')[0];
                   }
                 },
                 child: IgnorePointer(
                   child: CustomTextFormField(
-                    labelText: 'Date of Birth',
+                    labelText: 'date_of_birth'.tr,
                     controller: dateOfBirthController,
                   ),
                 ),
@@ -151,8 +151,8 @@ class _UserProfileViewState extends State<UserProfileView> {
                 value: genderController.text.isEmpty
                     ? null
                     : genderController.text,
-                decoration: const InputDecoration(
-                  labelText: 'Gender',
+                decoration: InputDecoration(
+                  labelText: 'gender'.tr,
                   border: OutlineInputBorder(),
                 ),
                 items: ['Male', 'Female'].map((String value) {

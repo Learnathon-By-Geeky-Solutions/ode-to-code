@@ -15,7 +15,7 @@ class HomeBanner extends StatefulWidget {
 }
 
 class _HomeBannerState extends State<HomeBanner> {
-  final BannerController _bannerController = Get.put(BannerController());
+  final BannerController _bannerController = Get.find();
   int _current = 0;
 
   @override
