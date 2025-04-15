@@ -1,3 +1,4 @@
+import 'package:edu_bridge_app/resources/export.dart';
 import 'package:edu_bridge_app/utils/language_switch.dart';
 import 'package:edu_bridge_app/utils/theme_switch.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('settings'.tr),
+        title: CustomText(text: 'settings'.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -25,15 +26,15 @@ class SettingsView extends StatelessWidget {
               ),
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.dark_mode),
-              title: Text('dark_mode'.tr),
-              trailing: const ThemeSwitch(),
+            const ListTile(
+              leading: Icon(Icons.dark_mode),
+              title: CustomText(text: "Dark Mood"),
+              trailing: ThemeSwitch(),
             ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.language),
-              title: Text('language'.tr),
+              title: CustomText(text: 'language'.tr),
               trailing: const LanguageSwitch(),
             ),
             const Divider(),

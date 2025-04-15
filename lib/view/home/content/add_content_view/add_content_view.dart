@@ -85,7 +85,7 @@ class _AddContentScreenState extends State<AddContentView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Content"),
+        title: CustomText(text: 'add_content'.tr),
         bottom: TabBar(
           controller: _tabController,
           labelColor: Colors.black,
@@ -115,7 +115,7 @@ class _AddContentScreenState extends State<AddContentView>
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _submit,
         icon: const Icon(Icons.check_circle_outline),
-        label: const Text("Submit"),
+        label: CustomText(text: 'submit'.tr),
         backgroundColor: Colors.teal,
       ),
     );

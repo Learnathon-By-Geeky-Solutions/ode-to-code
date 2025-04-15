@@ -32,7 +32,7 @@ class PopularCoursesView extends StatelessWidget {
           return controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.popularCourses.isEmpty
-                  ? const Center(child: Text("No content available"))
+                  ? Center(child: CustomText(text: 'no_content_available'.tr))
                   : Column(
                       children: [
                         Expanded(

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:edu_bridge_app/user_main.dart'
-    as app; // Adjust according to your import path
+
 import 'package:edu_bridge_app/user_app.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

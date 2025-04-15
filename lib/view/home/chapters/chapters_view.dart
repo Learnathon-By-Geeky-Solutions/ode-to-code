@@ -37,7 +37,7 @@ class _ChaptersViewState extends State<ChaptersView> {
           body: controller.inProgress
               ? const Center(child: CircularProgressIndicator())
               : controller.chapters.isEmpty
-                  ? const Center(child: Text("No content available"))
+                  ? Center(child: CustomText(text: 'no_content_available'.tr))
                   : Column(
                       children: [
                         Expanded(
@@ -83,14 +83,14 @@ class _ChaptersViewState extends State<ChaptersView> {
       GetBuilder<ChapterController>(
         builder: (controller) {
           return AlertDialog(
-            title: const Text("Add New Chapter"),
+            title: CustomText(text: 'add_new_chapter'.tr),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: chapterController,
-                  decoration: const InputDecoration(
-                    hintText: "Enter chapter name",
+                  decoration: InputDecoration(
+                    hintText: 'enter_chapter_name'.tr,
                   ),
                 ),
               ],
@@ -112,11 +112,11 @@ class _ChaptersViewState extends State<ChaptersView> {
                         "Please enter a chapter name and select an image");
                   }
                 },
-                child: const Text("Add"),
+                child: CustomText(text: 'add'.tr),
               ),
               TextButton(
                 onPressed: () => Get.back(),
-                child: const Text("Cancel"),
+                child: CustomText(text: 'cancel'.tr),
               ),
             ],
           );
