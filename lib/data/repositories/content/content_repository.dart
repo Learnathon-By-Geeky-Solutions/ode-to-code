@@ -1,7 +1,10 @@
 import 'package:edu_bridge_app/data/models/content_model.dart';
+import 'package:edu_bridge_app/data/repositories/content/i_content_repository.dart';
+import 'package:edu_bridge_app/data/service/i_network_caller.dart';
 import 'package:edu_bridge_app/data/service/network_caller.dart';
 
-class ContentRepository {
+class ContentRepository extends IContentRepository {
+  ContentRepository({required INetworkCaller networkCaller});
   final NetworkCaller _networkCaller = NetworkCaller();
 
   Future<bool> addContent(ContentModel contentModel) async {

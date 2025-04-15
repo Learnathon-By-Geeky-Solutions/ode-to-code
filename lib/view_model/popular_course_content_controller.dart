@@ -1,10 +1,14 @@
 import 'package:edu_bridge_app/data/models/popular_course_content_model.dart';
-import 'package:edu_bridge_app/data/repositories/popular_course_content_repository.dart';
+import 'package:edu_bridge_app/data/repositories/popular_course_content/i_popular_course_content_repository.dart';
+import 'package:edu_bridge_app/data/repositories/popular_course_content/popular_course_content_repository.dart';
 import 'package:get/get.dart';
 
 class PopularCourseContentController extends GetxController {
-  final PopularCourseContentRepository _repository =
-      PopularCourseContentRepository();
+  final IPopularCourseContentRepository _repository;
+
+  PopularCourseContentController({
+    required IPopularCourseContentRepository repository,
+  }) : _repository = repository;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;

@@ -1,3 +1,5 @@
+import 'package:edu_bridge_app/data/repositories/content/content_repository.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 import 'package:edu_bridge_app/utils/reusable_content_view.dart';
 import 'package:edu_bridge_app/view_model/content_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,9 @@ class ContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CourseContentController>(
-      init: CourseContentController(),
+      init: CourseContentController(
+        repository: ContentRepository(networkCaller: NetworkCaller()),
+      ),
       builder: (controller) {
         return ReusableContentView(
           title: chapterTitle,

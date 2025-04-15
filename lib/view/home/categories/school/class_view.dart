@@ -18,7 +18,7 @@ class ClassView extends StatefulWidget {
 }
 
 class _ClassViewState extends State<ClassView> {
-  final ClassController _controller = Get.put(ClassController());
+  final ClassController _controller = Get.find();
 
   @override
   void initState() {

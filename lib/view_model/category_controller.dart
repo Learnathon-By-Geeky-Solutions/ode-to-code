@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/category_model.dart';
-import 'package:edu_bridge_app/data/repositories/category_repository.dart';
+import 'package:edu_bridge_app/data/repositories/category/category_repository.dart';
+import 'package:edu_bridge_app/data/repositories/category/i_category_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {
-  final CategoryRepository _repository = CategoryRepository();
+  final ICategoryRepository _repository;
+  CategoryController({required ICategoryRepository repository})
+      : _repository = repository;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;

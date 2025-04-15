@@ -1,9 +1,11 @@
 import 'package:edu_bridge_app/data/models/content_model.dart';
-import 'package:edu_bridge_app/data/repositories/content_repository.dart';
+import 'package:edu_bridge_app/data/repositories/content/i_content_repository.dart';
 import 'package:get/get.dart';
 
 class CourseContentController extends GetxController {
-  final ContentRepository _repository = ContentRepository();
+  final IContentRepository _repository;
+  CourseContentController({required IContentRepository repository})
+      : _repository = repository;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;

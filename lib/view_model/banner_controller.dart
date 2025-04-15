@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/banner_model.dart';
-import 'package:edu_bridge_app/data/repositories/banner_repository.dart';
+import 'package:edu_bridge_app/data/repositories/banner/i_banner_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 
 class BannerController extends GetxController {
-  final BannerRepository _repository = BannerRepository();
+  final IBannerRepository _repository;
+  BannerController({required IBannerRepository repository})
+      : _repository = repository;
+
   final ImagePicker _picker = ImagePicker();
 
   bool _inProgress = false;

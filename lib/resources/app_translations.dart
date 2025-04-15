@@ -77,6 +77,11 @@ class AppTranslations extends Translations {
           'transform_the_future': 'Transform the Future',
           'knowledge_our_progress':
               'Your Knowledge, Our Progress Shaping a New Bangladesh!',
+          'no_user_profile_found': 'No user profile found',
+          'about_user': 'About User',
+          'notification': 'Notification',
+          'help_center': 'Help Center',
+          'invite_friends': 'Invite Friends',
         },
         'bn': {
           'add_pin_number_security':
@@ -155,6 +160,11 @@ class AppTranslations extends Translations {
           'transform_the_future': 'ভবিষ্যত রূপান্তর করুন',
           'knowledge_our_progress':
               'আপনার জ্ঞান, আমাদের অগ্রগতি, একটি নতুন বাংলাদেশের জন্য আকার!',
+          'no_user_profile_found': 'কোনো ইউজার প্রোফাইল পাওয়া যায়নি',
+          'about_user': 'ব্যবহারকারী সম্পর্কে',
+          'notification': 'নোটিফিকেশন',
+          'help_center': 'সাহায্য কেন্দ্র',
+          'invite_friends': 'বন্ধুদের আমন্ত্রণ জানান',
         },
       };
 }

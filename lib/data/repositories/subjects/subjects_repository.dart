@@ -1,10 +1,15 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/subject_model.dart';
-import 'package:edu_bridge_app/data/service/network_caller.dart';
+import 'package:edu_bridge_app/data/repositories/subjects/i_subjects_repository.dart';
+import 'package:edu_bridge_app/data/service/i_network_caller.dart';
 
-class SubjectRepository {
-  final NetworkCaller _networkCaller = NetworkCaller();
+class SubjectRepository extends ISubjectRepository {
+  SubjectRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
 
+  final INetworkCaller _networkCaller;
+
+  @override
   Future<String?> uploadSubjectImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'subject_images/$fileName';
@@ -18,6 +23,7 @@ class SubjectRepository {
     return response.isSuccess ? response.responseData : null;
   }
 
+  @override
   Future<bool> addSubject(SubjectModel subjectModel) async {
     final response = await _networkCaller.postRequest(
       tableName: "subjects",
@@ -33,6 +39,7 @@ class SubjectRepository {
     }
   }
 
+  @override
   Future<List<SubjectModel>> fetchSubjectsByClassId(String classId) async {
     final response = await _networkCaller.getRequest(
       tableName: 'subjects',
@@ -42,7 +49,6 @@ class SubjectRepository {
 
     if (response.isSuccess) {
       if (response.responseData != null && response.responseData.isNotEmpty) {
-        // Filter the results explicitly by class_id if needed
         final filteredData = (response.responseData as List).where((data) {
           return data['class_id'] == classId;
         }).toList();

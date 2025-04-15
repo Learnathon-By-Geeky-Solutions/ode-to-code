@@ -20,7 +20,7 @@ class ChaptersView extends StatefulWidget {
 }
 
 class _ChaptersViewState extends State<ChaptersView> {
-  final ChapterController _controller = Get.put(ChapterController());
+  final ChapterController _controller = Get.find();
 
   @override
   void initState() {

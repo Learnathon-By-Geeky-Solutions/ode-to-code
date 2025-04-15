@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/mentor_model.dart';
-import 'package:edu_bridge_app/data/repositories/mentor_repository.dart';
+import 'package:edu_bridge_app/data/repositories/mentor/mentor_repository.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 

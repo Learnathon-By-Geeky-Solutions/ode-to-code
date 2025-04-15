@@ -29,8 +29,8 @@ class _HomeViewState extends State<HomeView> {
               const CategoriesSection(),
               // SizedBox(height: 1.h),
               const PopularCourses(),
-              SizedBox(height: 1.h),
-              const TopMentorSection(),
+              /*SizedBox(height: 1.h),
+              const TopMentorSection(),*/
             ],
           ),
         ),

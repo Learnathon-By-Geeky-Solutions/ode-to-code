@@ -1,3 +1,5 @@
+import 'package:edu_bridge_app/data/repositories/popular_course_content/popular_course_content_repository.dart';
+import 'package:edu_bridge_app/data/service/network_caller.dart';
 import 'package:edu_bridge_app/utils/custom_scaffold.dart';
 import 'package:edu_bridge_app/utils/reusable_content_view.dart';
 import 'package:edu_bridge_app/view_model/popular_course_content_controller.dart';
@@ -17,7 +19,9 @@ class PopularCourseContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PopularCourseContentController>(
-      init: PopularCourseContentController(),
+      init: PopularCourseContentController(
+          repository:
+              PopularCourseContentRepository(networkCaller: NetworkCaller())),
       builder: (controller) {
         return ReusableContentView(
           title: chapterTitle,

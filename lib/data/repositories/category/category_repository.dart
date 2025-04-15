@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:edu_bridge_app/data/models/category_model.dart';
+import 'package:edu_bridge_app/data/repositories/category/i_category_repository.dart';
+import 'package:edu_bridge_app/data/service/i_network_caller.dart';
 import 'package:edu_bridge_app/data/service/network_caller.dart';
 
-class CategoryRepository {
+class CategoryRepository extends ICategoryRepository {
+  CategoryRepository({required INetworkCaller networkCaller});
   final NetworkCaller _networkCaller = NetworkCaller();
 
   // Upload category image to Supabase Storage
