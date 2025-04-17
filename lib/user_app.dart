@@ -1,12 +1,4 @@
-import 'package:edu_bridge_app/controller.dart';
-import 'package:edu_bridge_app/resources/app_themes.dart';
-import 'package:edu_bridge_app/resources/app_translations.dart';
-import 'package:edu_bridge_app/view/auth/splash_view.dart';
-import 'package:edu_bridge_app/view_model/theming_and_localization/localization_controller.dart';
-import 'package:edu_bridge_app/view_model/theming_and_localization/theme_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
+import 'package:edu_bridge_app/core/resources/export.dart';
 
 class EduBridgeUser extends StatelessWidget {
   const EduBridgeUser({super.key});
