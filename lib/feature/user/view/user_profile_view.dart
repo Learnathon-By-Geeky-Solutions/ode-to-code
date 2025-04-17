@@ -154,39 +154,52 @@ class _UserProfileViewState extends State<UserProfileView> {
   }
 
   Widget _buildSignUpButton() {
-    return GetBuilder<UserProfileController>(builder: (profileController) {
-      return GetBuilder<SignUpController>(builder: (signUpController) {
-        return profileController.inProgress || signUpController.inProgress
-            ? const Center(child: CircularProgressIndicator())
-            : CustomButton(
-                onPressed: () async {
-                  if (_isFormValid(profileController)) {
-                    bool signUpSuccess = await signUpController.signUp(
-                      emailController.text,
-                      passwordController.text,
-                    );
-                    if (signUpSuccess) {
-                      bool profileSuccess =
-                          await profileController.addUserProfile(
-                        fullName: nameController.text,
-                        email: emailController.text,
-                        whatYouDo: whatYouDoController.text,
-                        accountType: accountTypeController.text,
-                        dateOfBirth: dateOfBirthController.text,
-                        gender: genderController.text,
-                      );
-                      if (profileSuccess) {
-                        _clearControllers();
-                        Get.snackbar("Success",
-                            "Sign-up and profile creation successful!");
-                      }
-                    }
-                  }
-                },
-                text: "Sign Up",
-              );
-      });
-    });
+    return GetBuilder<UserProfileController>(
+      builder: (profileController) {
+        return GetBuilder<SignUpController>(
+          builder: (signUpController) {
+            if (profileController.inProgress || signUpController.inProgress) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return CustomButton(
+              onPressed: () =>
+                  _handleSignUp(profileController, signUpController),
+              text: "Sign Up",
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _handleSignUp(UserProfileController profileController,
+      SignUpController signUpController) async {
+    if (!_isFormValid(profileController)) return;
+
+    final isSignUpSuccessful = await _attemptSignUp(signUpController);
+    if (!isSignUpSuccessful) return;
+
+    final isProfileCreated = await _createUserProfile(profileController);
+    if (isProfileCreated) {
+      _clearControllers();
+      Get.snackbar("Success", "Sign-up and profile creation successful!");
+    }
+  }
+
+  Future<bool> _attemptSignUp(SignUpController controller) {
+    return controller.signUp(emailController.text, passwordController.text);
+  }
+
+  Future<bool> _createUserProfile(UserProfileController controller) {
+    return controller.addUserProfile(
+      fullName: nameController.text,
+      email: emailController.text,
+      whatYouDo: whatYouDoController.text,
+      accountType: accountTypeController.text,
+      dateOfBirth: dateOfBirthController.text,
+      gender: genderController.text,
+    );
   }
 
   bool _isFormValid(UserProfileController profileController) {
