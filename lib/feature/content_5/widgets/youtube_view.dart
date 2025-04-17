@@ -69,7 +69,6 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
             controller: _controller,
             showVideoProgressIndicator: true,
             progressIndicatorColor: Colors.blueAccent,
-            onReady: () {},
           ),
           // Seek buttons
           Padding(
