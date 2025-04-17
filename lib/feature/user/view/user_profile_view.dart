@@ -35,176 +35,177 @@ class _UserProfileViewState extends State<UserProfileView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-              GetBuilder<UserProfileController>(builder: (controller) {
-                return InkWell(
-                  onTap: () async {
-                    final pickedFile =
-                        await _picker.pickImage(source: ImageSource.gallery);
-                    if (pickedFile != null) {
-                      controller.setProfileImage(File(pickedFile.path));
-                    }
-                  },
-                  child: SizedBox(
-                    child: Column(
-                      children: [
-                        if (controller.profileImage != null)
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage: FileImage(
-                              controller.profileImage!,
-                            ),
-                          )
-                        else
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundColor: Colors.grey.shade300,
-                            child: const Icon(
-                              Icons.person,
-                              size: 95,
-                              color: Colors.white,
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                );
-              }),
+              _buildProfileImage(),
               SizedBox(height: 2.h),
-              CustomTextFormField(
-                labelText: "full_name".tr,
-                controller: nameController,
-              ),
+              _buildTextField(nameController, "full_name".tr),
               SizedBox(height: 1.h),
-              CustomTextFormField(
-                labelText: 'email'.tr,
-                controller: emailController,
-                validator: Validators.emailValidator,
-              ),
+              _buildTextField(emailController, 'email'.tr,
+                  validator: Validators.emailValidator),
               SizedBox(height: 1.h),
-              CustomTextFormField(
-                labelText: 'password'.tr,
-                controller: passwordController,
-                obscureText: true,
-                validator: Validators.passwordValidator,
-              ),
+              _buildTextField(passwordController, 'password'.tr,
+                  obscureText: true, validator: Validators.passwordValidator),
               SizedBox(height: 1.h),
-              CustomTextFormField(
-                labelText: 'what_you_do'.tr,
-                controller: whatYouDoController,
-              ),
+              _buildTextField(whatYouDoController, 'what_you_do'.tr),
               SizedBox(height: 1.h),
-              CustomTextFormField(
-                labelText: 'account_type'.tr,
-                controller: accountTypeController,
-                enabled: false,
-              ),
+              _buildTextField(accountTypeController, 'account_type'.tr,
+                  enabled: false),
               SizedBox(height: 1.h),
-              // Date of Birth Picker
-              InkWell(
-                onTap: () async {
-                  final selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                  );
-                  if (selectedDate != null) {
-                    dateOfBirthController.text =
-                        "\${selectedDate.toLocal()}".split(' ')[0];
-                  }
-                },
-                child: IgnorePointer(
-                  child: CustomTextFormField(
-                    labelText: 'date_of_birth'.tr,
-                    controller: dateOfBirthController,
-                  ),
-                ),
-              ),
+              _buildDatePicker(),
               SizedBox(height: 1.h),
-              DropdownButtonFormField<String>(
-                value: genderController.text.isEmpty
-                    ? null
-                    : genderController.text,
-                decoration: InputDecoration(
-                  labelText: 'gender'.tr,
-                  border: const OutlineInputBorder(),
-                ),
-                items: ['Male', 'Female'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  genderController.text = value!;
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select your gender';
-                  }
-                  return null;
-                },
-              ),
+              _buildGenderDropdown(),
               const SizedBox(height: 20),
-              GetBuilder<UserProfileController>(builder: (profileController) {
-                return GetBuilder<SignUpController>(
-                  builder: (signUpController) {
-                    return profileController.inProgress ||
-                            signUpController.inProgress
-                        ? const Center(child: CircularProgressIndicator())
-                        : CustomButton(
-                            onPressed: () async {
-                              if (nameController.text.isEmpty ||
-                                  emailController.text.isEmpty ||
-                                  passwordController.text.isEmpty ||
-                                  whatYouDoController.text.isEmpty ||
-                                  dateOfBirthController.text.isEmpty ||
-                                  genderController.text.isEmpty ||
-                                  profileController.profileImage == null) {
-                                Get.snackbar("Error",
-                                    "Please fill in all fields and select a profile image.");
-                                return;
-                              }
-
-                              bool signUpSuccess =
-                                  await signUpController.signUp(
-                                emailController.text,
-                                passwordController.text,
-                              );
-
-                              if (signUpSuccess) {
-                                bool profileSuccess =
-                                    await profileController.addUserProfile(
-                                  fullName: nameController.text,
-                                  email: emailController.text,
-                                  whatYouDo: whatYouDoController.text,
-                                  accountType: accountTypeController.text,
-                                  dateOfBirth: dateOfBirthController.text,
-                                  gender: genderController.text,
-                                );
-
-                                if (profileSuccess) {
-                                  nameController.clear();
-                                  emailController.clear();
-                                  passwordController.clear();
-                                  whatYouDoController.clear();
-                                  dateOfBirthController.clear();
-                                  genderController.clear();
-                                  Get.snackbar("Success",
-                                      "Sign-up and profile creation successful!");
-                                }
-                              }
-                            },
-                            text: "Sign Up",
-                          );
-                  },
-                );
-              }),
+              _buildSignUpButton(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildProfileImage() {
+    return GetBuilder<UserProfileController>(builder: (controller) {
+      return InkWell(
+        onTap: () async {
+          final pickedFile =
+              await _picker.pickImage(source: ImageSource.gallery);
+          if (pickedFile != null) {
+            controller.setProfileImage(File(pickedFile.path));
+          }
+        },
+        child: SizedBox(
+          child: Column(
+            children: [
+              if (controller.profileImage != null)
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: FileImage(controller.profileImage!),
+                )
+              else
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.grey.shade300,
+                  child:
+                      const Icon(Icons.person, size: 95, color: Colors.white),
+                ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget _buildTextField(TextEditingController controller, String label,
+      {bool obscureText = false,
+      String? Function(String?)? validator,
+      bool enabled = true}) {
+    return CustomTextFormField(
+      labelText: label,
+      controller: controller,
+      obscureText: obscureText,
+      validator: validator,
+      enabled: enabled,
+    );
+  }
+
+  Widget _buildDatePicker() {
+    return InkWell(
+      onTap: () async {
+        final selectedDate = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        );
+        if (selectedDate != null) {
+          dateOfBirthController.text =
+              "${selectedDate.toLocal()}".split(' ')[0];
+        }
+      },
+      child: IgnorePointer(
+        child: CustomTextFormField(
+          labelText: 'date_of_birth'.tr,
+          controller: dateOfBirthController,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGenderDropdown() {
+    return DropdownButtonFormField<String>(
+      value: genderController.text.isEmpty ? null : genderController.text,
+      decoration: InputDecoration(
+        labelText: 'gender'.tr,
+        border: const OutlineInputBorder(),
+      ),
+      items: ['Male', 'Female'].map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (value) => genderController.text = value!,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select your gender';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildSignUpButton() {
+    return GetBuilder<UserProfileController>(builder: (profileController) {
+      return GetBuilder<SignUpController>(builder: (signUpController) {
+        return profileController.inProgress || signUpController.inProgress
+            ? const Center(child: CircularProgressIndicator())
+            : CustomButton(
+                onPressed: () async {
+                  if (_isFormValid(profileController)) {
+                    bool signUpSuccess = await signUpController.signUp(
+                      emailController.text,
+                      passwordController.text,
+                    );
+                    if (signUpSuccess) {
+                      bool profileSuccess =
+                          await profileController.addUserProfile(
+                        fullName: nameController.text,
+                        email: emailController.text,
+                        whatYouDo: whatYouDoController.text,
+                        accountType: accountTypeController.text,
+                        dateOfBirth: dateOfBirthController.text,
+                        gender: genderController.text,
+                      );
+                      if (profileSuccess) {
+                        _clearControllers();
+                        Get.snackbar("Success",
+                            "Sign-up and profile creation successful!");
+                      }
+                    }
+                  }
+                },
+                text: "Sign Up",
+              );
+      });
+    });
+  }
+
+  bool _isFormValid(UserProfileController profileController) {
+    return nameController.text.isNotEmpty &&
+        emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        whatYouDoController.text.isNotEmpty &&
+        dateOfBirthController.text.isNotEmpty &&
+        genderController.text.isNotEmpty &&
+        profileController.profileImage != null;
+  }
+
+  void _clearControllers() {
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    whatYouDoController.clear();
+    dateOfBirthController.clear();
+    genderController.clear();
   }
 
   @override

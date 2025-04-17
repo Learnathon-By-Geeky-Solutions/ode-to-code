@@ -5,7 +5,6 @@ class ContentCard extends StatelessWidget {
   final String title;
   final String? link;
   final String? note;
-
   const ContentCard({
     super.key,
     required this.number,
@@ -18,7 +17,15 @@ class ContentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasLink = link?.isNotEmpty == true;
     final hasNote = note?.isNotEmpty == true;
-    final content = hasLink ? link : (hasNote ? note : 'No content available');
+
+    String content;
+    if (hasLink) {
+      content = link!;
+    } else if (hasNote) {
+      content = note!;
+    } else {
+      content = 'No content available';
+    }
 
     final Widget iconWidget;
     if (hasLink) {
@@ -52,7 +59,7 @@ class ContentCard extends StatelessWidget {
               color: Colors.black12,
               blurRadius: 4,
               offset: Offset(0, 2),
-            )
+            ),
           ],
         ),
         padding: const EdgeInsets.all(12),
@@ -83,7 +90,7 @@ class ContentCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    if (content != null)
+                    if (content.isNotEmpty)
                       Text(
                         content,
                         style: GoogleFonts.mulish(
