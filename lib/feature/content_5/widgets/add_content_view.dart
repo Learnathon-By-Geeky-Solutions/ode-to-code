@@ -25,7 +25,6 @@ class AddContentView extends StatefulWidget {
 class _AddContentScreenState extends State<AddContentView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
   final TextEditingController numberController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController linkController = TextEditingController();
@@ -50,7 +49,6 @@ class _AddContentScreenState extends State<AddContentView>
   void _submit() async {
     final currentTab = _tabController.index;
     final isNote = currentTab == 1;
-
     final number = numberController.text.trim();
     final title = titleController.text.trim();
     final link = linkController.text.trim();
@@ -91,14 +89,10 @@ class _AddContentScreenState extends State<AddContentView>
           labelColor: Colors.black,
           indicatorColor: Colors.greenAccent,
           dividerColor: Colors.grey,
-          labelStyle: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-          unselectedLabelStyle: const TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 15,
-          ),
+          labelStyle:
+              const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          unselectedLabelStyle:
+              const TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
           tabs: const [
             Tab(text: "Video"),
             Tab(text: "Note"),
@@ -108,8 +102,8 @@ class _AddContentScreenState extends State<AddContentView>
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildVideoForm(),
-          _buildNoteForm(),
+          _buildContentForm(isNote: false),
+          _buildContentForm(isNote: true),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -121,7 +115,8 @@ class _AddContentScreenState extends State<AddContentView>
     );
   }
 
-  Widget _buildVideoForm() {
+  // Common method to build content form
+  Widget _buildContentForm({required bool isNote}) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Card(
@@ -132,21 +127,23 @@ class _AddContentScreenState extends State<AddContentView>
           child: Column(
             children: [
               _buildTextField(
-                controller: numberController,
-                label: "Number",
-                keyboardType: TextInputType.number,
-              ),
+                  controller: numberController,
+                  label: "Number",
+                  keyboardType: TextInputType.number),
               const SizedBox(height: 16),
               _buildTextField(
-                controller: titleController,
-                label: "Video Title",
-              ),
+                  controller: titleController,
+                  label: isNote ? "Note Title" : "Video Title"),
               const SizedBox(height: 16),
-              _buildTextField(
-                controller: linkController,
-                label: "YouTube/Content Link",
-                keyboardType: TextInputType.url,
-              ),
+              isNote
+                  ? _buildTextField(
+                      controller: noteController,
+                      label: "Note (Optional)",
+                      maxLines: 8)
+                  : _buildTextField(
+                      controller: linkController,
+                      label: "YouTube/Content Link",
+                      keyboardType: TextInputType.url),
             ],
           ),
         ),
@@ -154,54 +151,17 @@ class _AddContentScreenState extends State<AddContentView>
     );
   }
 
-  Widget _buildNoteForm() {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              _buildTextField(
-                controller: numberController,
-                label: "Number",
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: titleController,
-                label: "Note Title",
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: noteController,
-                maxLines: 8,
-                decoration: InputDecoration(
-                  labelText: "Note (Optional)",
-                  hintText: "Enter note content (if applicable)",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  filled: true,
-                  fillColor: Colors.grey.shade50,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
+  // Common method to build text fields
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
     TextInputType? keyboardType,
+    int? maxLines,
   }) {
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
+      maxLines: maxLines,
       decoration: InputDecoration(
         labelText: label,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
