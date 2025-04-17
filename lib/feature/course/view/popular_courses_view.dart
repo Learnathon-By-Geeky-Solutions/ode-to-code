@@ -28,23 +28,24 @@ class PopularCoursesView extends StatelessWidget {
               child: Text(controller.errorMessage!),
             );
           }
-          return controller.inProgress
-              ? const Center(child: CircularProgressIndicator())
-              : controller.popularCourses.isEmpty
-                  ? Center(child: CustomText(text: 'no_content_available'.tr))
-                  : Column(
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: controller.popularCourses.length,
-                            itemBuilder: (context, index) {
-                              final course = controller.popularCourses[index];
-                              return popularCoursesCard(course);
-                            },
-                          ),
-                        ),
-                      ],
-                    );
+
+          if (controller.popularCourses.isEmpty) {
+            return Center(child: CustomText(text: 'no_content_available'.tr));
+          } else {
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.popularCourses.length,
+                    itemBuilder: (context, index) {
+                      final course = controller.popularCourses[index];
+                      return popularCoursesCard(course);
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
         },
       ),
     );
