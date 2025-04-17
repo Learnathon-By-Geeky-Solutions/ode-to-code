@@ -30,8 +30,6 @@ class ChapterController extends GetxController {
       chapterName: chapterName,
     );
 
-    print('Test : \$newChapter');
-
     final success = await _repository.addChapter(newChapter);
     if (success) {
       isSuccess = true;

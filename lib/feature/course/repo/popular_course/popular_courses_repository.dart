@@ -4,6 +4,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
   PopularCourseRepository({required INetworkCaller networkCaller});
   final NetworkCaller _networkCaller = NetworkCaller();
 
+  @override
   Future<String?> uploadCourseImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'course_images/$fileName';
@@ -17,6 +18,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
     return response.isSuccess ? response.responseData : null;
   }
 
+  @override
   Future<bool> addPopularCourse(PopularCourseModel course) async {
     final response = await _networkCaller.postRequest(
       tableName: "courses",
@@ -25,6 +27,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
     return response.isSuccess;
   }
 
+  @override
   Future<List<PopularCourseModel>> fetchPopularCourses() async {
     final response = await _networkCaller.getRequest(
       tableName: 'courses',
@@ -38,6 +41,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
     return [];
   }
 
+  @override
   Future<bool> saveCourseForUser(String courseId) async {
     final userId = _networkCaller.getCurrentUserId();
     if (userId == null) return false;
@@ -52,6 +56,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
     return response.isSuccess;
   }
 
+  @override
   Future<bool> isCourseSaved(String courseId) async {
     final userId = _networkCaller.getCurrentUserId();
     if (userId == null) return false;
@@ -66,6 +71,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
     return response.isSuccess && (response.responseData as List).isNotEmpty;
   }
 
+  @override
   Future<bool> unsaveCourseForUser(String courseId) async {
     final userId = _networkCaller.getCurrentUserId();
     if (userId == null) return false;
@@ -80,6 +86,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
     return response.isSuccess;
   }
 
+  @override
   Future<List<PopularCourseModel>> fetchSavedCourses() async {
     final userId = _networkCaller.getCurrentUserId();
     if (userId == null) return [];

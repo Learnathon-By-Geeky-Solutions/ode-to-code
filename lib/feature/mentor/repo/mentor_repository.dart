@@ -23,10 +23,8 @@ class MentorRepository {
     );
 
     if (response.isSuccess) {
-      print("Mentor added successfully!");
       return true;
     } else {
-      print("Error adding mentor: ${response.errorMessage}");
       return false;
     }
   }
@@ -41,7 +39,6 @@ class MentorRepository {
           .map((data) => MentorModel.fromMap(data))
           .toList();
     } else {
-      print("Error fetching mentors: ${response.errorMessage}");
       return [];
     }
   }

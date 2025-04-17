@@ -1,9 +1,12 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class CategoryRepository extends ICategoryRepository {
-  CategoryRepository({required INetworkCaller networkCaller});
-  final NetworkCaller _networkCaller = NetworkCaller();
+  final INetworkCaller _networkCaller;
 
+  CategoryRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
+
+  @override
   Future<String?> uploadCategoryImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'category_images/$fileName';
@@ -17,6 +20,7 @@ class CategoryRepository extends ICategoryRepository {
     return response.isSuccess ? response.responseData : null;
   }
 
+  @override
   Future<bool> addCategory(CategoryModel category) async {
     final response = await _networkCaller.postRequest(
       tableName: 'categories',
@@ -26,11 +30,11 @@ class CategoryRepository extends ICategoryRepository {
     if (response.isSuccess) {
       return true;
     } else {
-      print('Error adding category: ${response.errorMessage}');
       return false;
     }
   }
 
+  @override
   Future<List<CategoryModel>> fetchCategories() async {
     final response = await _networkCaller.getRequest(
       tableName: 'categories',
@@ -41,11 +45,11 @@ class CategoryRepository extends ICategoryRepository {
           .map((data) => CategoryModel.fromMap(data, data['id']))
           .toList();
     } else {
-      print('Error fetching categories: ${response.errorMessage}');
       return [];
     }
   }
 
+  @override
   Future<List<CategoryModel>> fetchCategoriesWithCondition({
     required String column,
     required dynamic value,
@@ -62,8 +66,6 @@ class CategoryRepository extends ICategoryRepository {
           .map((data) => CategoryModel.fromMap(data, data['id']))
           .toList();
     } else {
-      print(
-          'Error fetching categories with condition: ${response.errorMessage}');
       return [];
     }
   }

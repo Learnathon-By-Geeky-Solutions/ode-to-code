@@ -4,6 +4,7 @@ class ContentRepository extends IContentRepository {
   ContentRepository({required INetworkCaller networkCaller});
   final NetworkCaller _networkCaller = NetworkCaller();
 
+  @override
   Future<bool> addContent(ContentModel contentModel) async {
     final response = await _networkCaller.postRequest(
       tableName: "content",
@@ -11,14 +12,13 @@ class ContentRepository extends IContentRepository {
     );
 
     if (response.isSuccess) {
-      print("Content added successfully!");
       return true;
     } else {
-      print("Error adding content: ${response.errorMessage}");
       return false;
     }
   }
 
+  @override
   Future<List<ContentModel>> fetchContentsByChapterId(String chapterId) async {
     final response = await _networkCaller.getRequest(
       tableName: 'content',
@@ -34,20 +34,16 @@ class ContentRepository extends IContentRepository {
         }).toList();
 
         if (filteredData.isNotEmpty) {
-          print("Fetched filtered content: $filteredData");
           return filteredData
               .map<ContentModel>((data) => ContentModel.fromMap(data))
               .toList();
         } else {
-          print("No content found for chapters_id: $chapterId");
           return [];
         }
       } else {
-        print("No content found for chapters_id: $chapterId");
         return [];
       }
     } else {
-      print("Error fetching content: ${response.errorMessage}");
       return [];
     }
   }

@@ -42,8 +42,6 @@ class _CategoriesViewState extends State<CategoriesView> {
                                   controller.categories[index].categoryName,
                             ),
                           );
-                          print(controller.categories[index].id.toString());
-                          print(controller.categories[index].categoryName);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

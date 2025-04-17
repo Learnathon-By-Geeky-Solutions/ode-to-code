@@ -47,7 +47,7 @@ export 'package:edu_bridge_app/feature/auth/widgets/forgot_password_text_button.
 export 'package:edu_bridge_app/feature/auth/widgets/sign_in_button.dart';
 export 'package:edu_bridge_app/feature/auth/widgets/sign_in_text_button.dart';
 export 'package:edu_bridge_app/feature/auth/widgets/sign_up_button.dart';
-export 'package:edu_bridge_app/feature/auth/widgets/sign_up_text_button=.dart';
+export 'package:edu_bridge_app/feature/auth/widgets/sign_up_text_button.dart';
 // Chapter_4 Feature
 export 'package:edu_bridge_app/feature/capters_4/model/chapter_model.dart';
 //Repository
@@ -135,7 +135,7 @@ export 'package:flutter/gestures.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_dotenv/flutter_dotenv.dart';
 export 'package:flutter_svg/flutter_svg.dart';
-export 'package:get/get.dart' hide Response, Request, HeaderValue;
+export 'package:get/get.dart' hide Response, HeaderValue;
 export 'package:google_fonts/google_fonts.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:logger/logger.dart';

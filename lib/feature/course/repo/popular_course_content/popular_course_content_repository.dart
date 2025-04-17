@@ -4,6 +4,7 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
   PopularCourseContentRepository({required INetworkCaller networkCaller});
   final NetworkCaller _networkCaller = NetworkCaller();
 
+  @override
   Future<bool> addPopularCourseContent(
       PopularCourseContentModel courseModel) async {
     final response = await _networkCaller.postRequest(
@@ -12,14 +13,13 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
     );
 
     if (response.isSuccess) {
-      print("Popular course content added successfully!");
       return true;
     } else {
-      print("Error adding popular course content: ${response.errorMessage}");
       return false;
     }
   }
 
+  @override
   Future<List<PopularCourseContentModel>> fetchPopularCourseContentById(
       String courseId) async {
     final response = await _networkCaller.getRequest(
@@ -35,7 +35,6 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
           )
           .toList();
     } else {
-      print("Error fetching popular course content: ${response.errorMessage}");
       return [];
     }
   }

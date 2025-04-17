@@ -41,8 +41,6 @@ class PopularCourseContentController extends GetxController {
       note: note, // Use the optional note
     );
 
-    print('Test: $newContent');
-
     final success = await _repository.addPopularCourseContent(newContent);
     if (success) {
       isSuccess = true;
@@ -68,7 +66,6 @@ class PopularCourseContentController extends GetxController {
 
     try {
       _contents = await _repository.fetchPopularCourseContentById(courseId);
-      print("Fetched contents: $_contents");
     } catch (e) {
       _errorMessage = 'Failed to load contents: $e';
       Future.delayed(Duration.zero, () {

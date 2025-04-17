@@ -12,10 +12,8 @@ class ChapterRepository extends IChapterRepository {
     );
 
     if (response.isSuccess) {
-      print("Chapter added successfully!");
       return true;
     } else {
-      print("Error adding chapter: ${response.errorMessage}");
       return false;
     }
   }
@@ -38,7 +36,6 @@ class ChapterRepository extends IChapterRepository {
           .map<ChapterModel>((data) => ChapterModel.fromMap(data))
           .toList();
     } else {
-      print("Error fetching chapters: ${response.errorMessage}");
       return [];
     }
   }

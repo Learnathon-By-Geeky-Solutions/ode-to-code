@@ -60,7 +60,7 @@ class MentorController extends GetxController {
       final success = await _repository.addMentor(newMentor);
       if (success) {
         isSuccess = true;
-        Future.delayed(Duration(milliseconds: 200), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           Get.snackbar("Success", "Mentor added successfully!");
         });
         fetchMentors();

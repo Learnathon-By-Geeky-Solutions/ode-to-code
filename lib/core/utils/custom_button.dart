@@ -33,6 +33,7 @@ class CustomButton extends StatelessWidget {
   });
 
   @override
+  @override
   Widget build(BuildContext context) {
     switch (buttonType) {
       case ButtonType.outlined:
@@ -56,12 +57,11 @@ class CustomButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
-            foregroundColor: textColor, // Text color
+            foregroundColor: textColor,
           ),
           child: _buildButtonContent(),
         );
       case ButtonType.elevated:
-      default:
         return ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(

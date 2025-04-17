@@ -16,7 +16,7 @@ class PopularCourses extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -27,7 +27,7 @@ class PopularCourses extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => PopularCoursesView());
+                    Get.to(() => const PopularCoursesView());
                   },
                   child: CustomText(
                     text: 'see_all'.tr,

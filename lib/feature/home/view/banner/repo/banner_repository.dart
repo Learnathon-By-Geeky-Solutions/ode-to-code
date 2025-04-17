@@ -18,6 +18,7 @@ class BannerRepository extends IBannerRepository {
     return response.isSuccess ? response.responseData : null;
   }
 
+  @override
   Future<bool> addBanner(BannerModel banner) async {
     final response = await _networkCaller.postRequest(
       tableName: 'banners',
@@ -26,6 +27,7 @@ class BannerRepository extends IBannerRepository {
     return response.isSuccess;
   }
 
+  @override
   Future<List<BannerModel>> fetchBanners() async {
     final response = await _networkCaller.getRequest(tableName: 'banners');
     if (response.isSuccess) {

@@ -4,6 +4,7 @@ class ClassRepository extends IClassRepository {
   ClassRepository({required INetworkCaller networkCaller});
 
   final NetworkCaller _networkCaller = NetworkCaller();
+  @override
   Future<String?> uploadClassImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'class_images/$fileName';
@@ -17,6 +18,7 @@ class ClassRepository extends IClassRepository {
     return response.isSuccess ? response.responseData : null;
   }
 
+  @override
   Future<bool> addClass(ClassModel classModel) async {
     final response = await _networkCaller.postRequest(
       tableName: "classes",
@@ -24,14 +26,13 @@ class ClassRepository extends IClassRepository {
     );
 
     if (response.isSuccess) {
-      print("Class added successfully!");
       return true;
     } else {
-      print("Error adding class: ${response.errorMessage}");
       return false;
     }
   }
 
+  @override
   Future<List<ClassModel>> fetchClassesByCategoryId(String categoryId) async {
     final response = await _networkCaller.getRequest(
       tableName: 'classes',
@@ -41,26 +42,21 @@ class ClassRepository extends IClassRepository {
 
     if (response.isSuccess) {
       if (response.responseData != null && response.responseData.isNotEmpty) {
-        // Filter the results explicitly by category_id if needed
         final filteredData = (response.responseData as List).where((data) {
           return data['category_id'] == categoryId;
         }).toList();
 
         if (filteredData.isNotEmpty) {
-          print("Fetched filtered classes: $filteredData");
           return filteredData
               .map<ClassModel>((data) => ClassModel.fromMap(data))
               .toList();
         } else {
-          print("No classes found for category_id: $categoryId");
           return [];
         }
       } else {
-        print("No classes found for category_id: $categoryId");
         return [];
       }
     } else {
-      print("Error fetching classes: ${response.errorMessage}");
       return [];
     }
   }

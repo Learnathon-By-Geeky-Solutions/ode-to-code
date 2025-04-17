@@ -40,8 +40,6 @@ class CourseContentController extends GetxController {
       createdAt: DateTime.now().toIso8601String(),
     );
 
-    print('Test : $newContent');
-
     final success = await _repository.addContent(newContent);
     if (success) {
       isSuccess = true;
@@ -67,7 +65,6 @@ class CourseContentController extends GetxController {
 
     try {
       _contents = await _repository.fetchContentsByChapterId(chaptersId);
-      print("Fetched contents: $_contents");
     } catch (e) {
       _errorMessage = 'Failed to load contents: $e';
       Future.delayed(Duration.zero, () {
