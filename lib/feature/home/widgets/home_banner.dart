@@ -4,10 +4,10 @@ class HomeBanner extends StatefulWidget {
   const HomeBanner({super.key});
 
   @override
-  _HomeBannerState createState() => _HomeBannerState();
+  HomeBannerState createState() => HomeBannerState();
 }
 
-class _HomeBannerState extends State<HomeBanner> {
+class HomeBannerState extends State<HomeBanner> {
   final BannerController _bannerController = Get.find();
   int _current = 0;
 

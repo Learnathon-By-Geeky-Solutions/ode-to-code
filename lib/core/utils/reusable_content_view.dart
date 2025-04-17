@@ -39,9 +39,9 @@ class _ReusableContentViewState extends State<ReusableContentView> {
 
   String _getContentTitle(dynamic content) {
     if (content is PopularCourseContentModel) {
-      return content.title ?? 'Untitled';
+      return content.title;
     } else if (content is ContentModel) {
-      return content.name ?? 'Untitled';
+      return content.name;
     }
     return content.title ?? content.name ?? 'Untitled';
   }
@@ -51,34 +51,37 @@ class _ReusableContentViewState extends State<ReusableContentView> {
     final contents = widget.getContents();
     final loading = widget.isLoading();
 
+    Widget bodyContent;
+    if (loading) {
+      bodyContent = const Center(child: CircularProgressIndicator());
+    } else if (contents.isEmpty) {
+      bodyContent = Center(child: CustomText(text: "no_content_available".tr));
+    } else {
+      bodyContent = ListView.builder(
+        itemCount: contents.length,
+        itemBuilder: (context, index) {
+          final content = contents[index];
+          final title = _getContentTitle(content);
+          final link = content.link ?? '';
+          final number = content.number ?? '';
+          return InkWell(
+            onTap: () => link.isNotEmpty
+                ? Get.to(() => YouTubePlayerView(link: link, title: title))
+                : null,
+            child: ContentCard(
+              number: number,
+              title: title,
+              link: link,
+              note: content.note ?? '',
+            ),
+          );
+        },
+      );
+    }
+
     return CustomScaffold(
       name: widget.title,
-      body: loading
-          ? const Center(child: CircularProgressIndicator())
-          : contents.isEmpty
-              ? Center(child: CustomText(text: "no_content_available".tr))
-              : ListView.builder(
-                  itemCount: contents.length,
-                  itemBuilder: (context, index) {
-                    final content = contents[index];
-                    final title = _getContentTitle(content);
-                    final link = content.link ?? '';
-                    final number = content.number ?? '';
-
-                    return InkWell(
-                      onTap: () => link.isNotEmpty
-                          ? Get.to(
-                              () => YouTubePlayerView(link: link, title: title))
-                          : null,
-                      child: ContentCard(
-                        number: number,
-                        title: title,
-                        link: link,
-                        note: content.note ?? '',
-                      ),
-                    );
-                  },
-                ),
+      body: bodyContent,
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(() => AddContentView(
               id: widget.id,

@@ -7,6 +7,7 @@ class CustomTextButton extends StatelessWidget {
     required this.icon,
     this.onTap,
   });
+
   final String title;
   final IconData icon;
   final VoidCallback? onTap;
@@ -18,20 +19,18 @@ class CustomTextButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Row(
-              children: [
-                Icon(icon),
-                HorizontalSpacing(3.w),
-                CustomText(text: title)
-              ],
-            ),
+          Row(
+            children: [
+              Icon(icon),
+              HorizontalSpacing(3.w),
+              CustomText(text: title),
+            ],
           ),
           const Row(
             children: [
               Icon(Icons.arrow_forward_ios),
             ],
-          )
+          ),
         ],
       ),
     );

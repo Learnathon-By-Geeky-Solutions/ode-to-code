@@ -48,7 +48,7 @@ class _SubjectsViewState extends State<SubjectsView> {
                               () => ChaptersView(
                                   subjectId: controller.subjects[index].id!,
                                   subjectName:
-                                      controller.subjects[index].subjectName!),
+                                      controller.subjects[index].subjectName),
                             );
                           },
                           child: Padding(
@@ -148,8 +148,6 @@ class _SubjectsViewState extends State<SubjectsView> {
                       );
                       Get.back();
                     }
-                    print(widget.classId);
-                    print(subjectNameController.text);
                   } else {
                     Get.snackbar("Error", "Class name cannot be empty");
                   }

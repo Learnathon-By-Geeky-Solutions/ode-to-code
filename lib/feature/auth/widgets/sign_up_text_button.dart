@@ -16,9 +16,9 @@ class SignUpTextButton extends StatelessWidget {
         children: [
           TextSpan(
             text: 'Sign Up',
-            style: TextStyle(color: AppColors.themeColor),
+            style: const TextStyle(color: AppColors.themeColor),
             recognizer: TapGestureRecognizer()
-              ..onTap = () => Get.to(() => UserProfileView()),
+              ..onTap = () => Get.to(() => const UserProfileView()),
           ),
         ],
       ),

@@ -47,8 +47,6 @@ class ClassController extends GetxController {
         image: imageUrl,
       );
 
-      print('Test : ${newClass}');
-
       final success = await _repository.addClass(newClass);
       if (success) {
         isSuccess = true;

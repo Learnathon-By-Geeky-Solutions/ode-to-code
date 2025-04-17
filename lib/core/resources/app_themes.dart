@@ -1,6 +1,4 @@
-import 'package:edu_bridge_app/core/resources/app_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:edu_bridge_app/core/resources/export.dart';
 
 class AppThemes {
   static ThemeData lightTheme = ThemeData(
@@ -9,11 +7,9 @@ class AppThemes {
     colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
       secondary: AppColors.secondary,
-      background: AppColors.background,
       surface: AppColors.surface,
       onPrimary: AppColors.onPrimary,
       onSecondary: AppColors.onSecondary,
-      onBackground: AppColors.onBackground,
       onSurface: AppColors.onSurface,
     ),
     fontFamily: 'Kalpurush',
@@ -46,11 +42,9 @@ class AppThemes {
     colorScheme: const ColorScheme.dark(
       primary: AppColors.darkPrimary,
       secondary: AppColors.darkSecondary,
-      background: AppColors.darkBackground,
       surface: AppColors.darkSurface,
       onPrimary: AppColors.onDarkPrimary,
       onSecondary: AppColors.onDarkSecondary,
-      onBackground: AppColors.onDarkBackground,
       onSurface: AppColors.onDarkSurface,
     ),
     fontFamily: 'Kalpurush',

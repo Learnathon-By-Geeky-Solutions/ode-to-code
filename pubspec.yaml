@@ -52,6 +52,7 @@ dependencies:
   logger: ^2.5.0
   mocktail: ^1.0.4
   flutter_dotenv: ^5.2.1
+  shared_preferences: any
 
 
 dev_dependencies:
@@ -69,6 +70,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+
 flutter:
 
   # The following line ensures that the Material Icons font is

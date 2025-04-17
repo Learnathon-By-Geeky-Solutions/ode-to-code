@@ -87,7 +87,7 @@ class PopularCourseController extends GetxController {
     update();
 
     try {
-      _popularCourses = await _repository.fetchPopularCourses() ?? [];
+      _popularCourses = await _repository.fetchPopularCourses();
     } catch (e) {
       _errorMessage = 'Failed to load popular courses: $e';
       Get.snackbar("Error", _errorMessage!);

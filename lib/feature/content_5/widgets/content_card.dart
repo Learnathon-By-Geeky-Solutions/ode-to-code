@@ -85,7 +85,7 @@ class ContentCard extends StatelessWidget {
                     ),
                     if (content != null)
                       Text(
-                        content!,
+                        content,
                         style: GoogleFonts.mulish(
                           color: AppColors.blackGray,
                           fontSize: 12,

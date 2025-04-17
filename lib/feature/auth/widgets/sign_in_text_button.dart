@@ -10,7 +10,7 @@ class SignInTextButton extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: 'Already have an account? ',
-        style: TextStyle(
+        style: const TextStyle(
           color: AppColors.blackGray,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.4,
@@ -18,10 +18,10 @@ class SignInTextButton extends StatelessWidget {
         children: [
           TextSpan(
             text: 'Sign In',
-            style: TextStyle(color: AppColors.themeColor),
+            style: const TextStyle(color: AppColors.themeColor),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Get.to(SignInView());
+                Get.to(const SignInView());
               },
           ),
         ],

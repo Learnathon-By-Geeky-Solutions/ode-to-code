@@ -35,42 +35,40 @@ class _UserProfileViewState extends State<UserProfileView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-              GetBuilder<UserProfileController>(
-                builder: (controller) {
-                  return InkWell(
-                    onTap: () async {
-                      final pickedFile =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                      if (pickedFile != null) {
-                        controller.setProfileImage(File(pickedFile.path));
-                      }
-                    },
-                    child: SizedBox(
-                      child: Column(
-                        children: [
-                          if (controller.profileImage != null)
-                            CircleAvatar(
-                              radius: 50,
-                              backgroundImage: FileImage(
-                                controller.profileImage!,
-                              ),
-                            )
-                          else
-                            CircleAvatar(
-                              radius: 50,
-                              child: Icon(
-                                Icons.person,
-                                size: 95,
-                                color: Colors.white,
-                              ),
-                              backgroundColor: Colors.grey.shade300,
+              GetBuilder<UserProfileController>(builder: (controller) {
+                return InkWell(
+                  onTap: () async {
+                    final pickedFile =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    if (pickedFile != null) {
+                      controller.setProfileImage(File(pickedFile.path));
+                    }
+                  },
+                  child: SizedBox(
+                    child: Column(
+                      children: [
+                        if (controller.profileImage != null)
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundImage: FileImage(
+                              controller.profileImage!,
                             ),
-                        ],
-                      ),
+                          )
+                        else
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundColor: Colors.grey.shade300,
+                            child: const Icon(
+                              Icons.person,
+                              size: 95,
+                              color: Colors.white,
+                            ),
+                          ),
+                      ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              }),
               SizedBox(height: 2.h),
               CustomTextFormField(
                 labelText: "full_name".tr,
@@ -80,31 +78,14 @@ class _UserProfileViewState extends State<UserProfileView> {
               CustomTextFormField(
                 labelText: 'email'.tr,
                 controller: emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'enter_email'.tr;
-                  }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\$')
-                      .hasMatch(value)) {
-                    return 'enter_valid_email'.tr;
-                  }
-                  return null;
-                },
+                validator: Validators.emailValidator,
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
                 labelText: 'password'.tr,
                 controller: passwordController,
                 obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'enter_password'.tr;
-                  }
-                  if (value.length < 6) {
-                    return 'password_min_length'.tr;
-                  }
-                  return null;
-                },
+                validator: Validators.passwordValidator,
               ),
               SizedBox(height: 1.h),
               CustomTextFormField(
@@ -118,7 +99,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                 enabled: false,
               ),
               SizedBox(height: 1.h),
-// Date of Birth Picker
+              // Date of Birth Picker
               InkWell(
                 onTap: () async {
                   final selectedDate = await showDatePicker(
@@ -146,7 +127,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                     : genderController.text,
                 decoration: InputDecoration(
                   labelText: 'gender'.tr,
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                 ),
                 items: ['Male', 'Female'].map((String value) {
                   return DropdownMenuItem<String>(
@@ -165,62 +146,60 @@ class _UserProfileViewState extends State<UserProfileView> {
                 },
               ),
               const SizedBox(height: 20),
-              GetBuilder<UserProfileController>(
-                builder: (profileController) {
-                  return GetBuilder<SignUpController>(
-                    builder: (signUpController) {
-                      return profileController.inProgress ||
-                              signUpController.inProgress
-                          ? const Center(child: CircularProgressIndicator())
-                          : CustomButton(
-                              onPressed: () async {
-                                if (nameController.text.isEmpty ||
-                                    emailController.text.isEmpty ||
-                                    passwordController.text.isEmpty ||
-                                    whatYouDoController.text.isEmpty ||
-                                    dateOfBirthController.text.isEmpty ||
-                                    genderController.text.isEmpty ||
-                                    profileController.profileImage == null) {
-                                  Get.snackbar("Error",
-                                      "Please fill in all fields and select a profile image.");
-                                  return;
-                                }
+              GetBuilder<UserProfileController>(builder: (profileController) {
+                return GetBuilder<SignUpController>(
+                  builder: (signUpController) {
+                    return profileController.inProgress ||
+                            signUpController.inProgress
+                        ? const Center(child: CircularProgressIndicator())
+                        : CustomButton(
+                            onPressed: () async {
+                              if (nameController.text.isEmpty ||
+                                  emailController.text.isEmpty ||
+                                  passwordController.text.isEmpty ||
+                                  whatYouDoController.text.isEmpty ||
+                                  dateOfBirthController.text.isEmpty ||
+                                  genderController.text.isEmpty ||
+                                  profileController.profileImage == null) {
+                                Get.snackbar("Error",
+                                    "Please fill in all fields and select a profile image.");
+                                return;
+                              }
 
-                                bool signUpSuccess =
-                                    await signUpController.signUp(
-                                  emailController.text,
-                                  passwordController.text,
+                              bool signUpSuccess =
+                                  await signUpController.signUp(
+                                emailController.text,
+                                passwordController.text,
+                              );
+
+                              if (signUpSuccess) {
+                                bool profileSuccess =
+                                    await profileController.addUserProfile(
+                                  fullName: nameController.text,
+                                  email: emailController.text,
+                                  whatYouDo: whatYouDoController.text,
+                                  accountType: accountTypeController.text,
+                                  dateOfBirth: dateOfBirthController.text,
+                                  gender: genderController.text,
                                 );
 
-                                if (signUpSuccess) {
-                                  bool profileSuccess =
-                                      await profileController.addUserProfile(
-                                    fullName: nameController.text,
-                                    email: emailController.text,
-                                    whatYouDo: whatYouDoController.text,
-                                    accountType: accountTypeController.text,
-                                    dateOfBirth: dateOfBirthController.text,
-                                    gender: genderController.text,
-                                  );
-
-                                  if (profileSuccess) {
-                                    nameController.clear();
-                                    emailController.clear();
-                                    passwordController.clear();
-                                    whatYouDoController.clear();
-                                    dateOfBirthController.clear();
-                                    genderController.clear();
-                                    Get.snackbar("Success",
-                                        "Sign-up and profile creation successful!");
-                                  }
+                                if (profileSuccess) {
+                                  nameController.clear();
+                                  emailController.clear();
+                                  passwordController.clear();
+                                  whatYouDoController.clear();
+                                  dateOfBirthController.clear();
+                                  genderController.clear();
+                                  Get.snackbar("Success",
+                                      "Sign-up and profile creation successful!");
                                 }
-                              },
-                              text: "Sign Up",
-                            );
-                    },
-                  );
-                },
-              ),
+                              }
+                            },
+                            text: "Sign Up",
+                          );
+                  },
+                );
+              }),
             ],
           ),
         ),

@@ -54,7 +54,6 @@ class _ClassViewState extends State<ClassView> {
                               Get.to(() => SubjectsView(
                                     classId: controller.classes[index].id!,
                                   ));
-                              print(controller.classes[index].id);
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

@@ -113,8 +113,8 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
                           color: Colors.greenAccent,
                         ),
                         child: CircleAvatar(
-                          backgroundImage: profile.image != null
-                              ? NetworkImage(profile.image!)
+                          backgroundImage: profile.image.isNotEmpty
+                              ? NetworkImage(profile.image)
                               : const AssetImage(
                                       'assets/images/default_avatar.png')
                                   as ImageProvider,

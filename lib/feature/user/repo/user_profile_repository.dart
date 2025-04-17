@@ -17,11 +17,9 @@ class UserProfileRepository {
       if (response.isSuccess) {
         return response.responseData;
       } else {
-        print("Error uploading user profile image: ${response.errorMessage}");
         return null;
       }
     } catch (e) {
-      print("Error uploading user profile image: $e");
       return null;
     }
   }
@@ -29,7 +27,6 @@ class UserProfileRepository {
   Future<ApiResponse> addUserProfile(UserProfileModel userProfile) async {
     try {
       final userData = userProfile.toMap();
-      print("User Data being sent to Supabase: $userData");
 
       final response = await _networkCaller.postRequest(
         tableName: 'users_profile',
@@ -38,7 +35,6 @@ class UserProfileRepository {
 
       return response;
     } catch (e) {
-      print("Error adding user profile: $e");
       return ApiResponse(
         isSuccess: false,
         responseData: null,
@@ -58,11 +54,9 @@ class UserProfileRepository {
       if (response.isSuccess) {
         return UserProfileModel.fromMap(response.responseData[0]);
       } else {
-        print("Error fetching user profile: ${response.errorMessage}");
         return null;
       }
     } catch (e) {
-      print("Error fetching user profile: $e");
       return null;
     }
   }
@@ -70,7 +64,6 @@ class UserProfileRepository {
   Future<ApiResponse> updateUserProfile(UserProfileModel userProfile) async {
     try {
       final userData = userProfile.toMap();
-      print("User Data being updated: $userData");
 
       final response = await _networkCaller.postRequest(
         tableName: 'users_profile',
@@ -79,7 +72,6 @@ class UserProfileRepository {
 
       return response;
     } catch (e) {
-      print("Error updating user profile: $e");
       return ApiResponse(
         isSuccess: false,
         responseData: null,

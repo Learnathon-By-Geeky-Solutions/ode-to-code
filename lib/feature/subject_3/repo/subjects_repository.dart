@@ -28,10 +28,8 @@ class SubjectRepository extends ISubjectRepository {
     );
 
     if (response.isSuccess) {
-      print("Subject added successfully!");
       return true;
     } else {
-      print("Error adding subject: ${response.errorMessage}");
       return false;
     }
   }
@@ -51,20 +49,16 @@ class SubjectRepository extends ISubjectRepository {
         }).toList();
 
         if (filteredData.isNotEmpty) {
-          print("Fetched filtered subjects: $filteredData");
           return filteredData
               .map<SubjectModel>((data) => SubjectModel.fromMap(data))
               .toList();
         } else {
-          print("No subjects found for class_id: $classId");
           return [];
         }
       } else {
-        print("No subjects found for class_id: $classId");
         return [];
       }
     } else {
-      print("Error fetching subjects: ${response.errorMessage}");
       return [];
     }
   }

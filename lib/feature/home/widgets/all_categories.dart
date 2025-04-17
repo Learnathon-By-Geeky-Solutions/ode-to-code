@@ -38,8 +38,6 @@ class AllCategories extends StatelessWidget {
                           className: controller.categories[index].categoryName,
                         ),
                       );
-                      print(controller.categories[index].id.toString());
-                      print(controller.categories[index].categoryName);
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),

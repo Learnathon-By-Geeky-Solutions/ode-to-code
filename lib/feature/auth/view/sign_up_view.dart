@@ -61,7 +61,6 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailTEController.dispose();
     _passwordTEController.dispose();
     super.dispose();

@@ -8,7 +8,8 @@ class PinVerificationView extends StatefulWidget {
 }
 
 class _PinVerificationViewState extends State<PinVerificationView> {
-  TextEditingController _pinTEController = TextEditingController();
+  final TextEditingController _pinTEController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class _PinVerificationViewState extends State<PinVerificationView> {
                 inactiveColor: Colors.grey.shade300,
                 selectedColor: AppColors.themeColor,
               ),
-              animationDuration: Duration(milliseconds: 300),
+              animationDuration: const Duration(milliseconds: 300),
               backgroundColor: Colors.transparent,
               enableActiveFill: true,
               controller: _pinTEController,
@@ -48,7 +49,7 @@ class _PinVerificationViewState extends State<PinVerificationView> {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                  fixedSize: Size(300, 60),
+                  fixedSize: const Size(300, 60),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                   backgroundColor: AppColors.themeColor,
@@ -69,7 +70,7 @@ class _PinVerificationViewState extends State<PinVerificationView> {
                       borderRadius: BorderRadius.circular(50),
                       color: Colors.white,
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Icon(
                         Icons.arrow_forward,
                         color: AppColors.themeColor,
