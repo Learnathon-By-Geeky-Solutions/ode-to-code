@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:edu_bridge_app/resources/urls.dart';
+import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/resources/urls.dart';
 import 'package:edu_bridge_app/user_app.dart';
 
 // Initialize app function
