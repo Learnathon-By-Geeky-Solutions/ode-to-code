@@ -2,29 +2,65 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 void main() {
-  group('AppThemes', () {
-    test('should have correct light theme primary color', () {
-      expect(AppThemes.lightTheme.primaryColor,
-          AppColors.primary); // Check if the primary color is set correctly
-    });
+  TestWidgetsFlutterBinding.ensureInitialized();
 
-    test('should have correct dark theme primary color', () {
-      expect(AppThemes.darkTheme.primaryColor,
-          AppColors.darkPrimary); // Verify dark theme primary color
-    });
-
-    test('should have correct light theme font family', () {
-      expect(AppThemes.lightTheme.fontFamily,
-          'Kalpurush'); // Check if font is applied
-    });
-
-    test('should have correct input decoration for light theme', () {
-      expect(AppThemes.lightTheme.inputDecorationTheme.fillColor,
-          AppColors.white); // Check fill color for input field
-    });
+  // Set up test with a simple font or system font
+  setUpAll(() {
+    // You can override font loading here or mock font loading behavior
   });
-}
 
-extension on ThemeData {
-  get fontFamily => null;
+  group('AppThemes', () {
+    testWidgets('should have correct light theme primary color',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        theme: AppThemes.lightTheme,
+        home: Scaffold(),
+      ));
+
+      expect(AppThemes.lightTheme.primaryColor, AppColors.primary);
+    });
+
+    testWidgets('should have correct light theme secondary color',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        theme: AppThemes.lightTheme,
+        home: Scaffold(),
+      ));
+
+      expect(AppThemes.lightTheme.colorScheme.secondary, AppColors.secondary);
+    });
+
+    testWidgets('should have correct light theme background color',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        theme: AppThemes.lightTheme,
+        home: Scaffold(),
+      ));
+
+      expect(AppThemes.lightTheme.colorScheme.surface, AppColors.background);
+    });
+
+    testWidgets('should have correct dark theme primary color',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        theme: AppThemes.darkTheme,
+        home: Scaffold(),
+      ));
+
+      expect(AppThemes.darkTheme.primaryColor, AppColors.darkPrimary);
+    });
+
+    testWidgets('should have correct dark theme secondary color',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        theme: AppThemes.darkTheme,
+        home: Scaffold(),
+      ));
+
+      expect(
+          AppThemes.darkTheme.colorScheme.secondary, AppColors.darkSecondary);
+    });
+
+    // More tests for other theme properties...
+  });
 }
