@@ -10,14 +10,12 @@ class CategoryRepository extends ICategoryRepository {
   Future<String?> uploadCategoryImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'category_images/$fileName';
-
     final response = await _networkCaller.uploadFile(
       bucketName: 'category_images',
       filePath: filePath,
       file: imageFile,
     );
-
-    return response.isSuccess ? response.responseData : null;
+    return _handleFileUploadResponse(response);
   }
 
   @override
@@ -26,12 +24,7 @@ class CategoryRepository extends ICategoryRepository {
       tableName: 'categories',
       data: category.toMap(),
     );
-
-    if (response.isSuccess) {
-      return true;
-    } else {
-      return false;
-    }
+    return _handlePostResponse(response);
   }
 
   @override
@@ -39,14 +32,7 @@ class CategoryRepository extends ICategoryRepository {
     final response = await _networkCaller.getRequest(
       tableName: 'categories',
     );
-
-    if (response.isSuccess) {
-      return (response.responseData as List)
-          .map((data) => CategoryModel.fromMap(data, data['id']))
-          .toList();
-    } else {
-      return [];
-    }
+    return _handleGetResponse(response);
   }
 
   @override
@@ -56,11 +42,12 @@ class CategoryRepository extends ICategoryRepository {
   }) async {
     final response = await _networkCaller.getRequest(
       tableName: 'categories',
-      queryParams: {
-        column: value,
-      },
+      queryParams: {column: value},
     );
+    return _handleGetResponse(response);
+  }
 
+  List<CategoryModel> _handleGetResponse(ApiResponse response) {
     if (response.isSuccess) {
       return (response.responseData as List)
           .map((data) => CategoryModel.fromMap(data, data['id']))
@@ -68,5 +55,17 @@ class CategoryRepository extends ICategoryRepository {
     } else {
       return [];
     }
+  }
+
+  String? _handleFileUploadResponse(ApiResponse response) {
+    if (response.isSuccess) {
+      return response.responseData;
+    } else {
+      return null;
+    }
+  }
+
+  bool _handlePostResponse(ApiResponse response) {
+    return response.isSuccess;
   }
 }

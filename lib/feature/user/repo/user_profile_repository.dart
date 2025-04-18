@@ -1,83 +1,74 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/core/services/api_response.dart';
 
 class UserProfileRepository {
   final NetworkCaller _networkCaller = NetworkCaller();
 
   Future<String?> uploadUserProfileImage(File imageFile) async {
-    try {
-      final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-      final filePath = 'user/$fileName';
+    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final filePath = 'user/$fileName';
 
-      final response = await _networkCaller.uploadFile(
-        bucketName: 'user',
-        filePath: filePath,
-        file: imageFile,
-      );
+    final response = await _networkCaller.uploadFile(
+      bucketName: 'user',
+      filePath: filePath,
+      file: imageFile,
+    );
 
-      if (response.isSuccess) {
-        return response.responseData;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+    return _handleFileUploadResponse(response);
   }
 
   Future<ApiResponse> addUserProfile(UserProfileModel userProfile) async {
-    try {
-      final userData = userProfile.toMap();
+    final userData = userProfile.toMap();
+    final response = await _networkCaller.postRequest(
+      tableName: 'users_profile',
+      data: userData,
+    );
 
-      final response = await _networkCaller.postRequest(
-        tableName: 'users_profile',
-        data: userData,
-      );
-
-      return response;
-    } catch (e) {
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
-    }
+    return _handlePostResponse(response);
   }
 
   Future<UserProfileModel?> fetchUserProfileByEmail(String email) async {
-    try {
-      final response = await _networkCaller.getRequest(
-        tableName: 'users_profile',
-        eqColumn: 'email',
-        eqValue: email,
-      );
+    final response = await _networkCaller.getRequest(
+      tableName: 'users_profile',
+      eqColumn: 'email',
+      eqValue: email,
+    );
 
-      if (response.isSuccess) {
-        return UserProfileModel.fromMap(response.responseData[0]);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
+    return _handleGetResponse(response);
   }
 
   Future<ApiResponse> updateUserProfile(UserProfileModel userProfile) async {
-    try {
-      final userData = userProfile.toMap();
+    final userData = userProfile.toMap();
+    final response = await _networkCaller.postRequest(
+      tableName: 'users_profile',
+      data: userData,
+    );
 
-      final response = await _networkCaller.postRequest(
-        tableName: 'users_profile',
-        data: userData,
-      );
+    return _handlePostResponse(response);
+  }
 
+  String? _handleFileUploadResponse(ApiResponse response) {
+    if (response.isSuccess) {
+      return response.responseData;
+    }
+    return null;
+  }
+
+  ApiResponse _handlePostResponse(ApiResponse response) {
+    if (response.isSuccess) {
       return response;
-    } catch (e) {
+    } else {
       return ApiResponse(
         isSuccess: false,
         responseData: null,
-        errorMessage: e.toString(),
+        errorMessage: response.errorMessage,
       );
     }
+  }
+
+  UserProfileModel? _handleGetResponse(ApiResponse response) {
+    if (response.isSuccess && response.responseData != null) {
+      return UserProfileModel.fromMap(response.responseData[0]);
+    }
+    return null;
   }
 }

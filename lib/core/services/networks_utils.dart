@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/core/services/api_response.dart';
 
 class NetworkUtils {
   final Logger _logger;

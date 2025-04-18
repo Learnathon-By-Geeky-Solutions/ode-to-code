@@ -14,29 +14,32 @@ class ForgotPasswordButton extends StatelessWidget {
       text: "Forgot Password",
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      onPressed: () {
-        final email = _emailTEController.text;
-        if (email.isEmpty) {
-          Get.snackbar(
-            'Error',
-            'Please enter your email to reset the password.',
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
-          return;
-        }
-
-        Get.snackbar(
-          'Success',
-          'A password reset link has been sent to your email.',
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-      },
+      onPressed: _handleForgotPassword,
       backgroundColor: AppColors.themeColor,
       textColor: Colors.white,
       icon: Icons.arrow_forward,
       buttonType: ButtonType.elevated,
+    );
+  }
+
+  void _handleForgotPassword() {
+    final email = _emailTEController.text.trim();
+
+    if (email.isEmpty) {
+      _showSnackbar('Error', 'Please enter your email to reset the password.',
+          Colors.red);
+    } else {
+      _showSnackbar('Success',
+          'A password reset link has been sent to your email.', Colors.green);
+    }
+  }
+
+  void _showSnackbar(String title, String message, Color bgColor) {
+    Get.snackbar(
+      title,
+      message,
+      backgroundColor: bgColor,
+      colorText: Colors.white,
     );
   }
 }

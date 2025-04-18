@@ -1,10 +1,10 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class SubjectRepository extends ISubjectRepository {
+  final INetworkCaller _networkCaller;
+
   SubjectRepository({required INetworkCaller networkCaller})
       : _networkCaller = networkCaller;
-
-  final INetworkCaller _networkCaller;
 
   @override
   Future<String?> uploadSubjectImage(File imageFile) async {
@@ -17,7 +17,7 @@ class SubjectRepository extends ISubjectRepository {
       file: imageFile,
     );
 
-    return response.isSuccess ? response.responseData : null;
+    return _handleFileUploadResponse(response);
   }
 
   @override
@@ -27,11 +27,7 @@ class SubjectRepository extends ISubjectRepository {
       data: subjectModel.toMap(),
     );
 
-    if (response.isSuccess) {
-      return true;
-    } else {
-      return false;
-    }
+    return _handlePostResponse(response);
   }
 
   @override
@@ -42,24 +38,26 @@ class SubjectRepository extends ISubjectRepository {
       eqValue: classId,
     );
 
-    if (response.isSuccess) {
-      if (response.responseData != null && response.responseData.isNotEmpty) {
-        final filteredData = (response.responseData as List).where((data) {
-          return data['class_id'] == classId;
-        }).toList();
+    return _handleGetResponse(response);
+  }
 
-        if (filteredData.isNotEmpty) {
-          return filteredData
-              .map<SubjectModel>((data) => SubjectModel.fromMap(data))
-              .toList();
-        } else {
-          return [];
-        }
-      } else {
-        return [];
-      }
-    } else {
-      return [];
+  String? _handleFileUploadResponse(ApiResponse response) {
+    if (response.isSuccess) {
+      return response.responseData;
     }
+    return null;
+  }
+
+  bool _handlePostResponse(ApiResponse response) {
+    return response.isSuccess;
+  }
+
+  List<SubjectModel> _handleGetResponse(ApiResponse response) {
+    if (response.isSuccess && response.responseData != null) {
+      return (response.responseData as List)
+          .map<SubjectModel>((data) => SubjectModel.fromMap(data))
+          .toList();
+    }
+    return [];
   }
 }
