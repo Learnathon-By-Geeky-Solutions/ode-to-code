@@ -30,10 +30,7 @@ class _ChaptersViewState extends State<ChaptersView> {
         return CustomScaffold(
           name: widget.subjectName,
           body: _buildBody(controller),
-          floatingActionButton: OutlinedButton(
-            onPressed: _showAddChapterDialog,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: _buildFloatingActionButton(),
         );
       },
     );
@@ -41,10 +38,18 @@ class _ChaptersViewState extends State<ChaptersView> {
 
   Widget _buildBody(ChapterController controller) {
     if (controller.inProgress) {
-      return const Center(child: CircularProgressIndicator());
+      return _buildLoadingIndicator();
     }
-    if (controller.chapters.isEmpty) return _buildNoContentMessage();
+
+    if (controller.chapters.isEmpty) {
+      return _buildNoContentMessage();
+    }
+
     return _buildChapterGrid(controller);
+  }
+
+  Widget _buildLoadingIndicator() {
+    return const Center(child: CircularProgressIndicator());
   }
 
   Widget _buildNoContentMessage() {
@@ -79,6 +84,13 @@ class _ChaptersViewState extends State<ChaptersView> {
         ));
   }
 
+  Widget _buildFloatingActionButton() {
+    return OutlinedButton(
+      onPressed: _showAddChapterDialog,
+      child: const Icon(Icons.add),
+    );
+  }
+
   void _showAddChapterDialog() {
     TextEditingController chapterController = TextEditingController();
     Get.dialog(
@@ -110,15 +122,24 @@ class _ChaptersViewState extends State<ChaptersView> {
   List<Widget> _buildAddChapterDialogActions(
       ChapterController controller, TextEditingController chapterController) {
     return [
-      TextButton(
-        onPressed: () => _addChapter(controller, chapterController),
-        child: CustomText(text: 'add'.tr),
-      ),
-      TextButton(
-        onPressed: () => Get.back(),
-        child: CustomText(text: 'cancel'.tr),
-      ),
+      _buildAddButton(controller, chapterController),
+      _buildCancelButton(),
     ];
+  }
+
+  Widget _buildAddButton(
+      ChapterController controller, TextEditingController chapterController) {
+    return TextButton(
+      onPressed: () => _addChapter(controller, chapterController),
+      child: CustomText(text: 'add'.tr),
+    );
+  }
+
+  Widget _buildCancelButton() {
+    return TextButton(
+      onPressed: () => Get.back(),
+      child: CustomText(text: 'cancel'.tr),
+    );
   }
 
   Future<void> _addChapter(ChapterController controller,
