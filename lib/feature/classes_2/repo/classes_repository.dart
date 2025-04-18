@@ -1,9 +1,11 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class ClassRepository extends IClassRepository {
-  ClassRepository({required INetworkCaller networkCaller});
+  final INetworkCaller _networkCaller;
 
-  final NetworkCaller _networkCaller = NetworkCaller();
+  ClassRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
+
   @override
   Future<String?> uploadClassImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
@@ -15,7 +17,7 @@ class ClassRepository extends IClassRepository {
       file: imageFile,
     );
 
-    return response.isSuccess ? response.responseData : null;
+    return _handleFileUploadResponse(response);
   }
 
   @override
@@ -25,11 +27,7 @@ class ClassRepository extends IClassRepository {
       data: classModel.toMap(),
     );
 
-    if (response.isSuccess) {
-      return true;
-    } else {
-      return false;
-    }
+    return _handlePostResponse(response);
   }
 
   @override
@@ -40,24 +38,32 @@ class ClassRepository extends IClassRepository {
       eqValue: categoryId,
     );
 
-    if (response.isSuccess) {
-      if (response.responseData != null && response.responseData.isNotEmpty) {
-        final filteredData = (response.responseData as List).where((data) {
-          return data['category_id'] == categoryId;
-        }).toList();
+    return _handleGetResponse(response, categoryId);
+  }
 
-        if (filteredData.isNotEmpty) {
-          return filteredData
-              .map<ClassModel>((data) => ClassModel.fromMap(data))
-              .toList();
-        } else {
-          return [];
-        }
-      } else {
-        return [];
+  List<ClassModel> _handleGetResponse(ApiResponse response, String categoryId) {
+    if (response.isSuccess) {
+      final List filteredData = (response.responseData as List).where((data) {
+        return data['category_id'] == categoryId;
+      }).toList();
+
+      if (filteredData.isNotEmpty) {
+        return filteredData
+            .map<ClassModel>((data) => ClassModel.fromMap(data))
+            .toList();
       }
-    } else {
-      return [];
     }
+    return [];
+  }
+
+  String? _handleFileUploadResponse(ApiResponse response) {
+    if (response.isSuccess) {
+      return response.responseData;
+    }
+    return null;
+  }
+
+  bool _handlePostResponse(ApiResponse response) {
+    return response.isSuccess;
   }
 }

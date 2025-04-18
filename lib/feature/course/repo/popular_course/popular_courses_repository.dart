@@ -1,8 +1,10 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class PopularCourseRepository extends IPopularCourseRepository {
-  PopularCourseRepository({required INetworkCaller networkCaller});
-  final NetworkCaller _networkCaller = NetworkCaller();
+  final INetworkCaller _networkCaller;
+
+  PopularCourseRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
 
   @override
   Future<String?> uploadCourseImage(File imageFile) async {
@@ -15,7 +17,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
       file: imageFile,
     );
 
-    return response.isSuccess ? response.responseData : null;
+    return _handleFileUploadResponse(response);
   }
 
   @override
@@ -24,7 +26,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
       tableName: "courses",
       data: course.toMap(),
     );
-    return response.isSuccess;
+    return _handlePostResponse(response);
   }
 
   @override
@@ -33,12 +35,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
       tableName: 'courses',
     );
 
-    if (response.isSuccess) {
-      return (response.responseData as List)
-          .map((data) => PopularCourseModel.fromMap(data))
-          .toList();
-    }
-    return [];
+    return _handleGetResponse(response);
   }
 
   @override
@@ -53,7 +50,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
         'course_id': courseId,
       },
     );
-    return response.isSuccess;
+    return _handlePostResponse(response);
   }
 
   @override
@@ -68,7 +65,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
         'course_id': courseId,
       },
     );
-    return response.isSuccess && (response.responseData as List).isNotEmpty;
+    return _handleIsCourseSavedResponse(response);
   }
 
   @override
@@ -83,7 +80,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
         'course_id': courseId,
       },
     );
-    return response.isSuccess;
+    return _handlePostResponse(response);
   }
 
   @override
@@ -109,9 +106,28 @@ class PopularCourseRepository extends IPopularCourseRepository {
       queryParams: {'id': savedCourseIds},
     );
 
-    if (coursesResponse.isSuccess) {
-      return (coursesResponse.responseData as List)
-          .map((data) => PopularCourseModel.fromMap(data))
+    return _handleGetResponse(coursesResponse);
+  }
+
+  String? _handleFileUploadResponse(ApiResponse response) {
+    if (response.isSuccess) {
+      return response.responseData;
+    }
+    return null;
+  }
+
+  bool _handlePostResponse(ApiResponse response) {
+    return response.isSuccess;
+  }
+
+  bool _handleIsCourseSavedResponse(ApiResponse response) {
+    return response.isSuccess && (response.responseData as List).isNotEmpty;
+  }
+
+  List<PopularCourseModel> _handleGetResponse(ApiResponse response) {
+    if (response.isSuccess && response.responseData != null) {
+      return (response.responseData as List)
+          .map<PopularCourseModel>((data) => PopularCourseModel.fromMap(data))
           .toList();
     }
     return [];

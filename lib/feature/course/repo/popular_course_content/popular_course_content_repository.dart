@@ -1,8 +1,10 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class PopularCourseContentRepository extends IPopularCourseContentRepository {
-  PopularCourseContentRepository({required INetworkCaller networkCaller});
-  final NetworkCaller _networkCaller = NetworkCaller();
+  final INetworkCaller _networkCaller;
+
+  PopularCourseContentRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
 
   @override
   Future<bool> addPopularCourseContent(
@@ -12,11 +14,7 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
       data: courseModel.toMap(),
     );
 
-    if (response.isSuccess) {
-      return true;
-    } else {
-      return false;
-    }
+    return _handlePostResponse(response);
   }
 
   @override
@@ -28,14 +26,20 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
       eqValue: courseId,
     );
 
+    return _handleGetResponse(response);
+  }
+
+  List<PopularCourseContentModel> _handleGetResponse(ApiResponse response) {
     if (response.isSuccess) {
       return (response.responseData as List)
           .map<PopularCourseContentModel>(
-            (data) => PopularCourseContentModel.fromMap(data),
-          )
+              (data) => PopularCourseContentModel.fromMap(data))
           .toList();
-    } else {
-      return [];
     }
+    return [];
+  }
+
+  bool _handlePostResponse(ApiResponse response) {
+    return response.isSuccess;
   }
 }

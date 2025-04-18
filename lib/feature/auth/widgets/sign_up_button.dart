@@ -20,22 +20,7 @@ class SignUpButton extends StatelessWidget {
           text: "Sign Up",
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          onPressed: () async {
-            if (!_formKey.currentState!.validate()) {
-              return; // Exit if form is invalid
-            }
-
-            final email = emailTEController.text;
-            final password = passwordTEController.text;
-
-            // Call sign-up logic from SignUpController
-            bool success = await controller.signUp(email, password);
-
-            if (success) {
-              // Navigate to Sign In screen after successful sign-up
-              Get.offAll(const SignInView());
-            }
-          },
+          onPressed: () => _handleSignUp(controller),
           backgroundColor: AppColors.themeColor,
           textColor: Colors.white,
           icon: Icons.arrow_forward,
@@ -43,5 +28,17 @@ class SignUpButton extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _handleSignUp(SignUpController controller) async {
+    if (!_formKey.currentState!.validate()) return;
+
+    final email = emailTEController.text.trim();
+    final password = passwordTEController.text.trim();
+
+    final success = await controller.signUp(email, password);
+    if (success) {
+      Get.offAll(const SignInView());
+    }
   }
 }

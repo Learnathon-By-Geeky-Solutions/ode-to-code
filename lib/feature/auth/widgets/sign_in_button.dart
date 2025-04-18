@@ -20,19 +20,7 @@ class SignInButton extends StatelessWidget {
           text: "Sign In",
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          onPressed: () async {
-            if (formKey.currentState?.validate() ?? false) {
-              bool success = await controller.signIn(
-                emailController.text,
-                passwordController.text,
-              );
-              if (success) {
-                Get.offAll(
-                  () => MainBottomNavView(),
-                );
-              }
-            }
-          },
+          onPressed: () => _handleSignIn(controller),
           backgroundColor: AppColors.themeColor,
           textColor: Colors.white,
           icon: Icons.arrow_forward,
@@ -40,5 +28,17 @@ class SignInButton extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _handleSignIn(SignInController controller) async {
+    if (formKey.currentState?.validate() ?? false) {
+      final success = await controller.signIn(
+        emailController.text,
+        passwordController.text,
+      );
+      if (success) {
+        Get.offAll(() => MainBottomNavView());
+      }
+    }
   }
 }

@@ -1,8 +1,10 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class ContentRepository extends IContentRepository {
-  ContentRepository({required INetworkCaller networkCaller});
-  final NetworkCaller _networkCaller = NetworkCaller();
+  final INetworkCaller _networkCaller;
+
+  ContentRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
 
   @override
   Future<bool> addContent(ContentModel contentModel) async {
@@ -11,11 +13,7 @@ class ContentRepository extends IContentRepository {
       data: contentModel.toMap(),
     );
 
-    if (response.isSuccess) {
-      return true;
-    } else {
-      return false;
-    }
+    return _handlePostResponse(response);
   }
 
   @override
@@ -26,9 +24,13 @@ class ContentRepository extends IContentRepository {
       eqValue: chapterId,
     );
 
+    return _handleGetResponse(response, chapterId);
+  }
+
+  List<ContentModel> _handleGetResponse(
+      ApiResponse response, String chapterId) {
     if (response.isSuccess) {
       if (response.responseData != null && response.responseData.isNotEmpty) {
-        // Filter the results explicitly by chapters_id if needed
         final filteredData = (response.responseData as List).where((data) {
           return data['chapters_id'] == chapterId;
         }).toList();
@@ -37,14 +39,13 @@ class ContentRepository extends IContentRepository {
           return filteredData
               .map<ContentModel>((data) => ContentModel.fromMap(data))
               .toList();
-        } else {
-          return [];
         }
-      } else {
-        return [];
       }
-    } else {
-      return [];
     }
+    return [];
+  }
+
+  bool _handlePostResponse(ApiResponse response) {
+    return response.isSuccess;
   }
 }
