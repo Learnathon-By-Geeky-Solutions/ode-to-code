@@ -6,7 +6,6 @@ class ThemeSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
-
     return GetBuilder<ThemeController>(
       builder: (_) {
         return Switch(

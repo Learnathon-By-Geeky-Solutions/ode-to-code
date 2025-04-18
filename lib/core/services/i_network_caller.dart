@@ -1,4 +1,4 @@
-import 'network_caller.dart';
+import 'package:edu_bridge_app/core/services/api_response.dart';
 
 abstract class INetworkCaller {
   Future<ApiResponse> getRequest({
@@ -31,5 +31,12 @@ abstract class INetworkCaller {
   Future<ApiResponse> saveUserCourse({
     required String userId,
     required String courseId,
+  });
+
+  // New PUT request method for updating data
+  Future<ApiResponse> putRequest({
+    required String tableName,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? queryParams,
   });
 }

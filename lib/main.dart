@@ -11,8 +11,8 @@ Future<void> initializeApp() async {
 
   // Initialize Supabase using the loaded environment variables
   await Supabase.initialize(
-    url: Urls.apiUrls, // Will now correctly access the loaded dotenv values
-    anonKey: Urls.apiKey, // Will now correctly access the loaded dotenv values
+    url: Urls.env['apiUrl'] ?? '',
+    anonKey: Urls.env['apiKey'] ?? '',
   );
 }
 

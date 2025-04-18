@@ -9,7 +9,7 @@ export 'package:edu_bridge_app/controller.dart';
 // Core Resources
 export 'package:edu_bridge_app/core/resources/app_colors.dart';
 export 'package:edu_bridge_app/core/resources/app_themes.dart';
-export 'package:edu_bridge_app/core/resources/app_translations.dart';
+export 'package:edu_bridge_app/core/localization/app_translations.dart';
 export 'package:edu_bridge_app/core/resources/assets_path.dart';
 export 'package:edu_bridge_app/core/resources/export.dart';
 // Core Services

@@ -14,18 +14,20 @@ class CustomTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleRow = Row(
+      children: [
+        Icon(icon),
+        HorizontalSpacing(3.w),
+        CustomText(text: title),
+      ],
+    );
+
     return TextButton(
       onPressed: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Icon(icon),
-              HorizontalSpacing(3.w),
-              CustomText(text: title),
-            ],
-          ),
+          titleRow,
           const Row(
             children: [
               Icon(Icons.arrow_forward_ios),

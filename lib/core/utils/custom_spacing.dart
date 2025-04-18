@@ -2,9 +2,7 @@ import 'package:edu_bridge_app/core/resources/export.dart';
 
 class VerticalSpacing extends StatelessWidget {
   final double height;
-
   const VerticalSpacing(this.height, {super.key});
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(height: height);
@@ -13,9 +11,7 @@ class VerticalSpacing extends StatelessWidget {
 
 class HorizontalSpacing extends StatelessWidget {
   final double width;
-
   const HorizontalSpacing(this.width, {super.key});
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(width: width);
