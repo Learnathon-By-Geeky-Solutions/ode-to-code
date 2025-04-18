@@ -1,4 +1,6 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/feature/classes_2/widget/add_class_dialog.dart';
+import 'package:edu_bridge_app/feature/classes_2/widget/class_grid_item.dart';
 
 class ClassView extends StatefulWidget {
   const ClassView({
@@ -24,12 +26,12 @@ class _ClassViewState extends State<ClassView> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       name: widget.className,
       floatingActionButton: OutlinedButton(
-        onPressed: showAddClassDialog,
+        onPressed: () =>
+            Get.dialog(AddClassDialog(categoryId: widget.categoryId)),
         child: const Icon(Icons.add),
       ),
       body: Padding(
@@ -50,96 +52,12 @@ class _ClassViewState extends State<ClassView> {
                 ),
                 itemCount: controller.classes.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Get.to(() => SubjectsView(
-                            classId: controller.classes[index].id!,
-                          ));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        elevation: 3,
-                        color: AppColors.white,
-                        child: Center(
-                          child: controller.classes[index].image.isNotEmpty
-                              ? Image.network(controller.classes[index].image)
-                              : const Icon(Icons.image_not_supported, size: 50),
-                        ),
-                      ),
-                    ),
-                  );
+                  return ClassGridItem(classModel: controller.classes[index]);
                 },
               );
             }
           },
         ),
-      ),
-    );
-  }
-
-  void showAddClassDialog() {
-    final TextEditingController classNameController = TextEditingController();
-
-    Get.dialog(
-      GetBuilder<ClassController>(
-        builder: (controller) {
-          return AlertDialog(
-            title: CustomText(text: 'add_class'.tr),
-            content: SizedBox(
-              width: double.maxFinite,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: classNameController,
-                    decoration: InputDecoration(
-                      hintText: 'enter_class_name'.tr,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: controller.pickClassImage,
-                    child: CustomText(text: 'add_image'.tr),
-                  ),
-                  const SizedBox(height: 10),
-                  if (controller.classImage != null)
-                    Image.file(
-                      controller.classImage!,
-                      height: 80,
-                      width: 80,
-                      fit: BoxFit.cover,
-                    ),
-                ],
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  if (classNameController.text.isNotEmpty) {
-                    bool success = await controller.addClass(
-                      widget.categoryId,
-                      classNameController.text,
-                    );
-                    if (success) {
-                      controller.fetchClasses(widget.categoryId);
-                      Get.back();
-                    }
-                  } else {
-                    Get.snackbar("Error", "Class name cannot be empty");
-                  }
-                },
-                child: CustomText(text: 'add'.tr),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: CustomText(text: 'add'.tr),
-              ),
-            ],
-          );
-        },
       ),
     );
   }

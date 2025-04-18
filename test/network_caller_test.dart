@@ -27,7 +27,7 @@ void main() {
   });
 
   test('getCurrentUserId returns user id when available', () {
-    final mockUser = User(
+    const mockUser = User(
       id: 'user123',
       appMetadata: {},
       aud: '',

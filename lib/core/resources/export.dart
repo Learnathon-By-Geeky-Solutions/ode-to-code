@@ -14,6 +14,7 @@ export 'package:edu_bridge_app/core/resources/assets_path.dart';
 export 'package:edu_bridge_app/core/resources/export.dart';
 export 'package:edu_bridge_app/core/services/api_response.dart';
 // Core Services
+export 'package:edu_bridge_app/core/services/networks_utils.dart';
 export 'package:edu_bridge_app/core/services/i_network_caller.dart';
 export 'package:edu_bridge_app/core/services/network_caller.dart';
 // Core Utils
@@ -76,7 +77,7 @@ export 'package:edu_bridge_app/feature/content_5/view/content_view.dart';
 export 'package:edu_bridge_app/feature/content_5/view_model/content_controller.dart';
 export 'package:edu_bridge_app/feature/content_5/widgets/add_content_view.dart';
 export 'package:edu_bridge_app/feature/content_5/widgets/content_card.dart';
-export 'package:edu_bridge_app/feature/content_5/widgets/youtube_view.dart';
+export 'package:edu_bridge_app/feature/content_5/view/youtube_view.dart';
 // Course Feature
 export 'package:edu_bridge_app/feature/course/model/popular_course_content_model.dart';
 export 'package:edu_bridge_app/feature/course/model/popular_course_model.dart';

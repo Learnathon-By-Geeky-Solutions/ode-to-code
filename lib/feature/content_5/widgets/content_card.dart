@@ -5,6 +5,7 @@ class ContentCard extends StatelessWidget {
   final String title;
   final String? link;
   final String? note;
+
   const ContentCard({
     super.key,
     required this.number,
@@ -18,35 +19,17 @@ class ContentCard extends StatelessWidget {
     final hasLink = link?.isNotEmpty == true;
     final hasNote = note?.isNotEmpty == true;
 
-    String content;
-    if (hasLink) {
-      content = link!;
-    } else if (hasNote) {
-      content = note!;
-    } else {
-      content = 'No content available';
-    }
+    final String content = hasLink
+        ? link!
+        : hasNote
+            ? note!
+            : 'no_content_available'.tr;
 
-    final Widget iconWidget;
-    if (hasLink) {
-      iconWidget = Image.asset(
-        AssetsPath.videPlayIcon,
-        height: 28,
-        width: 28,
-      );
-    } else if (hasNote) {
-      iconWidget = Image.asset(
-        AssetsPath.noteIcon,
-        height: 28,
-        width: 28,
-      );
-    } else {
-      iconWidget = Image.asset(
-        AssetsPath.videPlayIcon,
-        height: 28,
-        width: 28,
-      );
-    }
+    final String iconAsset = hasLink
+        ? AssetsPath.videPlayIcon
+        : hasNote
+            ? AssetsPath.noteIcon
+            : AssetsPath.videPlayIcon;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -90,19 +73,22 @@ class ContentCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    if (content.isNotEmpty)
-                      Text(
-                        content,
-                        style: GoogleFonts.mulish(
-                          color: AppColors.blackGray,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      content,
+                      style: GoogleFonts.mulish(
+                        color: AppColors.blackGray,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
                       ),
+                    ),
                   ],
                 ),
               ),
-              iconWidget,
+              Image.asset(
+                iconAsset,
+                height: 28,
+                width: 28,
+              ),
             ],
           ),
         ),
