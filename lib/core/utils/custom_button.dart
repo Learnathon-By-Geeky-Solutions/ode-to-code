@@ -33,48 +33,59 @@ class CustomButton extends StatelessWidget {
   });
 
   @override
-  @override
   Widget build(BuildContext context) {
     switch (buttonType) {
       case ButtonType.outlined:
-        return OutlinedButton(
-          onPressed: onPressed,
-          style: OutlinedButton.styleFrom(
-            fixedSize: Size(width, height),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            side: BorderSide(color: backgroundColor),
-            foregroundColor: AppColors.themeColor,
-          ),
-          child: _buildButtonContent(),
-        );
+        return _buildOutlinedButton();
       case ButtonType.text:
-        return TextButton(
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            fixedSize: Size(width, height),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            foregroundColor: textColor,
-          ),
-          child: _buildButtonContent(),
-        );
+        return _buildTextButton();
       case ButtonType.elevated:
-        return ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            fixedSize: Size(width, height),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-            backgroundColor: AppColors.themeColor,
-            foregroundColor: textColor,
-          ),
-          child: _buildButtonContent(),
-        );
+        return _buildElevatedButton();
     }
+  }
+
+  Widget _buildElevatedButton() {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        fixedSize: Size(width, height),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        backgroundColor: AppColors.themeColor,
+        foregroundColor: textColor,
+      ),
+      child: _buildButtonContent(),
+    );
+  }
+
+  Widget _buildTextButton() {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        fixedSize: Size(width, height),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        foregroundColor: textColor,
+      ),
+      child: _buildButtonContent(),
+    );
+  }
+
+  Widget _buildOutlinedButton() {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+        fixedSize: Size(width, height),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        side: BorderSide(color: backgroundColor),
+        foregroundColor: AppColors.themeColor,
+      ),
+      child: _buildButtonContent(),
+    );
   }
 
   Widget _buildButtonContent() {

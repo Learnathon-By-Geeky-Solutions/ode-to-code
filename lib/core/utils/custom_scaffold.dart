@@ -26,33 +26,47 @@ class CustomScaffold extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: InkWell(
-        onTap: () => Get.to(() => const UserProfileView()),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-              text: name ?? 'welcome'.tr,
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        ...?actions,
-        GestureDetector(
-          onTap: () async {
-            final supabase = Supabase.instance.client;
-            await supabase.auth.signOut();
-            Get.offAll(const SignInView());
-          },
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.logout),
-          ),
-        ),
-      ],
+      title: _buildTitle(),
+      actions: _buildActions(),
     );
+  }
+
+  Widget _buildTitle() {
+    return InkWell(
+      onTap: () => Get.to(() => const UserProfileView()),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            text: name ?? 'welcome'.tr,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildActions() {
+    return [
+      ...?actions,
+      _buildLogoutAction(),
+    ];
+  }
+
+  Widget _buildLogoutAction() {
+    return GestureDetector(
+      onTap: _handleLogout,
+      child: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Icon(Icons.logout),
+      ),
+    );
+  }
+
+  Future<void> _handleLogout() async {
+    final supabase = Supabase.instance.client;
+    await supabase.auth.signOut();
+    Get.offAll(const SignInView());
   }
 }

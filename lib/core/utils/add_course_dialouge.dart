@@ -9,86 +9,93 @@ class AddCourseDialog extends StatelessWidget {
     final coursePrice = TextEditingController();
     final courseType = TextEditingController();
 
-    return GetBuilder<PopularCourseController>(
-      builder: (controller) {
-        return AlertDialog(
-          title: CustomText(text: 'add_course_details'.tr),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomTextFormField(
-                    controller: courseName,
-                    labelText: 'course_name_hint'.tr,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomTextFormField(
-                    controller: coursePrice,
-                    labelText: 'course_price_hint'.tr,
-                  ),
-                  const SizedBox(height: 10),
-                  CustomTextFormField(
-                    controller: courseType,
-                    labelText: 'course_type_hint'.tr,
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      controller.pickCourseImage();
-                    },
-                    child: CustomText(
-                      text: 'add_image'.tr,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  controller.courseImage != null
-                      ? Image.file(
-                          controller.courseImage!,
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        )
-                      : const Icon(Icons.image, size: 80, color: Colors.grey),
-                ],
-              ),
-            ),
+    return GetBuilder<PopularCourseController>(builder: (controller) {
+      return AlertDialog(
+        title: CustomText(text: 'add_course_details'.tr),
+        content: _buildForm(courseName, coursePrice, courseType, controller),
+        actions: [
+          TextButton(
+            onPressed: () => _handleAddCourse(
+                courseName, coursePrice, courseType, controller),
+            child: Text('add'.tr),
           ),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                final courseTitleText = courseName.text.trim();
-                final coursePriceText = coursePrice.text.trim();
-                final courseTypeText = courseType.text.trim();
+        ],
+      );
+    });
+  }
 
-                if (courseTitleText.isNotEmpty &&
-                    coursePriceText.isNotEmpty &&
-                    courseTypeText.isNotEmpty &&
-                    controller.courseImage != null) {
-                  final success = await controller.addPopularCourse(
-                    courseTitleText,
-                    coursePriceText,
-                    courseTypeText,
-                  );
-                  if (success) {
-                    Get.back();
-                  } else {
-                    Get.snackbar(
-                        "Error", "Please fill all fields and add an image.");
-                  }
-                } else {
-                  Get.snackbar(
-                      "Error", "Please fill all fields and add an image.");
-                }
-              },
-              child: Text('add'.tr),
-            ),
+  Widget _buildForm(
+      TextEditingController courseName,
+      TextEditingController coursePrice,
+      TextEditingController courseType,
+      PopularCourseController controller) {
+    return SizedBox(
+      width: double.maxFinite,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildInputField(courseName, 'course_name_hint'.tr),
+            _buildInputField(coursePrice, 'course_price_hint'.tr),
+            _buildInputField(courseType, 'course_type_hint'.tr),
+            const SizedBox(height: 10),
+            _buildImagePicker(controller),
           ],
-        );
-      },
+        ),
+      ),
     );
+  }
+
+  Widget _buildInputField(TextEditingController controller, String labelText) {
+    return CustomTextFormField(
+      controller: controller,
+      labelText: labelText,
+    );
+  }
+
+  Widget _buildImagePicker(PopularCourseController controller) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: controller.pickCourseImage,
+          child: CustomText(
+              text: 'add_image'.tr, fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        const SizedBox(height: 10),
+        controller.courseImage != null
+            ? Image.file(
+                controller.courseImage!,
+                height: 80,
+                width: 80,
+                fit: BoxFit.cover,
+              )
+            : const Icon(Icons.image, size: 40),
+      ],
+    );
+  }
+
+  void _handleAddCourse(
+      TextEditingController courseName,
+      TextEditingController coursePrice,
+      TextEditingController courseType,
+      PopularCourseController controller) async {
+    final name = courseName.text.trim();
+    final price = coursePrice.text.trim();
+    final type = courseType.text.trim();
+
+    if (_validateFields(name, price, type)) {
+      final success = await controller.addPopularCourse(name, price, type);
+      if (success) {
+        Get.back();
+      } else {
+        Get.snackbar("Error", "Failed to add course. Please try again.");
+      }
+    } else {
+      Get.snackbar("Warning", "Please fill in all fields.");
+    }
+  }
+
+  bool _validateFields(String name, String price, String type) {
+    return name.isNotEmpty && price.isNotEmpty && type.isNotEmpty;
   }
 }

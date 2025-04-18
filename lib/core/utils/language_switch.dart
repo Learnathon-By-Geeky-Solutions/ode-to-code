@@ -6,7 +6,6 @@ class LanguageSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeController = Get.find<LocalizationController>();
-
     return GetBuilder<LocalizationController>(
       builder: (_) {
         return DropdownButton<String>(
@@ -21,7 +20,7 @@ class LanguageSwitch extends StatelessWidget {
               child: Text('বাংলা'),
             ),
           ],
-          onChanged: (value) {
+          onChanged: (String? value) {
             if (value != null) {
               localeController.changeLocale(value);
             }

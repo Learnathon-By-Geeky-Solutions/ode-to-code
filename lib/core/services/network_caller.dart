@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/services/api_response.dart';
 
 class NetworkCaller extends INetworkCaller {
   final SupabaseClient _supabase;
@@ -19,32 +20,19 @@ class NetworkCaller extends INetworkCaller {
   }) async {
     try {
       _logger.i('GET Request Initiated | Table: $tableName');
-
       final query = _supabase.from(tableName).select();
 
-      if (eqColumn != null && eqValue != null) {
-        query.eq(eqColumn, eqValue);
-        _logger.d('Added filter: $eqColumn = $eqValue');
-      }
+      _applyEqFilter(query, eqColumn, eqValue);
+      _applyQueryParams(query, queryParams);
+      _applyOrdering(query, orderBy, orderDirection);
 
-      if (queryParams != null) {
-        for (final param in queryParams.entries) {
-          query.eq(param.key, param.value);
-          _logger.d('Added query param: ${param.key} = ${param.value}');
-        }
-      }
-
-      if (orderBy != null) {
-        query.order(orderBy, ascending: orderDirection == 'asc');
-        _logger.d('Added ordering: $orderBy ($orderDirection)');
-      }
-
-      // Log the query to check what is actually being sent
       _logger.d('Query: $query');
 
       final response = await query;
+
       _logger.i(
-          'GET Request Successful | Table: $tableName | Results: ${response.length}');
+        'GET Request Successful | Table: $tableName | Results: ${response.length}',
+      );
 
       return ApiResponse(
         isSuccess: true,
@@ -52,12 +40,7 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('GET Request Failed | Table: $tableName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _handleError('GET', tableName, e);
     }
   }
 
@@ -71,6 +54,7 @@ class NetworkCaller extends INetworkCaller {
       _logger.d('Payload: $data');
 
       final response = await _supabase.from(tableName).insert(data);
+
       _logger.i('POST Request Successful | Table: $tableName');
 
       return ApiResponse(
@@ -79,12 +63,7 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('POST Request Failed | Table: $tableName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _handleError('POST', tableName, e);
     }
   }
 
@@ -95,30 +74,27 @@ class NetworkCaller extends INetworkCaller {
     required dynamic file,
   }) async {
     try {
-      _logger
-          .i('File Upload Initiated | Bucket: $bucketName | Path: $filePath');
+      _logger.i(
+        'File Upload Initiated | Bucket: $bucketName | Path: $filePath',
+      );
 
       await _supabase.storage.from(bucketName).upload(filePath, file);
+
       final publicUrl =
           _supabase.storage.from(bucketName).getPublicUrl(filePath);
 
       _logger.i('File Upload Successful | URL: $publicUrl');
+
       return ApiResponse(
         isSuccess: true,
         responseData: publicUrl,
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('File Upload Failed | Bucket: $bucketName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _handleError('UPLOAD', bucketName, e);
     }
   }
 
-// Add similar methods for PUT, DELETE, etc. with logging
   @override
   Future<ApiResponse> deleteRequest({
     required String tableName,
@@ -128,14 +104,10 @@ class NetworkCaller extends INetworkCaller {
       _logger.i('DELETE Request Initiated | Table: $tableName');
 
       var query = _supabase.from(tableName).delete();
-
-      if (queryParams != null) {
-        for (final param in queryParams.entries) {
-          query = query.eq(param.key, param.value);
-        }
-      }
+      query = _applyQueryParamsToQuery(query, queryParams);
 
       final response = await query;
+
       _logger.i('DELETE Request Successful | Table: $tableName');
 
       return ApiResponse(
@@ -144,12 +116,7 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('DELETE Request Failed | Table: $tableName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _handleError('DELETE', tableName, e);
     }
   }
 
@@ -171,16 +138,79 @@ class NetworkCaller extends INetworkCaller {
       },
     );
   }
-}
 
-class ApiResponse {
-  final bool isSuccess;
-  final dynamic responseData;
-  final String errorMessage;
+  // New PUT request method for updating data
+  @override
+  Future<ApiResponse> putRequest({
+    required String tableName,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? queryParams,
+  }) async {
+    try {
+      _logger.i('PUT Request Initiated | Table: $tableName');
+      _logger.d('Payload: $data');
 
-  ApiResponse({
-    required this.isSuccess,
-    required this.responseData,
-    required this.errorMessage,
-  });
+      var query = _supabase.from(tableName).upsert(data);
+      query = _applyQueryParamsToQuery(query, queryParams);
+
+      final response = await query;
+
+      _logger.i('PUT Request Successful | Table: $tableName');
+
+      return ApiResponse(
+        isSuccess: true,
+        responseData: response,
+        errorMessage: '',
+      );
+    } catch (e) {
+      return _handleError('PUT', tableName, e);
+    }
+  }
+
+  // ----------------------
+  // Private Helper Methods
+  // ----------------------
+
+  void _applyEqFilter(dynamic query, String? column, dynamic value) {
+    if (column != null && value != null) {
+      query.eq(column, value);
+      _logger.d('Added filter: $column = $value');
+    }
+  }
+
+  void _applyQueryParams(dynamic query, Map<String, dynamic>? params) {
+    if (params != null) {
+      for (final entry in params.entries) {
+        query.eq(entry.key, entry.value);
+        _logger.d('Added query param: ${entry.key} = ${entry.value}');
+      }
+    }
+  }
+
+  dynamic _applyQueryParamsToQuery(
+      dynamic query, Map<String, dynamic>? params) {
+    if (params != null) {
+      for (final entry in params.entries) {
+        query = query.eq(entry.key, entry.value);
+        _logger.d('Added query param: ${entry.key} = ${entry.value}');
+      }
+    }
+    return query;
+  }
+
+  void _applyOrdering(dynamic query, String? column, String? direction) {
+    if (column != null) {
+      query.order(column, ascending: direction == 'asc');
+      _logger.d('Added ordering: $column ($direction)');
+    }
+  }
+
+  ApiResponse _handleError(String method, String name, dynamic error) {
+    _logger.e('$method Request Failed | Target: $name', error: error);
+    return ApiResponse(
+      isSuccess: false,
+      responseData: null,
+      errorMessage: error.toString(),
+    );
+  }
 }
