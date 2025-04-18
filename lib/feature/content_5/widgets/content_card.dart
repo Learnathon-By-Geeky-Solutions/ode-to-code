@@ -19,17 +19,8 @@ class ContentCard extends StatelessWidget {
     final hasLink = link?.isNotEmpty == true;
     final hasNote = note?.isNotEmpty == true;
 
-    final String content = hasLink
-        ? link!
-        : hasNote
-            ? note!
-            : 'no_content_available'.tr;
-
-    final String iconAsset = hasLink
-        ? AssetsPath.videPlayIcon
-        : hasNote
-            ? AssetsPath.noteIcon
-            : AssetsPath.videPlayIcon;
+    final String content = _getContent(hasLink, hasNote);
+    final String iconAsset = _getIconAsset(hasLink, hasNote);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
@@ -94,5 +85,17 @@ class ContentCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _getContent(bool hasLink, bool hasNote) {
+    if (hasLink) return link!;
+    if (hasNote) return note!;
+    return 'no_content_available'.tr;
+  }
+
+  String _getIconAsset(bool hasLink, bool hasNote) {
+    if (hasLink) return AssetsPath.videPlayIcon;
+    if (hasNote) return AssetsPath.noteIcon;
+    return AssetsPath.videPlayIcon;
   }
 }
