@@ -1,4 +1,10 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+/*
+
+import 'package:edu_bridge_app/core/resources/app_colors.dart';
+import 'package:edu_bridge_app/core/utils/add_course_dialouge.dart';
+import 'package:edu_bridge_app/core/utils/custom_text.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddPopularCourse extends StatefulWidget {
   const AddPopularCourse({super.key});
@@ -119,3 +125,4 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
     );
   }
 }
+*/
