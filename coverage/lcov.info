@@ -204,7 +204,7 @@ LF:15
 LH:15
 end_of_record
 SF:lib\core\utils\add_course_dialouge.dart
-DA:4,27
+DA:4,33
 DA:6,1
 DA:8,1
 DA:9,1
@@ -253,7 +253,7 @@ LF:45
 LH:43
 end_of_record
 SF:lib\core\utils\add_mentor_dialog.dart
-DA:4,27
+DA:4,33
 DA:6,1
 DA:8,1
 DA:9,1
@@ -308,7 +308,7 @@ LF:51
 LH:48
 end_of_record
 SF:lib\core\utils\centered_app_logo.dart
-DA:7,53
+DA:7,65
 DA:13,1
 DA:15,1
 DA:16,1
@@ -378,7 +378,7 @@ LF:55
 LH:55
 end_of_record
 SF:lib\core\utils\custom_header_text.dart
-DA:10,53
+DA:10,65
 DA:19,1
 DA:21,1
 DA:23,1
@@ -432,7 +432,7 @@ LF:6
 LH:6
 end_of_record
 SF:lib\core\utils\custom_text.dart
-DA:10,32
+DA:10,38
 DA:19,6
 DA:21,6
 DA:22,6
@@ -445,7 +445,7 @@ LF:9
 LH:9
 end_of_record
 SF:lib\core\utils\custom_text_field.dart
-DA:14,4
+DA:14,5
 DA:27,4
 DA:29,4
 DA:30,4
@@ -462,7 +462,7 @@ LF:13
 LH:13
 end_of_record
 SF:lib\core\utils\language_switch.dart
-DA:4,52
+DA:4,64
 DA:6,0
 DA:8,0
 DA:9,0
@@ -520,7 +520,7 @@ LF:41
 LH:0
 end_of_record
 SF:lib\core\utils\theme_switch.dart
-DA:4,52
+DA:4,64
 DA:6,0
 DA:8,0
 DA:9,0
@@ -680,7 +680,7 @@ LF:12
 LH:0
 end_of_record
 SF:lib\feature\auth\view\forget_password_view.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:7,0
 DA:14,0
@@ -704,7 +704,7 @@ LF:20
 LH:1
 end_of_record
 SF:lib\feature\auth\view\sign_in_view.dart
-DA:4,104
+DA:4,128
 DA:6,0
 DA:7,0
 DA:15,0
@@ -822,7 +822,7 @@ LF:11
 LH:0
 end_of_record
 SF:lib\feature\auth\widgets\forgot_password_text_button.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:10,0
@@ -878,7 +878,7 @@ LF:12
 LH:0
 end_of_record
 SF:lib\feature\auth\widgets\sign_up_text_button.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:9,0
@@ -1036,7 +1036,7 @@ LF:25
 LH:1
 end_of_record
 SF:lib\feature\category_1\model\category_model.dart
-DA:7,1
+DA:7,3
 DA:14,2
 DA:15,1
 DA:16,1
@@ -1081,7 +1081,7 @@ LF:28
 LH:7
 end_of_record
 SF:lib\feature\category_1\view\categories_view.dart
-DA:6,26
+DA:6,32
 DA:8,0
 DA:9,0
 DA:13,0
@@ -1146,7 +1146,7 @@ LF:40
 LH:11
 end_of_record
 SF:lib\feature\classes_2\model\class_model.dart
-DA:8,1
+DA:8,2
 DA:16,1
 DA:17,1
 DA:18,1
@@ -1260,7 +1260,7 @@ LF:36
 LH:1
 end_of_record
 SF:lib\feature\content_5\model\content_model.dart
-DA:10,1
+DA:10,2
 DA:20,1
 DA:21,1
 DA:22,1
@@ -1539,7 +1539,7 @@ LF:75
 LH:0
 end_of_record
 SF:lib\feature\course\model\popular_course_content_model.dart
-DA:10,1
+DA:10,2
 DA:20,1
 DA:21,1
 DA:22,1
@@ -1560,7 +1560,7 @@ LF:17
 LH:17
 end_of_record
 SF:lib\feature\course\model\popular_course_model.dart
-DA:9,1
+DA:9,2
 DA:18,1
 DA:19,1
 DA:20,1
@@ -1675,7 +1675,7 @@ LF:13
 LH:0
 end_of_record
 SF:lib\feature\course\view\popular_courses_view.dart
-DA:4,52
+DA:4,64
 DA:6,0
 DA:8,0
 DA:10,0
@@ -1887,7 +1887,7 @@ LF:40
 LH:0
 end_of_record
 SF:lib\feature\home\view\home_view.dart
-DA:4,26
+DA:4,32
 DA:8,0
 DA:9,0
 DA:13,0
@@ -1922,7 +1922,7 @@ LF:3
 LH:0
 end_of_record
 SF:lib\feature\home\widgets\all_categories.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:9,0
@@ -1950,7 +1950,7 @@ LF:24
 LH:1
 end_of_record
 SF:lib\feature\home\widgets\category_section.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:10,0
@@ -2012,7 +2012,7 @@ LF:38
 LH:0
 end_of_record
 SF:lib\feature\home\widgets\home_banner.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:7,0
 DA:14,0
@@ -2058,7 +2058,7 @@ LF:42
 LH:1
 end_of_record
 SF:lib\feature\home\widgets\popular_courses.dart
-DA:4,26
+DA:4,32
 DA:8,0
 DA:11,0
 DA:13,0
@@ -2301,7 +2301,7 @@ LF:44
 LH:0
 end_of_record
 SF:lib\feature\on_boarding\view\intro\view\intro_view_1.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:10,0
@@ -2316,7 +2316,7 @@ LF:11
 LH:1
 end_of_record
 SF:lib\feature\on_boarding\view\intro\view\intro_view_2.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:10,0
@@ -2331,7 +2331,7 @@ LF:11
 LH:1
 end_of_record
 SF:lib\feature\on_boarding\view\intro\view\intro_view_3.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:10,0
@@ -2346,7 +2346,7 @@ LF:11
 LH:1
 end_of_record
 SF:lib\feature\on_boarding\view\on_boarding.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:9,0
@@ -2394,7 +2394,7 @@ LF:10
 LH:0
 end_of_record
 SF:lib\feature\setting\view\settings_view.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:8,0
 DA:9,0
@@ -2412,7 +2412,7 @@ LF:14
 LH:1
 end_of_record
 SF:lib\feature\subject_3\model\subject_model.dart
-DA:8,1
+DA:8,2
 DA:16,1
 DA:17,1
 DA:18,1
@@ -2668,7 +2668,7 @@ LF:26
 LH:0
 end_of_record
 SF:lib\feature\user\view\fetch_user_profile_view.dart
-DA:4,52
+DA:4,64
 DA:6,0
 DA:7,0
 DA:14,0
@@ -2751,7 +2751,7 @@ LF:79
 LH:1
 end_of_record
 SF:lib\feature\user\view\user_profile_view.dart
-DA:4,52
+DA:4,64
 DA:6,0
 DA:7,0
 DA:27,0
@@ -2913,7 +2913,7 @@ LF:37
 LH:0
 end_of_record
 SF:lib\feature\category_1\widget\add_category_dialog.dart
-DA:4,26
+DA:4,32
 DA:6,0
 DA:9,0
 DA:11,0
