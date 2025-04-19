@@ -20,7 +20,7 @@ void main() {
     });
 
     test('toMap should return a valid map', () {
-      final category = CategoryModel(
+      const category = CategoryModel(
         id: '1',
         categoryName: 'Programming',
         createdAt: '2025-04-19',

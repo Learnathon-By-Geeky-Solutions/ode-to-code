@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
 import 'package:edu_bridge_app/core/resources/export.dart'; // Make sure this imports your app's resources
 
 void main() {
@@ -8,7 +7,7 @@ void main() {
     const labelText = 'Email';
 
     // Build the widget
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
         body: CustomTextFormField(labelText: labelText),
       ),
@@ -25,7 +24,7 @@ void main() {
     const suffixIcon = Icons.visibility;
 
     // Build the widget
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
         body: CustomTextFormField(
           labelText: labelText,
@@ -99,7 +98,7 @@ void main() {
     const labelText = 'Email';
 
     // Build the widget
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
         body: CustomTextFormField(
           labelText: labelText,
