@@ -56,7 +56,7 @@ class CustomScaffold extends StatelessWidget {
 
   Widget _buildLogoutAction() {
     return GestureDetector(
-      onTap: _handleLogout,
+      onTap: () {},
       child: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Icon(Icons.logout),
@@ -64,9 +64,9 @@ class CustomScaffold extends StatelessWidget {
     );
   }
 
-  Future<void> _handleLogout() async {
+  /*Future<void> _handleLogout() async {
     final supabase = Supabase.instance.client;
     await supabase.auth.signOut();
     Get.offAll(const SignInView());
-  }
+  }*/
 }
