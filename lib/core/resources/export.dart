@@ -38,7 +38,7 @@ export 'package:edu_bridge_app/feature/admin_content_post/widget/add_offer_slide
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_popular_course.dart';
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_top_mentor.dart';
 // Auth Feature
-export 'package:edu_bridge_app/feature/auth/repo/auth_resposity.dart';
+export 'package:edu_bridge_app/feature/auth/repo/auth_service.dart';
 export 'package:edu_bridge_app/feature/auth/view/forget_password_view.dart';
 export 'package:edu_bridge_app/feature/auth/view/sign_in_view.dart';
 export 'package:edu_bridge_app/feature/auth/view/splash_view.dart';

@@ -14,7 +14,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: AppThemes.lightTheme,
-        home: Scaffold(),
+        home: const Scaffold(),
       ));
 
       expect(AppThemes.lightTheme.primaryColor, AppColors.primary);
@@ -24,7 +24,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: AppThemes.lightTheme,
-        home: Scaffold(),
+        home: const Scaffold(),
       ));
 
       expect(AppThemes.lightTheme.colorScheme.secondary, AppColors.secondary);
@@ -34,7 +34,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: AppThemes.lightTheme,
-        home: Scaffold(),
+        home: const Scaffold(),
       ));
 
       expect(AppThemes.lightTheme.colorScheme.surface, AppColors.background);
@@ -44,7 +44,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: AppThemes.darkTheme,
-        home: Scaffold(),
+        home: const Scaffold(),
       ));
 
       expect(AppThemes.darkTheme.primaryColor, AppColors.darkPrimary);
@@ -54,7 +54,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: AppThemes.darkTheme,
-        home: Scaffold(),
+        home: const Scaffold(),
       ));
 
       expect(
