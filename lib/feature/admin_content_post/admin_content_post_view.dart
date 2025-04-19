@@ -1,3 +1,4 @@
+/*
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class AdminContentPostView extends StatefulWidget {
@@ -29,3 +30,4 @@ class _AdminContentPostViewState extends State<AdminContentPostView> {
     );
   }
 }
+*/
