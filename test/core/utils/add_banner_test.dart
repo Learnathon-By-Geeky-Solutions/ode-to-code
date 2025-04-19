@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:get/get.dart';
 
 class MockBannerController extends Mock implements BannerController {}
 

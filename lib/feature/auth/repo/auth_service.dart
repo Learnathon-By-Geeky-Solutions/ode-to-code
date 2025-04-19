@@ -1,5 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/auth/repo/IAuthService.dart';
+import 'package:edu_bridge_app/feature/auth/repo/i_auth_service.dart';
 
 class AuthService implements IAuthService {
   final SupabaseClient _authService = Supabase.instance.client;
