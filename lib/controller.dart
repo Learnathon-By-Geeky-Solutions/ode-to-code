@@ -29,7 +29,6 @@ class ControllerBinder extends Bindings {
     Get.lazyPut<LocalizationController>(() => LocalizationController());
 
     // Authentication Service Binding
-
     Get.put<IAuthService>(AuthService());
 
     // Authentication controllers
@@ -48,8 +47,6 @@ class ControllerBinder extends Bindings {
         fenix: true);
     Get.lazyPut<CategoryController>(
         () => CategoryController(repository: Get.find<ICategoryRepository>()));
-    Get.put<CategoryController>(
-        CategoryController(repository: Get.find<ICategoryRepository>()));
 
     Get.put<ClassController>(
         ClassController(repository: Get.find<IClassRepository>()));
