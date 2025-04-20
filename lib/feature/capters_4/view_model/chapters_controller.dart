@@ -16,7 +16,8 @@ class ChapterController extends GetxController {
 
   Future<bool> addChapter(String subjectId, String chapterName) async {
     if (chapterName.isEmpty || subjectId.isEmpty) {
-      Get.snackbar("Error", "Please enter chapter name and select subject");
+      SnackbarUtil.showError(
+          "Error", "Please enter chapter name and select subject");
       return false;
     }
 
@@ -33,10 +34,10 @@ class ChapterController extends GetxController {
     final success = await _repository.addChapter(newChapter);
     if (success) {
       isSuccess = true;
-      Get.snackbar("Success", "Chapter added successfully!");
+      SnackbarUtil.showSuccess("Success", "Chapter added successfully!");
     } else {
       _errorMessage = "Failed to add chapter.";
-      Get.snackbar("Error", _errorMessage!);
+      SnackbarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;
@@ -52,7 +53,8 @@ class ChapterController extends GetxController {
     try {
       _chapters = await _repository.fetchChaptersBySubjectId(subjectId);
     } catch (e) {
-      _errorMessage = 'Failed to load chapters: \$e';
+      _errorMessage = 'Failed to load chapters: $e';
+      SnackbarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;

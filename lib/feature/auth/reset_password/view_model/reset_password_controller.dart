@@ -15,7 +15,7 @@ class ResetPasswordController extends GetxController {
 
   Future<bool> updatePassword(String newPassword) async {
     if (newPassword.isEmpty) {
-      Get.snackbar("Error", "Please enter your new password");
+      SnackbarUtil.showError("Error", "Please enter your new password");
       return false;
     }
 
@@ -25,18 +25,12 @@ class ResetPasswordController extends GetxController {
 
     try {
       await _authService.updatePasswordAfterReset(newPassword);
-      Get.snackbar("Success", "Password updated successfully",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white);
+      SnackbarUtil.showSuccess("Success", "Password updated successfully");
       return true;
     } catch (e) {
       Logger().e("Password reset error: $e");
       _errorMessage = "Something went wrong";
-      Get.snackbar("Error", _errorMessage!,
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
+      SnackbarUtil.showError("Error", _errorMessage!);
       return false;
     } finally {
       _inProgress = false;

@@ -24,56 +24,61 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
-      body: Padding(
-        padding: const EdgeInsets.all(35.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const CenteredAppLogo(),
-              CustomHeaderText(
-                text1: "update_your_password".tr,
-                text2: "enter_new_password".tr,
-              ),
-              VerticalSpacing(3.h),
-              CustomTextFormField(
-                labelText: "New Password".tr,
-                controller: _passwordController,
-                validator: Validators.passwordValidator,
-                obscureText: true,
-              ),
-              VerticalSpacing(2.h),
-              CustomTextFormField(
-                labelText: "Confirm Password".tr,
-                controller: _confirmPasswordController,
-                validator: (value) {
-                  if (value != _passwordController.text) {
-                    return "Passwords do not match".tr;
-                  }
-                  return null;
-                },
-                obscureText: true,
-              ),
-              VerticalSpacing(3.h),
-              GetBuilder<ResetPasswordController>(
-                builder: (controller) {
-                  return Visibility(
-                    visible: !controller.inProgress,
-                    replacement: const CircularProgressIndicator(),
-                    child: CustomButton(
-                      text: "update_password".tr,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      onPressed: () => _updatePassword(controller),
-                      backgroundColor: AppColors.themeColor,
-                      textColor: Colors.white,
-                      icon: Icons.lock_reset,
-                      buttonType: ButtonType.elevated,
-                    ),
-                  );
-                },
-              ),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(35.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const CenteredAppLogo(),
+                CustomHeaderText(
+                  text1: "update_your_password".tr,
+                  text2: "enter_new_password".tr,
+                ),
+                VerticalSpacing(3.h),
+                CustomTextFormField(
+                  labelText: "New Password".tr,
+                  controller: _passwordController,
+                  validator: Validators.passwordValidator,
+                  obscureText: true,
+                ),
+                VerticalSpacing(2.h),
+                CustomTextFormField(
+                  labelText: "Confirm Password".tr,
+                  controller: _confirmPasswordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "please_enter_confirm_password".tr;
+                    }
+                    if (value != _passwordController.text) {
+                      return "passwords_do_not_match".tr;
+                    }
+                    return null;
+                  },
+                  obscureText: true,
+                ),
+                VerticalSpacing(3.h),
+                GetBuilder<ResetPasswordController>(
+                  builder: (controller) {
+                    return Visibility(
+                      visible: !controller.inProgress,
+                      replacement: const CircularProgressIndicator(),
+                      child: CustomButton(
+                        text: "update_password".tr,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        onPressed: () => _updatePassword(controller),
+                        backgroundColor: AppColors.themeColor,
+                        textColor: Colors.white,
+                        icon: Icons.lock_reset,
+                        buttonType: ButtonType.elevated,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -82,7 +87,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
 
   Future<void> _updatePassword(ResetPasswordController controller) async {
     if (_formKey.currentState?.validate() ?? false) {
-      await controller.updatePassword(_passwordController.text);
+      await controller.updatePassword(_passwordController.text.trim());
     }
   }
 }

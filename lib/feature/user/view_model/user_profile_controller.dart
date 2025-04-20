@@ -15,21 +15,26 @@ class UserProfileController extends GetxController {
   File? _profileImage;
   File? get profileImage => _profileImage;
 
+  // Helper to manage the loading state
   void _setInProgress(bool value) {
     _inProgress = value;
     update();
   }
 
+  // Helper to handle errors and show them through Snackbar
   void _handleError(String message) {
     _errorMessage = message;
     Get.snackbar("Error", message);
+    update(); // Ensure UI updates on error message change
   }
 
+  // Set profile image and update UI
   void setProfileImage(File image) {
     _profileImage = image;
     update();
   }
 
+  // Add user profile with proper validations
   Future<bool> addUserProfile({
     required String fullName,
     required String email,
@@ -49,12 +54,14 @@ class UserProfileController extends GetxController {
     bool isSuccess = false;
 
     try {
+      // Upload image first and check result
       final imageUrl = await _repository.uploadUserProfileImage(_profileImage!);
       if (imageUrl == null) {
         _handleError("Failed to upload profile image.");
         return false;
       }
 
+      // Proceed to create profile if image upload is successful
       final profile = UserProfileModel(
         name: fullName,
         email: email,
@@ -81,9 +88,10 @@ class UserProfileController extends GetxController {
     return isSuccess;
   }
 
+  // Fetch user profile based on email
   Future<void> fetchUserProfile(String email) async {
     _setInProgress(true);
-    _errorMessage = null;
+    _errorMessage = null; // Reset error message
 
     try {
       _userProfile = await _repository.fetchUserProfileByEmail(email);

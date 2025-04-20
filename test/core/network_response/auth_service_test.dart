@@ -1,105 +1,128 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/core/services/auth_service/i_auth_service.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:edu_bridge_app/core/services/auth_service/auth_service.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class MockAuthService extends Mock implements IAuthService {}
+class MockSupabaseClient extends Mock implements SupabaseClient {}
 
-class MockSession extends Mock implements Session {}
+class MockGoTrueClient extends Mock implements GoTrueClient {}
+
+class MockAuthResponse extends Mock implements AuthResponse {}
 
 class MockUser extends Mock implements User {}
 
-void main() {
-  late MockAuthService mockAuthService;
+class MockUserResponse extends Mock implements UserResponse {}
 
-  setUp(() {
-    mockAuthService = MockAuthService();
+class FakeUserAttributes extends Fake implements UserAttributes {}
+
+void main() {
+  late MockSupabaseClient mockClient;
+  late MockGoTrueClient mockAuth;
+  late AuthService authService;
+
+  const testEmail = 'test@example.com';
+  const testPassword = 'password123';
+
+  setUpAll(() {
+    // Register fallback value for UserAttributes
+    registerFallbackValue(FakeUserAttributes());
   });
 
-  group('IAuthService Supabase Tests', () {
-    const testEmail = 'test@example.com';
-    const testPassword = 'strongPassword123';
-    const newPassword = 'updatedPassword456';
-    final mockUser = MockUser();
-    final mockSession = MockSession();
+  // Initialize Supabase before tests
+  setUpAll(() async {
+    mockClient = MockSupabaseClient();
+    mockAuth = MockGoTrueClient();
 
-    test('signUpWithEmail returns AuthResponse with user and session',
-        () async {
-      final response = AuthResponse(session: mockSession, user: mockUser);
+    when(() => mockClient.auth).thenReturn(mockAuth);
 
-      when(() => mockAuthService.signUpWithEmail(testEmail, testPassword))
-          .thenAnswer((_) async => response);
+    // Mock initialization (or use a dummy initialization)
+    await Supabase.initialize(
+      url: 'https://your-project.supabase.co',
+      anonKey: 'your-anon-key',
+    );
 
-      final result =
-          await mockAuthService.signUpWithEmail(testEmail, testPassword);
+    Supabase.instance.client = mockClient;
+  });
 
-      expect(result.user, isNotNull);
-      expect(result.session, isNotNull);
-    });
+  setUp(() {
+    authService = AuthService();
+  });
 
-    test('signInWithEmail returns AuthResponse with only user', () async {
-      final response = AuthResponse(session: null, user: mockUser);
+  group('AuthService', () {
+    test('signUpWithEmail calls signUp and returns AuthResponse', () async {
+      final mockResponse = MockAuthResponse();
 
-      when(() => mockAuthService.signInWithEmail(testEmail, testPassword))
-          .thenAnswer((_) async => response);
+      when(() => mockAuth.signUp(email: testEmail, password: testPassword))
+          .thenAnswer((_) async => mockResponse);
 
-      final result =
-          await mockAuthService.signInWithEmail(testEmail, testPassword);
+      final result = await authService.signUpWithEmail(testEmail, testPassword);
 
-      expect(result.user, isNotNull);
-      expect(result.session, isNull);
-    });
-
-    test('resetPassword completes without exception', () async {
-      when(() => mockAuthService.resetPassword(testEmail))
-          .thenAnswer((_) async => Future.value());
-
-      await mockAuthService.resetPassword(testEmail);
-
-      verify(() => mockAuthService.resetPassword(testEmail)).called(1);
-    });
-
-    test('updatePasswordAfterReset completes without error', () async {
-      when(() => mockAuthService.updatePasswordAfterReset(newPassword))
-          .thenAnswer((_) async => Future.value());
-
-      await mockAuthService.updatePasswordAfterReset(newPassword);
-
-      verify(() => mockAuthService.updatePasswordAfterReset(newPassword))
+      expect(result, mockResponse);
+      verify(() => mockAuth.signUp(email: testEmail, password: testPassword))
           .called(1);
     });
 
-    test('signOut completes successfully', () async {
-      when(() => mockAuthService.signOut())
-          .thenAnswer((_) async => Future.value());
-
-      await mockAuthService.signOut();
-
-      verify(() => mockAuthService.signOut()).called(1);
-    });
-
-    test('currentUser returns a valid user', () {
-      when(() => mockAuthService.currentUser).thenReturn(mockUser);
-
-      final user = mockAuthService.currentUser;
-
-      expect(user, isA<User>());
-    });
-
-    test('authStateChanges emits AuthState with signedIn event and session',
+    test('signInWithEmail calls signInWithPassword and returns AuthResponse',
         () async {
-      final testSession = MockSession();
-      final authState = AuthState(AuthChangeEvent.signedIn, testSession);
+      final mockResponse = MockAuthResponse();
 
-      final stream = Stream<AuthState>.fromIterable([authState]);
+      when(() => mockAuth.signInWithPassword(
+          email: testEmail,
+          password: testPassword)).thenAnswer((_) async => mockResponse);
 
-      when(() => mockAuthService.authStateChanges).thenAnswer((_) => stream);
+      final result = await authService.signInWithEmail(testEmail, testPassword);
 
-      final emittedStates = await mockAuthService.authStateChanges.toList();
+      expect(result, mockResponse);
+      verify(() => mockAuth.signInWithPassword(
+          email: testEmail, password: testPassword)).called(1);
+    });
 
-      expect(emittedStates, hasLength(1));
-      expect(emittedStates.first.event, AuthChangeEvent.signedIn);
-      expect(emittedStates.first.session, testSession);
+    test('resetPassword calls resetPasswordForEmail', () async {
+      when(() => mockAuth.resetPasswordForEmail(any(),
+          redirectTo: any(named: 'redirectTo'))).thenAnswer((_) async => {});
+
+      await authService.resetPassword(testEmail);
+
+      verify(() => mockAuth.resetPasswordForEmail(testEmail,
+          redirectTo: any(named: 'redirectTo'))).called(1);
+    });
+
+    test('signOut calls auth.signOut', () async {
+      when(() => mockAuth.signOut()).thenAnswer((_) async => {});
+
+      await authService.signOut();
+
+      verify(() => mockAuth.signOut()).called(1);
+    });
+
+    test('updatePasswordAfterReset updates the password', () async {
+      final mockUserResponse = MockUserResponse();
+
+      when(() => mockAuth.updateUser(any()))
+          .thenAnswer((_) async => mockUserResponse);
+
+      await authService.updatePasswordAfterReset(testPassword);
+
+      verify(() => mockAuth.updateUser(UserAttributes(password: testPassword)))
+          .called(1);
+    });
+
+    test('currentUser returns user from auth', () {
+      final mockUser = MockUser();
+      when(() => mockAuth.currentUser).thenReturn(mockUser);
+
+      final user = authService.currentUser;
+
+      expect(user, mockUser);
+    });
+
+    test('authStateChanges returns stream from auth', () {
+      const stream = Stream<AuthState>.empty();
+      when(() => mockAuth.onAuthStateChange).thenAnswer((_) => stream);
+
+      final result = authService.authStateChanges;
+
+      expect(result, stream);
     });
   });
 }

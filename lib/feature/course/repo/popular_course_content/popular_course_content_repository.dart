@@ -13,7 +13,6 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
       tableName: "popular_course_content",
       data: courseModel.toMap(),
     );
-
     return _handlePostResponse(response);
   }
 
@@ -25,10 +24,10 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
       eqColumn: 'courses_id',
       eqValue: courseId,
     );
-
     return _handleGetResponse(response);
   }
 
+  // Helper methods
   List<PopularCourseContentModel> _handleGetResponse(ApiResponse response) {
     if (response.isSuccess) {
       return (response.responseData as List)

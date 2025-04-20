@@ -15,7 +15,7 @@ class SignInController extends GetxController {
 
   Future<bool> signIn(String email, String password) async {
     if (email.isEmpty || password.isEmpty) {
-      Get.snackbar("Error", "Please enter email and password");
+      SnackbarUtil.showError("Error", "Please enter email and password");
       return false;
     }
 
@@ -26,16 +26,21 @@ class SignInController extends GetxController {
     try {
       final response = await _authService.signInWithEmail(email, password);
       if (response.user != null) {
-        Get.snackbar("Success", "Signed in successfully!");
+        SnackbarUtil.showSuccess("Success", "Signed in successfully!");
         return true;
       } else {
         _errorMessage = "Failed to sign in. Please check your credentials.";
-        Get.snackbar("Error", _errorMessage!);
+        SnackbarUtil.showError("Error", _errorMessage!);
         return false;
       }
     } on AuthException catch (e) {
       _errorMessage = e.message;
-      Get.snackbar("Error", _errorMessage!);
+      SnackbarUtil.showError("Error", _errorMessage!);
+      return false;
+    } catch (e) {
+      // Handle any other kind of exception
+      // Optional: You could also log this error somewhere
+      _errorMessage = null; // Or provide a fallback message
       return false;
     } finally {
       _inProgress = false;

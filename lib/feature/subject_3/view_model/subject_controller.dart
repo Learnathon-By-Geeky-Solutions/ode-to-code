@@ -30,15 +30,12 @@ class SubjectController extends GetxController {
 
   Future<bool> addSubject(String classId, String subjectName) async {
     if (subjectName.isEmpty || classId.isEmpty || _subjectImage == null) {
-      Get.snackbar(
+      _showSnackbar(
           "Error", "Please enter subject name, select class, and an image");
       return false;
     }
 
-    bool isSuccess = false;
-    _inProgress = true;
-    _errorMessage = null;
-    update();
+    _setLoadingState(true);
 
     final imageUrl = await _repository.uploadSubjectImage(_subjectImage!);
     if (imageUrl != null) {
@@ -50,39 +47,44 @@ class SubjectController extends GetxController {
 
       final success = await _repository.addSubject(newSubject);
       if (success) {
-        isSuccess = true;
-        Get.snackbar("Success", "Subject added successfully!");
+        _showSnackbar("Success", "Subject added successfully!");
+        fetchSubjects(classId); // Re-fetch subjects after adding
       } else {
-        _errorMessage = "Failed to add subject.";
-        Get.snackbar("Error", _errorMessage!);
+        _showSnackbar("Error", "Failed to add subject.");
       }
     } else {
-      _errorMessage = "Image upload failed.";
-      Get.snackbar("Error", _errorMessage!);
+      _showSnackbar("Error", "Image upload failed.");
     }
 
-    _inProgress = false;
-    update();
-    return isSuccess;
+    _setLoadingState(false);
+    return true;
   }
 
   Future<void> fetchSubjects(String classId) async {
-    _inProgress = true;
-    _errorMessage = null;
-    update();
+    _setLoadingState(true);
 
     try {
       _subjects = await _repository.fetchSubjectsByClassId(classId);
     } catch (e) {
       _errorMessage = 'Failed to load subjects: $e';
+      _showSnackbar("Error", _errorMessage!);
     }
 
-    _inProgress = false;
-    update();
+    _setLoadingState(false);
   }
 
   void clearFields() {
     _subjectImage = null;
     update();
+  }
+
+  void _setLoadingState(bool isLoading) {
+    _inProgress = isLoading;
+    _errorMessage = null;
+    update();
+  }
+
+  void _showSnackbar(String title, String message) {
+    Get.snackbar(title, message);
   }
 }

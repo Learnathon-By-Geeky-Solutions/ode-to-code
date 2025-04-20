@@ -1,6 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:edu_bridge_app/core/services/auth_service/i_auth_service.dart';
-import 'package:edu_bridge_app/core/utils/snackbar_util.dart';
 
 class ForgotPasswordController extends GetxController {
   final IAuthService _authService;

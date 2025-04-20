@@ -31,10 +31,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
 
   @override
   Future<List<PopularCourseModel>> fetchPopularCourses() async {
-    final response = await _networkCaller.getRequest(
-      tableName: 'courses',
-    );
-
+    final response = await _networkCaller.getRequest(tableName: 'courses');
     return _handleGetResponse(response);
   }
 
@@ -45,10 +42,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
 
     final response = await _networkCaller.postRequest(
       tableName: "user_saved_courses",
-      data: {
-        'user_id': userId,
-        'course_id': courseId,
-      },
+      data: {'user_id': userId, 'course_id': courseId},
     );
     return _handlePostResponse(response);
   }
@@ -60,10 +54,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
 
     final response = await _networkCaller.getRequest(
       tableName: 'user_saved_courses',
-      queryParams: {
-        'user_id': userId,
-        'course_id': courseId,
-      },
+      queryParams: {'user_id': userId, 'course_id': courseId},
     );
     return _handleIsCourseSavedResponse(response);
   }
@@ -75,10 +66,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
 
     final response = await _networkCaller.deleteRequest(
       tableName: 'user_saved_courses',
-      queryParams: {
-        'user_id': userId,
-        'course_id': courseId,
-      },
+      queryParams: {'user_id': userId, 'course_id': courseId},
     );
     return _handlePostResponse(response);
   }
@@ -109,6 +97,7 @@ class PopularCourseRepository extends IPopularCourseRepository {
     return _handleGetResponse(coursesResponse);
   }
 
+  // Helper methods
   String? _handleFileUploadResponse(ApiResponse response) {
     if (response.isSuccess) {
       return response.responseData;
