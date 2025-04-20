@@ -37,10 +37,12 @@ class NetworkCaller extends INetworkCaller {
       _logger
           .i('${params.method} Request Initiated | Table: ${params.tableName}');
       if (params.data != null) _logger.d('Payload: ${params.data}');
+
       var query = _supabase.from(params.tableName).select();
       _utils.applyEqFilter(query, params.eqColumn, params.eqValue);
       _utils.applyQueryParams(query, params.queryParams);
       _utils.applyOrdering(query, params.orderBy, params.orderDirection);
+
       final response = await query;
       _logger.i(
           '${params.method} Request Successful | Table: ${params.tableName} | Results: ${response.length}');
@@ -54,18 +56,17 @@ class NetworkCaller extends INetworkCaller {
     }
   }
 
-  @override
-  Future<ApiResponse> getRequest({
-    required String tableName,
-    Map<String, dynamic>? queryParams,
-    String? eqColumn,
-    dynamic eqValue,
-    String? orderBy,
-    String? orderDirection = 'asc',
-  }) async {
-    return await _sendRequest(RequestParams(
-      method: 'GET',
+  Future<ApiResponse> _makeApiRequest(String method, String tableName,
+      {Map<String, dynamic>? data,
+      Map<String, dynamic>? queryParams,
+      String? eqColumn,
+      dynamic eqValue,
+      String? orderBy,
+      String? orderDirection}) {
+    return _sendRequest(RequestParams(
+      method: method,
       tableName: tableName,
+      data: data,
       queryParams: queryParams,
       eqColumn: eqColumn,
       eqValue: eqValue,
@@ -75,15 +76,28 @@ class NetworkCaller extends INetworkCaller {
   }
 
   @override
+  Future<ApiResponse> getRequest({
+    required String tableName,
+    Map<String, dynamic>? queryParams,
+    String? eqColumn,
+    dynamic eqValue,
+    String? orderBy,
+    String? orderDirection = 'asc',
+  }) async {
+    return _makeApiRequest('GET', tableName,
+        queryParams: queryParams,
+        eqColumn: eqColumn,
+        eqValue: eqValue,
+        orderBy: orderBy,
+        orderDirection: orderDirection);
+  }
+
+  @override
   Future<ApiResponse> postRequest({
     required String tableName,
     required Map<String, dynamic> data,
   }) async {
-    return await _sendRequest(RequestParams(
-      method: 'POST',
-      tableName: tableName,
-      data: data,
-    ));
+    return _makeApiRequest('POST', tableName, data: data);
   }
 
   @override
@@ -114,11 +128,7 @@ class NetworkCaller extends INetworkCaller {
     required String tableName,
     Map<String, dynamic>? queryParams,
   }) async {
-    return await _sendRequest(RequestParams(
-      method: 'DELETE',
-      tableName: tableName,
-      queryParams: queryParams,
-    ));
+    return _makeApiRequest('DELETE', tableName, queryParams: queryParams);
   }
 
   @override
@@ -131,12 +141,9 @@ class NetworkCaller extends INetworkCaller {
     required String userId,
     required String courseId,
   }) async {
-    return await postRequest(
+    return postRequest(
       tableName: 'user_saved_courses',
-      data: {
-        'user_id': userId,
-        'course_id': courseId,
-      },
+      data: {'user_id': userId, 'course_id': courseId},
     );
   }
 
@@ -146,11 +153,7 @@ class NetworkCaller extends INetworkCaller {
     required Map<String, dynamic> data,
     Map<String, dynamic>? queryParams,
   }) async {
-    return await _sendRequest(RequestParams(
-      method: 'PUT',
-      tableName: tableName,
-      data: data,
-      queryParams: queryParams,
-    ));
+    return _makeApiRequest('PUT', tableName,
+        data: data, queryParams: queryParams);
   }
 }

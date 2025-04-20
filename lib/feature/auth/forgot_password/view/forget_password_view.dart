@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/services/auth_service/deep_link_service.dart';
 import 'package:edu_bridge_app/feature/auth/forgot_password/view_model/forget_password_controller.dart';
 
 class ForgotPasswordView extends StatefulWidget {
@@ -22,7 +23,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    AuthService.configDeepLink();
+    DeepLinkService.configure();
   }
 
   @override

@@ -5,26 +5,30 @@ class NetworkUtils {
 
   NetworkUtils({Logger? logger}) : _logger = logger ?? Logger();
 
+  void _logQueryOperation(String operation, String key, dynamic value) {
+    _logger.d('$operation: $key = $value');
+  }
+
   void applyEqFilter(dynamic query, String? column, dynamic value) {
     if (column != null && value != null) {
       query.eq(column, value);
-      _logger.d('Added filter: $column = $value');
+      _logQueryOperation('Added filter', column, value);
     }
   }
 
   void applyQueryParams(dynamic query, Map<String, dynamic>? params) {
     if (params != null) {
-      for (final entry in params.entries) {
-        query.eq(entry.key, entry.value);
-        _logger.d('Added query param: ${entry.key} = ${entry.value}');
-      }
+      params.forEach((key, value) {
+        query.eq(key, value);
+        _logQueryOperation('Added query param', key, value);
+      });
     }
   }
 
   void applyOrdering(dynamic query, String? column, String? direction) {
     if (column != null) {
       query.order(column, ascending: direction == 'asc');
-      _logger.d('Added ordering: $column ($direction)');
+      _logQueryOperation('Added ordering', column, direction ?? 'asc');
     }
   }
 
