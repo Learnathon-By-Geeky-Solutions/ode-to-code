@@ -9,10 +9,9 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
+  late final AnimationController _controller;
+  late final Animation<double> _fadeAnimation;
 
-  @override
   @override
   void initState() {
     super.initState();
@@ -31,30 +30,25 @@ class _SplashViewState extends State<SplashView>
 
     _controller.forward();
 
+    // Skip animation logic in test environments
     if (!Platform.environment.containsKey('FLUTTER_TEST')) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _moveToNextScreen();
-      });
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => _navigateAfterDelay());
     }
+  }
+
+  Future<void> _navigateAfterDelay() async {
+    await Future.delayed(const Duration(seconds: 3));
+    final session = Supabase.instance.client.auth.currentSession;
+
+    Get.offAll(
+        () => session?.user != null ? MainBottomNavView() : const OnBoarding());
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  Future<void> _moveToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 3));
-
-    final supabase = Supabase.instance.client;
-    final session = supabase.auth.currentSession;
-
-    if (session?.user != null) {
-      Get.offAll(() => MainBottomNavView());
-    } else {
-      Get.offAll(() => const OnBoarding());
-    }
   }
 
   @override

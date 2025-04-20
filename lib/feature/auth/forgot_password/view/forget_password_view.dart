@@ -1,16 +1,21 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
-class SignUpView extends StatefulWidget {
-  const SignUpView({super.key});
+class ForgotPasswordView extends StatefulWidget {
+  const ForgotPasswordView({super.key});
 
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final _emailTEController = TextEditingController();
-  final _passwordTEController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +27,13 @@ class _SignUpViewState extends State<SignUpView> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const CenteredAppLogo(),
                 const CustomHeaderText(
-                  text1: "Getting Started.!",
-                  text2: "Create an Account to Continue your all Courses",
+                  text1: "Forgot your password?",
+                  text2:
+                      "Don’t worry! Enter your email to reset it and get back on track.",
                 ),
                 VerticalSpacing(2.h),
                 CustomTextFormField(
@@ -37,32 +42,14 @@ class _SignUpViewState extends State<SignUpView> {
                   validator: Validators.emailValidator,
                 ),
                 VerticalSpacing(2.h),
-                CustomTextFormField(
-                  labelText: "Password",
-                  controller: _passwordTEController,
-                  obscureText: true,
-                  validator: Validators.passwordValidator,
-                ),
-                VerticalSpacing(2.h),
-                SignUpButton(
-                  formKey: _formKey,
+                ForgotPasswordButton(
                   emailTEController: _emailTEController,
-                  passwordTEController: _passwordTEController,
                 ),
-                VerticalSpacing(2.h),
-                const SignInTextButton(),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailTEController.dispose();
-    _passwordTEController.dispose();
-    super.dispose();
   }
 }

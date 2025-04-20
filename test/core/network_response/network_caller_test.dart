@@ -1,8 +1,6 @@
+import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:edu_bridge_app/core/services/network_caller.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:logger/logger.dart';
 
 class MockSupabaseClient extends Mock implements SupabaseClient {}
 

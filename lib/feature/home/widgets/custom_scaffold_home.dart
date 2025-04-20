@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/feature/profile/view/fetch_user_profile_view.dart';
 
 class CustomScaffoldHome extends StatelessWidget {
   final String? name;

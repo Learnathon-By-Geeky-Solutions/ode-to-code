@@ -27,7 +27,6 @@ class CustomScaffold extends StatelessWidget {
   AppBar _buildAppBar() {
     return AppBar(
       title: _buildTitle(),
-      actions: _buildActions(),
     );
   }
 
@@ -47,14 +46,14 @@ class CustomScaffold extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildActions() {
+  /*List<Widget> _buildActions() {
     return [
       ...?actions,
       _buildLogoutAction(),
     ];
-  }
+  }*/
 
-  Widget _buildLogoutAction() {
+  /*Widget _buildLogoutAction() {
     return GestureDetector(
       onTap: () {},
       child: const Padding(
@@ -62,7 +61,7 @@ class CustomScaffold extends StatelessWidget {
         child: Icon(Icons.logout),
       ),
     );
-  }
+  }*/
 
   /*Future<void> _handleLogout() async {
     final supabase = Supabase.instance.client;

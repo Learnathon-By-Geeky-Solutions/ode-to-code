@@ -11,6 +11,12 @@ class _PinVerificationViewState extends State<PinVerificationView> {
   final TextEditingController _pinTEController = TextEditingController();
 
   @override
+  void dispose() {
+    _pinTEController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -22,8 +28,11 @@ class _PinVerificationViewState extends State<PinVerificationView> {
             Center(
               child: CustomText(
                 text: 'add_pin_number_security'.tr,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
+            VerticalSpacing(3.h),
             PinCodeTextField(
               length: 4,
               obscureText: false,
@@ -46,20 +55,26 @@ class _PinVerificationViewState extends State<PinVerificationView> {
               appContext: context,
               keyboardType: TextInputType.number,
             ),
+            VerticalSpacing(4.h),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // Add validation and navigation here
+              },
               style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(300, 60),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  backgroundColor: AppColors.themeColor,
-                  foregroundColor: Colors.white),
+                fixedSize: const Size(300, 60),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                backgroundColor: AppColors.themeColor,
+                foregroundColor: Colors.white,
+              ),
               child: Row(
                 children: [
                   const Expanded(
                     child: Center(
                       child: CustomText(
-                        text: "Continue",
+                        text: "Continue", // Consider using "continue".tr
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

@@ -1,7 +1,6 @@
+import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:edu_bridge_app/core/services/api_response.dart';
-import 'package:edu_bridge_app/core/services/i_network_caller.dart';
 
 // Mock class
 class MockNetworkCaller extends Mock implements INetworkCaller {}

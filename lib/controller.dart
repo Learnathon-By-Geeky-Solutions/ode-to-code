@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/services/auth_service/i_auth_service.dart';
 
 class ControllerBinder extends Bindings {
   @override
@@ -25,9 +26,15 @@ class ControllerBinder extends Bindings {
     Get.lazyPut<ThemeController>(() => ThemeController());
     Get.lazyPut<LocalizationController>(() => LocalizationController());
 
-    // Authentication
-    Get.lazyPut<SignInController>(() => SignInController());
-    Get.lazyPut<SignUpController>(() => SignUpController());
+    // Authentication Service Binding
+
+    Get.put<IAuthService>(AuthService());
+
+    // Authentication controllers
+    Get.put<SignInController>(
+        SignInController(authService: Get.find<IAuthService>()));
+    Get.put<SignUpController>(
+        SignUpController(authService: Get.find<IAuthService>()));
 
     // App-specific controllers
     Get.lazyPut<BannerController>(
@@ -40,10 +47,8 @@ class ControllerBinder extends Bindings {
 
     Get.put<ClassController>(
         ClassController(repository: Get.find<IClassRepository>()));
-
     Get.put<SubjectController>(
         SubjectController(repository: Get.find<ISubjectRepository>()));
-
     Get.put<ChapterController>(
         ChapterController(repository: Get.find<IChapterRepository>()));
 
@@ -58,6 +63,7 @@ class ControllerBinder extends Bindings {
     Get.lazyPut<PopularCourseContentController>(() =>
         PopularCourseContentController(
             repository: Get.find<IPopularCourseContentRepository>()));
+
     Get.lazyPut<UserProfileController>(() => UserProfileController());
   }
 }

@@ -33,6 +33,11 @@ class CustomTextFormField extends StatelessWidget {
       readOnly: readOnly,
       onTap: onTap,
       enabled: enabled ?? true,
+      style: GoogleFonts.mulish(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: AppColors.bg,
+      ),
       decoration: InputDecoration(
         labelText: labelText,
         contentPadding:
