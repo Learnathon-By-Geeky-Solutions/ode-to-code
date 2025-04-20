@@ -1,4 +1,6 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/feature/user/widget/profile_image_picker.dart';
+import 'package:edu_bridge_app/feature/user/widget/user_profile_form.dart';
 
 class UserProfileView extends StatefulWidget {
   const UserProfileView({super.key});
@@ -10,7 +12,8 @@ class UserProfileView extends StatefulWidget {
 class _UserProfileViewState extends State<UserProfileView> {
   final UserProfileController profileController =
       Get.put(UserProfileController());
-  final SignUpController signUpController = Get.put(SignUpController());
+  final SignUpController signUpController =
+      Get.put(SignUpController(authService: AuthService()));
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -20,136 +23,43 @@ class _UserProfileViewState extends State<UserProfileView> {
       TextEditingController(text: 'Student');
   final TextEditingController dateOfBirthController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
-  final TextEditingController fetchEmailController = TextEditingController();
-
-  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      name: 'Sign Up & User Profile',
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              _buildProfileImage(),
-              SizedBox(height: 2.h),
-              _buildTextField(nameController, "full_name".tr),
-              SizedBox(height: 1.h),
-              _buildTextField(emailController, 'email'.tr,
-                  validator: Validators.emailValidator),
-              SizedBox(height: 1.h),
-              _buildTextField(passwordController, 'password'.tr,
-                  obscureText: true, validator: Validators.passwordValidator),
-              SizedBox(height: 1.h),
-              _buildTextField(whatYouDoController, 'what_you_do'.tr),
-              SizedBox(height: 1.h),
-              _buildTextField(accountTypeController, 'account_type'.tr,
-                  enabled: false),
-              SizedBox(height: 1.h),
-              _buildDatePicker(),
-              SizedBox(height: 1.h),
-              _buildGenderDropdown(),
-              const SizedBox(height: 20),
-              _buildSignUpButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProfileImage() {
-    return GetBuilder<UserProfileController>(builder: (controller) {
-      return InkWell(
-        onTap: () async {
-          final pickedFile =
-              await _picker.pickImage(source: ImageSource.gallery);
-          if (pickedFile != null) {
-            controller.setProfileImage(File(pickedFile.path));
-          }
-        },
-        child: SizedBox(
-          child: Column(
-            children: [
-              if (controller.profileImage != null)
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: FileImage(controller.profileImage!),
-                )
-              else
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.grey.shade300,
-                  child:
-                      const Icon(Icons.person, size: 95, color: Colors.white),
+    return Scaffold(
+      backgroundColor: AppColors.bg,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomHeaderText(
+                  text1: "Getting Started.!".tr,
+                  text2: "Create an Account to Start Your Learning"
+                      .tr, // Add key in localization
                 ),
-            ],
+                SizedBox(height: 2.h),
+                const ProfileImagePicker(),
+                SizedBox(height: 2.h),
+                UserProfileForm(
+                  nameController: nameController,
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  whatYouDoController: whatYouDoController,
+                  accountTypeController: accountTypeController,
+                  dateOfBirthController: dateOfBirthController,
+                  genderController: genderController,
+                ),
+                const SizedBox(height: 20),
+                _buildSignUpButton(),
+              ],
+            ),
           ),
         ),
-      );
-    });
-  }
-
-  Widget _buildTextField(TextEditingController controller, String label,
-      {bool obscureText = false,
-      String? Function(String?)? validator,
-      bool enabled = true}) {
-    return CustomTextFormField(
-      labelText: label,
-      controller: controller,
-      obscureText: obscureText,
-      validator: validator,
-      enabled: enabled,
-    );
-  }
-
-  Widget _buildDatePicker() {
-    return InkWell(
-      onTap: () async {
-        final selectedDate = await showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(1900),
-          lastDate: DateTime.now(),
-        );
-        if (selectedDate != null) {
-          dateOfBirthController.text =
-              "${selectedDate.toLocal()}".split(' ')[0];
-        }
-      },
-      child: IgnorePointer(
-        child: CustomTextFormField(
-          labelText: 'date_of_birth'.tr,
-          controller: dateOfBirthController,
-        ),
       ),
-    );
-  }
-
-  Widget _buildGenderDropdown() {
-    return DropdownButtonFormField<String>(
-      value: genderController.text.isEmpty ? null : genderController.text,
-      decoration: InputDecoration(
-        labelText: 'gender'.tr,
-        border: const OutlineInputBorder(),
-      ),
-      items: ['Male', 'Female'].map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      onChanged: (value) => genderController.text = value!,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please select your gender';
-        }
-        return null;
-      },
     );
   }
 
@@ -158,14 +68,14 @@ class _UserProfileViewState extends State<UserProfileView> {
       builder: (profileController) {
         return GetBuilder<SignUpController>(
           builder: (signUpController) {
-            if (profileController.inProgress || signUpController.inProgress) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            return CustomButton(
-              onPressed: () =>
-                  _handleSignUp(profileController, signUpController),
-              text: "Sign Up",
+            return Visibility(
+              visible: !profileController.inProgress,
+              replacement: const CircularProgressIndicator(),
+              child: CustomButton(
+                onPressed: () =>
+                    _handleSignUp(profileController, signUpController),
+                text: "Sign Up",
+              ),
             );
           },
         );
@@ -177,22 +87,11 @@ class _UserProfileViewState extends State<UserProfileView> {
       SignUpController signUpController) async {
     if (!_isFormValid(profileController)) return;
 
-    final isSignUpSuccessful = await _attemptSignUp(signUpController);
+    final isSignUpSuccessful = await signUpController.signUp(
+        emailController.text, passwordController.text);
     if (!isSignUpSuccessful) return;
 
-    final isProfileCreated = await _createUserProfile(profileController);
-    if (isProfileCreated) {
-      _clearControllers();
-      Get.snackbar("Success", "Sign-up and profile creation successful!");
-    }
-  }
-
-  Future<bool> _attemptSignUp(SignUpController controller) {
-    return controller.signUp(emailController.text, passwordController.text);
-  }
-
-  Future<bool> _createUserProfile(UserProfileController controller) {
-    return controller.addUserProfile(
+    final isProfileCreated = await profileController.addUserProfile(
       fullName: nameController.text,
       email: emailController.text,
       whatYouDo: whatYouDoController.text,
@@ -200,6 +99,11 @@ class _UserProfileViewState extends State<UserProfileView> {
       dateOfBirth: dateOfBirthController.text,
       gender: genderController.text,
     );
+
+    if (isProfileCreated) {
+      _clearControllers();
+      Get.snackbar("Success", "Sign-up and profile creation successful!");
+    }
   }
 
   bool _isFormValid(UserProfileController profileController) {
@@ -231,6 +135,5 @@ class _UserProfileViewState extends State<UserProfileView> {
     accountTypeController.dispose();
     dateOfBirthController.dispose();
     genderController.dispose();
-    fetchEmailController.dispose();
   }
 }
