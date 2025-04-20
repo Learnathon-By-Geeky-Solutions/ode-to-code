@@ -43,12 +43,10 @@ export 'package:edu_bridge_app/feature/auth/forgot_password/view/forget_password
 export 'package:edu_bridge_app/feature/auth/sign_in/view/sign_in_view.dart';
 export 'package:edu_bridge_app/feature/auth/splash_view/splash_view.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/view_model/sign_in_controller.dart';
-export 'package:edu_bridge_app/feature/auth/sign_up/view_model/sign_up_controller.dart';
+export 'package:edu_bridge_app/feature/user/view/sign_up_controller.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_button.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_text_button.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/widgets/sign_in_text_button.dart';
-export 'package:edu_bridge_app/feature/auth/sign_up/widgets/sign_up_button.dart';
-export 'package:edu_bridge_app/feature/auth/sign_up/widgets/sign_up_text_button.dart';
 // Chapter_4 Feature
 export 'package:edu_bridge_app/feature/capters_4/model/chapter_model.dart';
 //Repository

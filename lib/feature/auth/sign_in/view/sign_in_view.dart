@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/feature/auth/sign_in/widgets/sign_up_text_button.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});

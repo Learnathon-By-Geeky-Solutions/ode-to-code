@@ -12,6 +12,8 @@ class AppColors {
   static const Color bookColor = Color(0xff507C5C);
   static const Color shadowGrey = Color(0xffBFBFBF);
   static const Color grey = Colors.grey;
+  static const Color red = Color(0xffff0101);
+  static const Color blue = themeColor;
 
   // Add these new color properties to match the theme
   static const Color primary = themeColor;
