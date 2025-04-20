@@ -6,7 +6,7 @@ class CenteredAppLogo extends StatelessWidget {
 
   const CenteredAppLogo({
     super.key,
-    this.topSpacing = 10.0,
+    this.topSpacing = 15.0,
     this.bottomSpacing = 1.0,
   });
 
@@ -15,7 +15,11 @@ class CenteredAppLogo extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: topSpacing.h),
-        Image.asset(AssetsPath.appLogo),
+        Image.asset(
+          AssetsPath.appLogo,
+          height: 152,
+          width: 306,
+        ),
         SizedBox(height: bottomSpacing.h),
       ],
     );

@@ -16,15 +16,19 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<SignUpController>(
       builder: (controller) {
-        return CustomButton(
-          text: "Sign Up",
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          onPressed: () => _handleSignUp(controller),
-          backgroundColor: AppColors.themeColor,
-          textColor: Colors.white,
-          icon: Icons.arrow_forward,
-          buttonType: ButtonType.elevated,
+        return Visibility(
+          visible: !controller.inProgress,
+          replacement: const CircularProgressIndicator(),
+          child: CustomButton(
+            text: "sign_up".tr,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            onPressed: () => _handleSignUp(controller),
+            backgroundColor: AppColors.themeColor,
+            textColor: Colors.white,
+            icon: Icons.arrow_forward,
+            buttonType: ButtonType.elevated,
+          ),
         );
       },
     );

@@ -1,7 +1,11 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/services/auth_service/i_auth_service.dart';
 
 class SignUpController extends GetxController {
-  final AuthService _authService = AuthService();
+  final IAuthService _authService;
+
+  SignUpController({required IAuthService authService})
+      : _authService = authService;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;
@@ -20,9 +24,15 @@ class SignUpController extends GetxController {
     update();
 
     try {
-      await _authService.signUpWithEmail(email, password);
-      Get.snackbar("Success", "Account created successfully!");
-      return true;
+      final response = await _authService.signUpWithEmail(email, password);
+      if (response.user != null) {
+        Get.snackbar("Success", "Account created successfully!");
+        return true;
+      } else {
+        _errorMessage = "Failed to create an account. Please try again.";
+        Get.snackbar("Error", _errorMessage!);
+        return false;
+      }
     } on AuthException catch (e) {
       _errorMessage = e.message;
       Get.snackbar("Error", _errorMessage!);

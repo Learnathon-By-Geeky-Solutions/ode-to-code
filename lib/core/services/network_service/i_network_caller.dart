@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/services/api_response.dart';
+import 'package:edu_bridge_app/core/services/network_service/api_response.dart';
 
 abstract class INetworkCaller {
   Future<ApiResponse> getRequest({

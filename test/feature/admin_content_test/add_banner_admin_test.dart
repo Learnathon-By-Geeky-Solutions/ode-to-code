@@ -1,8 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
-import 'package:edu_bridge_app/feature/home/view/banner/view_model/banner_controller.dart';
 
 void main() {
   testWidgets('AddOfferSlider opens dialog on tap',
@@ -15,7 +12,7 @@ void main() {
       GetMaterialApp(
         translations: DummyTranslations(),
         locale: const Locale('en'),
-        home: Scaffold(
+        home: const Scaffold(
           body: Center(
             // Make sure widget is visible and centered
             child: SizedBox(

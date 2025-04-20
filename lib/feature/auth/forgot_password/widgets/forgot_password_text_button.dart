@@ -11,7 +11,7 @@ class ForgotPasswordTextButton extends StatelessWidget {
         onTap: () => Get.to(() => const ForgotPasswordView()),
         child: CustomText(
           text: 'forget_password'.tr,
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w700,
           fontSize: 16,
           color: AppColors.blackGray,
         ),

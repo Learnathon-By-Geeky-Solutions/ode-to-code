@@ -6,9 +6,15 @@ class AppTranslations extends Translations {
         'en': {
           'appTitle': 'EduBridge',
           'welcome': 'Welcome!',
+          //Auth
+          'lets_sign_in': "Let's Sign In",
+          'login_to_continue': 'Login to Your Account to Continue Learning',
+          'password': 'Password',
+          'signUp': 'Sign Up',
           'signIn': 'Sign In',
           'signOut': 'Sign Out',
           'profile': 'Profile',
+          //Home
           'home': 'Home',
           'settings': 'Settings',
           'dark_mode': 'Dark Mode',
@@ -37,6 +43,7 @@ class AppTranslations extends Translations {
           'designation_hint': 'Designation',
           'what_he_do_hint': 'What he do',
           'description_hint': 'Description',
+
           // English additions
           'label_name': 'Name',
           'label_designation': 'Designation',
@@ -44,6 +51,13 @@ class AppTranslations extends Translations {
           'label_description': 'Description',
           'user_email': 'User Email',
           'warning': 'Warning',
+          // User Profile Form
+          'full_name': 'Full Name',
+          'what_you_do': 'What You Do',
+          'account_type': 'Account Type',
+          'date_of_birth': 'Date of Birth',
+          'gender': 'Gender',
+          'email': 'Email',
           // Other
           'add_class': 'Add Class',
           'enter_class_name': 'Enter Class Name',
@@ -84,6 +98,19 @@ class AppTranslations extends Translations {
           'invite_friends': 'Invite Friends',
         },
         'bn': {
+          //Auth
+          'lets_sign_in': 'চলুন সাইন ইন করি',
+          'login_to_continue': 'শেখা চালিয়ে যেতে আপনার অ্যাকাউন্টে লগইন করুন',
+          'password': 'পাসওয়ার্ড',
+          'signUp': 'সাইন আপ',
+          // User Profile Form
+          'full_name': 'পূর্ণ নাম',
+          'what_you_do': 'আপনি কী করেন',
+          'account_type': 'অ্যাকাউন্টের ধরন',
+          'date_of_birth': 'জন্ম তারিখ',
+          'gender': 'লিঙ্গ',
+          'email': 'ইমেইল',
+
           'add_pin_number_security':
               'আপনার অ্যাকাউন্টকে আরও নিরাপদ করতে একটি পিন নম্বর যোগ করুন',
           'appTitle': 'এডু ব্রিজ',

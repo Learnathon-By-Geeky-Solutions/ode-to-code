@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:edu_bridge_app/core/resources/export.dart'; // Adjust the import based on your project structure
 
 void main() {
