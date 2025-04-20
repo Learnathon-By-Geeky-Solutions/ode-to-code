@@ -57,6 +57,7 @@ dependencies:
   mockito: ^5.4.5
   flutter_screenutil: ^5.9.3
   build_runner: ^2.4.6
+  app_links: ^6.4.0
 
 
 dev_dependencies:

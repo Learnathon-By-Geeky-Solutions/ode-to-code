@@ -36,7 +36,7 @@ class CustomTextFormField extends StatelessWidget {
       style: GoogleFonts.mulish(
         fontSize: 14,
         fontWeight: FontWeight.bold,
-        color: AppColors.bg,
+        color: AppColors.blackGray,
       ),
       decoration: InputDecoration(
         labelText: labelText,

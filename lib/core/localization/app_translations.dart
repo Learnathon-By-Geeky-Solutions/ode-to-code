@@ -14,6 +14,19 @@ class AppTranslations extends Translations {
           'signIn': 'Sign In',
           'signOut': 'Sign Out',
           'profile': 'Profile',
+
+          //reset password
+          "back_to_sign_in": "Back to Sign In",
+          "password_reset_email_sent":
+              "Password reset email sent! Please check your inbox.",
+          "update_your_password": "Update Your Password",
+          "enter_new_password": "Enter and confirm your new password.",
+          "update_password": "Update Password",
+          //forgot password
+          "forgot_password_title": "Forgot your password?",
+          "forgot_password_subtitle":
+              "Don’t worry! Enter your email to reset it and get back on track.",
+          "reset_password": "Reset Password",
           //Home
           'home': 'Home',
           'settings': 'Settings',
@@ -103,6 +116,19 @@ class AppTranslations extends Translations {
           'login_to_continue': 'শেখা চালিয়ে যেতে আপনার অ্যাকাউন্টে লগইন করুন',
           'password': 'পাসওয়ার্ড',
           'signUp': 'সাইন আপ',
+
+          //reset password
+          "back_to_sign_in": "সাইন ইন পেজে ফিরে যান",
+          "password_reset_email_sent":
+              "পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়েছে! দয়া করে আপনার ইনবক্স চেক করুন।",
+          "update_your_password": "আপনার পাসওয়ার্ড আপডেট করুন",
+          "enter_new_password": "নতুন পাসওয়ার্ড দিন এবং নিশ্চিত করুন।",
+          "update_password": "পাসওয়ার্ড আপডেট করুন",
+          //forgot password
+          "forgot_password_title": "পাসওয়ার্ড ভুলে গেছেন?",
+          "forgot_password_subtitle":
+              "চিন্তা করবেন না! পুনরায় সেট করতে আপনার ইমেইল দিন।",
+          "reset_password": "পাসওয়ার্ড রিসেট করুন",
           // User Profile Form
           'full_name': 'পূর্ণ নাম',
           'what_you_do': 'আপনি কী করেন',
