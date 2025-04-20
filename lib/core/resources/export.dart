@@ -123,8 +123,8 @@ export 'package:edu_bridge_app/feature/subject_3/repo/subjects_repository.dart';
 export 'package:edu_bridge_app/feature/subject_3/view/subjects_view.dart';
 export 'package:edu_bridge_app/feature/subject_3/view_model/subject_controller.dart';
 // Theming and Localization
-export 'package:edu_bridge_app/feature/theming_and_loclization/view_model/localization_controller.dart';
-export 'package:edu_bridge_app/feature/theming_and_loclization/view_model/theme_controller.dart';
+export 'package:edu_bridge_app/feature/theming_and_localization/view_model/localization_controller.dart';
+export 'package:edu_bridge_app/feature/theming_and_localization/view_model/theme_controller.dart';
 // User Feature
 export 'package:edu_bridge_app/feature/user/model/user_model.dart';
 export 'package:edu_bridge_app/feature/user/model/user_profile_model.dart';
