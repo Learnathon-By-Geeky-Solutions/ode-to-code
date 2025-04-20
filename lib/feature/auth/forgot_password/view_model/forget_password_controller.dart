@@ -1,5 +1,6 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:edu_bridge_app/core/services/auth_service/i_auth_service.dart';
+import 'package:edu_bridge_app/core/utils/snackbar_util.dart';
 
 class ForgotPasswordController extends GetxController {
   final IAuthService _authService;
@@ -15,7 +16,7 @@ class ForgotPasswordController extends GetxController {
 
   Future<bool> sendPasswordResetEmail(String email) async {
     if (email.isEmpty) {
-      Get.snackbar("Error", "Please enter your email");
+      SnackbarUtil.showError("Error", "Please enter your email");
       return false;
     }
 
@@ -25,14 +26,14 @@ class ForgotPasswordController extends GetxController {
 
     try {
       await _authService.resetPassword(email);
-      Get.snackbar("Success", "Password reset email sent");
+      SnackbarUtil.showSuccess("Success", "Password reset email sent");
       return true;
     } on AuthException catch (e) {
       _errorMessage = e.message;
-      Get.snackbar("Error", _errorMessage!);
+      SnackbarUtil.showError("Error", _errorMessage!);
       return false;
     } catch (e) {
-      Get.snackbar("Error", "Something went wrong");
+      SnackbarUtil.showError("Error", "Something went wrong");
       return false;
     } finally {
       _inProgress = false;

@@ -203,7 +203,6 @@ class AppTranslations extends Translations {
           'next': 'পরবর্তী',
           'select_language': 'ভাষা নির্বাচন করুন',
           'toggle_theme': 'থিম পরিবর্তন করুন',
-          'sign_out': 'সাইন আউট',
           'education_for_everyone': 'সবাই জন্য শিক্ষা',
           'empowering_minds':
               'মনের শক্তি, একটি উন্নত বাংলাদেশের নির্মাণ\nফ্রি শিখুন!',
