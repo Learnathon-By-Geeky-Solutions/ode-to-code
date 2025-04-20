@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/feature/auth/forgot_password/view_model/forget_password_controller.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -18,6 +19,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AuthService.configDeepLink();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -30,20 +38,34 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const CenteredAppLogo(),
-                const CustomHeaderText(
-                  text1: "Forgot your password?",
-                  text2:
-                      "Don’t worry! Enter your email to reset it and get back on track.",
+                CustomHeaderText(
+                  text1: "forgot_password_title".tr,
+                  text2: "forgot_password_subtitle".tr,
                 ),
-                VerticalSpacing(2.h),
+                VerticalSpacing(3.h),
                 CustomTextFormField(
-                  labelText: "Email",
+                  labelText: "Email".tr,
                   controller: _emailTEController,
                   validator: Validators.emailValidator,
                 ),
-                VerticalSpacing(2.h),
-                ForgotPasswordButton(
-                  emailTEController: _emailTEController,
+                VerticalSpacing(3.h),
+                GetBuilder<ForgotPasswordController>(
+                  builder: (controller) {
+                    return Visibility(
+                      visible: !controller.inProgress,
+                      replacement: const CircularProgressIndicator(),
+                      child: CustomButton(
+                        text: "reset_password".tr,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        onPressed: () => _handleReset(controller),
+                        backgroundColor: AppColors.themeColor,
+                        textColor: Colors.white,
+                        icon: Icons.refresh,
+                        buttonType: ButtonType.elevated,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -51,5 +73,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         ),
       ),
     );
+  }
+
+  Future<void> _handleReset(ForgotPasswordController controller) async {
+    if (_formKey.currentState?.validate() ?? false) {
+      await controller.sendPasswordResetEmail(
+        _emailTEController.text.trim(),
+      );
+    }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:edu_bridge_app/core/services/auth_service/i_auth_service.dart';
+import 'package:edu_bridge_app/feature/auth/forgot_password/view_model/forget_password_controller.dart';
+import 'package:edu_bridge_app/feature/auth/reset_password/view_model/reset_password_controller.dart';
 
 class ControllerBinder extends Bindings {
   @override
@@ -35,6 +37,10 @@ class ControllerBinder extends Bindings {
         SignInController(authService: Get.find<IAuthService>()));
     Get.put<SignUpController>(
         SignUpController(authService: Get.find<IAuthService>()));
+    Get.put<ForgotPasswordController>(
+        ForgotPasswordController(authService: Get.find<IAuthService>()));
+    Get.put<ResetPasswordController>(
+        ResetPasswordController(authService: Get.find<IAuthService>()));
 
     // App-specific controllers
     Get.lazyPut<BannerController>(
