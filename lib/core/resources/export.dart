@@ -4,8 +4,6 @@ export 'dart:convert';
 export 'dart:io';
 
 export 'package:carousel_slider/carousel_slider.dart';
-export 'package:edu_bridge_app/core/utils/snackbar_util.dart';
-
 // App Controllers
 export 'package:edu_bridge_app/controller.dart';
 export 'package:edu_bridge_app/core/localization/app_translations.dart';
@@ -14,11 +12,13 @@ export 'package:edu_bridge_app/core/resources/app_colors.dart';
 export 'package:edu_bridge_app/core/resources/app_themes.dart';
 export 'package:edu_bridge_app/core/resources/assets_path.dart';
 export 'package:edu_bridge_app/core/resources/export.dart';
+// Auth Feature
+export 'package:edu_bridge_app/core/services/auth_service/auth_service.dart';
 export 'package:edu_bridge_app/core/services/network_service/api_response.dart';
-// Core Services
-export 'package:edu_bridge_app/core/services/network_service/networks_utils.dart';
 export 'package:edu_bridge_app/core/services/network_service/i_network_caller.dart';
 export 'package:edu_bridge_app/core/services/network_service/network_caller.dart';
+// Core Services
+export 'package:edu_bridge_app/core/services/network_service/networks_utils.dart';
 // Core Utils
 export 'package:edu_bridge_app/core/utils/add_banner_form.dart';
 export 'package:edu_bridge_app/core/utils/add_course_dialouge.dart';
@@ -33,22 +33,20 @@ export 'package:edu_bridge_app/core/utils/custom_text_field.dart';
 // Core UI Components
 export 'package:edu_bridge_app/core/utils/language_switch.dart';
 export 'package:edu_bridge_app/core/utils/reusable_content_view.dart';
+export 'package:edu_bridge_app/core/utils/snackbar_util.dart';
 export 'package:edu_bridge_app/core/utils/theme_switch.dart';
 export 'package:edu_bridge_app/core/utils/validators.dart';
 // Admin Content Post Widgets
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_offer_slider.dart';
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_popular_course.dart';
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_top_mentor.dart';
-// Auth Feature
-export 'package:edu_bridge_app/core/services/auth_service/auth_service.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/view/forget_password_view.dart';
-export 'package:edu_bridge_app/feature/auth/sign_in/view/sign_in_view.dart';
-export 'package:edu_bridge_app/feature/auth/splash_view/splash_view.dart';
-export 'package:edu_bridge_app/feature/auth/sign_in/view_model/sign_in_controller.dart';
-export 'package:edu_bridge_app/feature/user/view_model/sign_up_controller.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_button.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_text_button.dart';
+export 'package:edu_bridge_app/feature/auth/sign_in/view/sign_in_view.dart';
+export 'package:edu_bridge_app/feature/auth/sign_in/view_model/sign_in_controller.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/widgets/sign_in_text_button.dart';
+export 'package:edu_bridge_app/feature/auth/splash_view/splash_view.dart';
 // Chapter_4 Feature
 export 'package:edu_bridge_app/feature/capters_4/model/chapter_model.dart';
 //Repository
@@ -73,10 +71,10 @@ export 'package:edu_bridge_app/feature/content_5/model/content_model.dart';
 export 'package:edu_bridge_app/feature/content_5/repo/content_repository.dart';
 export 'package:edu_bridge_app/feature/content_5/repo/i_content_repository.dart';
 export 'package:edu_bridge_app/feature/content_5/view/content_view.dart';
+export 'package:edu_bridge_app/feature/content_5/view/youtube_view.dart';
 export 'package:edu_bridge_app/feature/content_5/view_model/content_controller.dart';
 export 'package:edu_bridge_app/feature/content_5/widgets/add_content_view.dart';
 export 'package:edu_bridge_app/feature/content_5/widgets/content_card.dart';
-export 'package:edu_bridge_app/feature/content_5/view/youtube_view.dart';
 // Course Feature
 export 'package:edu_bridge_app/feature/course/model/popular_course_content_model.dart';
 export 'package:edu_bridge_app/feature/course/model/popular_course_model.dart';
@@ -131,6 +129,7 @@ export 'package:edu_bridge_app/feature/user/repo/user_profile_repository.dart';
 //export 'package:edu_bridge_app/feature/profile/view/fetch_user_profile_view.dart';
 
 export 'package:edu_bridge_app/feature/user/view/user_profile_view.dart';
+export 'package:edu_bridge_app/feature/user/view_model/sign_up_controller.dart';
 export 'package:edu_bridge_app/feature/user/view_model/user_profile_controller.dart';
 export 'package:flutter/gestures.dart';
 // Flutter & External Packages
