@@ -37,51 +37,65 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   text2: "enter_new_password".tr,
                 ),
                 VerticalSpacing(3.h),
-                CustomTextFormField(
-                  labelText: "New Password".tr,
-                  controller: _passwordController,
-                  validator: Validators.passwordValidator,
-                  obscureText: true,
-                ),
-                VerticalSpacing(2.h),
-                CustomTextFormField(
-                  labelText: "Confirm Password".tr,
-                  controller: _confirmPasswordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "please_enter_confirm_password".tr;
-                    }
-                    if (value != _passwordController.text) {
-                      return "passwords_do_not_match".tr;
-                    }
-                    return null;
-                  },
-                  obscureText: true,
-                ),
+                _buildPasswordFields(),
                 VerticalSpacing(3.h),
-                GetBuilder<ResetPasswordController>(
-                  builder: (controller) {
-                    return Visibility(
-                      visible: !controller.inProgress,
-                      replacement: const CircularProgressIndicator(),
-                      child: CustomButton(
-                        text: "update_password".tr,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        onPressed: () => _updatePassword(controller),
-                        backgroundColor: AppColors.themeColor,
-                        textColor: Colors.white,
-                        icon: Icons.lock_reset,
-                        buttonType: ButtonType.elevated,
-                      ),
-                    );
-                  },
-                ),
+                _buildSubmitButton(),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildPasswordFields() {
+    return Column(
+      children: [
+        CustomTextFormField(
+          labelText: "New Password".tr,
+          controller: _passwordController,
+          validator: Validators.passwordValidator,
+          obscureText: true,
+        ),
+        VerticalSpacing(2.h),
+        CustomTextFormField(
+          labelText: "Confirm Password".tr,
+          controller: _confirmPasswordController,
+          validator: _confirmPasswordValidator,
+          obscureText: true,
+        ),
+      ],
+    );
+  }
+
+  String? _confirmPasswordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "please_enter_confirm_password".tr;
+    }
+    if (value != _passwordController.text) {
+      return "passwords_do_not_match".tr;
+    }
+    return null;
+  }
+
+  Widget _buildSubmitButton() {
+    return GetBuilder<ResetPasswordController>(
+      builder: (controller) {
+        return Visibility(
+          visible: !controller.inProgress,
+          replacement: const CircularProgressIndicator(),
+          child: CustomButton(
+            text: "update_password".tr,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            onPressed: () => _updatePassword(controller),
+            backgroundColor: AppColors.themeColor,
+            textColor: Colors.white,
+            icon: Icons.lock_reset,
+            buttonType: ButtonType.elevated,
+          ),
+        );
+      },
     );
   }
 

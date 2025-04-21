@@ -58,6 +58,8 @@ dependencies:
   flutter_screenutil: ^5.9.3
   build_runner: ^2.4.6
   app_links: ^6.4.0
+  network_image_mock: ^2.0.1
+
 
 
 dev_dependencies:

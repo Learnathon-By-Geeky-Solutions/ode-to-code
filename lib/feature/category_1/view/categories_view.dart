@@ -18,7 +18,7 @@ class _CategoriesViewState extends State<CategoriesView> {
           name: "All Categories",
           floatingActionButton: OutlinedButton(
             onPressed: () {
-              Get.dialog(const AddCategoryDialog());
+              Get.dialog( AddCategoryDialog());
             },
             child: const Icon(Icons.add),
           ),

@@ -13,7 +13,6 @@ void main() {
   setUp(() {
     mockAuthService = MockAuthService();
 
-    // Stub resetPassword to always succeed
     when(() => mockAuthService.resetPassword(any()))
         .thenAnswer((_) async => Future.value());
 
@@ -46,10 +45,8 @@ void main() {
     expect(resetButton, findsOneWidget);
     await tester.tap(resetButton);
 
-    // Pump long enough to allow snackbars to complete
     await tester.pump(const Duration(seconds: 4));
 
-    // Verify the resetPassword method was called
     verify(() => mockAuthService.resetPassword('test@example.com')).called(1);
   });
 }

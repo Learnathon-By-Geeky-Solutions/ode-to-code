@@ -21,7 +21,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     DeepLinkService.configure();
   }
