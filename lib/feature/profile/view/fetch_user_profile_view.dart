@@ -1,6 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/profile/widgets/profile_header.dart';
-import 'package:edu_bridge_app/feature/profile/widgets/profile_options.dart';
 
 class FetchUserProfileView extends StatefulWidget {
   const FetchUserProfileView({super.key});
@@ -11,7 +9,7 @@ class FetchUserProfileView extends StatefulWidget {
 
 class _FetchUserProfileViewState extends State<FetchUserProfileView> {
   final UserProfileController profileController =
-      Get.find<UserProfileController>();
+  Get.find<UserProfileController>();
 
   @override
   void initState() {
@@ -39,6 +37,61 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
 
           if (controller.userProfile != null) {
             final profile = controller.userProfile!;
+
+            final List<Map<String, dynamic>> options = [
+              {
+                "title": 'about_user'.tr,
+                "icon": Icons.person,
+                "onTap": () {},
+              },
+              {
+                "title": 'notification'.tr,
+                "icon": Icons.notifications,
+                "onTap": () {},
+              },
+              {
+                "title": 'language'.tr,
+                "icon": Icons.language,
+                "onTap": () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: CustomText(text: 'select_language'.tr),
+                      content: const LanguageSwitch(),
+                    ),
+                  );
+                },
+              },
+              {
+                "title": 'dark_mode'.tr,
+                "icon": Icons.dark_mode,
+                "onTap": () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: CustomText(text: 'toggle_theme'.tr),
+                      content: const ThemeSwitch(),
+                    ),
+                  );
+                },
+              },
+              {
+                "title": 'help_center'.tr,
+                "icon": Icons.help,
+                "onTap": () {},
+              },
+              {
+                "title": 'invite_friends'.tr,
+                "icon": Icons.group_add,
+                "onTap": () {},
+              },
+              {
+                "title": 'settings'.tr,
+                "icon": Icons.settings,
+                "onTap": () => Get.to(() => const SettingsView()),
+              },
+            ];
+
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -49,8 +102,36 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
                 child: ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    ProfileHeader(profile: profile),
-                    ProfileOptions(context: context),
+                    const SizedBox(height: 16),
+                    Center(
+                      child: Container(
+                        height: 110,
+                        width: 110,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.green, width: 4),
+                          color: Colors.greenAccent,
+                        ),
+                        child: CircleAvatar(
+                          backgroundImage: profile.image.isNotEmpty
+                              ? NetworkImage(profile.image)
+                              : const AssetImage(
+                              'assets/images/default_avatar.png')
+                          as ImageProvider,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Center(child: CustomText(text: profile.name)),
+                    Center(child: CustomText(text: profile.email)),
+                    const SizedBox(height: 24),
+                    ...options.map((item) => buildCard(
+                      item["title"],
+                      item["icon"],
+                      Icons.arrow_forward_ios,
+                      item["onTap"],
+                    )),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -74,6 +155,18 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget buildCard(
+      String title, IconData leading, IconData trailing, VoidCallback onTap) {
+    return Card(
+      child: ListTile(
+        onTap: onTap,
+        title: CustomText(text: title, fontSize: 16),
+        leading: Icon(leading),
+        trailing: Icon(trailing),
       ),
     );
   }
