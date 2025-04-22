@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
 
 class AboutUser extends StatefulWidget {
   const AboutUser({super.key});
@@ -15,22 +16,8 @@ class _AboutUserState extends State<AboutUser> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      fetchProfileData();
+      UserProfileUtils.fetchProfileData(profileController);
     });
-  }
-
-  void fetchProfileData() async {
-    final supabase = Supabase.instance.client;
-    final email = supabase.auth.currentSession?.user.email ?? '';
-    if (email.isNotEmpty) {
-      try {
-        await profileController.fetchUserProfile(email);
-      } catch (e) {
-        SnackBarUtil.showError("Error fetching user profile: $e", "$e");
-      }
-    } else {
-      SnackBarUtil.showError("User is not logged in.", "");
-    }
   }
 
   @override
