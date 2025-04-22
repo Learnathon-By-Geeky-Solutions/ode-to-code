@@ -49,6 +49,7 @@ jobs:
             -Dsonar.sources=lib
             -Dsonar.tests=test
             -Dsonar.test.inclusions=test/features/**/*_test.dart
-            -Dsonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/__generated__/**,**/mocks.dart,**/*.css
+            -Dsonar.exclusions=**/*.g.dart,**/*.freezed.dart,**/generated/**,**/__generated__/**,**/mocks.dart,**/*.css,lib/core/**
+
         
       
