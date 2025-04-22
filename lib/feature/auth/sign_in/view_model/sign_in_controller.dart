@@ -14,37 +14,55 @@ class SignInController extends GetxController {
   String? get errorMessage => _errorMessage;
 
   Future<bool> signIn(String email, String password) async {
+    if (!_isValidInput(email, password)) return false;
+
+    _startProgress();
+
+    final result = await _attemptSignIn(email, password);
+
+    _stopProgress();
+    return result;
+  }
+
+  bool _isValidInput(String email, String password) {
     if (email.isEmpty || password.isEmpty) {
       SnackbarUtil.showError("Error", "Please enter email and password");
       return false;
     }
+    return true;
+  }
 
+  void _startProgress() {
     _inProgress = true;
     _errorMessage = null;
     update();
+  }
 
+  void _stopProgress() {
+    _inProgress = false;
+    update();
+  }
+
+  Future<bool> _attemptSignIn(String email, String password) async {
     try {
       final response = await _authService.signInWithEmail(email, password);
       if (response.user != null) {
         SnackbarUtil.showSuccess("Success", "Signed in successfully!");
         return true;
-      } else {
-        _errorMessage = "Failed to sign in. Please check your credentials.";
-        SnackbarUtil.showError("Error", _errorMessage!);
-        return false;
       }
+      _handleError("Failed to sign in. Please check your credentials.");
     } on AuthException catch (e) {
-      _errorMessage = e.message;
-      SnackbarUtil.showError("Error", _errorMessage!);
-      return false;
-    } catch (e) {
-      // Handle any other kind of exception
-      // Optional: You could also log this error somewhere
-      _errorMessage = null; // Or provide a fallback message
-      return false;
-    } finally {
-      _inProgress = false;
-      update();
+      _handleError(e.message);
+    } catch (_) {
+      _handleError();
+    }
+    return false;
+  }
+
+  void _handleError([String? message]) {
+    _errorMessage = message;
+    if (message != null) {
+      SnackbarUtil.showError("Error", message);
     }
   }
 }
