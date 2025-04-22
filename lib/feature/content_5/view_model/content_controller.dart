@@ -22,7 +22,7 @@ class CourseContentController extends GetxController {
     String? note,
   }) async {
     if (name.isEmpty || chaptersId.isEmpty) {
-      SnackbarUtil.showError(
+      SnackBarUtil.showError(
           "Error", "Please enter content name and select chapter");
       return false;
     }
@@ -44,10 +44,10 @@ class CourseContentController extends GetxController {
     final success = await _repository.addContent(newContent);
     if (success) {
       isSuccess = true;
-      SnackbarUtil.showSuccess("Success", "Content added successfully!");
+      SnackBarUtil.showSuccess("Success", "Content added successfully!");
     } else {
       _errorMessage = "Failed to add content.";
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;
@@ -64,7 +64,7 @@ class CourseContentController extends GetxController {
       _contents = await _repository.fetchContentsByChapterId(chaptersId);
     } catch (e) {
       _errorMessage = 'Failed to load contents: $e';
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;

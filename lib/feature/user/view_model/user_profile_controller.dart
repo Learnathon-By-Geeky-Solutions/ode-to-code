@@ -1,7 +1,11 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/feature/user/repo/i_user_profile_repository.dart';
 
 class UserProfileController extends GetxController {
-  final UserProfileRepository _repository = UserProfileRepository();
+  final IUserProfileRepository _repository;
+
+  UserProfileController({required IUserProfileRepository repository})
+      : _repository = repository;
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;
@@ -15,26 +19,26 @@ class UserProfileController extends GetxController {
   File? _profileImage;
   File? get profileImage => _profileImage;
 
-  // Helper to manage the loading state
+  // Helper method to update progress state and trigger UI update
   void _setInProgress(bool value) {
     _inProgress = value;
     update();
   }
 
-  // Helper to handle errors and show them through Snackbar
+  // Helper method to handle error messages and show a Snackbar
   void _handleError(String message) {
     _errorMessage = message;
-    Get.snackbar("Error", message);
-    update(); // Ensure UI updates on error message change
+    Get.snackbar("Error", message, backgroundColor: Colors.red, colorText: Colors.white);
+    update();
   }
 
-  // Set profile image and update UI
+  // Method to set profile image from UI
   void setProfileImage(File image) {
     _profileImage = image;
     update();
   }
 
-  // Add user profile with proper validations
+  // Method to add a new user profile
   Future<bool> addUserProfile({
     required String fullName,
     required String email,
@@ -44,24 +48,24 @@ class UserProfileController extends GetxController {
     required String gender,
   }) async {
     if ([fullName, email, whatYouDo, accountType, dateOfBirth, gender]
-            .any((element) => element.isEmpty) ||
+        .any((element) => element.trim().isEmpty) ||
         _profileImage == null) {
       _handleError("Please fill in all fields and select a profile image.");
       return false;
     }
 
     _setInProgress(true);
-    bool isSuccess = false;
 
     try {
-      // Upload image first and check result
+      // Attempt to upload the profile image
       final imageUrl = await _repository.uploadUserProfileImage(_profileImage!);
+
       if (imageUrl == null) {
         _handleError("Failed to upload profile image.");
         return false;
       }
 
-      // Proceed to create profile if image upload is successful
+      // Create user profile model
       final profile = UserProfileModel(
         name: fullName,
         email: email,
@@ -72,36 +76,39 @@ class UserProfileController extends GetxController {
         gender: gender,
       );
 
-      final response = await _repository
-          .addUserProfile(profile); // This returns an ApiResponse
-      if (response.isSuccess) {
+      // Attempt to create the profile in the repository
+      final isSuccess = await _repository.createUserProfile(profile);
+      if (isSuccess) {
         Get.snackbar("Success", "User profile added successfully!");
-        isSuccess = true;
+        return true;
       } else {
-        _handleError("Failed to add user profile: ${response.errorMessage}");
+        _handleError("Failed to add user profile.");
+        return false;
       }
     } catch (e) {
+      // Catch any errors and display a message
       _handleError("An error occurred: $e");
+      return false;
+    } finally {
+      _setInProgress(false);
     }
-
-    _setInProgress(false);
-    return isSuccess;
   }
 
-  // Fetch user profile based on email
+  // Method to fetch a user profile by email
   Future<void> fetchUserProfile(String email) async {
     _setInProgress(true);
-    _errorMessage = null; // Reset error message
+    _errorMessage = null; // Clear any previous errors
 
     try {
-      _userProfile = await _repository.fetchUserProfileByEmail(email);
+      // Fetch user profile from repository
+      _userProfile = await _repository.getUserProfileByEmail(email);
       if (_userProfile == null) {
         _handleError("No user profile found for this email.");
       }
     } catch (e) {
       _handleError("Failed to load user profile: $e");
+    } finally {
+      _setInProgress(false);
     }
-
-    _setInProgress(false);
   }
 }

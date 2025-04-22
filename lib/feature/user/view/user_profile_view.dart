@@ -10,10 +10,6 @@ class UserProfileView extends StatefulWidget {
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
-  final UserProfileController profileController =
-      Get.put(UserProfileController());
-  final SignUpController signUpController =
-      Get.put(SignUpController(authService: AuthService()));
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();

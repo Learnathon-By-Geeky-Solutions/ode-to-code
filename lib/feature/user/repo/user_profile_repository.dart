@@ -1,51 +1,60 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/feature/user/repo/i_user_profile_repository.dart';
 
-class UserProfileRepository {
-  final NetworkCaller _networkCaller = NetworkCaller();
+class UserProfileRepository extends IUserProfileRepository {
+  final INetworkCaller _networkCaller;
 
+  UserProfileRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
+
+  @override
   Future<String?> uploadUserProfileImage(File imageFile) async {
     final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     final filePath = 'user/$fileName';
+
     final response = await _networkCaller.uploadFile(
       bucketName: 'user',
       filePath: filePath,
       file: imageFile,
     );
-    return response.isSuccess ? response.responseData : null;
+
+    return response.isSuccess ? response.responseData as String? : null;
   }
 
-  Future<ApiResponse> addUserProfile(UserProfileModel userProfile) =>
-      _submitUserProfile(userProfile);
+  @override
+  Future<bool> createUserProfile(UserProfileModel profile) async {
+    final response = await _networkCaller.postRequest(
+      tableName: 'users_profile',
+      data: profile.toMap(),
+    );
+    return _handlePostResponse(response);
+  }
 
-  Future<ApiResponse> updateUserProfile(UserProfileModel userProfile) =>
-      _submitUserProfile(userProfile);
-
-  Future<UserProfileModel?> fetchUserProfileByEmail(String email) async {
+  @override
+  Future<UserProfileModel?> getUserProfileByEmail(String email) async {
     final response = await _networkCaller.getRequest(
       tableName: 'users_profile',
       eqColumn: 'email',
       eqValue: email,
     );
 
-    if (response.isSuccess &&
-        response.responseData is List &&
-        response.responseData.isNotEmpty) {
-      return UserProfileModel.fromMap(response.responseData[0]);
-    }
-    return null;
+    return _handleGetResponse(response, email);
   }
 
-  Future<ApiResponse> _submitUserProfile(UserProfileModel userProfile) async {
-    final response = await _networkCaller.postRequest(
-      tableName: 'users_profile',
-      data: userProfile.toMap(),
-    );
-    return response.isSuccess
-        ? response
-        : ApiResponse(
-      isSuccess: false,
-      responseData: null,
-      errorMessage: response.errorMessage
-    );
+  bool _handlePostResponse(ApiResponse response) {
+    return response.isSuccess;
+  }
+
+  UserProfileModel? _handleGetResponse(ApiResponse response, String email) {
+    if (response.isSuccess && response.responseData is List) {
+      final filteredData = (response.responseData as List).where((data) {
+        return data['email'] == email;
+      }).toList();
+
+      if (filteredData.isNotEmpty) {
+        return UserProfileModel.fromMap(filteredData.first);
+      }
+    }
+    return null;
   }
 }

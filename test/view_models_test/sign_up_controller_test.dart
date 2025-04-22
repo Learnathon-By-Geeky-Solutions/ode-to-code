@@ -17,7 +17,7 @@ void main() {
     controller = SignUpController(authService: mockAuthService);
 
     // Enable test mode to prevent snackbars from actually showing
-    SnackbarUtil.isTestMode = true;
+    SnackBarUtil.isTestMode = true;
 
     registerFallbackValue(AuthResponse(
       user: const User(

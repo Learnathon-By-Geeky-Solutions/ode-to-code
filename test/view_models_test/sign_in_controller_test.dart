@@ -17,7 +17,7 @@ void main() {
     controller = SignInController(authService: mockAuthService);
 
     // Set test mode to true to skip snackbar during tests
-    SnackbarUtil.isTestMode = true;
+    SnackBarUtil.isTestMode = true;
 
     // Register fallback values for complex types
     registerFallbackValue(AuthResponse(

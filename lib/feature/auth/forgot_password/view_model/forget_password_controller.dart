@@ -15,7 +15,7 @@ class ForgotPasswordController extends GetxController {
 
   Future<bool> sendPasswordResetEmail(String email) async {
     if (email.isEmpty) {
-      SnackbarUtil.showError("Error", "Please enter your email");
+      SnackBarUtil.showError("Error", "Please enter your email");
       return false;
     }
 
@@ -25,14 +25,14 @@ class ForgotPasswordController extends GetxController {
 
     try {
       await _authService.resetPassword(email);
-      SnackbarUtil.showSuccess("Success", "Password reset email sent");
+      SnackBarUtil.showSuccess("Success", "Password reset email sent");
       return true;
     } on AuthException catch (e) {
       _errorMessage = e.message;
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
       return false;
     } catch (e) {
-      SnackbarUtil.showError("Error", "Something went wrong");
+      SnackBarUtil.showError("Error", "Something went wrong");
       return false;
     } finally {
       _inProgress = false;

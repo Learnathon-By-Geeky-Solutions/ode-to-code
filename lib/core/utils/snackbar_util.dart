@@ -4,7 +4,7 @@ import 'package:edu_bridge_app/core/resources/app_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-class SnackbarUtil {
+class SnackBarUtil {
   static bool isTestMode = false; // Flag to determine if we're in test mode
 
   static void showSuccess(String title, String message) {

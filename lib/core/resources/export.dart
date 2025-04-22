@@ -123,7 +123,6 @@ export 'package:edu_bridge_app/feature/subject_3/view_model/subject_controller.d
 export 'package:edu_bridge_app/feature/theming_and_localization/view_model/localization_controller.dart';
 export 'package:edu_bridge_app/feature/theming_and_localization/view_model/theme_controller.dart';
 // User Feature
-export 'package:edu_bridge_app/feature/user/model/user_model.dart';
 export 'package:edu_bridge_app/feature/user/model/user_profile_model.dart';
 export 'package:edu_bridge_app/feature/user/repo/user_profile_repository.dart';
 //export 'package:edu_bridge_app/feature/profile/view/fetch_user_profile_view.dart';

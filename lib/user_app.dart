@@ -19,7 +19,7 @@ class EduBridgeUser extends StatelessWidget {
           translations: AppTranslations(),
           locale: Get.find<LocalizationController>().locale,
           fallbackLocale: const Locale('en'),
-          home: const SplashView(),
+          home: const SplashView()
         );
       },
     );
