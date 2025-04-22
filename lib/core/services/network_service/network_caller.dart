@@ -3,10 +3,15 @@ import 'package:edu_bridge_app/core/resources/export.dart';
 class NetworkCaller extends INetworkCaller {
   final SupabaseClient _supabase;
   final Logger _logger;
+  final NetworkUtils _utils;
 
-  NetworkCaller({SupabaseClient? client, Logger? logger})
-      : _supabase = client ?? Supabase.instance.client,
-        _logger = logger ?? Logger();
+  NetworkCaller({
+    SupabaseClient? client,
+    Logger? logger,
+    NetworkUtils? utils,
+  })  : _supabase = client ?? Supabase.instance.client,
+        _logger = logger ?? Logger(),
+        _utils = utils ?? NetworkUtils();
 
   @override
   Future<ApiResponse> getRequest({
@@ -22,25 +27,9 @@ class NetworkCaller extends INetworkCaller {
 
       final query = _supabase.from(tableName).select();
 
-      if (eqColumn != null && eqValue != null) {
-        query.eq(eqColumn, eqValue);
-        _logger.d('Added filter: $eqColumn = $eqValue');
-      }
-
-      if (queryParams != null) {
-        for (final param in queryParams.entries) {
-          query.eq(param.key, param.value);
-          _logger.d('Added query param: ${param.key} = ${param.value}');
-        }
-      }
-
-      if (orderBy != null) {
-        query.order(orderBy, ascending: orderDirection == 'asc');
-        _logger.d('Added ordering: $orderBy ($orderDirection)');
-      }
-
-      // Log the query to check what is actually being sent
-      _logger.d('Query: $query');
+      _utils.applyEqFilter(query, eqColumn, eqValue);
+      _utils.applyQueryParams(query, queryParams);
+      _utils.applyOrdering(query, orderBy, orderDirection);
 
       final response = await query;
       _logger.i(
@@ -52,12 +41,7 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('GET Request Failed | Table: $tableName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _utils.handleError('GET', tableName, e);
     }
   }
 
@@ -79,12 +63,7 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('POST Request Failed | Table: $tableName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _utils.handleError('POST', tableName, e);
     }
   }
 
@@ -100,7 +79,7 @@ class NetworkCaller extends INetworkCaller {
 
       await _supabase.storage.from(bucketName).upload(filePath, file);
       final publicUrl =
-      _supabase.storage.from(bucketName).getPublicUrl(filePath);
+          _supabase.storage.from(bucketName).getPublicUrl(filePath);
 
       _logger.i('File Upload Successful | URL: $publicUrl');
       return ApiResponse(
@@ -109,16 +88,10 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('File Upload Failed | Bucket: $bucketName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _utils.handleError('UPLOAD', bucketName, e);
     }
   }
 
-// Add similar methods for PUT, DELETE, etc. with logging
   @override
   Future<ApiResponse> deleteRequest({
     required String tableName,
@@ -128,12 +101,7 @@ class NetworkCaller extends INetworkCaller {
       _logger.i('DELETE Request Initiated | Table: $tableName');
 
       var query = _supabase.from(tableName).delete();
-
-      if (queryParams != null) {
-        for (final param in queryParams.entries) {
-          query = query.eq(param.key, param.value);
-        }
-      }
+      _utils.applyQueryParams(query, queryParams);
 
       final response = await query;
       _logger.i('DELETE Request Successful | Table: $tableName');
@@ -144,12 +112,7 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
-      _logger.e('DELETE Request Failed | Table: $tableName', error: e);
-      return ApiResponse(
-        isSuccess: false,
-        responseData: null,
-        errorMessage: e.toString(),
-      );
+      return _utils.handleError('DELETE', tableName, e);
     }
   }
 
