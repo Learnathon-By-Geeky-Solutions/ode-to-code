@@ -1,6 +1,6 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:edu_bridge_app/core/resources/export.dart';
 
 // Mock class
 class MockNetworkCaller extends Mock implements INetworkCaller {}
@@ -12,7 +12,7 @@ void main() {
     mockNetworkCaller = MockNetworkCaller();
   });
 
-  group('NetworkCaller Tests', () {
+  group('INetworkCaller Tests', () {
     test('getRequest should return success response', () async {
       final fakeResponse = ApiResponse(
         isSuccess: true,
@@ -96,28 +96,6 @@ void main() {
       );
 
       expect(response.isSuccess, true);
-    });
-
-    test('putRequest should return success after updating data', () async {
-      final fakeResponse = ApiResponse(
-        isSuccess: true,
-        responseData: {'id': 1, 'status': 'updated'},
-        errorMessage: '',
-      );
-
-      when(() => mockNetworkCaller.putRequest(
-            tableName: 'courses',
-            data: {'status': 'updated'},
-            queryParams: any(named: 'queryParams'),
-          )).thenAnswer((_) async => fakeResponse);
-
-      final response = await mockNetworkCaller.putRequest(
-        tableName: 'courses',
-        data: {'status': 'updated'},
-      );
-
-      expect(response.isSuccess, true);
-      expect(response.responseData['status'], 'updated');
     });
 
     test('saveUserCourse should succeed', () async {

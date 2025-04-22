@@ -26,7 +26,7 @@ class SignInController extends GetxController {
 
   bool _isValidInput(String email, String password) {
     if (email.isEmpty || password.isEmpty) {
-      SnackbarUtil.showError("Error", "Please enter email and password");
+      SnackBarUtil.showError("Error", "Please enter email and password");
       return false;
     }
     return true;
@@ -47,7 +47,7 @@ class SignInController extends GetxController {
     try {
       final response = await _authService.signInWithEmail(email, password);
       if (response.user != null) {
-        SnackbarUtil.showSuccess("Success", "Signed in successfully!");
+        SnackBarUtil.showSuccess("Success", "Signed in successfully!");
         return true;
       }
       _handleError("Failed to sign in. Please check your credentials.");
@@ -62,7 +62,7 @@ class SignInController extends GetxController {
   void _handleError([String? message]) {
     _errorMessage = message;
     if (message != null) {
-      SnackbarUtil.showError("Error", message);
+      SnackBarUtil.showError("Error", message);
     }
   }
 }

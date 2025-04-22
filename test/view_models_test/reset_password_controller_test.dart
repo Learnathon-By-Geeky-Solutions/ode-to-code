@@ -17,7 +17,7 @@ void main() {
     controller = ResetPasswordController(authService: mockAuthService);
 
     // Set test mode to true to skip snackbar during tests
-    SnackbarUtil.isTestMode = true;
+    SnackBarUtil.isTestMode = true;
   });
 
   group('ResetPasswordController Tests', () {

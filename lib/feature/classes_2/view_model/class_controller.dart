@@ -29,7 +29,7 @@ class ClassController extends GetxController {
 
   Future<bool> addClass(String categoryId, String className) async {
     if (className.isEmpty || categoryId.isEmpty || _classImage == null) {
-      SnackbarUtil.showError(
+      SnackBarUtil.showError(
           "Error", "Please enter class name, select category, and an image");
       return false;
     }
@@ -50,14 +50,14 @@ class ClassController extends GetxController {
       final success = await _repository.addClass(newClass);
       if (success) {
         isSuccess = true;
-        SnackbarUtil.showSuccess("Success", "Class added successfully!");
+        SnackBarUtil.showSuccess("Success", "Class added successfully!");
       } else {
         _errorMessage = "Failed to add class.";
-        SnackbarUtil.showError("Error", _errorMessage!);
+        SnackBarUtil.showError("Error", _errorMessage!);
       }
     } else {
       _errorMessage = "Image upload failed.";
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;
@@ -74,7 +74,7 @@ class ClassController extends GetxController {
       _classes = await _repository.fetchClassesByCategoryId(categoryId);
     } catch (e) {
       _errorMessage = 'Failed to load classes: $e';
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;

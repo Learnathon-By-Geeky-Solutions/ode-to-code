@@ -6,6 +6,7 @@ class CustomText extends StatelessWidget {
   final FontWeight fontWeight;
   final Color color;
   final TextStyle? customStyle;
+  final TextAlign textAlign;
 
   const CustomText({
     required this.text,
@@ -13,6 +14,7 @@ class CustomText extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.color = Colors.black,
     this.customStyle,
+    this.textAlign = TextAlign.start,
     super.key,
   });
 
@@ -28,6 +30,7 @@ class CustomText extends StatelessWidget {
     return Text(
       text,
       style: textStyle,
+      textAlign: textAlign, // Apply textAlign here
     );
   }
 }

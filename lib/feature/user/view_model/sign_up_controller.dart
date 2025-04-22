@@ -16,7 +16,7 @@ class SignUpController extends GetxController {
   Future<bool> signUp(String email, String password) async {
     if (email.isEmpty || password.isEmpty) {
       _errorMessage = "Please enter email and password";
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
       return false;
     }
 
@@ -27,16 +27,16 @@ class SignUpController extends GetxController {
     try {
       final response = await _authService.signUpWithEmail(email, password);
       if (response.user != null) {
-        SnackbarUtil.showSuccess("Success", "Account created successfully!");
+        SnackBarUtil.showSuccess("Success", "Account created successfully!");
         return true;
       } else {
         _errorMessage = "Failed to create an account. Please try again.";
-        SnackbarUtil.showError("Error", _errorMessage!);
+        SnackBarUtil.showError("Error", _errorMessage!);
         return false;
       }
     } on AuthException catch (e) {
       _errorMessage = e.message;
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
       return false;
     } catch (e) {
       _errorMessage = null;

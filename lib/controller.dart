@@ -45,6 +45,7 @@ class ControllerBinder extends Bindings {
 
     Get.lazyPut<PopularCourseContentController>(() => PopularCourseContentController(repository: Get.find<IPopularCourseContentRepository>()));
 
-    Get.lazyPut<UserProfileController>(() => UserProfileController());
+    Get.put<UserProfileController>(UserProfileController(repository: UserProfileRepository(networkCaller: NetworkCaller())));
+
   }
 }

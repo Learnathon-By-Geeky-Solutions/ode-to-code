@@ -35,7 +35,7 @@ class CategoryController extends GetxController {
 
   Future<bool> addCategory(String categoryName) async {
     if (categoryName.isEmpty || _categoryImage == null) {
-      SnackbarUtil.showError(
+      SnackBarUtil.showError(
           "Error", "Please enter category name and select an image");
       return false;
     }
@@ -56,14 +56,14 @@ class CategoryController extends GetxController {
       if (success) {
         isSuccess = true;
         fetchCategories();
-        SnackbarUtil.showSuccess("Success", "Category added successfully!");
+        SnackBarUtil.showSuccess("Success", "Category added successfully!");
       } else {
         _errorMessage = "Failed to add category.";
-        SnackbarUtil.showError("Error", _errorMessage!);
+        SnackBarUtil.showError("Error", _errorMessage!);
       }
     } else {
       _errorMessage = "Image upload failed.";
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;
@@ -80,7 +80,7 @@ class CategoryController extends GetxController {
       _categories = await _repository.fetchCategories();
     } catch (e) {
       _errorMessage = 'Failed to load categories: $e';
-      SnackbarUtil.showError("Error", _errorMessage!);
+      SnackBarUtil.showError("Error", _errorMessage!);
     }
 
     _inProgress = false;
