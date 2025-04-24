@@ -14,24 +14,26 @@ void main() {
       // Mock the functions to provide dummy data
       fetchContents = (String id) async {};
       getContents = () => [
-            // Provide a list of mock content here
-            ContentModel(
-                name: 'Content 1',
-                number: '1',
-                note: 'This is content 1',
-                chaptersId: "test 1",
-                id: 11,
-                link: "xyx",
-                createdAt: ""),
-            ContentModel(
-                name: 'Content 2',
-                number: '2',
-                note: 'This is content 2',
-                chaptersId: "test 1",
-                id: 11,
-                link: "xyx",
-                createdAt: ""),
-          ];
+        ContentModel(
+            name: 'Content 1',
+            number: '1',
+            note: 'This is content 1',
+            chaptersId: "test_1",
+            id: '11',
+            link: "xyz",
+            createdAt: ""
+        ),
+        ContentModel(
+            name: 'Content 2',
+            number: '2',
+            note: 'This is content 2',
+            chaptersId: "test_1",
+            id: '12',
+            link: "xyz",
+            createdAt: ""
+        ),
+      ];
+
       isLoading = () => false; // Simulate not loading state
       addContent = (id, number, title, {link, note}) async => true;
 

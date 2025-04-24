@@ -9,7 +9,7 @@ List<Widget> buildProfileOptions(BuildContext context) {
       "icon": Icons.person,
       "onTap": () => Get.to(() => const AboutUser())
     },
-    {"title": 'notification'.tr, "icon": Icons.notifications, "onTap": () {}},
+    /*{"title": 'notification'.tr, "icon": Icons.notifications, "onTap": () {}},*/
     {
       "title": 'language'.tr,
       "icon": Icons.language,
@@ -37,7 +37,7 @@ List<Widget> buildProfileOptions(BuildContext context) {
       }
     },
     {"title": 'help_center'.tr, "icon": Icons.help, "onTap": () {}},
-    {"title": 'invite_friends'.tr, "icon": Icons.group_add, "onTap": () {}},
+    /*{"title": 'invite_friends'.tr, "icon": Icons.group_add, "onTap": () {}},*/
     {
       "title": 'settings'.tr,
       "icon": Icons.settings,
@@ -47,10 +47,9 @@ List<Widget> buildProfileOptions(BuildContext context) {
 
   return options.map((item) {
     return ProfileOptionCard(
-      title: (item["title"] as String?) ??
-          'Default Title', // Explicit cast to String?
-      icon: item["icon"] as IconData, // Cast icon to IconData
-      onTap: item["onTap"] as VoidCallback, // Cast onTap to VoidCallback
+      title: (item["title"] as String?) ?? 'Default Title',
+      icon: item["icon"] as IconData,
+      onTap: item["onTap"] as VoidCallback,
     );
   }).toList();
 }
