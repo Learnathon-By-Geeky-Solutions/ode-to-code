@@ -11,6 +11,7 @@ class AddCourseDialog extends StatelessWidget {
 
     return GetBuilder<PopularCourseController>(builder: (controller) {
       return AlertDialog(
+        backgroundColor: AppColors.bg,
         title: CustomText(text: 'add_course_details'.tr),
         content: _buildForm(courseName, coursePrice, courseType, controller),
         actions: [
@@ -36,8 +37,11 @@ class AddCourseDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildInputField(courseName, 'course_name_hint'.tr),
+            SizedBox(height: 1.h),
             _buildInputField(coursePrice, 'course_price_hint'.tr),
+            SizedBox(height: 1.h),
             _buildInputField(courseType, 'course_type_hint'.tr),
+            SizedBox(height: 1.h),
             const SizedBox(height: 10),
             _buildImagePicker(controller),
           ],

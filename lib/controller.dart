@@ -20,6 +20,8 @@ class ControllerBinder extends Bindings {
     Get.lazyPut<IPopularCourseRepository>(() => PopularCourseRepository(networkCaller: NetworkCaller()));
     Get.lazyPut<IPopularCourseContentRepository>(() => PopularCourseContentRepository(networkCaller: NetworkCaller()));
     Get.lazyPut<ISubjectRepository>(() => SubjectRepository(networkCaller: NetworkCaller()));
+    Get.lazyPut<IBannerRepository>(() => BannerRepository(networkCaller: NetworkCaller()));
+
 
     // Theme and localization
     Get.lazyPut<ThemeController>(() => ThemeController());
@@ -27,6 +29,7 @@ class ControllerBinder extends Bindings {
 
     // Authentication Service Binding
     Get.put<IAuthService>(AuthService());
+
 
     // Authentication controllers
     Get.put<SignInController>(SignInController(authService: Get.find<IAuthService>()));
@@ -52,6 +55,7 @@ class ControllerBinder extends Bindings {
 
     Get.put<UserProfileController>(UserProfileController(repository: UserProfileRepository(networkCaller: NetworkCaller())));
     Get.put<UserSavedItemController>( UserSavedItemController(repository: Get.find<IUserSavedItemRepository>()));
+    Get.put<BannerController>(BannerController(repository: Get.find<IBannerRepository>()));
 
   }
 }

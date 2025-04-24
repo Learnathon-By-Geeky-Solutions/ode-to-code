@@ -10,6 +10,7 @@ class AddBannerDialog extends StatelessWidget {
     return GetBuilder<BannerController>(
       builder: (controller) {
         return AlertDialog(
+          backgroundColor: AppColors.bg,
           title: CustomText(text: "add_banner".tr),
           content: SizedBox(
             width: double.maxFinite,
@@ -19,15 +20,23 @@ class AddBannerDialog extends StatelessWidget {
             ),
           ),
           actions: [
+            // Add button
             TextButton(
               onPressed: () async {
                 final title = bannerTitleController.text.trim();
                 if (title.isNotEmpty) {
                   final success = await controller.addBanner(title);
-                  if (success) Get.back();
+
+                  if (success) {
+                    Get.back();
+                    SnackBarUtil.showSuccess(
+                        "Success", "Banner added successfully!");
+                  }
                 }
               },
-              child: CustomText(text: "add".tr),
+              child: controller.inProgress
+                  ? const CircularProgressIndicator()
+                  : CustomText(text: "add".tr),
             ),
           ],
         );

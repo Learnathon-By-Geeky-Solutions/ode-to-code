@@ -39,7 +39,6 @@ export 'package:edu_bridge_app/core/utils/validators.dart';
 // Admin Content Post Widgets
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_offer_slider.dart';
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_popular_course.dart';
-export 'package:edu_bridge_app/feature/admin_content_post/widget/add_top_mentor.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/view/forget_password_view.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_button.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_text_button.dart';

@@ -1,10 +1,4 @@
-/*
-
-import 'package:edu_bridge_app/core/resources/app_colors.dart';
-import 'package:edu_bridge_app/core/utils/add_course_dialouge.dart';
-import 'package:edu_bridge_app/core/utils/custom_text.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:edu_bridge_app/core/resources/export.dart';
 
 class AddPopularCourse extends StatefulWidget {
   const AddPopularCourse({super.key});
@@ -17,22 +11,11 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildCustomText('popular_course'.tr),
-              InkWell(
-                onTap: () {},
-                child: _buildCustomText(
-                  'see_all'.tr,
-                  color: AppColors.themeColor,
-                ),
-              ),
-            ],
-          ),
+        const CustomText(
+          text: "Add Course Here",
+          fontSize: 22,
         ),
+        SizedBox(height: 2.h),
         _buildInkWell(courseCard),
       ],
     );
@@ -125,4 +108,3 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
     );
   }
 }
-*/

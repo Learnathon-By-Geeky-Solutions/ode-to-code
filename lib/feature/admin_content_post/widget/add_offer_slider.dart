@@ -6,9 +6,18 @@ class AddOfferSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => showAddBanner(context),
-      child: _buildBannerContent(),
+    return Column(
+      children: [
+        const CustomText(
+          text: "Add Banner or Offer Post here",
+          fontSize: 22,
+        ),
+        SizedBox(height: 2.h),
+        GestureDetector(
+          onTap: () => showAddBanner(context),
+          child: _buildBannerContent(),
+        ),
+      ],
     );
   }
 
@@ -31,7 +40,7 @@ class AddOfferSlider extends StatelessWidget {
             const Icon(Icons.add, color: AppColors.white),
             CustomText(
               text: 'insert_banner_instruction'.tr,
-              color: Colors.white,
+              color: AppColors.white,
             ),
           ],
         ),
@@ -40,7 +49,15 @@ class AddOfferSlider extends StatelessWidget {
   }
 
   void showAddBanner(BuildContext context) {
-    final bannerTitle = TextEditingController();
-    Get.dialog(AddBannerDialog(bannerTitleController: bannerTitle));
+    final bannerTitleController = TextEditingController();
+    final bannerController = Get.find<BannerController>();
+
+    Get.dialog(
+      AddBannerDialog(bannerTitleController: bannerTitleController),
+      barrierDismissible: true,
+    ).then((_) {
+      bannerController.clearFields();
+      bannerTitleController.clear();
+    });
   }
 }

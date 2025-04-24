@@ -24,16 +24,22 @@ class PopularCourseContentRepository extends IPopularCourseContentRepository {
       eqColumn: 'courses_id',
       eqValue: courseId,
     );
-    return _handleGetResponse(response);
+    return _handleGetResponse(response, courseId);
   }
 
-  // Helper methods
-  List<PopularCourseContentModel> _handleGetResponse(ApiResponse response) {
+  List<PopularCourseContentModel> _handleGetResponse(
+      ApiResponse response, String courseId) {
     if (response.isSuccess) {
-      return (response.responseData as List)
-          .map<PopularCourseContentModel>(
-              (data) => PopularCourseContentModel.fromMap(data))
-          .toList();
+      final List filteredData = (response.responseData as List).where((data) {
+        return data['courses_id'] == courseId;
+      }).toList();
+
+      if (filteredData.isNotEmpty) {
+        return filteredData
+            .map<PopularCourseContentModel>(
+                (data) => PopularCourseContentModel.fromMap(data))
+            .toList();
+      }
     }
     return [];
   }

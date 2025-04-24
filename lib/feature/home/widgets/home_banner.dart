@@ -38,7 +38,7 @@ class HomeBannerState extends State<HomeBanner> {
                 height: 180.0,
                 autoPlay: true,
                 enlargeCenterPage: true,
-                viewportFraction: 0.9,
+                viewportFraction: 0.95,
                 onPageChanged: (index, reason) {
                   setState(() {
                     _current = index;
