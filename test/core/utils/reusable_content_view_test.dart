@@ -20,7 +20,7 @@ void main() {
                 number: '1',
                 note: 'This is content 1',
                 chaptersId: "test 1",
-                id: 11,
+                id: '11',
                 link: "xyx",
                 createdAt: ""),
             ContentModel(
@@ -28,7 +28,7 @@ void main() {
                 number: '2',
                 note: 'This is content 2',
                 chaptersId: "test 1",
-                id: 11,
+                id: '11',
                 link: "xyx",
                 createdAt: ""),
           ];

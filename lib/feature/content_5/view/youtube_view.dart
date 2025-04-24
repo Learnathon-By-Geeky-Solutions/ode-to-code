@@ -1,4 +1,6 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
+import 'package:edu_bridge_app/feature/user_saved_item/controller/user_saved_item_controller.dart';
 
 class YouTubePlayerView extends StatefulWidget {
   const YouTubePlayerView({super.key, required this.link, required this.title});
@@ -13,11 +15,17 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
   late YoutubePlayerController _controller;
   final List<String> _notes = [];
   final TextEditingController _noteController = TextEditingController();
+  bool isBookmarked = false; // Track bookmark state
+
+  final UserProfileController _userProfileController = Get.find();
+  final UserSavedItemController _userSavedItemController = Get.find();
 
   @override
   void initState() {
     super.initState();
     final videoId = YoutubePlayer.convertUrlToId(widget.link) ?? '';
+    UserProfileUtils.fetchProfileData(_userProfileController);
+
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
@@ -101,9 +109,21 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              '📝 Notes',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '📝 Notes',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.bookmark_add_outlined,
+                    color: isBookmarked ? Colors.green : AppColors.blackGray,
+                  ),
+                  onPressed: _onBookmarkTapped,
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             _buildNoteInput(),
@@ -113,6 +133,38 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
         ),
       ),
     );
+  }
+
+  void _onBookmarkTapped() async {
+    final userId = _userProfileController.userProfile?.id;
+
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("User not found. Please log in.")),
+      );
+      return;
+    }
+
+    if (!isBookmarked) {
+      final success = await _userSavedItemController.addSavedItem(
+        userId,
+        "note",
+        widget.title,
+        link: widget.link,
+        note: "",
+      );
+
+      if (success) {
+        setState(() {
+          isBookmarked = true;
+        });
+      }
+    } else {
+      // Optionally handle un-bookmarking
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Already bookmarked.")),
+      );
+    }
   }
 
   Widget _buildNoteInput() {

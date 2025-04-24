@@ -47,7 +47,6 @@ class SignInController extends GetxController {
     try {
       final response = await _authService.signInWithEmail(email, password);
       if (response.user != null) {
-        SnackBarUtil.showSuccess("Success", "Signed in successfully!");
         return true;
       }
       _handleError("Failed to sign in. Please check your credentials.");

@@ -27,7 +27,7 @@ void main() {
 
     test('toMap should return a valid map', () {
       final content = ContentModel(
-        id: 1,
+        id: '1',
         chaptersId: '101',
         number: '1',
         name: 'Introduction to Flutter',
