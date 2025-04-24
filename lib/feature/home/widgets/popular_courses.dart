@@ -43,20 +43,15 @@ class PopularCourses extends StatelessWidget {
           Expanded(
             child: GetBuilder<PopularCourseController>(builder: (controller) {
               if (controller.inProgress) {
-                // Show a loading indicator while fetching the courses
                 return const Center(child: CircularProgressIndicator());
               }
-
               if (controller.errorMessage != null) {
-                // Show an error message if something went wrong
                 return Center(child: Text(controller.errorMessage!));
               }
-
               return ListView.builder(
                 itemCount: controller.popularCourses.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  // Display each popular course dynamically
                   return InkWell(
                     onTap: () {
                       Get.to(() => PopularCourseContentView(

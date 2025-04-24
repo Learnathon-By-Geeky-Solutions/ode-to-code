@@ -109,6 +109,9 @@ class AppTranslations extends Translations {
           'notification': 'Notification',
           'help_center': 'Help Center',
           'invite_friends': 'Invite Friends',
+
+          // Other translations...
+          'saved_item': 'Saved Item',
         },
         'bn': {
           //Auth
@@ -144,6 +147,7 @@ class AppTranslations extends Translations {
           'signIn': 'সাইন ইন',
           'signOut': 'সাইন আউট',
           'profile': 'প্রোফাইল',
+          'saved_item': 'সংরক্ষিত আইটেম',
           'home': 'হোম',
           'settings': 'সেটিংস',
           'dark_mode': 'ডার্ক মোড',

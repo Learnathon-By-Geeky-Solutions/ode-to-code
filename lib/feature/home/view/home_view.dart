@@ -10,26 +10,38 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  Future<void> _onRefresh() async {
+    await Get.find<BannerController>().fetchBanners();
+    await Get.find<CategoryController>().fetchCategories();
+    await Get.find<PopularCourseController>().fetchPopularCourses();
+    await Future.delayed(const Duration(seconds: 2));
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffoldHome(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              SizedBox(height: 1.h),
-              const HomeBanner(),
-              SizedBox(height: 1.h),
-              const CategoriesSection(),
-              // SizedBox(height: 1.h),
-              const PopularCourses(),
-              /*SizedBox(height: 1.h),
-              const TopMentorSection(),*/
-            ],
+      body: RefreshIndicator(
+        onRefresh: _onRefresh,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: _buildHomeContent(),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildHomeContent() {
+    return Column(
+      children: [
+        SizedBox(height: 1.h),
+        const HomeBanner(),
+        SizedBox(height: 1.h),
+        const CategoriesSection(),
+        // SizedBox(height: 1.h),
+        const PopularCourses(),
+      ],
     );
   }
 }
