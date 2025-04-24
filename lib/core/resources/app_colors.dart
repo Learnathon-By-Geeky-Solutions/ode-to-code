@@ -25,6 +25,7 @@ class AppColors {
   static const Color onSecondary = white;
   static const Color onBackground = blackGray;
   static const Color onSurface = blackGray;
+  static const Color greenAccent = Colors.greenAccent;
 
   // For dark theme
   static const Color darkPrimary = Color(0xff1565C0);

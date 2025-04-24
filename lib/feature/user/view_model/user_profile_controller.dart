@@ -19,6 +19,10 @@ class UserProfileController extends GetxController {
   File? _profileImage;
   File? get profileImage => _profileImage;
 
+  UserProfileModel? userProfileModel;
+
+  bool get isAdmin => userProfileModel?.accountType.toLowerCase() == 'admin';
+
   // Helper method to update progress state and trigger UI update
   void _setInProgress(bool value) {
     _inProgress = value;
@@ -28,7 +32,8 @@ class UserProfileController extends GetxController {
   // Helper method to handle error messages and show a Snackbar
   void _handleError(String message) {
     _errorMessage = message;
-    Get.snackbar("Error", message, backgroundColor: Colors.red, colorText: Colors.white);
+    Get.snackbar("Error", message,
+        backgroundColor: Colors.red, colorText: Colors.white);
     update();
   }
 
@@ -48,7 +53,7 @@ class UserProfileController extends GetxController {
     required String gender,
   }) async {
     if ([fullName, email, whatYouDo, accountType, dateOfBirth, gender]
-        .any((element) => element.trim().isEmpty) ||
+            .any((element) => element.trim().isEmpty) ||
         _profileImage == null) {
       _handleError("Please fill in all fields and select a profile image.");
       return false;

@@ -14,7 +14,7 @@ class ProfileAvatar extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(color: Colors.green, width: 4),
-          color: Colors.greenAccent,
+          color: AppColors.green,
         ),
         child: CircleAvatar(
           backgroundImage: profile.image.isNotEmpty

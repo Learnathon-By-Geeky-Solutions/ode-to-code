@@ -19,7 +19,7 @@ class ProfileStateBuilder extends StatelessWidget {
       return Center(
         child: CustomText(
           text: controller.errorMessage!,
-          customStyle: const TextStyle(color: Colors.red, fontSize: 16),
+          customStyle: const TextStyle(color: AppColors.red, fontSize: 16),
         ),
       );
     }
