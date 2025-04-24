@@ -140,6 +140,6 @@ void main() {
 
       // Verify that the AddContentView is displayed
       expect(find.byType(AddContentView), findsOneWidget);
-    });
+        });
   });
 }

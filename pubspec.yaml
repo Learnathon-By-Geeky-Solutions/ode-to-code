@@ -79,6 +79,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 
+  flutter_inappwebview: any
 flutter:
 
   # The following line ensures that the Material Icons font is

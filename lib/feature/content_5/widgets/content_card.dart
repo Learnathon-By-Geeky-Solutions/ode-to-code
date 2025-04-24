@@ -64,12 +64,14 @@ class ContentCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      content,
-                      style: GoogleFonts.mulish(
-                        color: AppColors.blackGray,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                    Flexible(
+                      child: Text(
+                        content,
+                        style: GoogleFonts.mulish(
+                          color: AppColors.blackGray,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
