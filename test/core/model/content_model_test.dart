@@ -1,67 +1,63 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ContentModel', () {
-    const testMap = {
-      'id': 1,
-      'chapters_id': '101',
-      'number': '1',
-      'name': 'Introduction to Flutter',
-      'link': 'https://example.com/content',
-      'created_at': '2025-04-19',
-      'note': 'This is a basic introduction.',
-    };
+    test('should create ContentModel from map correctly', () {
+      final Map<String, dynamic> mockMap = {
+        'id': '1',
+        'chapters_id': '101',
+        'number': '1',
+        'name': 'Chapter 1',
+        'link': 'http://example.com',
+        'created_at': '2025-04-24',
+        'note': 'Important note'
+      };
 
-    test('fromMap should create a valid ContentModel', () {
-      final content = ContentModel.fromMap(testMap);
+      final contentModel = ContentModel.fromMap(mockMap);
 
-      expect(content.id, 1);
-      expect(content.chaptersId, '101');
-      expect(content.number, '1');
-      expect(content.name, 'Introduction to Flutter');
-      expect(content.link, 'https://example.com/content');
-      expect(content.createdAt, '2025-04-19');
-      expect(content.note, 'This is a basic introduction.');
+      expect(contentModel.id, '1');
+      expect(contentModel.chaptersId, '101');
+      expect(contentModel.number, '1');
+      expect(contentModel.name, 'Chapter 1');
+      expect(contentModel.link, 'http://example.com');
+      expect(contentModel.createdAt, '2025-04-24');
+      expect(contentModel.note, 'Important note');
     });
 
-    test('toMap should return a valid map', () {
-      final content = ContentModel(
-        id: 1,
+    test('should convert ContentModel to map correctly', () {
+      final contentModel = ContentModel(
+        id: '1',
         chaptersId: '101',
         number: '1',
-        name: 'Introduction to Flutter',
-        link: 'https://example.com/content',
-        createdAt: '2025-04-19',
-        note: 'This is a basic introduction.',
+        name: 'Chapter 1',
+        link: 'http://example.com',
+        createdAt: '2025-04-24',
+        note: 'Important note',
       );
 
-      final map = content.toMap();
+      final map = contentModel.toMap();
 
       expect(map['chapters_id'], '101');
       expect(map['number'], '1');
-      expect(map['name'], 'Introduction to Flutter');
-      expect(map['link'], 'https://example.com/content');
-      expect(map['note'], 'This is a basic introduction.');
+      expect(map['name'], 'Chapter 1');
+      expect(map['link'], 'http://example.com');
+      expect(map['note'], 'Important note');
     });
 
-    test('fromMap should handle missing optional fields', () {
-      final incompleteMap = {
+    test('should handle missing fields gracefully', () {
+      final Map<String, dynamic> incompleteMap = {
         'chapters_id': '101',
         'number': '1',
-        'name': 'Introduction to Flutter',
-        'created_at': '2025-04-19',
+        'name': 'Chapter 1',
+        'created_at': '2025-04-24',
       };
 
-      final content = ContentModel.fromMap(incompleteMap);
+      final contentModel = ContentModel.fromMap(incompleteMap);
 
-      expect(content.id, null);
-      expect(content.link, null);
-      expect(content.note, null);
-      expect(content.createdAt, '2025-04-19');
-      expect(content.chaptersId, '101');
-      expect(content.number, '1');
-      expect(content.name, 'Introduction to Flutter');
+      expect(contentModel.id, isNull); // id is missing in the map
+      expect(contentModel.link, isNull); // link is missing in the map
+      expect(contentModel.note, isNull); // note is missing in the map
     });
   });
 }

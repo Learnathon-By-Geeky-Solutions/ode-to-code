@@ -1,10 +1,10 @@
 class ContentModel {
-  final int? id;
+  final String? id;
   final String chaptersId;
   final String number;
   final String name;
   final String? link;
-  final String createdAt;
+  final String? createdAt;
   final String? note;
 
   ContentModel({
@@ -29,7 +29,7 @@ class ContentModel {
 
   factory ContentModel.fromMap(Map<String, dynamic> map) {
     return ContentModel(
-      id: map['id'],
+      id: map['id']?.toString(),
       chaptersId: map['chapters_id']?.toString() ?? '',
       number: map['number']?.toString() ?? '',
       name: map['name']?.toString() ?? '',

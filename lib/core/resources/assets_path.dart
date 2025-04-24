@@ -38,6 +38,8 @@ class AssetsPath {
   static String apple = '$icons/apple_logo.svg';
   static String notification = '$icons/notification.svg';
   static String subjectsBook = '$icons/subjects_book.svg';
+  static String bn = '$icons/bn.svg';
+  static String en = '$icons/en.svg';
   static String sliderCard = '$images/offer.png';
   static String videPlayIcon = '$icons/video_play_icon.png';
   static String noteIcon = '$icons/note_icon.png';

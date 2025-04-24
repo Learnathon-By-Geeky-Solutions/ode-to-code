@@ -19,6 +19,7 @@ class UserSavedItemController extends GetxController {
 
   bool _isDataFetched = false; // Flag to check if data has been fetched
 
+  // Add saved item to the repository
   Future<bool> addSavedItem(
       String userId,
       String type,
@@ -26,7 +27,6 @@ class UserSavedItemController extends GetxController {
         String? link,
         String? note,
       }) async {
-    // Check for null or empty fields and handle null safely
     if (userId.isEmpty || title.isEmpty || type.isEmpty) {
       SnackBarUtil.showError("Error", "All fields except note are required.");
       return false;
@@ -61,8 +61,10 @@ class UserSavedItemController extends GetxController {
   }
 
   Future<void> fetchSavedItems(String userId) async {
-    // Skip fetching if data is already loaded
-    if (_isDataFetched) return;
+    // Skip fetching if data has already been loaded
+    if (_isDataFetched) {
+      return;
+    }
 
     _inProgress = true;
     _errorMessage = null;
@@ -80,7 +82,28 @@ class UserSavedItemController extends GetxController {
     update();
   }
 
-  // Optional: Method to reset data and fetched state, useful when the user logs out or navigates away
+  // Delete a saved item from the repository
+  Future<bool> deleteSavedItem(String itemId) async {
+    bool isSuccess = false;
+    _inProgress = true;
+    _errorMessage = null;
+    update();
+
+    final success = await _repository.deleteSavedItem(itemId);
+    if (success) {
+      isSuccess = true;
+      _savedItems.removeWhere((item) => item.id == itemId);
+      SnackBarUtil.showSuccess("Success", "Item deleted successfully!");
+    } else {
+      _errorMessage = "Failed to delete item.";
+      SnackBarUtil.showError("Error", _errorMessage!);
+    }
+
+    _inProgress = false;
+    update();
+    return isSuccess;
+  }
+
   void resetData() {
     _savedItems = [];
     _isDataFetched = false;

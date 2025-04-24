@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/profile/view/fetch_user_profile_view.dart';
 
 class CustomScaffoldHome extends StatelessWidget {
   final String? name;
@@ -19,6 +18,8 @@ class CustomScaffoldHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeController = Get.find<LocalizationController>();
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
@@ -45,6 +46,20 @@ class CustomScaffoldHome extends StatelessWidget {
             ),
             actions: [
               ...?actions,
+              // Language Toggle Icon
+              IconButton(
+                onPressed: () {
+                  final isEnglish = Get.locale?.languageCode == 'en';
+                  localeController.changeLocale(isEnglish ? 'bn' : 'en');
+                },
+                icon: SvgPicture.asset(
+                  Get.locale?.languageCode == 'en'
+                      ? AssetsPath.en // Bangla flag
+                      : AssetsPath.bn, // English flag
+                  width: 30,
+                  height: 30,
+                ),
+              ),
             ],
           ),
         ),
@@ -52,53 +67,6 @@ class CustomScaffoldHome extends StatelessWidget {
       backgroundColor: AppColors.bg,
       body: body,
       floatingActionButton: floatingActionButton,
-      endDrawer: _buildDrawer(context),
-    );
-  }
-
-  Drawer _buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(color: Colors.white),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomText(
-                  text: name ?? 'user_email'.tr,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blackGray,
-                ),
-                CustomText(
-                  text: email ?? "",
-                  fontSize: 16,
-                  color: AppColors.blackGray,
-                ),
-              ],
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: CustomText(text: 'your_profile'.tr),
-            onTap: () {
-              Get.to(() => const FetchUserProfileView());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: CustomText(text: 'sign_out'.tr),
-            onTap: () async {
-              final supabase = Supabase.instance.client;
-              await supabase.auth.signOut();
-              Get.offAll(const SignInView());
-            },
-          ),
-        ],
-      ),
     );
   }
 }

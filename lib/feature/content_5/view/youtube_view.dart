@@ -1,4 +1,6 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
+import 'package:edu_bridge_app/feature/user_saved_item/controller/user_saved_item_controller.dart';
 
 class YouTubePlayerView extends StatefulWidget {
   const YouTubePlayerView({super.key, required this.link, required this.title});
@@ -13,10 +15,23 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
   late YoutubePlayerController _controller;
   final List<String> _notes = [];
   final TextEditingController _noteController = TextEditingController();
+  bool isBookmarked = false;
+  final UserProfileController _userProfileController = Get.find();
+  final UserSavedItemController _userSavedItemController = Get.find();
+  String? userId;
+
 
   @override
   void initState() {
     super.initState();
+    // Fetch user profile data when the view initializes
+    UserProfileUtils.fetchProfileData(_userProfileController).then((_) {
+      setState(() {
+        // Assuming _userProfileController has the userId after fetching profile
+        userId = _userProfileController.userProfile?.id; // Make sure this is correct based on your profile model
+      });
+    });
+
     final videoId = YoutubePlayer.convertUrlToId(widget.link) ?? '';
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
@@ -28,6 +43,7 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
       ),
     );
   }
+
 
   void _seek(int seconds) {
     final currentPosition = _controller.value.position;
@@ -101,9 +117,23 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              '📝 Notes',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '📝 Notes',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                GetBuilder<UserSavedItemController>(builder: (controller) {
+                  return IconButton(
+                    icon: Icon(
+                      Icons.bookmark,
+                      color: isBookmarked ? Colors.green : AppColors.blackGray,
+                    ),
+                    onPressed: _saveItem, // Trigger saving when the icon is pressed
+                  );
+                }),
+              ],
             ),
             const SizedBox(height: 10),
             _buildNoteInput(),
@@ -114,7 +144,25 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
       ),
     );
   }
+  void _saveItem() async {
+    if (userId == null) {
+      SnackBarUtil.showError("Error", "User profile not found.");
+      return;
+    }
 
+    final isSuccess = await _userSavedItemController.addSavedItem(
+      userId!,
+      "link",
+      widget.title,
+      link: widget.link
+    );
+
+    if (isSuccess) {
+      setState(() {
+        isBookmarked = !isBookmarked; // Toggle the bookmark state
+      });
+    }
+  }
   Widget _buildNoteInput() {
     return Row(
       children: [

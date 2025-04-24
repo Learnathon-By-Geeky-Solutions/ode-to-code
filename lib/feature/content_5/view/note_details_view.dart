@@ -17,15 +17,36 @@ class NoteDetailsView extends StatefulWidget {
 }
 
 class NoteDetailsViewState extends State<NoteDetailsView> {
-  bool isBookmarked = false; // Track bookmark state
+  bool isBookmarked = false;
   final UserProfileController _userProfileController = Get.find();
   final UserSavedItemController _userSavedItemController = Get.find();
+  String? userId;
 
   @override
   void initState() {
     super.initState();
     // Fetch user profile data when the view initializes
     UserProfileUtils.fetchProfileData(_userProfileController);
+  }
+
+  void _saveItem() async {
+    if (userId == null) {
+      SnackBarUtil.showError("Error", "User profile not found.");
+      return;
+    }
+
+    final isSuccess = await _userSavedItemController.addSavedItem(
+      userId!,
+      "note", // type of the saved item
+      widget.title,
+      note: widget.note,
+    );
+
+    if (isSuccess) {
+      setState(() {
+        isBookmarked = !isBookmarked; // Toggle the bookmark state
+      });
+    }
   }
 
   @override
@@ -37,13 +58,15 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
         child: _buildContent(),
       ),
       actions: [
-        IconButton(
-          icon: Icon(
-            Icons.bookmark,
-            color: isBookmarked ? Colors.green : AppColors.blackGray,
-          ),
-          onPressed: _onBookmarkTapped,
-        ),
+        GetBuilder<UserSavedItemController>(builder: (controller) {
+          return IconButton(
+            icon: Icon(
+              Icons.bookmark,
+              color: isBookmarked ? Colors.green : AppColors.blackGray,
+            ),
+            onPressed: _saveItem, // Trigger saving when the icon is pressed
+          );
+        }),
       ],
     );
   }
@@ -92,36 +115,5 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
     return widget.note?.trim().isNotEmpty == true
         ? widget.note!
         : "No description available.";
-  }
-
-  void _onBookmarkTapped() async {
-    final userId = _userProfileController.userProfile?.id;
-    if (userId == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("User not found. Please log in.")),
-      );
-      return;
-    }
-
-    if (!isBookmarked) {
-      final success = await _userSavedItemController.addSavedItem(
-        userId,
-        "Note",
-        widget.title,
-        link: "", // No link, since it's just a note
-        note: widget.note,
-      );
-
-      if (success) {
-        setState(() {
-          isBookmarked = true;
-        });
-      }
-    } else {
-      // Optionally handle un-bookmarking
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Already bookmarked.")),
-      );
-    }
   }
 }
