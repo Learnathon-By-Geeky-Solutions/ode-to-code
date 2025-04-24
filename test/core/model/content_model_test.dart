@@ -4,7 +4,7 @@ import 'package:edu_bridge_app/core/resources/export.dart';
 void main() {
   group('ContentModel', () {
     const testMap = {
-      'id': 1,
+      'id': '1',
       'chapters_id': '101',
       'number': '1',
       'name': 'Introduction to Flutter',
@@ -16,7 +16,7 @@ void main() {
     test('fromMap should create a valid ContentModel', () {
       final content = ContentModel.fromMap(testMap);
 
-      expect(content.id, 1);
+      expect(content.id, '1');
       expect(content.chaptersId, '101');
       expect(content.number, '1');
       expect(content.name, 'Introduction to Flutter');
@@ -25,7 +25,7 @@ void main() {
       expect(content.note, 'This is a basic introduction.');
     });
 
-    test('toMap should return a valid map', () {
+    test('toMap should return a valid map (excluding id and createdAt)', () {
       final content = ContentModel(
         id: '1',
         chaptersId: '101',
@@ -43,6 +43,8 @@ void main() {
       expect(map['name'], 'Introduction to Flutter');
       expect(map['link'], 'https://example.com/content');
       expect(map['note'], 'This is a basic introduction.');
+      expect(map.containsKey('id'), false);
+      expect(map.containsKey('created_at'), false);
     });
 
     test('fromMap should handle missing optional fields', () {
