@@ -1,6 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/content_5/view/note_details_view.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/model/user_saved_item_model.dart';
 
 class ReusableContentView extends StatefulWidget {
   final String title;
