@@ -47,12 +47,12 @@ export 'package:edu_bridge_app/feature/auth/sign_in/view_model/sign_in_controlle
 export 'package:edu_bridge_app/feature/auth/sign_in/widgets/sign_in_text_button.dart';
 export 'package:edu_bridge_app/feature/auth/splash_view/splash_view.dart';
 // Chapter_4 Feature
-export 'package:edu_bridge_app/feature/capters_4/model/chapter_model.dart';
+export 'package:edu_bridge_app/feature/chapters/model/chapter_model.dart';
 //Repository
-export 'package:edu_bridge_app/feature/capters_4/repo/chapters_repository.dart';
-export 'package:edu_bridge_app/feature/capters_4/repo/i_chapters_repository.dart';
-export 'package:edu_bridge_app/feature/capters_4/view/chapters_view.dart';
-export 'package:edu_bridge_app/feature/capters_4/view_model/chapters_controller.dart';
+export 'package:edu_bridge_app/feature/chapters/repo/chapters_repository.dart';
+export 'package:edu_bridge_app/feature/chapters/repo/i_chapters_repository.dart';
+export 'package:edu_bridge_app/feature/chapters/view/chapters_view.dart';
+export 'package:edu_bridge_app/feature/chapters/view_model/chapters_controller.dart';
 // Category_1 Feature
 export 'package:edu_bridge_app/feature/category/model/category_model.dart';
 export 'package:edu_bridge_app/feature/category/repo/category_repository.dart';
