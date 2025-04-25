@@ -21,7 +21,6 @@ class CustomScaffoldHome extends StatelessWidget {
     final localeController = Get.find<LocalizationController>();
 
     return Scaffold(
-
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
         child: Padding(

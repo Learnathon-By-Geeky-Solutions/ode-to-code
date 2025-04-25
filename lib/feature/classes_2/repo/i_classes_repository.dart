@@ -1,4 +1,6 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'dart:io';
+
+import 'package:edu_bridge_app/feature/classes_2/model/class_model.dart';
 
 abstract class IClassRepository {
   Future<String?> uploadClassImage(File imageFile);
