@@ -54,11 +54,11 @@ export 'package:edu_bridge_app/feature/capters_4/repo/i_chapters_repository.dart
 export 'package:edu_bridge_app/feature/capters_4/view/chapters_view.dart';
 export 'package:edu_bridge_app/feature/capters_4/view_model/chapters_controller.dart';
 // Category_1 Feature
-export 'package:edu_bridge_app/feature/category_1/model/category_model.dart';
-export 'package:edu_bridge_app/feature/category_1/repo/category_repository.dart';
-export 'package:edu_bridge_app/feature/category_1/repo/i_category_repository.dart';
-export 'package:edu_bridge_app/feature/category_1/view/categories_view.dart';
-export 'package:edu_bridge_app/feature/category_1/view_model/category_controller.dart';
+export 'package:edu_bridge_app/feature/category/model/category_model.dart';
+export 'package:edu_bridge_app/feature/category/repo/category_repository.dart';
+export 'package:edu_bridge_app/feature/category/repo/i_category_repository.dart';
+export 'package:edu_bridge_app/feature/category/view/categories_view.dart';
+export 'package:edu_bridge_app/feature/category/view_model/category_controller.dart';
 // Class_2 Feature
 export 'package:edu_bridge_app/feature/classes_2/model/class_model.dart';
 export 'package:edu_bridge_app/feature/classes_2/repo/classes_repository.dart';

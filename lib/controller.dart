@@ -21,6 +21,8 @@ class ControllerBinder extends Bindings {
     Get.lazyPut<IPopularCourseContentRepository>(() => PopularCourseContentRepository(networkCaller: NetworkCaller()));
     Get.lazyPut<ISubjectRepository>(() => SubjectRepository(networkCaller: NetworkCaller()));
     Get.lazyPut<IBannerRepository>(() => BannerRepository(networkCaller: NetworkCaller()));
+    Get.lazyPut<ICategoryRepository>(() => CategoryRepository(networkCaller: NetworkCaller()));
+
 
 
     // Theme and localization
