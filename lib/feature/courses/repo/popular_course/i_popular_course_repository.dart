@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:edu_bridge_app/feature/course/model/popular_course_model.dart';
+import 'package:edu_bridge_app/core/resources/export.dart';
 
 abstract class IPopularCourseRepository {
   Future<String?> uploadCourseImage(File imageFile);

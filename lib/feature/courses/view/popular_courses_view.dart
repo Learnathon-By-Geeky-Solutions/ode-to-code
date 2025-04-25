@@ -15,38 +15,52 @@ class PopularCoursesView extends StatelessWidget {
           fontSize: 20,
         ),
       ),
-      body: GetBuilder<PopularCourseController>(
-        init: PopularCourseController(
-            repository:
-                PopularCourseRepository(networkCaller: NetworkCaller())),
-        builder: (controller) {
-          if (controller.inProgress) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (controller.errorMessage != null) {
-            return Center(
-              child: Text(controller.errorMessage!),
-            );
-          }
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GetBuilder<PopularCourseController>(
+          init: PopularCourseController(
+              repository:
+                  PopularCourseRepository(networkCaller: NetworkCaller())),
+          builder: (controller) {
+            if (controller.inProgress) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (controller.errorMessage != null) {
+              return Center(
+                child: Text(controller.errorMessage!),
+              );
+            }
 
-          if (controller.popularCourses.isEmpty) {
-            return Center(child: CustomText(text: 'no_content_available'.tr));
-          } else {
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: controller.popularCourses.length,
-                    itemBuilder: (context, index) {
-                      final course = controller.popularCourses[index];
-                      return popularCoursesCard(course);
-                    },
+            if (controller.popularCourses.isEmpty) {
+              return Center(child: CustomText(text: 'no_content_available'.tr));
+            } else {
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: controller.popularCourses.length,
+                      itemBuilder: (context, index) {
+                        final course = controller.popularCourses[index];
+                        return InkWell(
+                          onTap: () {
+                            Get.to(
+                              () => PopularCourseContentView(
+                                chapterTitle:
+                                    controller.popularCourses[index].title,
+                                courseId: controller.popularCourses[index].id!,
+                              ),
+                            );
+                          },
+                          child: popularCoursesCard(course),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
-            );
-          }
-        },
+                ],
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -108,10 +122,12 @@ class PopularCoursesView extends StatelessWidget {
                     Row(
                       children: [
                         CustomText(
-                          text: '${'price'.tr} : ${course.price}',
+                          text: "${'price'.tr} : Not A Penny 🍦",
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: AppColors.themeColor,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
