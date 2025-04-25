@@ -86,7 +86,7 @@ class PopularCoursesView extends StatelessWidget {
                   bottomLeft: Radius.circular(16),
                 ),
                 image: DecorationImage(
-                  image: NetworkImage(course.imageLink),
+                  image: CachedNetworkImageProvider(course.imageLink),
                   fit: BoxFit.cover,
                 ),
               ),

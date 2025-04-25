@@ -38,7 +38,7 @@ class SubjectRepository extends ISubjectRepository {
       eqValue: classId,
     );
 
-    return _handleGetResponse(response);
+    return _handleGetResponse(response, classId);
   }
 
   String? _handleFileUploadResponse(ApiResponse response) {
@@ -52,11 +52,17 @@ class SubjectRepository extends ISubjectRepository {
     return response.isSuccess;
   }
 
-  List<SubjectModel> _handleGetResponse(ApiResponse response) {
-    if (response.isSuccess && response.responseData != null) {
-      return (response.responseData as List)
-          .map<SubjectModel>((data) => SubjectModel.fromMap(data))
-          .toList();
+  List<SubjectModel> _handleGetResponse(ApiResponse response, String classId) {
+    if (response.isSuccess) {
+      final List filteredData = (response.responseData as List).where((data) {
+        return data['class_id'] == classId;
+      }).toList();
+
+      if (filteredData.isNotEmpty) {
+        return filteredData
+            .map<SubjectModel>((data) => SubjectModel.fromMap(data))
+            .toList();
+      }
     }
     return [];
   }

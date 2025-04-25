@@ -58,9 +58,10 @@ class PopularCourses extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         Get.to(() => PopularCourseContentView(
-                          chapterTitle: controller.popularCourses[index].title,
-                          courseId: controller.popularCourses[index].id!,
-                        ));
+                              chapterTitle:
+                                  controller.popularCourses[index].title,
+                              courseId: controller.popularCourses[index].id!,
+                            ));
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -89,17 +90,16 @@ class PopularCourses extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Course Image
           Container(
-            width: 280,
-            height: 134,
+            width: 68.w,
+            height: 16.h,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(24),
                 topRight: Radius.circular(24),
               ),
               image: DecorationImage(
-                image: NetworkImage(course.imageLink),
+                image: CachedNetworkImageProvider(course.imageLink),
                 fit: BoxFit.cover,
               ),
             ),
@@ -107,8 +107,8 @@ class PopularCourses extends StatelessWidget {
 
           // Course Info
           Container(
-            width: 280,
-            height: 106,
+            width: 68.w,
+            height: 10.h,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(24),

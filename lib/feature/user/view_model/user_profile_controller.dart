@@ -19,9 +19,8 @@ class UserProfileController extends GetxController {
   File? _profileImage;
   File? get profileImage => _profileImage;
 
-  UserProfileModel? userProfileModel;
-
-  bool get isAdmin => userProfileModel?.accountType.toLowerCase() == 'admin';
+  // Removed userProfileModel since it's not used elsewhere
+  bool get isAdmin => _userProfile?.accountType.toLowerCase() == 'admin';
 
   // Helper method to update progress state and trigger UI update
   void _setInProgress(bool value) {
@@ -53,7 +52,7 @@ class UserProfileController extends GetxController {
     required String gender,
   }) async {
     if ([fullName, email, whatYouDo, accountType, dateOfBirth, gender]
-            .any((element) => element.trim().isEmpty) ||
+        .any((element) => element.trim().isEmpty) ||
         _profileImage == null) {
       _handleError("Please fill in all fields and select a profile image.");
       return false;

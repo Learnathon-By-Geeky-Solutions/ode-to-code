@@ -25,8 +25,20 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
   @override
   void initState() {
     super.initState();
-    // Fetch user profile data when the view initializes
-    UserProfileUtils.fetchProfileData(_userProfileController);
+    UserProfileUtils.fetchProfileData(_userProfileController).then((_) {
+      setState(() {
+        userId = _userProfileController.userProfile?.id;
+      });
+    });
+
+    _userProfileController.addListener(() {
+      final profile = _userProfileController.userProfile;
+      if (profile != null) {
+        setState(() {
+          userId = profile.id;
+        });
+      }
+    });
   }
 
   void _saveItem() async {
@@ -37,15 +49,17 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
 
     final isSuccess = await _userSavedItemController.addSavedItem(
       userId!,
-      "note", // type of the saved item
+      "note",
       widget.title,
       note: widget.note,
     );
 
     if (isSuccess) {
       setState(() {
-        isBookmarked = !isBookmarked; // Toggle the bookmark state
+        isBookmarked = !isBookmarked;
       });
+    } else {
+      SnackBarUtil.showError("Error", "Failed to save bookmark.");
     }
   }
 
@@ -64,7 +78,7 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
               Icons.bookmark,
               color: isBookmarked ? Colors.green : AppColors.blackGray,
             ),
-            onPressed: _saveItem, // Trigger saving when the icon is pressed
+            onPressed: _saveItem,
           );
         }),
       ],

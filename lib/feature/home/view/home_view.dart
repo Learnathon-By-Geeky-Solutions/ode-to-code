@@ -18,15 +18,17 @@ class _HomeViewState extends State<HomeView> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return CustomScaffoldHome(
       body: RefreshIndicator(
         onRefresh: _onRefresh,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: _buildHomeContent(),
-          ),
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(16),
+          children: [
+            _buildHomeContent(),
+          ],
         ),
       ),
     );

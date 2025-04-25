@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/model/user_saved_item_model.dart';
 import 'package:edu_bridge_app/feature/user_saved_item/repo/i_user_saved_item_repository.dart';
 
 class UserSavedItemController extends GetxController {
@@ -21,12 +20,12 @@ class UserSavedItemController extends GetxController {
 
   // Add saved item to the repository
   Future<bool> addSavedItem(
-      String userId,
-      String type,
-      String title, {
-        String? link,
-        String? note,
-      }) async {
+    String userId,
+    String type,
+    String title, {
+    String? link,
+    String? note,
+  }) async {
     if (userId.isEmpty || title.isEmpty || type.isEmpty) {
       SnackBarUtil.showError("Error", "All fields except note are required.");
       return false;

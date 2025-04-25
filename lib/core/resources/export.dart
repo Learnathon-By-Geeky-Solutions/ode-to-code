@@ -3,6 +3,7 @@ export 'dart:async';
 export 'dart:convert';
 export 'dart:io';
 
+export 'package:cached_network_image/cached_network_image.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 // App Controllers
 export 'package:edu_bridge_app/controller.dart';

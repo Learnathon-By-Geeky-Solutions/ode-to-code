@@ -47,7 +47,6 @@ dependencies:
   supabase_flutter: ^2.8.4
   google_sign_in: ^6.2.2
   webview_flutter: ^4.10.0
-  cached_network_image: ^3.4.1
   youtube_player_flutter: ^9.1.1
   logger: ^2.5.0
   mocktail: ^1.0.4
@@ -59,6 +58,7 @@ dependencies:
   build_runner: ^2.4.6
   app_links: ^6.4.0
   network_image_mock: ^2.0.1
+  cached_network_image: ^3.4.1
 
 
 

@@ -57,13 +57,16 @@ class HomeBannerState extends State<HomeBanner> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(22),
-                        child: Image.network(
-                          banner.imageLink,
+                        child: CachedNetworkImage(
+                          imageUrl: banner.imageLink,
                           fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.image_not_supported,
-                                size: 60);
-                          },
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.image_not_supported,
+                            size: 60,
+                          ),
                         ),
                       ),
                     );
