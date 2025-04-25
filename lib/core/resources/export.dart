@@ -66,7 +66,6 @@ export 'package:edu_bridge_app/feature/classes/repo/i_classes_repository.dart';
 export 'package:edu_bridge_app/feature/classes/view/class_view.dart';
 export 'package:edu_bridge_app/feature/classes/view_model/class_controller.dart';
 export 'package:edu_bridge_app/feature/classes/widget/add_class_dialog.dart';
-export 'package:edu_bridge_app/feature/classes/widget/class_grid_item.dart';
 // Content_5 Feature
 export 'package:edu_bridge_app/feature/content_5/model/content_model.dart';
 export 'package:edu_bridge_app/feature/content_5/repo/content_repository.dart';
@@ -115,11 +114,13 @@ export 'package:edu_bridge_app/feature/on_boarding/view_model/on_boarding_contro
 // Setting Feature
 export 'package:edu_bridge_app/feature/setting/view/settings_view.dart';
 // Subject_3 Feature
-export 'package:edu_bridge_app/feature/subject_3/model/subject_model.dart';
-export 'package:edu_bridge_app/feature/subject_3/repo/i_subjects_repository.dart';
-export 'package:edu_bridge_app/feature/subject_3/repo/subjects_repository.dart';
-export 'package:edu_bridge_app/feature/subject_3/view/subjects_view.dart';
-export 'package:edu_bridge_app/feature/subject_3/view_model/subject_controller.dart';
+export 'package:edu_bridge_app/feature/subject/model/subject_model.dart';
+export 'package:edu_bridge_app/feature/subject/repo/i_subjects_repository.dart';
+export 'package:edu_bridge_app/feature/subject/repo/subjects_repository.dart';
+export 'package:edu_bridge_app/feature/subject/view/subjects_view.dart';
+export 'package:edu_bridge_app/feature/subject/view_model/subject_controller.dart';
+export 'package:edu_bridge_app/feature/classes/widget/class_grid_item.dart';
+
 // Theming and Localization
 export 'package:edu_bridge_app/feature/theming_and_localization/view_model/localization_controller.dart';
 export 'package:edu_bridge_app/feature/theming_and_localization/view_model/theme_controller.dart';
