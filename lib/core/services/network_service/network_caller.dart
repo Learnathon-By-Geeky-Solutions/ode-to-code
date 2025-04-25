@@ -100,8 +100,21 @@ class NetworkCaller extends INetworkCaller {
     try {
       _logger.i('DELETE Request Initiated | Table: $tableName');
 
-      var query = _supabase.from(tableName).delete();
-      _utils.applyQueryParams(query, queryParams);
+      // Ensure queryParams is not null and has valid data
+      if (queryParams == null || queryParams.isEmpty) {
+        _logger.e('DELETE failed: No query parameters provided.');
+        return ApiResponse(
+          isSuccess: false,
+          responseData: null,
+          errorMessage: 'DELETE requires a WHERE clause.',
+        );
+      }
+
+      // Apply query parameters to match the condition for deletion
+      var query = _supabase
+          .from(tableName)
+          .delete()
+          .match; // match applies the WHERE condition
 
       final response = await query;
       _logger.i('DELETE Request Successful | Table: $tableName');
@@ -112,6 +125,7 @@ class NetworkCaller extends INetworkCaller {
         errorMessage: '',
       );
     } catch (e) {
+      // Handle errors from Supabase with a custom error message
       return _utils.handleError('DELETE', tableName, e);
     }
   }
