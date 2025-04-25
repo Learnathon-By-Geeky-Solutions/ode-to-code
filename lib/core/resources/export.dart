@@ -46,6 +46,12 @@ export 'package:edu_bridge_app/feature/auth/sign_in/view/sign_in_view.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/view_model/sign_in_controller.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/widgets/sign_in_text_button.dart';
 export 'package:edu_bridge_app/feature/auth/splash_view/splash_view.dart';
+// Category_1 Feature
+export 'package:edu_bridge_app/feature/category/model/category_model.dart';
+export 'package:edu_bridge_app/feature/category/repo/category_repository.dart';
+export 'package:edu_bridge_app/feature/category/repo/i_category_repository.dart';
+export 'package:edu_bridge_app/feature/category/view/categories_view.dart';
+export 'package:edu_bridge_app/feature/category/view_model/category_controller.dart';
 // Chapter_4 Feature
 export 'package:edu_bridge_app/feature/chapters/model/chapter_model.dart';
 //Repository
@@ -53,12 +59,6 @@ export 'package:edu_bridge_app/feature/chapters/repo/chapters_repository.dart';
 export 'package:edu_bridge_app/feature/chapters/repo/i_chapters_repository.dart';
 export 'package:edu_bridge_app/feature/chapters/view/chapters_view.dart';
 export 'package:edu_bridge_app/feature/chapters/view_model/chapters_controller.dart';
-// Category_1 Feature
-export 'package:edu_bridge_app/feature/category/model/category_model.dart';
-export 'package:edu_bridge_app/feature/category/repo/category_repository.dart';
-export 'package:edu_bridge_app/feature/category/repo/i_category_repository.dart';
-export 'package:edu_bridge_app/feature/category/view/categories_view.dart';
-export 'package:edu_bridge_app/feature/category/view_model/category_controller.dart';
 // Class_2 Feature
 export 'package:edu_bridge_app/feature/classes/model/class_model.dart';
 export 'package:edu_bridge_app/feature/classes/repo/classes_repository.dart';
@@ -67,30 +67,27 @@ export 'package:edu_bridge_app/feature/classes/view/class_view.dart';
 export 'package:edu_bridge_app/feature/classes/view_model/class_controller.dart';
 export 'package:edu_bridge_app/feature/classes/widget/add_class_dialog.dart';
 export 'package:edu_bridge_app/feature/classes/widget/class_grid_item.dart';
-
 // Content_5 Feature
 export 'package:edu_bridge_app/feature/content/model/content_model.dart';
 export 'package:edu_bridge_app/feature/content/repo/content_repository.dart';
 export 'package:edu_bridge_app/feature/content/repo/i_content_repository.dart';
 export 'package:edu_bridge_app/feature/content/view/content_view.dart';
+export 'package:edu_bridge_app/feature/content/view/note_details_view.dart';
 export 'package:edu_bridge_app/feature/content/view/youtube_view.dart';
 export 'package:edu_bridge_app/feature/content/view_model/content_controller.dart';
 export 'package:edu_bridge_app/feature/content/widgets/add_content_view.dart';
 export 'package:edu_bridge_app/feature/content/widgets/content_card.dart';
-export 'package:edu_bridge_app/feature/content/view/note_details_view.dart';
-export 'package:edu_bridge_app/feature/user_saved_item/model/user_saved_item_model.dart';
-
 // Course Feature
-export 'package:edu_bridge_app/feature/course/model/popular_course_content_model.dart';
-export 'package:edu_bridge_app/feature/course/model/popular_course_model.dart';
-export 'package:edu_bridge_app/feature/course/repo/popular_course/i_popular_course_repository.dart';
-export 'package:edu_bridge_app/feature/course/repo/popular_course/popular_courses_repository.dart';
-export 'package:edu_bridge_app/feature/course/repo/popular_course_content/i_popular_course_content_repository.dart';
-export 'package:edu_bridge_app/feature/course/repo/popular_course_content/popular_course_content_repository.dart';
-export 'package:edu_bridge_app/feature/course/view/popular_course_content_view.dart';
-export 'package:edu_bridge_app/feature/course/view/popular_courses_view.dart';
-export 'package:edu_bridge_app/feature/course/view_model/popular_course_content_controller.dart';
-export 'package:edu_bridge_app/feature/course/view_model/popular_course_controller.dart';
+export 'package:edu_bridge_app/feature/courses/model/popular_course_content_model.dart';
+export 'package:edu_bridge_app/feature/courses/model/popular_course_model.dart';
+export 'package:edu_bridge_app/feature/courses/repo/popular_course/i_popular_course_repository.dart';
+export 'package:edu_bridge_app/feature/courses/repo/popular_course/popular_courses_repository.dart';
+export 'package:edu_bridge_app/feature/courses/repo/popular_course_content/i_popular_course_content_repository.dart';
+export 'package:edu_bridge_app/feature/courses/repo/popular_course_content/popular_course_content_repository.dart';
+export 'package:edu_bridge_app/feature/courses/view/popular_course_content_view.dart';
+export 'package:edu_bridge_app/feature/courses/view/popular_courses_view.dart';
+export 'package:edu_bridge_app/feature/courses/view_model/popular_course_content_controller.dart';
+export 'package:edu_bridge_app/feature/courses/view_model/popular_course_controller.dart';
 export 'package:edu_bridge_app/feature/home/view/banner/model/banner_model.dart';
 export 'package:edu_bridge_app/feature/home/view/banner/repo/banner_repository.dart';
 export 'package:edu_bridge_app/feature/home/view/banner/repo/i_banner_repository.dart';
@@ -135,6 +132,7 @@ export 'package:edu_bridge_app/feature/user/repo/user_profile_repository.dart';
 export 'package:edu_bridge_app/feature/user/view/user_profile_view.dart';
 export 'package:edu_bridge_app/feature/user/view_model/sign_up_controller.dart';
 export 'package:edu_bridge_app/feature/user/view_model/user_profile_controller.dart';
+export 'package:edu_bridge_app/feature/user_saved_item/model/user_saved_item_model.dart';
 export 'package:flutter/gestures.dart';
 // Flutter & External Packages
 export 'package:flutter/material.dart';
