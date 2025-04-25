@@ -1,6 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/classes_2/widget/add_class_dialog.dart';
-import 'package:edu_bridge_app/feature/classes_2/widget/class_grid_item.dart';
+
 
 class ClassView extends StatefulWidget {
   const ClassView({
