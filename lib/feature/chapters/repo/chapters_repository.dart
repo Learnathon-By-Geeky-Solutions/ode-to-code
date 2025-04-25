@@ -1,8 +1,10 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
 class ChapterRepository extends IChapterRepository {
-  ChapterRepository({required INetworkCaller networkCaller});
-  final NetworkCaller _networkCaller = NetworkCaller();
+  final INetworkCaller _networkCaller;
+
+  ChapterRepository({required INetworkCaller networkCaller})
+      : _networkCaller = networkCaller;
 
   @override
   Future<bool> addChapter(ChapterModel chapterModel) async {
@@ -11,11 +13,7 @@ class ChapterRepository extends IChapterRepository {
       data: chapterModel.toMap(),
     );
 
-    if (response.isSuccess) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.isSuccess; // Return the result directly
   }
 
   @override
@@ -27,16 +25,22 @@ class ChapterRepository extends IChapterRepository {
       },
     );
 
-    if (response.isSuccess) {
-      final filteredData = (response.responseData as List)
-          .where((data) => data['subject_id'] == subjectId)
-          .toList();
+    return _handleGetResponse(response, subjectId);
+  }
 
-      return filteredData
-          .map<ChapterModel>((data) => ChapterModel.fromMap(data))
-          .toList();
-    } else {
-      return [];
+  List<ChapterModel> _handleGetResponse(
+      ApiResponse response, String subjectId) {
+    if (response.isSuccess && response.responseData != null) {
+      final List filteredData = (response.responseData as List).where((data) {
+        return data['subject_id'] == subjectId;
+      }).toList();
+
+      if (filteredData.isNotEmpty) {
+        return filteredData
+            .map<ChapterModel>((data) => ChapterModel.fromMap(data))
+            .toList();
+      }
     }
+    return [];
   }
 }

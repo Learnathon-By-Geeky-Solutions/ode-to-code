@@ -23,9 +23,12 @@ class CategoryGridItem extends StatelessWidget {
             elevation: 3,
             color: AppColors.white,
             child: Center(
-              child: Image.network(
-                category.imageUrl,
+              child: CachedNetworkImage(
+                imageUrl: category.imageUrl,
                 fit: BoxFit.contain,
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
           ),

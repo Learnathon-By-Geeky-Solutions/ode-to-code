@@ -117,34 +117,37 @@ class _AddContentScreenState extends State<AddContentView>
 
   // Common method to build content form
   Widget _buildContentForm({required bool isNote}) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              _buildTextField(
-                  controller: numberController,
-                  label: "Number",
-                  keyboardType: TextInputType.number),
-              const SizedBox(height: 16),
-              _buildTextField(
-                  controller: titleController,
-                  label: isNote ? "Note Title" : "Video Title"),
-              const SizedBox(height: 16),
-              isNote
-                  ? _buildTextField(
-                      controller: noteController,
-                      label: "Note (Optional)",
-                      maxLines: 8)
-                  : _buildTextField(
-                      controller: linkController,
-                      label: "YouTube/Content Link",
-                      keyboardType: TextInputType.url),
-            ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Card(
+          elevation: 3,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                _buildTextField(
+                    controller: numberController,
+                    label: "Number",
+                    keyboardType: TextInputType.number),
+                const SizedBox(height: 16),
+                _buildTextField(
+                    controller: titleController,
+                    label: isNote ? "Note Title" : "Video Title"),
+                const SizedBox(height: 16),
+                isNote
+                    ? _buildTextField(
+                        controller: noteController,
+                        label: "Note (Optional)",
+                        maxLines: 8)
+                    : _buildTextField(
+                        controller: linkController,
+                        label: "YouTube/Content Link",
+                        keyboardType: TextInputType.url),
+              ],
+            ),
           ),
         ),
       ),

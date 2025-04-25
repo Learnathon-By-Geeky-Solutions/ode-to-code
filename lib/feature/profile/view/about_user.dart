@@ -46,7 +46,7 @@ class _AboutUserState extends State<AboutUser> {
                     Center(
                       child: CircleAvatar(
                         radius: 50,
-                        backgroundImage: NetworkImage(user.image),
+                        backgroundImage: CachedNetworkImageProvider(user.image),
                       ),
                     ),
                     Column(
