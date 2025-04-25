@@ -60,11 +60,15 @@ export 'package:edu_bridge_app/feature/category/repo/i_category_repository.dart'
 export 'package:edu_bridge_app/feature/category/view/categories_view.dart';
 export 'package:edu_bridge_app/feature/category/view_model/category_controller.dart';
 // Class_2 Feature
-export 'package:edu_bridge_app/feature/classes_2/model/class_model.dart';
-export 'package:edu_bridge_app/feature/classes_2/repo/classes_repository.dart';
-export 'package:edu_bridge_app/feature/classes_2/repo/i_classes_repository.dart';
-export 'package:edu_bridge_app/feature/classes_2/view/class_view.dart';
-export 'package:edu_bridge_app/feature/classes_2/view_model/class_controller.dart';
+export 'package:edu_bridge_app/feature/classes/model/class_model.dart';
+export 'package:edu_bridge_app/feature/classes/repo/classes_repository.dart';
+export 'package:edu_bridge_app/feature/classes/repo/i_classes_repository.dart';
+export 'package:edu_bridge_app/feature/classes/view/class_view.dart';
+export 'package:edu_bridge_app/feature/classes/view_model/class_controller.dart';
+export 'package:edu_bridge_app/feature/classes/widget/add_class_dialog.dart';
+export 'package:edu_bridge_app/feature/classes/widget/class_grid_item.dart';
+
+
 // Content_5 Feature
 export 'package:edu_bridge_app/feature/content_5/model/content_model.dart';
 export 'package:edu_bridge_app/feature/content_5/repo/content_repository.dart';
