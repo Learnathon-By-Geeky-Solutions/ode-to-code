@@ -1,6 +1,6 @@
+import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:edu_bridge_app/core/resources/export.dart';
 
 class MockChapterRepository extends Mock implements IChapterRepository {}
 

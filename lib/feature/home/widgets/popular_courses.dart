@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+// ignore_for_file: prefer_const_constructors_in_immutables
 
 class PopularCourses extends StatelessWidget {
   const PopularCourses({super.key});

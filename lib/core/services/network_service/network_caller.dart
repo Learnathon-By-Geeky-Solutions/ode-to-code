@@ -99,10 +99,11 @@ class NetworkCaller extends INetworkCaller {
   }) async {
     try {
       _logger.i('DELETE Request Initiated | Table: $tableName');
-
       var query = _supabase.from(tableName).delete();
       _utils.applyQueryParams(query, queryParams);
-
+      if (queryParams != null && queryParams.containsKey('id')) {
+        query = query.eq('id', queryParams['id']);
+      }
       final response = await query;
       _logger.i('DELETE Request Successful | Table: $tableName');
 

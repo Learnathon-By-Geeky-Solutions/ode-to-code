@@ -20,6 +20,7 @@ class IntroView3 extends StatelessWidget {
               ),
               CustomText(
                 text: 'knowledge_our_progress'.tr,
+                textAlign: TextAlign.center,
               ),
             ],
           ),

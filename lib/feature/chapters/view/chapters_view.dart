@@ -154,7 +154,8 @@ class _ChaptersViewState extends State<ChaptersView> {
         Get.back();
       }
     } else {
-      Get.snackbar("Error", "Please enter a chapter name and select an image");
+      SnackBarUtil.showError(
+          "Error", "Please enter a chapter name and select an image");
     }
   }
 

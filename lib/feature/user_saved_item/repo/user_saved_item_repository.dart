@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/repo/i_user_saved_item_repository.dart';
 
 class UserSavedItemRepository extends IUserSavedItemRepository {
   final INetworkCaller _networkCaller;
@@ -29,6 +28,7 @@ class UserSavedItemRepository extends IUserSavedItemRepository {
     return _handleGetResponse(response, userId);
   }
 
+  @override
   @override
   Future<bool> deleteSavedItem(String itemId) async {
     final response = await _networkCaller.deleteRequest(

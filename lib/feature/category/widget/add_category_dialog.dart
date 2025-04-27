@@ -18,7 +18,8 @@ class AddCategoryDialog extends StatelessWidget {
               const SizedBox(height: 10),
               _buildImagePicker(controller),
               const SizedBox(height: 10),
-              if (controller.categoryImage != null) _buildImagePreview(controller),
+              if (controller.categoryImage != null)
+                _buildImagePreview(controller),
             ],
           ),
         ),
@@ -55,7 +56,7 @@ class AddCategoryDialog extends StatelessWidget {
       onPressed: () async {
         final name = _categoryNameController.text.trim();
         if (name.isEmpty) {
-          Get.snackbar("Error", "Category name cannot be empty");
+          SnackBarUtil.showError("Error", "Category name cannot be empty");
           return;
         }
         final success = await controller.addCategory(name);

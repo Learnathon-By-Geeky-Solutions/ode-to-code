@@ -20,7 +20,7 @@ class _SubjectsViewState extends State<SubjectsView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      name: "Subjects View",
+      name: "Subjects",
       floatingActionButton: _buildFloatingActionButton(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -94,19 +94,14 @@ class _SubjectsViewState extends State<SubjectsView> {
       right: 1,
       bottom: 1,
       child: Center(
-        child: controller.subjects[index].image.isNotEmpty
-            ? Text(
-                controller.subjects[index].subjectName,
-                style: GoogleFonts.murecho(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.bookColor,
-                ),
-              )
-            : const Icon(
-                Icons.image_not_supported,
-                size: 50,
-              ),
+        child: Text(
+          controller.subjects[index].subjectName,
+          style: GoogleFonts.murecho(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: AppColors.bookColor,
+          ),
+        ),
       ),
     );
   }
@@ -148,19 +143,6 @@ class _SubjectsViewState extends State<SubjectsView> {
             controller: subjectNameController,
             decoration: const InputDecoration(hintText: "Enter Subject Name"),
           ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: controller.pickSubjectImage,
-            child: CustomText(text: 'add_image'.tr),
-          ),
-          const SizedBox(height: 10),
-          if (controller.subjectImage != null)
-            Image.file(
-              controller.subjectImage!,
-              height: 80,
-              width: 80,
-              fit: BoxFit.cover,
-            ),
         ],
       ),
     );
@@ -180,7 +162,7 @@ class _SubjectsViewState extends State<SubjectsView> {
             Get.back();
           }
         } else {
-          Get.snackbar("Error", "Class name cannot be empty");
+          SnackBarUtil.showError("Error", "Subject name cannot be empty");
         }
       },
       child: CustomText(text: 'add'.tr),

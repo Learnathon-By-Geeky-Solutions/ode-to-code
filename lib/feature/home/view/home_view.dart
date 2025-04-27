@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
         SizedBox(height: 1.h),
         const HomeBanner(),
         SizedBox(height: 1.h),
-        const CategoriesSection(),
+        CategoriesSection(),
         // SizedBox(height: 1.h),
         const PopularCourses(),
       ],

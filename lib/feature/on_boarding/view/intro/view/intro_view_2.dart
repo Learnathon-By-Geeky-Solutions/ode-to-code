@@ -20,6 +20,7 @@ class IntroView2 extends StatelessWidget {
               ),
               CustomText(
                 text: 'learn_teach_inspire'.tr,
+                textAlign: TextAlign.center,
               ),
             ],
           ),

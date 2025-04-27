@@ -10,7 +10,6 @@ class UserProfileView extends StatefulWidget {
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
-
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -98,7 +97,8 @@ class _UserProfileViewState extends State<UserProfileView> {
 
     if (isProfileCreated) {
       _clearControllers();
-      Get.snackbar("Success", "Sign-up and profile creation successful!");
+      SnackBarUtil.showSuccess(
+          "Success", "Sign-up and profile creation successful!");
     }
   }
 

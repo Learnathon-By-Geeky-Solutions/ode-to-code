@@ -92,10 +92,11 @@ class AddCourseDialog extends StatelessWidget {
       if (success) {
         Get.back();
       } else {
-        Get.snackbar("Error", "Failed to add course. Please try again.");
+        SnackBarUtil.showError(
+            "Error", "Failed to add course. Please try again.");
       }
     } else {
-      Get.snackbar("Warning", "Please fill in all fields.");
+      SnackBarUtil.showError("Warning", "Please fill in all fields.");
     }
   }
 

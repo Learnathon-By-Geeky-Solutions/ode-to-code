@@ -28,7 +28,7 @@ class MainBottomNavView extends StatelessWidget {
           indicatorColor: AppColors.shadowGrey,
           shadowColor: AppColors.grey,
           destinations: [
-            NavigationDestination(icon: Icon(Icons.home), label: 'home'.tr),
+            NavigationDestination(icon: const Icon(Icons.home), label: 'home'.tr),
             NavigationDestination(
               icon: const Icon(Icons.menu_book),
               label: 'saved_item'.tr,
