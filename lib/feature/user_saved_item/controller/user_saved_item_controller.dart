@@ -1,11 +1,12 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/repo/i_user_saved_item_repository.dart';
 
 class UserSavedItemController extends GetxController {
   final IUserSavedItemRepository _repository;
 
   UserSavedItemController({required IUserSavedItemRepository repository})
       : _repository = repository;
+
+  static UserSavedItemController get to => Get.find<UserSavedItemController>();
 
   bool _inProgress = false;
   bool get inProgress => _inProgress;
@@ -16,9 +17,7 @@ class UserSavedItemController extends GetxController {
   List<UserSavedItemModel> _savedItems = [];
   List<UserSavedItemModel> get savedItems => _savedItems;
 
-  bool _isDataFetched = false; // Flag to check if data has been fetched
-
-  // Add saved item to the repository
+  // Add new saved item
   Future<bool> addSavedItem(
     String userId,
     String type,
@@ -40,72 +39,80 @@ class UserSavedItemController extends GetxController {
       userId: userId,
       type: type,
       title: title,
-      link: link ?? '', // Ensure link is not null here
+      link: link ?? '',
       note: note,
       createdAt: DateTime.now().toIso8601String(),
     );
 
-    final success = await _repository.addSavedItem(newItem);
-    if (success) {
-      isSuccess = true;
-      SnackBarUtil.showSuccess("Success", "Item saved successfully!");
-    } else {
-      _errorMessage = "Failed to save item.";
+    try {
+      final success = await _repository.addSavedItem(newItem);
+      if (success) {
+        isSuccess = true;
+        SnackBarUtil.showSuccess("Success", "Item saved successfully!");
+
+        await fetchSavedItems(userId);
+      } else {
+        _errorMessage = "Failed to save item.";
+        SnackBarUtil.showError("Error", _errorMessage!);
+      }
+    } catch (e) {
+      _errorMessage = "Error while saving item: $e";
       SnackBarUtil.showError("Error", _errorMessage!);
+    } finally {
+      _inProgress = false;
+      update();
     }
 
-    _inProgress = false;
-    update();
     return isSuccess;
   }
 
+  // Fetch saved items
   Future<void> fetchSavedItems(String userId) async {
-    // Skip fetching if data has already been loaded
-    if (_isDataFetched) {
-      return;
-    }
-
     _inProgress = true;
     _errorMessage = null;
     update();
 
     try {
       _savedItems = await _repository.fetchSavedItemsByUserId(userId);
-      _isDataFetched = true; // Mark data as fetched
     } catch (e) {
       _errorMessage = 'Failed to load saved items: $e';
       SnackBarUtil.showError("Error", _errorMessage!);
+    } finally {
+      _inProgress = false;
+      update();
     }
-
-    _inProgress = false;
-    update();
   }
 
-  // Delete a saved item from the repository
+  // Delete saved item
   Future<bool> deleteSavedItem(String itemId) async {
     bool isSuccess = false;
     _inProgress = true;
     _errorMessage = null;
     update();
 
-    final success = await _repository.deleteSavedItem(itemId);
-    if (success) {
-      isSuccess = true;
-      _savedItems.removeWhere((item) => item.id == itemId);
-      SnackBarUtil.showSuccess("Success", "Item deleted successfully!");
-    } else {
-      _errorMessage = "Failed to delete item.";
+    try {
+      final success = await _repository.deleteSavedItem(itemId);
+      if (success) {
+        isSuccess = true;
+        _savedItems.removeWhere((item) => item.id == itemId);
+      } else {
+        _errorMessage = "Failed to delete item.";
+        SnackBarUtil.showError("Error", _errorMessage!);
+      }
+    } catch (e) {
+      _errorMessage = "Error while deleting item: $e";
       SnackBarUtil.showError("Error", _errorMessage!);
+    } finally {
+      _inProgress = false;
+      update();
     }
 
-    _inProgress = false;
-    update();
     return isSuccess;
   }
 
+  // Reset saved items
   void resetData() {
     _savedItems = [];
-    _isDataFetched = false;
     update();
   }
 }

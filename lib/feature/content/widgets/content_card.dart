@@ -5,6 +5,8 @@ class ContentCard extends StatelessWidget {
   final String title;
   final String? link;
   final String? note;
+  final VoidCallback? onDelete;
+  final bool isSavedItem;
 
   const ContentCard({
     super.key,
@@ -12,6 +14,8 @@ class ContentCard extends StatelessWidget {
     required this.title,
     this.link,
     this.note,
+    this.onDelete,
+    this.isSavedItem = false,
   });
 
   @override
@@ -38,51 +42,60 @@ class ContentCard extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(12),
         child: IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: Text(
-                  number,
-                  style: GoogleFonts.mulish(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.orange,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
+          child: SingleChildScrollView(
+            // Wrap the Column with this
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (!isSavedItem)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Text(
+                      number,
                       style: GoogleFonts.mulish(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: AppColors.orange,
                       ),
                     ),
-                    Flexible(
-                      child: Text(
-                        content,
+                  ),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
                         style: GoogleFonts.mulish(
-                          color: AppColors.blackGray,
-                          fontSize: 12,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
+                      Flexible(
+                        child: Text(
+                          content,
+                          style: GoogleFonts.mulish(
+                            color: AppColors.blackGray,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Image.asset(
-                iconAsset,
-                height: 28,
-                width: 28,
-              ),
-            ],
+                if (onDelete != null)
+                  GestureDetector(
+                    onTap: onDelete,
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: 24,
+                    ),
+                  ),
+                _buildIcon(iconAsset),
+              ],
+            ),
           ),
         ),
       ),
@@ -98,6 +111,15 @@ class ContentCard extends StatelessWidget {
   String _getIconAsset(bool hasLink, bool hasNote) {
     if (hasLink) return AssetsPath.videPlayIcon;
     if (hasNote) return AssetsPath.noteIcon;
-    return AssetsPath.videPlayIcon;
+    return "";
+  }
+
+  Widget _buildIcon(String iconAsset) {
+    if (iconAsset.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Image.asset(iconAsset, width: 24, height: 24),
+    );
   }
 }

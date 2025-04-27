@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:edu_bridge_app/core/resources/export.dart'; // Adjust the import based on your project structure
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   // Set up a test group
@@ -14,23 +14,23 @@ void main() {
       // Mock the functions to provide dummy data
       fetchContents = (String id) async {};
       getContents = () => [
-        ContentModel(
-            name: 'Content 1',
-            number: '1',
-            note: 'This is content 1',
-            chaptersId: "test 1",
-            id: '11',
-            link: "xyx",
-            createdAt: ""),
-        ContentModel(
-            name: 'Content 2',
-            number: '2',
-            note: 'This is content 2',
-            chaptersId: "test 1",
-            id: '12',
-            link: "xyx",
-            createdAt: ""),
-      ];
+            ContentModel(
+                name: 'Content 1',
+                number: '1',
+                note: 'This is content 1',
+                chaptersId: "test 1",
+                id: '11',
+                link: "xyx",
+                createdAt: ""),
+            ContentModel(
+                name: 'Content 2',
+                number: '2',
+                note: 'This is content 2',
+                chaptersId: "test 1",
+                id: '12',
+                link: "xyx",
+                createdAt: ""),
+          ];
 
       isLoading = () => false; // Simulate not loading state
       addContent = (id, number, title, {link, note}) async => true;
@@ -140,6 +140,6 @@ void main() {
 
       // Verify that the AddContentView is displayed
       expect(find.byType(AddContentView), findsOneWidget);
-        });
+    });
   });
 }

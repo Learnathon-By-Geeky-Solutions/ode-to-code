@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/auth/reset_password/view_model/reset_password_controller.dart';
 
 class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({super.key});

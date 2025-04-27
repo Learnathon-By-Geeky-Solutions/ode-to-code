@@ -6,13 +6,15 @@ class ReusableContentView extends StatefulWidget {
   final Future<void> Function(String id) fetchContents;
   final List<dynamic> Function() getContents;
   final bool Function() isLoading;
+  final bool isSavedItemsView;
+
   final Future<bool> Function(
-      String id,
-      String number,
-      String title, {
-      String? link,
-      String? note,
-      }) addContent;
+    String id,
+    String number,
+    String title, {
+    String? link,
+    String? note,
+  }) addContent;
   final bool forceShowAddButton;
 
   const ReusableContentView({
@@ -24,6 +26,7 @@ class ReusableContentView extends StatefulWidget {
     required this.isLoading,
     required this.addContent,
     this.forceShowAddButton = true,
+    this.isSavedItemsView = false, // Default to false
   });
 
   @override
@@ -31,9 +34,12 @@ class ReusableContentView extends StatefulWidget {
 }
 
 class _ReusableContentViewState extends State<ReusableContentView> {
+  late final UserSavedItemController _savedItemController;
+
   @override
   void initState() {
     super.initState();
+    _savedItemController = Get.find<UserSavedItemController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.fetchContents(widget.id);
     });
@@ -42,25 +48,23 @@ class _ReusableContentViewState extends State<ReusableContentView> {
   @override
   Widget build(BuildContext context) {
     final contents = widget.getContents();
-    final loading = widget.isLoading();
+    final isLoading = widget.isLoading();
 
     return CustomScaffold(
       name: widget.title,
-      body: _buildContentBody(loading, contents),
+      body: isLoading ? _buildLoadingView() : _buildContentView(contents),
       floatingActionButton:
-      _shouldShowFAB(contents) ? _buildFloatingActionButton() : null,
+          _shouldShowFAB(contents) ? _buildFloatingActionButton() : null,
     );
   }
 
-  Widget _buildContentBody(bool loading, List<dynamic> contents) {
-    if (loading) return const Center(child: CircularProgressIndicator());
+  Widget _buildLoadingView() =>
+      const Center(child: CircularProgressIndicator());
+
+  Widget _buildContentView(List<dynamic> contents) {
     if (contents.isEmpty) {
       return Center(child: CustomText(text: "no_content_available".tr));
     }
-    return _buildContentList(contents);
-  }
-
-  Widget _buildContentList(List<dynamic> contents) {
     return ListView.builder(
       itemCount: contents.length,
       itemBuilder: (context, index) => _buildContentTile(contents[index]),
@@ -73,6 +77,22 @@ class _ReusableContentViewState extends State<ReusableContentView> {
     final number = content.number?.toString() ?? '';
     final note = content.note ?? '';
 
+    // Special handling for saved items
+    if (widget.isSavedItemsView) {
+      return InkWell(
+        onTap: () => _handleContentTap(link, title, note),
+        child: ContentCard(
+          number: number,
+          title: title,
+          link: link,
+          note: note,
+          onDelete: () => _handleDelete(content),
+          isSavedItem: true, // Add this flag
+        ),
+      );
+    }
+
+    // Default handling for other content types
     return InkWell(
       onTap: () => _handleContentTap(link, title, note),
       child: ContentCard(
@@ -80,6 +100,8 @@ class _ReusableContentViewState extends State<ReusableContentView> {
         title: title,
         link: link,
         note: note,
+        onDelete:
+            content is UserSavedItemModel ? () => _handleDelete(content) : null,
       ),
     );
   }
@@ -106,11 +128,45 @@ class _ReusableContentViewState extends State<ReusableContentView> {
   Widget _buildFloatingActionButton() {
     return FloatingActionButton(
       onPressed: () => Get.to(() => AddContentView(
-        id: widget.id,
-        addContent: widget.addContent,
-        fetchContents: widget.fetchContents,
-      )),
+            id: widget.id,
+            addContent: widget.addContent,
+            fetchContents: widget.fetchContents,
+          )),
       child: const Icon(Icons.add),
     );
+  }
+
+  Future<void> _handleDelete(UserSavedItemModel item) async {
+    final confirmed = await _showDeleteConfirmationDialog();
+    if (!confirmed) return;
+
+    final success = await _savedItemController.deleteSavedItem(item.id!);
+    final message =
+        success ? 'Item deleted successfully!' : 'Failed to delete item';
+
+    widget.fetchContents(widget.id);
+
+    SnackBarUtil.showSuccess(success ? 'Success' : 'Error', message);
+  }
+
+  Future<bool> _showDeleteConfirmationDialog() async {
+    return (await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text("Are you sure?"),
+            content: const Text("Do you want to delete this item?"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: const Text("Delete"),
+              ),
+            ],
+          ),
+        )) ??
+        false;
   }
 }

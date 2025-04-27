@@ -1,6 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/controller/user_saved_item_controller.dart';
 
 class YouTubePlayerView extends StatefulWidget {
   const YouTubePlayerView({super.key, required this.link, required this.title});

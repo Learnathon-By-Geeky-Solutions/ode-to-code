@@ -1,6 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/controller/user_saved_item_controller.dart';
 
 class NoteDetailsView extends StatefulWidget {
   final String title;
@@ -26,14 +25,16 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
   void initState() {
     super.initState();
     UserProfileUtils.fetchProfileData(_userProfileController).then((_) {
-      setState(() {
-        userId = _userProfileController.userProfile?.id;
-      });
+      if (mounted) {
+        setState(() {
+          userId = _userProfileController.userProfile?.id;
+        });
+      }
     });
 
     _userProfileController.addListener(() {
       final profile = _userProfileController.userProfile;
-      if (profile != null) {
+      if (profile != null && mounted) {
         setState(() {
           userId = profile.id;
         });
@@ -54,7 +55,7 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
       note: widget.note,
     );
 
-    if (isSuccess) {
+    if (isSuccess && mounted) {
       setState(() {
         isBookmarked = !isBookmarked;
       });

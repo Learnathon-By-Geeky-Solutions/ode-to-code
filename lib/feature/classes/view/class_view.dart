@@ -1,6 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
-
 class ClassView extends StatefulWidget {
   const ClassView({
     super.key,
@@ -40,7 +39,8 @@ class _ClassViewState extends State<ClassView> {
             if (controller.inProgress) {
               return const Center(child: CircularProgressIndicator());
             } else if (controller.classes.isEmpty) {
-              return CustomText(text: 'no_content_available'.tr);
+              return Center(
+                  child: CustomText(text: 'no_content_availableeee'.tr));
             } else {
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

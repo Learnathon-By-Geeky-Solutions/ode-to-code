@@ -1,6 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/core/services/auth_service/deep_link_service.dart';
-import 'package:edu_bridge_app/feature/auth/forgot_password/view_model/forget_password_controller.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});

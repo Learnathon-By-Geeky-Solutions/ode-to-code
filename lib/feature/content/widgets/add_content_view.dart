@@ -55,8 +55,10 @@ class _AddContentScreenState extends State<AddContentView>
     final note = noteController.text.trim();
 
     if (number.isEmpty || title.isEmpty || (!isNote && link.isEmpty)) {
-      Get.snackbar("Error", "Please fill all fields",
-          snackPosition: SnackPosition.BOTTOM);
+      SnackBarUtil.showError(
+        "Error",
+        "Please fill all fields",
+      );
       return;
     }
 
@@ -71,11 +73,15 @@ class _AddContentScreenState extends State<AddContentView>
     if (success) {
       await widget.fetchContents(widget.id);
       Get.back();
-      Get.snackbar("Success", "Content added successfully",
-          snackPosition: SnackPosition.BOTTOM);
+      SnackBarUtil.showSuccess(
+        "Success",
+        "Content added successfully",
+      );
     } else {
-      Get.snackbar("Error", "Failed to add content",
-          snackPosition: SnackPosition.BOTTOM);
+      SnackBarUtil.showError(
+        "Error",
+        "Failed to add content",
+      );
     }
   }
 

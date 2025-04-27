@@ -1,33 +1,38 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:edu_bridge_app/core/resources/export.dart'; // Assuming this imports the necessary components.
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('CustomScaffoldHome Tests', () {
-    testWidgets('should render CustomScaffoldHome with the correct title and subtitle', (tester) async {
+    testWidgets(
+        'should render CustomScaffoldHome with the correct title and subtitle',
+        (tester) async {
       // Build our app and trigger a frame
       await tester.pumpWidget(
         MaterialApp(
           home: CustomScaffoldHome(
-            name: 'Test User',  // Pass in a custom name
-            body: Container(),  // Simple body for testing
+            name: 'Test User', // Pass in a custom name
+            body: Container(), // Simple body for testing
           ),
         ),
       );
 
       // Verify the title is displayed
-      expect(find.text('Test User'), findsOneWidget);  // Test with passed name
-      expect(find.text('search_prompt'.tr), findsOneWidget);  // Check subtitle for 'search_prompt'
+      expect(find.text('Test User'), findsOneWidget); // Test with passed name
+      expect(find.text('search_prompt'.tr),
+          findsOneWidget); // Check subtitle for 'search_prompt'
 
       // Test if the AppBar is rendered correctly
       expect(find.byType(AppBar), findsOneWidget);
     });
 
-    testWidgets('should render CustomScaffoldHome with default "hi_there" when no name is provided', (tester) async {
+    testWidgets(
+        'should render CustomScaffoldHome with default "hi_there" when no name is provided',
+        (tester) async {
       // Build our app with no name passed
       await tester.pumpWidget(
         MaterialApp(
           home: CustomScaffoldHome(
-            body: Container(),  // Simple body for testing
+            body: Container(), // Simple body for testing
           ),
         ),
       );
@@ -36,7 +41,9 @@ void main() {
       expect(find.text('hi_there'.tr), findsOneWidget);
     });
 
-    testWidgets('should toggle language between English and Bengali on button press', (tester) async {
+    testWidgets(
+        'should toggle language between English and Bengali on button press',
+        (tester) async {
       // Setup for localeController and initial locale
       final localeController = Get.put(LocalizationController());
 
@@ -47,7 +54,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: CustomScaffoldHome(
-            body: Container(),  // Simple body for testing
+            body: Container(), // Simple body for testing
           ),
         ),
       );
@@ -60,7 +67,7 @@ void main() {
 
       // Tap the language toggle button
       await tester.tap(languageToggleButton);
-      await tester.pump();  // Rebuild after the state change
+      await tester.pump(); // Rebuild after the state change
 
       // Verify that the locale has changed to Bengali
       expect(Get.locale?.languageCode, 'bn');
@@ -73,12 +80,13 @@ void main() {
       expect(Get.locale?.languageCode, 'en');
     });
 
-    testWidgets('should show the floating action button if provided', (tester) async {
+    testWidgets('should show the floating action button if provided',
+        (tester) async {
       // Build our app with a floatingActionButton
       await tester.pumpWidget(
         MaterialApp(
           home: CustomScaffoldHome(
-            body: Container(),  // Simple body for testing
+            body: Container(), // Simple body for testing
             floatingActionButton: FloatingActionButton(
               onPressed: () {},
               child: const Icon(Icons.add),
@@ -91,12 +99,13 @@ void main() {
       expect(find.byType(FloatingActionButton), findsOneWidget);
     });
 
-    testWidgets('should not show the floating action button if not provided', (tester) async {
+    testWidgets('should not show the floating action button if not provided',
+        (tester) async {
       // Build our app with no floatingActionButton
       await tester.pumpWidget(
         MaterialApp(
           home: CustomScaffoldHome(
-            body: Container(),  // Simple body for testing
+            body: Container(), // Simple body for testing
           ),
         ),
       );
