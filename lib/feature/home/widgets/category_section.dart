@@ -1,7 +1,8 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 
+// ignore_for_file: prefer_const_constructors_in_immutables
 class CategoriesSection extends StatelessWidget {
-  const CategoriesSection({super.key});
+  CategoriesSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/repo/i_user_saved_item_repository.dart';
 
 class UserSavedItemRepository extends IUserSavedItemRepository {
   final INetworkCaller _networkCaller;
@@ -30,20 +29,12 @@ class UserSavedItemRepository extends IUserSavedItemRepository {
   }
 
   @override
+  @override
   Future<bool> deleteSavedItem(String itemId) async {
-    if (itemId.isEmpty) {
-      Logger().e("Item ID is empty. Cannot delete.");
-      return false;
-    }
-
     final response = await _networkCaller.deleteRequest(
       tableName: 'user_saved_item',
-      queryParams: {
-        'id': itemId
-      }, // Ensure 'id' matches your Supabase table's PK
+      queryParams: {'id': itemId},
     );
-
-    Logger().i("Delete response for itemId=$itemId => ${response.isSuccess}");
 
     return _handleDeleteResponse(response);
   }

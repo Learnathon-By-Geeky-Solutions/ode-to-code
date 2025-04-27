@@ -49,7 +49,7 @@ class AddClassDialog extends StatelessWidget {
                     Get.back();
                   }
                 } else {
-                  Get.snackbar("Error", "Class name cannot be empty");
+                  SnackBarUtil.showError("Error", "Class name cannot be empty");
                 }
               },
               child: CustomText(text: 'add'.tr),

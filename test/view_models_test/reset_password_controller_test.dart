@@ -1,6 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/core/services/auth_service/i_auth_service.dart';
-import 'package:edu_bridge_app/feature/auth/reset_password/view_model/reset_password_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

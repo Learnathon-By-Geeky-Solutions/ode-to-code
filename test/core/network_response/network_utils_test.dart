@@ -1,6 +1,6 @@
+import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:edu_bridge_app/core/resources/export.dart';
 
 // Assuming Logger and Query are actual interfaces or abstract classes
 class MockLogger extends Mock implements Logger {}
@@ -40,12 +40,11 @@ void main() {
 
     verify(() => mockQuery.order('name', ascending: true)).called(1);
     verify(() => mockLogger.d(
-      'Added ordering: name = asc',
-      time: any(named: 'time'),
-      error: any(named: 'error'),
-      stackTrace: any(named: 'stackTrace'),
-    )).called(1);
-
+          'Added ordering: name = asc',
+          time: any(named: 'time'),
+          error: any(named: 'error'),
+          stackTrace: any(named: 'stackTrace'),
+        )).called(1);
   });
 
   test('handleError should log error and return failed ApiResponse', () {
@@ -57,8 +56,8 @@ void main() {
     expect(response.errorMessage, error.toString());
 
     verify(() => mockLogger.e(
-      'POST Request Failed | Target: TestAPI',
-      error: error,
-    )).called(1);
+          'POST Request Failed | Target: TestAPI',
+          error: error,
+        )).called(1);
   });
 }

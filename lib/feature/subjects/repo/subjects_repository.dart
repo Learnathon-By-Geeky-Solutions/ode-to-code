@@ -7,20 +7,6 @@ class SubjectRepository extends ISubjectRepository {
       : _networkCaller = networkCaller;
 
   @override
-  Future<String?> uploadSubjectImage(File imageFile) async {
-    final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-    final filePath = 'subject_images/$fileName';
-
-    final response = await _networkCaller.uploadFile(
-      bucketName: 'subject_images',
-      filePath: filePath,
-      file: imageFile,
-    );
-
-    return _handleFileUploadResponse(response);
-  }
-
-  @override
   Future<bool> addSubject(SubjectModel subjectModel) async {
     final response = await _networkCaller.postRequest(
       tableName: "subjects",
@@ -39,13 +25,6 @@ class SubjectRepository extends ISubjectRepository {
     );
 
     return _handleGetResponse(response, classId);
-  }
-
-  String? _handleFileUploadResponse(ApiResponse response) {
-    if (response.isSuccess) {
-      return response.responseData;
-    }
-    return null;
   }
 
   bool _handlePostResponse(ApiResponse response) {

@@ -1,22 +1,18 @@
-// core/utils/snackbar_util.dart
-
-import 'package:edu_bridge_app/core/resources/app_colors.dart';
+import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 
 class SnackBarUtil {
   static bool isTestMode = false; // Flag to determine if we're in test mode
 
   static void showSuccess(String title, String message) {
     if (kIsWeb || !isTesting()) {
-      // Only show snackbar if not in test mode
       if (!isTestMode) {
-        Get.snackbar(
-          title,
-          message,
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: AppColors.green,
-          colorText: AppColors.white,
+        Get.bottomSheet(
+          _buildBottomSheet(
+              title, message, AppColors.green, Icons.check_circle),
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         );
       }
     }
@@ -24,22 +20,74 @@ class SnackBarUtil {
 
   static void showError(String title, String message) {
     if (kIsWeb || !isTesting()) {
-      // Only show snackbar if not in test mode
       if (!isTestMode) {
-        Get.snackbar(
-          title,
-          message,
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: AppColors.red,
-          colorText: AppColors.white,
+        Get.bottomSheet(
+          _buildBottomSheet(title, message, AppColors.red, Icons.error),
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         );
       }
     }
   }
 
-  // Add a simple method to check if the app is in a test environment
+  static Widget _buildBottomSheet(
+      String title, String message, Color backgroundColor, IconData icon) {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, color: AppColors.white, size: 24),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    message,
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.close, color: AppColors.white, size: 20),
+              onPressed: () => Get.back(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   static bool isTesting() {
-    // This can be further customized based on your testing setup
-    return false; // Change this to true during testing if needed
+    return false;
   }
 }

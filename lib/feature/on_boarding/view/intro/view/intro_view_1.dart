@@ -18,8 +18,11 @@ class IntroView1 extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),
-              CustomText(
-                text: 'empowering_minds'.tr,
+              Center(
+                child: CustomText(
+                  text: 'empowering_minds'.tr,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

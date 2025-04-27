@@ -18,7 +18,7 @@ class _CategoriesViewState extends State<CategoriesView> {
           name: "All Categories",
           floatingActionButton: OutlinedButton(
             onPressed: () {
-              Get.dialog( AddCategoryDialog());
+              Get.dialog(AddCategoryDialog());
             },
             child: const Icon(Icons.add),
           ),
@@ -37,7 +37,8 @@ class _CategoriesViewState extends State<CategoriesView> {
                     itemCount: controller.categories.length,
                     itemBuilder: (context, index) {
                       return CategoryGridItem(
-                          category: controller.categories[index]);
+                        category: controller.categories[index],
+                      );
                     },
                   ),
           ),

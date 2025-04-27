@@ -1,7 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/controller/user_saved_item_controller.dart';
-import 'package:edu_bridge_app/feature/user_saved_item/repo/user_saved_item_repository.dart';
 
 class UserSavedItemView extends StatefulWidget {
   const UserSavedItemView({super.key});
@@ -21,18 +19,18 @@ class _UserSavedItemViewState extends State<UserSavedItemView> {
     _fetchUserProfile();
   }
 
-  // Fetch user profile data
   Future<void> _fetchUserProfile() async {
     try {
       await UserProfileUtils.fetchProfileData(profileController);
-      if (profileController.userProfile != null) {
+      if (profileController.userProfile != null && mounted) {
         setState(() {
           userId = profileController.userProfile?.id;
         });
       }
     } catch (e) {
-      // Handle error, maybe show a snack bar or dialog
-      Get.snackbar('Error', 'Failed to load profile data');
+      if (mounted) {
+        SnackBarUtil.showError('Error', 'Failed to load profile data');
+      }
     }
   }
 
@@ -53,8 +51,15 @@ class _UserSavedItemViewState extends State<UserSavedItemView> {
                 getContents: () => controller.savedItems,
                 isLoading: () => controller.inProgress,
                 addContent: controller.addSavedItem,
+                isSavedItemsView: true,
               );
             },
           );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // Optional: Clean up any controllers or subscriptions to prevent memory leaks
   }
 }

@@ -48,7 +48,7 @@ class OnBoarding extends StatelessWidget {
                               backgroundColor: AppColors.themeColor,
                               foregroundColor: Colors.white,
                             ),
-                            child: CustomText(text: 'get_started'.tr),
+                            child: CustomText(text: 'get_started'.tr,color: Colors.white,),
                           )
                         : GestureDetector(
                             onTap: controller.nextPage,
