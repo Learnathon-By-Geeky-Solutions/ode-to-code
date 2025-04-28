@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 
 abstract class IAuthService {
   Future<AuthResponse> signUpWithEmail(String email, String password);

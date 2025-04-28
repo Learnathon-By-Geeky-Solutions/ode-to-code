@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 
 class AddCategoryDialog extends StatelessWidget {
   AddCategoryDialog({super.key});

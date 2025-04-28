@@ -1,6 +1,6 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 import 'package:edu_bridge_app/core/resources/urls.dart';
-import 'package:edu_bridge_app/user_app.dart';
+import 'package:edu_bridge_app/main/user_app.dart';
 
 Future<void> initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();

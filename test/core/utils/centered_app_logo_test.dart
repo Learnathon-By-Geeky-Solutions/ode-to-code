@@ -1,7 +1,5 @@
-import 'package:edu_bridge_app/core/utils/centered_app_logo.dart';
-import 'package:flutter/material.dart';
+import 'package:edu_bridge_app/core/export.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sizer/sizer.dart';
 
 void main() {
   testWidgets('CenteredAppLogo renders with default spacing',

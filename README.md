@@ -119,68 +119,99 @@ Education in Bangladesh is often:
 
 </div>
 
-## 🏗️ **Project Structure: MVVM Architecture with Repository Pattern**  
+## 🏗️ **Project Structure: Feature-Based Clean Architecture with Repository Pattern**  
 ```
-EduBridge/
-│── data/  
-│   ├── models/  
-│   │   ├── banner_model.dart  
-│   │   ├── category_model.dart  
-│   │   ├── chapter_model.dart  
-│   │   ├── class_model.dart  
-│   │   ├── content_model.dart  
-│   │   ├── mentor_model.dart  
-│   │   ├── popular_course_content_model.dart  
-│   │   ├── popular_course_model.dart  
-│   │   ├── subject_model.dart  
-│   │   ├── user_model.dart  
-│   │   ├── user_profile.dart  
-│   ├── repositories/  
-│   │   ├── auth_repository.dart  
-│   │   ├── banner_repository.dart  
-│   │   ├── category_repository.dart  
-│   │   ├── chapters_repository.dart  
-│   │   ├── classes_repository.dart  
-│   │   ├── content_repository.dart  
-│   │   ├── mentor_repository.dart  
-│   │   ├── popular_course_content_repository.dart  
-│   │   ├── popular_courses_repository.dart  
-│   │   ├── subjects_repository.dart  
-│   │   ├── user_profile_repository.dart  
-│   │   ├── user_repository.dart  
-│── services/  
-│   ├── auth_service.dart  
-│   ├── firebase_auth_services.dart  
-│   ├── firestore_paths.dart  
-│── resources/  
-│   ├── app_colors.dart  
-│   ├── assets_path.dart  
-│   ├── export.dart  
-│   ├── image_picker_service.dart  
-│   ├── urls.dart  
-│── utils/  
-│   ├── centered_app_logo.dart  
-│   ├── custom_button.dart  
-│   ├── custom_header_text.dart  
-│   ├── custom_scaffold.dart  
-│   ├── custom_spacing.dart  
-│   ├── custom_text.dart  
-│   ├── custom_text_button.dart  
-│   ├── custom_text_field.dart  
-│   ├── validators.dart  
-│── view/  
-│   ├── admin_content_post/  
-│   ├── auth/  
-│   ├── home/  
-│   ├── intro/  
-│   ├── on_boarding/  
-│   ├── user/  
-│   ├── view_model/  
-│   ├── admin_app.dart  
-│   ├── admin_main.dart  
-│   ├── controller.dart  
-│   ├── user_app.dart  
-│   ├── user_main.dart  
+lib/
+├── core/                     
+│   ├── localization/
+│   │   └── app_translations.dart
+│   ├── resources/
+│   │   ├── app_colors.dart
+│   │   ├── app_themes.dart
+│   │   ├── assets_path.dart
+│   │   └── urls.dart
+│   ├── services/
+│   │   ├── auth_service/
+│   │   │   ├── auth_service.dart
+│   │   │   └── i_auth_service.dart
+│   │   ├── network_service/
+│   │   │   ├── api_response.dart
+│   │   │   ├── i_network_caller.dart
+│   │   │   ├── network_caller.dart
+│   │   │   └── network_utils.dart
+│   │   └── notes_storage.dart
+│   ├── utils/
+│   │   ├── validators.dart
+│   │   ├── snackbar_util.dart
+│   │   ├── language_switch.dart
+│   │   ├── theme_switch.dart
+│   │   ├── web_view.dart
+│   │   └── all custom widgets (custom_button, custom_text, centered_logo, etc.)
+│   └── export.dart              # Global exports
+│
+├── feature/                    
+│   ├── admin_content_post/
+│   │   ├── controller/
+│   │   ├── model/
+│   │   ├── repo/
+│   │   ├── view/
+│   │   └── widget/
+│   ├── auth/
+│   │   ├── forgot_password/
+│   │   ├── reset_password/
+│   │   ├── sign_in/
+│   │   ├── splash/
+│   │   └── widgets/
+│   ├── category/
+│   │   ├── controller/
+│   │   ├── model/
+│   │   ├── repo/
+│   │   ├── view/
+│   │   └── widget/
+│   ├── chapters/
+│   ├── classes/
+│   ├── content/
+│   ├── courses/
+│   ├── home/
+│   │   ├── banner/
+│   │   ├── controller/
+│   │   ├── view/
+│   │   └── widget/
+│   ├── mentor/
+│   ├── on_boarding/
+│   │   ├── controller/
+│   │   ├── view/
+│   │   └── widget/
+│   ├── profile/
+│   │   ├── view/
+│   │   ├── widget/
+│   │   └── controller/
+│   ├── setting/
+│   │   ├── view/
+│   ├── subjects/
+│   ├── theming_and_localization/
+│   ├── user/
+│   │   ├── view/
+│   │   ├── controller/
+│   │   ├── model/
+│   │   ├── repo/
+│   │   └── widget/
+│   ├── user_saved_item/
+│   │   ├── controller/
+│   │   ├── model/
+│   │   ├── repo/
+│   │   └── view/
+│
+├── main/                         # App launching logic
+│   ├── admin_main.dart
+│   ├── user_main.dart
+│   ├── user_app.dart
+│   ├── admin_app.dart
+│   └── app_controller.dart      
+│
+├── main.dart                      # Root main (checks whether to load AdminApp/UserApp etc.)
+
+
 ```
 ## 📌 Directory Breakdown
 
@@ -194,9 +225,6 @@ EduBridge/
 ## 🗃️ **Database Design**  
 
 ![Supabase Schema](https://github.com/user-attachments/assets/7062c197-3366-409a-8f14-eaf8de769ea8)
-
-  
-<div align="center">
   
 ## 🌐 **API Documentation**  
 | Category | Description |

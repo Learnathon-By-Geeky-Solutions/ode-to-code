@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart'; // Adjust the import based on your project structure
+import 'package:edu_bridge_app/core/export.dart'; // Adjust the import based on your project structure
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

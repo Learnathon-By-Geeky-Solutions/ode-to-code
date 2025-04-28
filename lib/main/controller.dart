@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 
 class ControllerBinder extends Bindings {
   @override
@@ -63,8 +63,6 @@ class ControllerBinder extends Bindings {
 
     Get.lazyPut<CourseContentController>(() =>
         CourseContentController(repository: Get.find<IContentRepository>()));
-
-    Get.lazyPut<MentorController>(() => MentorController());
 
     Get.lazyPut<PopularCourseContentController>(() =>
         PopularCourseContentController(

@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 import 'package:edu_bridge_app/feature/subjects/widget/add_subject_dialog.dart';
 import 'package:edu_bridge_app/feature/subjects/widget/subject_grid_item.dart';
 

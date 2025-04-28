@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 import 'package:edu_bridge_app/feature/admin_content_post/admin_content_post_view.dart';
 import 'package:edu_bridge_app/feature/profile/view/about_user.dart';
 import 'package:edu_bridge_app/feature/profile/widgets/profile_option_card.dart';

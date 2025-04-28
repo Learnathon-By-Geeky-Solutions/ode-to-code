@@ -1,8 +1,7 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/feature/admin_content_post/admin_content_post_view.dart';
+import 'package:edu_bridge_app/core/export.dart';
 
-class EduBridgeAdmin extends StatelessWidget {
-  const EduBridgeAdmin({super.key});
+class EduBridgeUser extends StatelessWidget {
+  const EduBridgeUser({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +19,7 @@ class EduBridgeAdmin extends StatelessWidget {
             translations: AppTranslations(),
             locale: Get.find<LocalizationController>().locale,
             fallbackLocale: const Locale('en'),
-            home: const AdminContentPostView()
-        );
+            home: const SplashView());
       },
     );
   }
