@@ -106,9 +106,26 @@ Education in Bangladesh is often:
 
 
 
-## 🔧 **Technical Alignment**  
-- **Flutter MVVM**: Ensures testable, modular code (Views ↔ ViewModels ↔ Supabase).  
-- **Supabase**: Handles auth, user-generated content, and donations securely.  
+Here's the updated **Technical Alignment** based on your **new project structure** (feature-based clean architecture with repository pattern):
+
+---
+## 🔧 **Technical Alignment**
+
+- **Flutter Feature-Based Clean Architecture**:  
+  Modular and scalable code organization, separating core services, features, models, repositories, views, and widgets for maintainability and clarity.
+
+- **Repository Pattern**:  
+  Each feature has its own repository layer that abstracts data sources (like APIs, databases), ensuring low coupling between UI and data logic.
+
+- **GetX (State Management, Routing, Dependency Injection)**:  
+  Lightweight and efficient solution for managing app state, navigation, and service dependencies across features.
+
+- **Supabase (or Backend Service)**:  
+  Manages authentication, user-generated content, real-time updates, and database interactions securely.
+
+- **Core Services**:  
+  Includes reusable utilities like network caller, authentication service, validators, theme switching, custom widgets, and more, ensuring consistency across the app.
+---
 
 ## 📚 **Learning & Resources**
 
@@ -215,17 +232,44 @@ lib/
 ```
 ## 📌 Directory Breakdown
 
-- **`data/`** → Contains all the models and repositories for data management.  
-- **`services/`** → Manages Firebase authentication and Firestore paths.  
-- **`resources/`** → Stores theme colors, asset paths, and other static configurations.  
-- **`utils/`** → Houses reusable UI components and helper functions.  
-- **`view/`** → Organizes the user interface, including screens for authentication, onboarding, and content posting.  
+- **`features/`** →  
+  Organized by domain features. Each feature (e.g., Auth, Category, Class, Subject, Chapter, Content) contains its own:
+    - `controllers/` → Handles state management (using GetX).
+    - `models/` → Defines data models specific to that feature.
+    - `screens/` → Contains the UI screens and views for the feature.
+    - `services/` → Manages API/network/database interactions (e.g., Supabase services).
+
+- **`core/`** →  
+  Common app-wide utilities and services:
+    - `network/` → HTTP and Supabase interaction layers.
+    - `theme/` → Colors, typography, and app-wide theming constants.
+    - `utils/` → Helper functions, extensions, reusable widgets.
+
+- **`routes/`** →  
+  Centralized navigation and route management using GetX routing.
+
+- **`bindings/`** →  
+  Feature bindings for dependency injection (GetX Bindings).
 
 ---
+
+## 📈 **App Flow**
+
+- **Category** → Select a **Class**
+- **Class** → View related **Subjects**
+- **Subject** → Open **Chapters**
+- **Chapter** → Access **Content** (Notes, Videos)
+- **Content** → View through **VideoPlayer** or **NoteDetailsView**
+
+---
+
+
 ## 🗃️ **Database Design**  
 
 ![Supabase Schema](https://github.com/user-attachments/assets/7062c197-3366-409a-8f14-eaf8de769ea8)
-  
+
+<p align="center">
+
 ## 🌐 **API Documentation**  
 | Category | Description |
 |----------|-------------|
@@ -251,7 +295,7 @@ lib/
 | 🧠 **Unit Tests** | Validates ViewModel logic & services |
 | 🧩 **Widget Tests** | UI components and layouts |
 | 🧪 **Supabase Mock Tests** | Use mocks for secure backend logic testing |
-
+</p>
 
 
 
