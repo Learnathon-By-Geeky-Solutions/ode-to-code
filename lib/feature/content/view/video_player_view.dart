@@ -45,7 +45,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
   }
 
   void _loadSavedNotes() async {
-    final savedNotes = await NotesStorage.loadNotes();
+    final savedNotes = await NotesStorage.loadNotes(widget.link);
     setState(() {
       _notes.addAll(savedNotes);
     });
@@ -67,7 +67,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
         _notes.add(noteText);
         _noteController.clear();
       });
-      NotesStorage.saveNotes(_notes);
+      NotesStorage.saveNotes(_notes, widget.link);
     }
   }
 
@@ -89,7 +89,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
     return YoutubePlayer(
       controller: _controller,
       showVideoProgressIndicator: true,
-      progressIndicatorColor: Colors.blueAccent,
+      progressIndicatorColor: AppColors.blueAccent,
     );
   }
 
@@ -101,12 +101,12 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
         children: [
           IconButton(
             onPressed: () => _seek(-10),
-            icon: const Icon(Icons.replay_10, size: 30, color: Colors.grey),
+            icon: const Icon(Icons.replay_10, size: 30, color: AppColors.grey),
           ),
           const SizedBox(width: 30),
           IconButton(
             onPressed: () => _seek(10),
-            icon: const Icon(Icons.forward_10, size: 30, color: Colors.grey),
+            icon: const Icon(Icons.forward_10, size: 30, color: AppColors.grey),
           ),
         ],
       ),
@@ -117,9 +117,9 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: Colors.grey[100],
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        decoration: const BoxDecoration(
+          color: AppColors.grey100,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,7 +135,8 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
                   return IconButton(
                     icon: Icon(
                       Icons.bookmark,
-                      color: isBookmarked ? Colors.green : AppColors.blackGray,
+                      color:
+                          isBookmarked ? AppColors.green : AppColors.blackGray,
                     ),
                     onPressed:
                         _saveItem, // Trigger saving when the icon is pressed
@@ -178,7 +179,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
             decoration: InputDecoration(
               hintText: 'Type your note...',
               filled: true,
-              fillColor: Colors.white,
+              fillColor: AppColors.white,
               contentPadding: const EdgeInsets.symmetric(horizontal: 12),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -202,17 +203,19 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
   }
 
   Widget _buildNoteList() {
-    return Expanded(
-      child: _notes.isEmpty
-          ? Center(child: CustomText(text: 'no_notes_yet'.tr))
-          : ListView.separated(
-              itemCount: _notes.length,
-              separatorBuilder: (_, __) => const Divider(),
-              itemBuilder: (context, index) => ListTile(
-                leading: const Icon(Icons.note),
-                title: Text(_notes[index]),
+    return SingleChildScrollView(
+      child: Expanded(
+        child: _notes.isEmpty
+            ? Center(child: CustomText(text: 'no_notes_yet'.tr))
+            : ListView.separated(
+                itemCount: _notes.length,
+                separatorBuilder: (_, __) => const Divider(),
+                itemBuilder: (context, index) => ListTile(
+                  leading: const Icon(Icons.note),
+                  title: Text(_notes[index]),
+                ),
               ),
-            ),
+      ),
     );
   }
 

@@ -29,7 +29,7 @@ class ProfileStateBuilder extends StatelessWidget {
     return Center(
       child: CustomText(
         text: 'no_content_available'.tr,
-        color: Colors.grey,
+        color: AppColors.grey,
         fontSize: 16,
       ),
     );

@@ -15,7 +15,7 @@ class AllCategories extends StatelessWidget {
           return const Center(
             child: Text(
               'No categories available',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: AppColors.grey),
             ),
           );
         }

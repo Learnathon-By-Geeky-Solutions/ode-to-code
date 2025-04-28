@@ -58,7 +58,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         fontWeight: FontWeight.bold,
                         onPressed: () => _handleReset(controller),
                         backgroundColor: AppColors.themeColor,
-                        textColor: Colors.white,
+                        textColor: AppColors.white,
                         icon: Icons.refresh,
                         buttonType: ButtonType.elevated,
                       ),

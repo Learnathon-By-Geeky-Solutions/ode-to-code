@@ -11,7 +11,7 @@ class SnackBarUtil {
           _buildBottomSheet(
               title, message.tr, AppColors.green, Icons.check_circle),
           isScrollControlled: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
           elevation: 0,
         );
       }
@@ -24,7 +24,7 @@ class SnackBarUtil {
         Get.bottomSheet(
           _buildBottomSheet(title, message, AppColors.red, Icons.error),
           isScrollControlled: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: AppColors.transparent,
           elevation: 0,
         );
       }
@@ -40,7 +40,7 @@ class SnackBarUtil {
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
+            color: AppColors.black12,
             blurRadius: 10,
             spreadRadius: 2,
           ),

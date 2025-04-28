@@ -78,7 +78,6 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-
   flutter_inappwebview: any
 flutter:
 

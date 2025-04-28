@@ -57,7 +57,8 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
             return Center(
               child: CustomText(
                 text: controller.errorMessage!,
-                customStyle: const TextStyle(color: Colors.red, fontSize: 16),
+                customStyle:
+                    const TextStyle(color: AppColors.red, fontSize: 16),
               ),
             );
           }
@@ -65,7 +66,7 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
           return Center(
             child: CustomText(
               text: 'no_user_profile_found'.tr,
-              color: Colors.grey,
+              color: AppColors.grey,
               fontSize: 16,
             ),
           );

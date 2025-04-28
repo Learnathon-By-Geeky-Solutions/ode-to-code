@@ -277,27 +277,29 @@ lib/
 | 📦 **Storage** | Upload & access videos, notes, documents |
 | 🗄️ **Database** | Full CRUD: Notes, MCQs, Progress tracking |
 | 💻 **Dart Examples** | Code snippets with `http` and `supabase_flutter` |
+---
+# Installation and Usage Guide
+
+**1. Setup Environment Variables:**
+- After cloning the project, create a `.env` file in the root directory.
+- **Download the required `.env` file** and any other setup files from the following link:  
+  👉 [Download Setup Files](https://drive.google.com/drive/folders/17GLhAp7e9NpTLbQa77OyML4bv1VJVOmf?usp=drive_link)
+- Place the downloaded `.env` file in the project root.
+- You will also get the apk file in the drive
+
+**2. App Modes:**  
+This app supports two modes:
+- **Admin Side:** For managing content, users, and settings.
+- **User Side:** For regular users accessing the platform features.
+
+**3. Access Instructions:**
+- To use **admin functionalities**, **log in using an admin email** (provided separately or set up in your backend).
+- To use the **user side**, **sign up** with a new account and enjoy the app.
+
+---
 
 
-## 💻 **Development Guidelines**  
-
-| 🔧 Topic | ✅ Best Practices |
-|---------|------------------|
-| 📐 **Architecture** | MVVM: `/lib/view`, `/lib/viewmodel`, `/lib/model` |
-| 🧠 **State Management** | GetX (minimal, reactive) |
-| 🛡️ **Security & Clean Code** | Follow Supabase + Flutter safety standards |
-
-
-## 🧪 **Testing Strategy**
-
-| 🧪 Test Type | 🔍 Description |
-|-------------|----------------|
-| 🧠 **Unit Tests** | Validates ViewModel logic & services |
-| 🧩 **Widget Tests** | UI components and layouts |
-| 🧪 **Supabase Mock Tests** | Use mocks for secure backend logic testing |
-</p>
-
-
+---
 
 </td>
 </tr>

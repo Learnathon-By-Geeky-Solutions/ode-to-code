@@ -89,7 +89,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             fontWeight: FontWeight.bold,
             onPressed: () => _updatePassword(controller),
             backgroundColor: AppColors.themeColor,
-            textColor: Colors.white,
+            textColor: AppColors.white,
             icon: Icons.lock_reset,
             buttonType: ButtonType.elevated,
           ),

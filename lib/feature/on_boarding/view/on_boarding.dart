@@ -46,11 +46,11 @@ class OnBoarding extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               backgroundColor: AppColors.themeColor,
-                              foregroundColor: Colors.white,
+                              foregroundColor: AppColors.white,
                             ),
                             child: CustomText(
                               text: 'get_started'.tr,
-                              color: Colors.white,
+                              color: AppColors.white,
                             ),
                           )
                         : GestureDetector(

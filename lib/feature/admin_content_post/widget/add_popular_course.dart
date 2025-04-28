@@ -35,7 +35,7 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
       text: text,
       fontWeight: FontWeight.bold,
       fontSize: fontSize,
-      color: color ?? Colors.black,
+      color: color ?? AppColors.black,
     );
   }
 
@@ -59,7 +59,7 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
                     topLeft: Radius.circular(24),
                     topRight: Radius.circular(24),
                   ),
-                  color: Colors.black,
+                  color: AppColors.black,
                 ),
                 child: const Icon(Icons.add, color: AppColors.white, size: 40),
               ),

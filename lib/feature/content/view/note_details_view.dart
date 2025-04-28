@@ -77,7 +77,7 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
           return IconButton(
             icon: Icon(
               Icons.bookmark,
-              color: isBookmarked ? Colors.green : AppColors.blackGray,
+              color: isBookmarked ? AppColors.green : AppColors.blackGray,
             ),
             onPressed: _saveItem,
           );
@@ -109,7 +109,7 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Colors.teal,
+              color: AppColors.teal,
             ),
           ),
           const SizedBox(height: 10),
@@ -118,7 +118,7 @@ class NoteDetailsViewState extends State<NoteDetailsView> {
             style: const TextStyle(
               fontSize: 15,
               height: 1.5,
-              color: Colors.black87,
+              color: AppColors.black87,
             ),
           ),
         ],

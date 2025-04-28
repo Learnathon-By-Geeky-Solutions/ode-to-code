@@ -27,7 +27,7 @@ class CustomScaffoldHome extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
           child: AppBar(
             backgroundColor: AppColors.bg,
-            elevation: 0,
+            surfaceTintColor: AppColors.bg,
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
