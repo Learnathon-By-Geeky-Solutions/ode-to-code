@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/export.dart';
+import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
 
 class ReusableContentView extends StatefulWidget {
   final String title;
@@ -35,7 +36,9 @@ class ReusableContentView extends StatefulWidget {
 
 class _ReusableContentViewState extends State<ReusableContentView> {
   late final UserSavedItemController _savedItemController;
-  final isAdmin = Get.find<UserProfileController>().isAdmin;
+  late bool isAdmin = false;
+  final UserProfileController userController =
+      Get.find<UserProfileController>();
 
   @override
   void initState() {
@@ -43,6 +46,11 @@ class _ReusableContentViewState extends State<ReusableContentView> {
     _savedItemController = Get.find<UserSavedItemController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.fetchContents(widget.id);
+    });
+    UserProfileUtils.fetchProfileData(userController).then((_) {
+      setState(() {
+        isAdmin = userController.isAdmin;
+      });
     });
   }
 

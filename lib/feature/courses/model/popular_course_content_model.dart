@@ -22,8 +22,8 @@ class PopularCourseContentModel {
       'courses_id': coursesId,
       'number': number,
       'title': title,
-      'link': link, // Link can now be null
-      'note': note, // Include note in the map
+      'link': link,
+      'note': note,
     };
   }
 
@@ -33,8 +33,8 @@ class PopularCourseContentModel {
       coursesId: map['courses_id']?.toString() ?? '',
       number: map['number']?.toString() ?? '',
       title: map['title']?.toString() ?? '',
-      link: map['link']?.toString(), // Link can be null
-      note: map['note']?.toString(), // Note can be null
+      link: map['link']?.toString(),
+      note: map['note']?.toString(),
       createdAt: map['created_at']?.toString(),
     );
   }
