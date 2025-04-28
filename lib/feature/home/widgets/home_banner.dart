@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/utils/web_view.dart';
 
 class HomeBanner extends StatefulWidget {
   const HomeBanner({super.key});
@@ -48,24 +49,29 @@ class HomeBannerState extends State<HomeBanner> {
               items: controller.banners.map((banner) {
                 return Builder(
                   builder: (BuildContext context) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        color: AppColors.themeColor,
-                        borderRadius: BorderRadius.circular(22),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(22),
-                        child: CachedNetworkImage(
-                          imageUrl: banner.imageLink,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.image_not_supported,
-                            size: 60,
+                    return InkWell(
+                      onTap: () {
+                        Get.to(() => WebView(link: banner.details));
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          color: AppColors.themeColor,
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(22),
+                          child: CachedNetworkImage(
+                            imageUrl: banner.imageLink,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.image_not_supported,
+                              size: 60,
+                            ),
                           ),
                         ),
                       ),

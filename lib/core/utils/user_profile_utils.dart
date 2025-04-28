@@ -14,4 +14,11 @@ class UserProfileUtils {
       SnackBarUtil.showError("User is not logged in.", "");
     }
   }
+
+  static Future<bool> ensureIsAdmin(UserProfileController controller) async {
+    if (controller.userProfile == null) {
+      await fetchProfileData(controller);
+    }
+    return controller.isAdmin;
+  }
 }

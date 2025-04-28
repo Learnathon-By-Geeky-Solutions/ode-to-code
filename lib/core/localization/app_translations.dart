@@ -109,6 +109,12 @@ class AppTranslations extends Translations {
           'notification': 'Notification',
           'help_center': 'Help Center',
           'invite_friends': 'Invite Friends',
+          'sign_out': 'Sign Out',
+          'saved_items': 'Saved Items',
+          'post_content': 'Post Content',
+          'not_a_penny': 'Not a penny',
+          'add_content': 'Add Content',
+          'subjects': 'Subjects',
 
           // Other translations...
           'saved_item': 'Saved Item',
@@ -119,6 +125,9 @@ class AppTranslations extends Translations {
           'login_to_continue': 'শেখা চালিয়ে যেতে আপনার অ্যাকাউন্টে লগইন করুন',
           'password': 'পাসওয়ার্ড',
           'signUp': 'সাইন আপ',
+          'sign_out': 'সাইন আউট',
+          'saved_items': 'সংরক্ষিত আইটেমসমূহ',
+          'subjects': 'বিষয়সমূহ',
 
           //reset password
           "back_to_sign_in": "সাইন ইন পেজে ফিরে যান",
@@ -221,6 +230,9 @@ class AppTranslations extends Translations {
           'notification': 'নোটিফিকেশন',
           'help_center': 'সাহায্য কেন্দ্র',
           'invite_friends': 'বন্ধুদের আমন্ত্রণ জানান',
+          'post_content': 'কনটেন্ট পোস্ট করুন',
+          'not_a_penny': 'এক পয়সাও নয়',
+          'add_content': 'কনটেন্ট যোগ করুন',
         },
       };
 }

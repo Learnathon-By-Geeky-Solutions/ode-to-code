@@ -2,14 +2,14 @@ import 'package:edu_bridge_app/core/resources/export.dart';
 import 'package:flutter/foundation.dart';
 
 class SnackBarUtil {
-  static bool isTestMode = false; // Flag to determine if we're in test mode
+  static bool isTestMode = false;
 
   static void showSuccess(String title, String message) {
     if (kIsWeb || !isTesting()) {
       if (!isTestMode) {
         Get.bottomSheet(
           _buildBottomSheet(
-              title, message, AppColors.green, Icons.check_circle),
+              title, message.tr, AppColors.green, Icons.check_circle),
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -58,18 +58,18 @@ class SnackBarUtil {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
+                  CustomText(
+                    text: title.tr,
+                    customStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: AppColors.white,
                       fontSize: 16,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    message,
-                    style: const TextStyle(
+                  CustomText(
+                    text: message.tr,
+                    customStyle: const TextStyle(
                       color: AppColors.white,
                       fontSize: 14,
                     ),

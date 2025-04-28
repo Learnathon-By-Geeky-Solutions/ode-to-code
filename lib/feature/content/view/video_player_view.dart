@@ -1,16 +1,17 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/services/notes_storage.dart';
 import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
 
-class YouTubePlayerView extends StatefulWidget {
-  const YouTubePlayerView({super.key, required this.link, required this.title});
+class VideoPlayerView extends StatefulWidget {
+  const VideoPlayerView({super.key, required this.link, required this.title});
   final String link;
   final String title;
 
   @override
-  State<YouTubePlayerView> createState() => _YouTubePlayerViewState();
+  State<VideoPlayerView> createState() => _VideoPlayerViewState();
 }
 
-class _YouTubePlayerViewState extends State<YouTubePlayerView> {
+class _VideoPlayerViewState extends State<VideoPlayerView> {
   late YoutubePlayerController _controller;
   final List<String> _notes = [];
   final TextEditingController _noteController = TextEditingController();
@@ -19,15 +20,15 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
   final UserSavedItemController _userSavedItemController = Get.find();
   String? userId;
 
-
   @override
   void initState() {
     super.initState();
-    // Fetch user profile data when the view initializes
+
+    _loadSavedNotes();
+
     UserProfileUtils.fetchProfileData(_userProfileController).then((_) {
       setState(() {
-        // Assuming _userProfileController has the userId after fetching profile
-        userId = _userProfileController.userProfile?.id; // Make sure this is correct based on your profile model
+        userId = _userProfileController.userProfile?.id;
       });
     });
 
@@ -43,6 +44,12 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
     );
   }
 
+  void _loadSavedNotes() async {
+    final savedNotes = await NotesStorage.loadNotes();
+    setState(() {
+      _notes.addAll(savedNotes);
+    });
+  }
 
   void _seek(int seconds) {
     final currentPosition = _controller.value.position;
@@ -60,6 +67,7 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
         _notes.add(noteText);
         _noteController.clear();
       });
+      NotesStorage.saveNotes(_notes);
     }
   }
 
@@ -129,7 +137,8 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
                       Icons.bookmark,
                       color: isBookmarked ? Colors.green : AppColors.blackGray,
                     ),
-                    onPressed: _saveItem, // Trigger saving when the icon is pressed
+                    onPressed:
+                        _saveItem, // Trigger saving when the icon is pressed
                   );
                 }),
               ],
@@ -143,18 +152,15 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
       ),
     );
   }
+
   void _saveItem() async {
     if (userId == null) {
       SnackBarUtil.showError("Error", "User profile not found.");
       return;
     }
 
-    final isSuccess = await _userSavedItemController.addSavedItem(
-      userId!,
-      "link",
-      widget.title,
-      link: widget.link
-    );
+    final isSuccess = await _userSavedItemController
+        .addSavedItem(userId!, "link", widget.title, link: widget.link);
 
     if (isSuccess) {
       setState(() {
@@ -162,6 +168,7 @@ class _YouTubePlayerViewState extends State<YouTubePlayerView> {
       });
     }
   }
+
   Widget _buildNoteInput() {
     return Row(
       children: [

@@ -1,4 +1,5 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/utils/user_profile_utils.dart';
 
 class ClassView extends StatefulWidget {
   const ClassView({
@@ -16,22 +17,33 @@ class ClassView extends StatefulWidget {
 
 class _ClassViewState extends State<ClassView> {
   final ClassController _controller = Get.find();
+  late bool isAdmin = false;
+  final UserProfileController userController =
+      Get.find<UserProfileController>();
 
   @override
   void initState() {
     super.initState();
     _controller.fetchClasses(widget.categoryId);
+    UserProfileUtils.fetchProfileData(userController).then((_) {
+      setState(() {
+        isAdmin = userController.isAdmin;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       name: widget.className,
-      floatingActionButton: OutlinedButton(
-        onPressed: () =>
-            Get.dialog(AddClassDialog(categoryId: widget.categoryId)),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: isAdmin
+          ? OutlinedButton(
+              onPressed: () => Get.dialog(
+                AddClassDialog(categoryId: widget.categoryId),
+              ),
+              child: const Icon(Icons.add),
+            )
+          : null,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GetBuilder<ClassController>(
@@ -39,8 +51,7 @@ class _ClassViewState extends State<ClassView> {
             if (controller.inProgress) {
               return const Center(child: CircularProgressIndicator());
             } else if (controller.classes.isEmpty) {
-              return Center(
-                  child: CustomText(text: 'no_content_availableeee'.tr));
+              return Center(child: CustomText(text: 'no_content_available'.tr));
             } else {
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

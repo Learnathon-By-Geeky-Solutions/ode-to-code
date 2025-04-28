@@ -6,15 +6,12 @@ class PopularCourses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Fetch the popular courses when the view is built
     Get.find<PopularCourseController>().fetchPopularCourses();
-
     return SizedBox(
       height: 32.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header with "Popular Courses" and "See All"
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
@@ -40,8 +37,6 @@ class PopularCourses extends StatelessWidget {
             ),
           ),
           SizedBox(height: 1.h),
-
-          // Popular Courses List
           Expanded(
             child: GetBuilder<PopularCourseController>(
               builder: (controller) {
@@ -51,7 +46,6 @@ class PopularCourses extends StatelessWidget {
                 if (controller.errorMessage != null) {
                   return Center(child: Text(controller.errorMessage!));
                 }
-
                 return ListView.builder(
                   itemCount: controller.popularCourses.length,
                   scrollDirection: Axis.horizontal,
@@ -122,21 +116,12 @@ class PopularCourses extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Course Type and Bookmark Icon
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomText(
-                        text: course.type,
-                        color: AppColors.orange,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      const Icon(Icons.bookmark_border),
-                    ],
+                  CustomText(
+                    text: course.type,
+                    color: AppColors.orange,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
-
-                  // Course Title
                   CustomText(
                     text: course.title,
                     fontSize: 16,
@@ -148,7 +133,7 @@ class PopularCourses extends StatelessWidget {
                     children: [
                       Flexible(
                         child: CustomText(
-                          text: "${'price'.tr} : Not A Penny 🍦",
+                          text: "${'price'.tr} : ${'not_a_penny'.tr} 🍦",
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: AppColors.themeColor,
