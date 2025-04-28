@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 
 class IntroView1 extends StatelessWidget {
   const IntroView1({super.key});

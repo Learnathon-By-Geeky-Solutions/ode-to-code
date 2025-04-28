@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/user_app.dart';
+import 'package:edu_bridge_app/main/user_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});
@@ -48,7 +48,10 @@ class OnBoarding extends StatelessWidget {
                               backgroundColor: AppColors.themeColor,
                               foregroundColor: Colors.white,
                             ),
-                            child: CustomText(text: 'get_started'.tr,color: Colors.white,),
+                            child: CustomText(
+                              text: 'get_started'.tr,
+                              color: Colors.white,
+                            ),
                           )
                         : GestureDetector(
                             onTap: controller.nextPage,

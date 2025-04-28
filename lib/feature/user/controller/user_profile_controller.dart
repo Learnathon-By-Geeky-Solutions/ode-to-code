@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 import 'package:edu_bridge_app/feature/user/repo/i_user_profile_repository.dart';
 
 class UserProfileController extends GetxController {

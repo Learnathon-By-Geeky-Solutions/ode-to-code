@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart'; // Assuming this imports the necessary components.
+import 'package:edu_bridge_app/core/export.dart'; // Assuming this imports the necessary components.
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

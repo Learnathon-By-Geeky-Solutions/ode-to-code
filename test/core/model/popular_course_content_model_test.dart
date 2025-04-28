@@ -1,4 +1,4 @@
-import 'package:edu_bridge_app/core/resources/export.dart';
+import 'package:edu_bridge_app/core/export.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
