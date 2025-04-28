@@ -265,8 +265,8 @@ lib/
 
 
 ## 🗃️ **Database Design**  
+![Untitled](https://github.com/user-attachments/assets/1a3610e3-c209-4e9a-b6af-8ccf6d26fa9f)
 
-![Supabase Schema](https://github.com/user-attachments/assets/7062c197-3366-409a-8f14-eaf8de769ea8)
 
 <p align="center">
 
