@@ -20,7 +20,6 @@ class AddBannerDialog extends StatelessWidget {
             ),
           ),
           actions: [
-            // Add button
             TextButton(
               onPressed: () async {
                 final title = bannerTitleController.text.trim();
