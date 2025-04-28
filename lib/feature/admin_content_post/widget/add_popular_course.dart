@@ -21,7 +21,6 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
     );
   }
 
-  // A helper method to create InkWell widgets.
   Widget _buildInkWell(Widget Function() childWidget) {
     return InkWell(
       onTap: () {
@@ -31,7 +30,6 @@ class _AddPopularCourseState extends State<AddPopularCourse> {
     );
   }
 
-  // Reusable method for creating CustomText widgets
   Widget _buildCustomText(String text, {Color? color, double fontSize = 18}) {
     return CustomText(
       text: text,

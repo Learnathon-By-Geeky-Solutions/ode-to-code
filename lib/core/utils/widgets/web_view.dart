@@ -10,12 +10,32 @@ class WebView extends StatefulWidget {
 
 class _WebViewState extends State<WebView> {
   late WebViewController controller;
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (String url) {
+            setState(() {
+              isLoading = true;
+            });
+          },
+          onPageFinished: (String url) {
+            setState(() {
+              isLoading = false;
+            });
+          },
+          onWebResourceError: (WebResourceError error) {
+            setState(() {
+              isLoading = false;
+            });
+          },
+        ),
+      )
       ..loadRequest(Uri.parse(widget.link));
   }
 
@@ -23,7 +43,15 @@ class _WebViewState extends State<WebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: WebViewWidget(controller: controller),
+        child: Stack(
+          children: [
+            WebViewWidget(controller: controller),
+            if (isLoading)
+              const Center(
+                child: CircularProgressIndicator(), // 👈 Show loader
+              ),
+          ],
+        ),
       ),
     );
   }
