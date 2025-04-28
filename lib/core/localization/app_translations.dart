@@ -115,6 +115,7 @@ class AppTranslations extends Translations {
           'not_a_penny': 'Not a penny',
           'add_content': 'Add Content',
           'subjects': 'Subjects',
+          'enter_subject_name': 'Enter Subject Name',
 
           // Other translations...
           'saved_item': 'Saved Item',
@@ -233,6 +234,8 @@ class AppTranslations extends Translations {
           'post_content': 'কনটেন্ট পোস্ট করুন',
           'not_a_penny': 'এক পয়সাও নয়',
           'add_content': 'কনটেন্ট যোগ করুন',
+
+          'enter_subject_name': 'বিষয়ের নাম লিখুন',
         },
       };
 }

@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/resources/export.dart';
-import 'package:edu_bridge_app/core/utils/web_view.dart';
 
 class HomeBanner extends StatefulWidget {
   const HomeBanner({super.key});
