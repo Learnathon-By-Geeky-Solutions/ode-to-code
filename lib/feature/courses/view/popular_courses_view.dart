@@ -122,7 +122,7 @@ class PopularCoursesView extends StatelessWidget {
                     Row(
                       children: [
                         CustomText(
-                          text: "${'price'.tr} : Not A Penny 🍦",
+                          text: "${'price'.tr} : ${'not_a_penny'.tr} 🍦",
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
                           color: AppColors.themeColor,

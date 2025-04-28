@@ -36,7 +36,7 @@ class _UserSavedItemViewState extends State<UserSavedItemView> {
 
   @override
   Widget build(BuildContext context) {
-    return userId == null // Show a loading indicator until userId is fetched
+    return userId == null
         ? const Center(child: CircularProgressIndicator())
         : GetBuilder<UserSavedItemController>(
             init: UserSavedItemController(
@@ -45,7 +45,7 @@ class _UserSavedItemViewState extends State<UserSavedItemView> {
             ),
             builder: (controller) {
               return ReusableContentView(
-                title: "Saved Items",
+                title: "saved_items".tr,
                 id: userId!,
                 fetchContents: controller.fetchSavedItems,
                 getContents: () => controller.savedItems,
@@ -60,6 +60,5 @@ class _UserSavedItemViewState extends State<UserSavedItemView> {
   @override
   void dispose() {
     super.dispose();
-    // Optional: Clean up any controllers or subscriptions to prevent memory leaks
   }
 }

@@ -40,6 +40,7 @@ export 'package:edu_bridge_app/core/utils/reusable_content_view.dart';
 export 'package:edu_bridge_app/core/utils/snackbar_util.dart';
 export 'package:edu_bridge_app/core/utils/theme_switch.dart';
 export 'package:edu_bridge_app/core/utils/validators.dart';
+export 'package:edu_bridge_app/core/utils/web_view.dart';
 // Admin Content Post Widgets
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_offer_slider.dart';
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_popular_course.dart';
@@ -80,7 +81,7 @@ export 'package:edu_bridge_app/feature/content/repo/content_repository.dart';
 export 'package:edu_bridge_app/feature/content/repo/i_content_repository.dart';
 export 'package:edu_bridge_app/feature/content/view/content_view.dart';
 export 'package:edu_bridge_app/feature/content/view/note_details_view.dart';
-export 'package:edu_bridge_app/feature/content/view/youtube_view.dart';
+export 'package:edu_bridge_app/feature/content/view/video_player_view.dart';
 export 'package:edu_bridge_app/feature/content/widgets/add_content_view.dart';
 export 'package:edu_bridge_app/feature/content/widgets/content_card.dart';
 export 'package:edu_bridge_app/feature/courses/controller/popular_course_content_controller.dart';

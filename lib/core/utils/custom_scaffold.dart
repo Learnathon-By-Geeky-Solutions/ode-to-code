@@ -32,18 +32,15 @@ class CustomScaffold extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    return InkWell(
-      onTap: () => Get.to(() => const UserProfileView()),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomText(
-            text: name ?? 'welcome'.tr,
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomText(
+          text: name ?? 'welcome'.tr,
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+        ),
+      ],
     );
   }
 }

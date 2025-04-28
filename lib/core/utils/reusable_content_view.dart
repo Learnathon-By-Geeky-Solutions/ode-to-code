@@ -35,6 +35,7 @@ class ReusableContentView extends StatefulWidget {
 
 class _ReusableContentViewState extends State<ReusableContentView> {
   late final UserSavedItemController _savedItemController;
+  final isAdmin = Get.find<UserProfileController>().isAdmin;
 
   @override
   void initState() {
@@ -53,8 +54,9 @@ class _ReusableContentViewState extends State<ReusableContentView> {
     return CustomScaffold(
       name: widget.title,
       body: isLoading ? _buildLoadingView() : _buildContentView(contents),
-      floatingActionButton:
-          _shouldShowFAB(contents) ? _buildFloatingActionButton() : null,
+      floatingActionButton: _shouldShowFAB(contents) && isAdmin
+          ? _buildFloatingActionButton()
+          : null,
     );
   }
 
@@ -108,7 +110,7 @@ class _ReusableContentViewState extends State<ReusableContentView> {
 
   void _handleContentTap(String link, String title, String note) {
     if (link.isNotEmpty) {
-      Get.to(() => YouTubePlayerView(link: link, title: title));
+      Get.to(() => VideoPlayerView(link: link, title: title));
     } else {
       Get.to(() => NoteDetailsView(title: title, note: note));
     }

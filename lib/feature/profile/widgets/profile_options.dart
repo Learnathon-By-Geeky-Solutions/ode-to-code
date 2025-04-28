@@ -12,8 +12,22 @@ List<Widget> buildProfileOptions(BuildContext context) {
       "icon": Icons.person,
       "onTap": () => Get.to(() => const AboutUser())
     },
-    {"title": 'help_center'.tr, "icon": Icons.help, "onTap": () {}},
-    {"title": 'invite_friends'.tr, "icon": Icons.group_add, "onTap": () {}},
+    {
+      "title": 'help_center'.tr,
+      "icon": Icons.help,
+      "onTap": () {
+        Get.to(() => const WebView(link: "https://github.com/mishad01"));
+      }
+    },
+    {
+      "title": 'invite_friends'.tr,
+      "icon": Icons.group_add,
+      "onTap": () {
+        Get.to(() => const WebView(
+            link:
+                "https://github.com/Learnathon-By-Geeky-Solutions/ode-to-code/blob/main/README.md"));
+      }
+    },
     {
       "title": 'settings'.tr,
       "icon": Icons.settings,
