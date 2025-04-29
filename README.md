@@ -285,7 +285,7 @@ lib/
 
 - After cloning the project, **create a `.env` file** in the root directory.
 - Download the required `.env` file and any other setup files from the following link:  
-  👉 **[Download Setup Files](#)**
+  👉 **[Download Setup Files](https://drive.google.com/drive/folders/17GLhAp7e9NpTLbQa77OyML4bv1VJVOmf?usp=drive_link)**
 - Place the downloaded `.env` file inside the **root** of the project folder.
 - **Note:** You will also find the **APK file** in the drive link if you want to install directly.
 
