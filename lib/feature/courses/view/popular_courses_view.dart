@@ -110,7 +110,7 @@ class PopularCoursesView extends StatelessWidget {
                         ),
                         const Icon(
                           Icons.bookmark_add,
-                          color: Colors.green,
+                          color: AppColors.green,
                         ),
                       ],
                     ),

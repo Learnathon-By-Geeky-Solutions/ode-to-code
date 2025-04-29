@@ -24,10 +24,11 @@ class CustomScaffoldHome extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
         child: Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 16.0),
           child: AppBar(
+            toolbarHeight: 100,
             backgroundColor: AppColors.bg,
-            elevation: 0,
+            surfaceTintColor: AppColors.bg,
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38,7 +39,7 @@ class CustomScaffoldHome extends StatelessWidget {
                 ),
                 CustomText(
                   text: 'search_prompt'.tr,
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: AppColors.blackGray,
                 ),

@@ -29,7 +29,7 @@ void main() {
     const text2 = 'Secondary Text';
     const fontSize1 = 30.0;
     const fontSize2 = 14.0;
-    const color2 = Colors.red;
+    const color2 = AppColors.red;
 
     await tester.pumpWidget(
       const MaterialApp(

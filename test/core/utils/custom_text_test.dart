@@ -22,7 +22,7 @@ void main() {
 
       expect(style?.fontSize, 14);
       expect(style?.fontWeight, FontWeight.normal);
-      expect(style?.color, Colors.black);
+      expect(style?.color, AppColors.black);
     });
 
     testWidgets('applies custom style if provided',
@@ -31,7 +31,7 @@ void main() {
       const customStyle = TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Colors.red,
+        color: AppColors.red,
       );
 
       await tester.pumpWidget(
@@ -53,7 +53,7 @@ void main() {
 
       expect(style?.fontSize, 20);
       expect(style?.fontWeight, FontWeight.bold);
-      expect(style?.color, Colors.red);
+      expect(style?.color, AppColors.red);
     });
   });
 }

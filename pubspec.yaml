@@ -78,8 +78,6 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-
-  flutter_inappwebview: any
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -96,7 +94,7 @@ flutter:
    - assets/logo/categories/
    - assets/logo/school/
    - assets/logo/college/
-   - .env
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -109,7 +109,7 @@ class PopularCourses extends StatelessWidget {
                 bottomLeft: Radius.circular(24),
                 bottomRight: Radius.circular(24),
               ),
-              color: Colors.white,
+              color: AppColors.white,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),

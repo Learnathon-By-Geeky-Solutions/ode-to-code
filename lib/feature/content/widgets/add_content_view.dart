@@ -92,9 +92,9 @@ class _AddContentScreenState extends State<AddContentView>
         title: CustomText(text: 'add_content'.tr),
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.black,
-          indicatorColor: Colors.greenAccent,
-          dividerColor: Colors.grey,
+          labelColor: AppColors.black,
+          indicatorColor: AppColors.greenAccent,
+          dividerColor: AppColors.grey,
           labelStyle:
               const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           unselectedLabelStyle:
@@ -116,7 +116,7 @@ class _AddContentScreenState extends State<AddContentView>
         onPressed: _submit,
         icon: const Icon(Icons.check_circle_outline),
         label: CustomText(text: 'submit'.tr),
-        backgroundColor: Colors.teal,
+        backgroundColor: AppColors.teal,
       ),
     );
   }
@@ -175,7 +175,7 @@ class _AddContentScreenState extends State<AddContentView>
         labelText: label,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         filled: true,
-        fillColor: Colors.grey.shade50,
+        fillColor: AppColors.grey50,
       ),
     );
   }

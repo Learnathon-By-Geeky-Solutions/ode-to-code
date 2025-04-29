@@ -25,7 +25,7 @@ class ChapterGridItem extends StatelessWidget {
             customStyle: GoogleFonts.mulish(
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppColors.white,
             ),
           ),
         ),

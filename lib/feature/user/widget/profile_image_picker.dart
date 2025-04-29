@@ -24,11 +24,11 @@ class ProfileImagePicker extends StatelessWidget {
                       radius: 50,
                       backgroundImage: FileImage(controller.profileImage!),
                     )
-                  : CircleAvatar(
+                  : const CircleAvatar(
                       radius: 50,
-                      backgroundColor: Colors.grey.shade300,
-                      child: const Icon(Icons.person,
-                          size: 95, color: Colors.white),
+                      backgroundColor: AppColors.grey300,
+                      child: Icon(Icons.person,
+                          size: 95, color: AppColors.white),
                     ),
             ],
           ),

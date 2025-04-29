@@ -27,6 +27,17 @@ class AppColors {
   static const Color onSurface = blackGray;
   static const Color greenAccent = Colors.greenAccent;
 
+  // New colors added
+  static const Color transparent = Colors.transparent;
+  static const Color grey100 = Color(0xFFF5F5F5);
+  static const Color blueAccent = Colors.blueAccent;
+  static const Color black12 = Colors.black12;
+  static const Color black = Colors.black;
+  static const Color teal = Colors.teal;
+  static const Color black87 = Colors.black87;
+  static const Color grey50 = Color(0xFFFAFAFA);
+  static const Color grey300 = Color(0xFFE0E0E0);
+
   // For dark theme
   static const Color darkPrimary = Color(0xff1565C0);
   static const Color darkSecondary = Color(0xffFF8F00);

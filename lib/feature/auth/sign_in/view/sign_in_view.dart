@@ -37,7 +37,7 @@ class _SignInViewState extends State<SignInView> {
                 const CenteredAppLogo(),
                 CustomHeaderText(
                   text1: "lets_sign_in".tr,
-                  text2: "login_to_continue".tr, // Add key in localization
+                  text2: "login_to_continue".tr,
                 ),
                 VerticalSpacing(3.h),
                 CustomTextFormField(
@@ -65,7 +65,7 @@ class _SignInViewState extends State<SignInView> {
                       fontWeight: FontWeight.bold,
                       onPressed: () => _handleSignIn(controller),
                       backgroundColor: AppColors.themeColor,
-                      textColor: Colors.white,
+                      textColor: AppColors.white,
                       icon: Icons.arrow_forward,
                       buttonType: ButtonType.elevated,
                     ),

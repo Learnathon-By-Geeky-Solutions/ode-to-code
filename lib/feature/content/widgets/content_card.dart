@@ -30,11 +30,11 @@ class ContentCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: const [
             BoxShadow(
-              color: Colors.black12,
+              color: AppColors.black12,
               blurRadius: 4,
               offset: Offset(0, 2),
             ),
@@ -89,7 +89,7 @@ class ContentCard extends StatelessWidget {
                     onTap: onDelete,
                     child: const Icon(
                       Icons.delete,
-                      color: Colors.red,
+                      color: AppColors.red,
                       size: 24,
                     ),
                   ),

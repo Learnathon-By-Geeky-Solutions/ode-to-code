@@ -91,8 +91,9 @@ class HomeBannerState extends State<HomeBanner> {
                       vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color:
-                        _current == index ? AppColors.themeColor : Colors.grey,
+                    color: _current == index
+                        ? AppColors.themeColor
+                        : AppColors.grey,
                   ),
                 );
               }).toList(),
