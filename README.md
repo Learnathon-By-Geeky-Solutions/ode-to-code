@@ -2,8 +2,8 @@
 
 ![EduBridge Logo](https://github.com/user-attachments/assets/c811683b-575e-44d4-a31c-d9661b6c3c60)
 
-  
-# 🎓 EduBridge  
+
+# 🎓 EduBridge
 **Bridging the Education Gap Through Community Learning**
 
 ![Dart](https://img.shields.io/badge/Dart-3.0-blue?logo=dart&logoColor=white)
@@ -42,15 +42,15 @@ Education in Bangladesh is often:
 ✅ Uploading and sharing of videos, notes, and MCQs  
 ✅ Real-time feedback and localized content in Bengali  
 ✅ Donation-based rewards to recognize and support contributors  
-✅ Built using **Flutter** and **Supabase** (PostgreSQL, Auth, Storage)  
+✅ Built using **Flutter** and **Supabase** (PostgreSQL, Auth, Storage)
 
 ## 🌍 Vision: The Bigger Picture
 
 *** "When students teach, they don’t just learn better — they uplift entire communities."
 
-- Over 60% of students in Bangladesh lack access to quality academic support  
-- Smartphones are widespread — EduBridge transforms them into learning tools  
-- Focused not just on academics but also on soft skills and future readiness  
+- Over 60% of students in Bangladesh lack access to quality academic support
+- Smartphones are widespread — EduBridge transforms them into learning tools
+- Focused not just on academics but also on soft skills and future readiness
 
 
 ## 💡Key Features
@@ -78,18 +78,18 @@ Education in Bangladesh is often:
 <details>
 <summary><h2>📋 Table of Contents</h2></summary>
 
-1. 👥 [Team Members](#-team-members)  
-2. 🚀 [Project Overview](#-project-overview)  
-3. 🎯 [Key Goals](#-key-goals)  
-4. 🌟 [Why This Matters](#-why-this-matters)  
-5. 🔧 [Technical Alignment](#-technical-alignment)  
-6. 🏗️ [Project Structure: MVVM Architecture with Repository Pattern](#-project-structure-mvvm-architecture-with-repository-pattern)  
-7. 🗃️ [Database Design](#-database-design)  
-8. 🌐 [API Documentation](#-api-documentation)  
-9. 💻 [Development Guidelines](#-development-guidelines)  
-10. 🧪 [Testing](#-testing)  
-11. 📚 [Resources](#-resources)  
-12. 🤝 [Contributing](#-contributing)  
+1. 👥 [Team Members](#-team-members)
+2. 🚀 [Project Overview](#-project-overview)
+3. 🎯 [Key Goals](#-key-goals)
+4. 🌟 [Why This Matters](#-why-this-matters)
+5. 🔧 [Technical Alignment](#-technical-alignment)
+6. 🏗️ [Project Structure: MVVM Architecture with Repository Pattern](#-project-structure-mvvm-architecture-with-repository-pattern)
+7. 🗃️ [Database Design](#-database-design)
+8. 🌐 [API Documentation](#-api-documentation)
+9. 💻 [Development Guidelines](#-development-guidelines)
+10. 🧪 [Testing](#-testing)
+11. 📚 [Resources](#-resources)
+12. 🤝 [Contributing](#-contributing)
 
 </details>
 
@@ -131,12 +131,13 @@ Here's the updated **Technical Alignment** based on your **new project structure
 
 [![Figma](https://img.shields.io/badge/Figma-UI_Designs-blueviolet?logo=figma&logoColor=white)](https://www.figma.com/proto/e4OYzhQK75LW0kQBk9j5XL/EDU-BRIDGE?node-id=0-1&t=14BMsrBnyiJX5mql-1)  [![Supabase Docs](https://img.shields.io/badge/Supabase-Documentation-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/docs) [![Flutter MVVM](https://img.shields.io/badge/Flutter-MVVM_Tutorials-blue?logo=flutter&logoColor=white)](https://resocoder.com/flutter-clean-architecture-tdd/)
 
-![image](https://github.com/user-attachments/assets/32e52ca1-84b1-4111-bef3-c3bf9a4b90bb)
+![Screenshot 2025-04-29 164258](https://github.com/user-attachments/assets/9b0cf05f-afc8-44c6-921c-2b1395e5e545)
+
 
 
 </div>
 
-## 🏗️ **Project Structure: Feature-Based Clean Architecture with Repository Pattern**  
+## 🏗️ **Project Structure: Feature-Based Clean Architecture with Repository Pattern**
 ```
 lib/
 ├── core/                     
@@ -234,16 +235,16 @@ lib/
 
 - **`features/`** →  
   Organized by domain features. Each feature (e.g., Auth, Category, Class, Subject, Chapter, Content) contains its own:
-    - `controllers/` → Handles state management (using GetX).
-    - `models/` → Defines data models specific to that feature.
-    - `screens/` → Contains the UI screens and views for the feature.
-    - `services/` → Manages API/network/database interactions (e.g., Supabase services).
+  - `controllers/` → Handles state management (using GetX).
+  - `models/` → Defines data models specific to that feature.
+  - `screens/` → Contains the UI screens and views for the feature.
+  - `services/` → Manages API/network/database interactions (e.g., Supabase services).
 
 - **`core/`** →  
   Common app-wide utilities and services:
-    - `network/` → HTTP and Supabase interaction layers.
-    - `theme/` → Colors, typography, and app-wide theming constants.
-    - `utils/` → Helper functions, extensions, reusable widgets.
+  - `network/` → HTTP and Supabase interaction layers.
+  - `theme/` → Colors, typography, and app-wide theming constants.
+  - `utils/` → Helper functions, extensions, reusable widgets.
 
 - **`routes/`** →  
   Centralized navigation and route management using GetX routing.
@@ -264,13 +265,13 @@ lib/
 ---
 
 
-## 🗃️ **Database Design**  
+## 🗃️ **Database Design**
 ![Untitled](https://github.com/user-attachments/assets/1a3610e3-c209-4e9a-b6af-8ccf6d26fa9f)
 
 
 <div align="center">
 
-## 🌐 **API Documentation**  
+## 🌐 **API Documentation**
 | Category | Description |
 |----------|-------------|
 | 🔐 **Auth Endpoints** | Sign Up, Login, OAuth |
