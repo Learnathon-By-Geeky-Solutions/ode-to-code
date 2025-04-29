@@ -268,7 +268,7 @@ lib/
 ![Untitled](https://github.com/user-attachments/assets/1a3610e3-c209-4e9a-b6af-8ccf6d26fa9f)
 
 
-<p align="center">
+<div align="center">
 
 ## 🌐 **API Documentation**  
 | Category | Description |
@@ -277,30 +277,86 @@ lib/
 | 📦 **Storage** | Upload & access videos, notes, documents |
 | 🗄️ **Database** | Full CRUD: Notes, MCQs, Progress tracking |
 | 💻 **Dart Examples** | Code snippets with `http` and `supabase_flutter` |
+
+# 📱 Installation and Usage Guide
+
+### 1. Setup Environment Variables:
+
+- After cloning the project, **create a `.env` file** in the root directory.
+- Download the required `.env` file and any other setup files from the following link:  
+  👉 **[Download Setup Files](#)**
+- Place the downloaded `.env` file inside the **root** of the project folder.
+- **Note:** You will also find the **APK file** in the drive link if you want to install directly.
+
+### 2. App Modes:
+
+This app supports two usage modes:
+
+- **Admin Side:**  
+  For managing content, users, and settings.
+
+- **User Side:**  
+  For regular users accessing courses and platform features.
+
 ---
-# Installation and Usage Guide
 
-**1. Setup Environment Variables:**
-- After cloning the project, create a `.env` file in the root directory.
-- **Download the required `.env` file** and any other setup files from the following link:  
-  👉 [Download Setup Files](https://drive.google.com/drive/folders/17GLhAp7e9NpTLbQa77OyML4bv1VJVOmf?usp=drive_link)
-- Place the downloaded `.env` file in the project root.
-- You will also get the apk file in the drive
+### 3. Access Instructions:
 
-**2. App Modes:**  
-This app supports two modes:
-- **Admin Side:** For managing content, users, and settings.
-- **User Side:** For regular users accessing the platform features.
-
-**3. Access Instructions:**
-- To use **admin functionalities**, **log in using an admin email** (provided separately or set up in your backend).
-- To use the **user side**, **sign up** with a new account and enjoy the app.
+- To use **admin functionalities**, log in using an **admin email** (provided separately or set up via the backend).
+- To use the **user side**, simply **sign up** with a new account and enjoy the app features.
 
 ---
 
+### 4. Important Flutter Setup:
+
+After placing the `.env` file:
+
+✅ Make sure your `pubspec.yaml` includes `.env` under `assets`:
+
+```yaml
+flutter:
+  assets:
+    - .env
+```
+
+*(Indented properly under `flutter:` block!)*
+
+✅ Then run:
+
+```bash
+flutter pub get
+```
+
+to update your project.
+
+✅ Make sure `.env` is listed in `.gitignore` so it doesn't get pushed to GitHub:
+
+```gitignore
+.env
+```
 
 ---
 
+### 🚀 Now you can run:
+
+```bash
+flutter run
+```
+or build APK normally!
+
+---
+
+# ⚡ Summary
+
+| Step | Status |
+|:---|:---|
+| Create `.env` after cloning | ✅ |
+| Add `.env` under `assets` in `pubspec.yaml` | ✅ |
+| Do not push `.env` to GitHub (`.gitignore`) | ✅ |
+| Run `flutter pub get` after changes | ✅ |
+
+---
+</div>
 </td>
 </tr>
 </table>
