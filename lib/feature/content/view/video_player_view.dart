@@ -203,8 +203,7 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
   }
 
   Widget _buildNoteList() {
-    return SingleChildScrollView(
-      child: Expanded(
+    return  Expanded(
         child: _notes.isEmpty
             ? Center(child: CustomText(text: 'no_notes_yet'.tr))
             : ListView.separated(
@@ -215,8 +214,8 @@ class _VideoPlayerViewState extends State<VideoPlayerView> {
                   title: Text(_notes[index]),
                 ),
               ),
-      ),
-    );
+      );
+
   }
 
   @override
