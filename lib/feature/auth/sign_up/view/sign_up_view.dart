@@ -1,15 +1,13 @@
 import 'package:edu_bridge_app/core/export.dart';
-import 'package:edu_bridge_app/feature/user/widget/profile_image_picker.dart';
-import 'package:edu_bridge_app/feature/user/widget/user_profile_form.dart';
 
-class UserProfileView extends StatefulWidget {
-  const UserProfileView({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
   @override
-  State<UserProfileView> createState() => _UserProfileViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _UserProfileViewState extends State<UserProfileView> {
+class _SignUpViewState extends State<SignUpView> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -80,7 +78,9 @@ class _UserProfileViewState extends State<UserProfileView> {
 
   Future<void> _handleSignUp(UserProfileController profileController,
       SignUpController signUpController) async {
-    if (!_isFormValid(profileController)) return;
+    if (!_isFormValid(profileController))
+      return SnackBarUtil.showError(
+          "Incomplete Fields", "Fill in all fields to proceed");
 
     final isSignUpSuccessful = await signUpController.signUp(
         emailController.text, passwordController.text);
@@ -97,8 +97,6 @@ class _UserProfileViewState extends State<UserProfileView> {
 
     if (isProfileCreated) {
       _clearControllers();
-      SnackBarUtil.showSuccess(
-          "Success", "Sign-up and profile creation successful!");
     }
   }
 
@@ -113,12 +111,14 @@ class _UserProfileViewState extends State<UserProfileView> {
   }
 
   void _clearControllers() {
+    final profileController = Get.find<UserProfileController>();
     nameController.clear();
     emailController.clear();
     passwordController.clear();
     whatYouDoController.clear();
     dateOfBirthController.clear();
     genderController.clear();
+    profileController.clearProfileImage();
   }
 
   @override

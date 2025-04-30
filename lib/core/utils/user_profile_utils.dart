@@ -8,7 +8,7 @@ class UserProfileUtils {
       try {
         await controller.fetchUserProfile(email);
       } catch (e) {
-        SnackBarUtil.showError("Error fetching user profile: $e", "$e");
+        SnackBarUtil.showError("Error fetching sign_up profile: $e", "$e");
       }
     } else {
       SnackBarUtil.showError("User is not logged in.", "");
