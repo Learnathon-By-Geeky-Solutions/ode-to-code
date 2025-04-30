@@ -278,16 +278,24 @@ lib/
 | 📦 **Storage** | Upload & access videos, notes, documents |
 | 🗄️ **Database** | Full CRUD: Notes, MCQs, Progress tracking |
 | 💻 **Dart Examples** | Code snippets with `http` and `supabase_flutter` |
+</div>
 
 # 📱 Installation and Usage Guide
 
 ### 1. Setup Environment Variables:
 
-- After cloning the project, **create a `.env` file** in the root directory.
-- Download the required `.env` file and any other setup files from the following link:  
-  👉 **[Download Setup Files](https://drive.google.com/drive/folders/17GLhAp7e9NpTLbQa77OyML4bv1VJVOmf?usp=drive_link)**
-- Place the downloaded `.env` file inside the **root** of the project folder.
-- **Note:** You will also find the **APK file** in the drive link if you want to install directly.
+- **Create a `.env` File**
+   - In the **root directory** of the project, create a new file named `.env`.
+
+- **Download Environment Configuration**
+   - Download the required `env.txt` and other setup files from the following link:  
+     👉 [Download Setup Files](https://drive.google.com/drive/folders/17GLhAp7e9NpTLbQa77OyML4bv1VJVOmf?usp=drive_link)
+
+- **Copy & Paste Contents**
+   - Open the downloaded `env.txt` file.
+   - Copy all its contents and **paste them into the `.env` file** you created in the root folder.
+
+---
 
 ### 2. App Modes:
 
@@ -358,7 +366,6 @@ or build APK normally!
 | Run `flutter pub get` after changes | ✅ |
 
 ---
-</div>
 </td>
 </tr>
 </table>
