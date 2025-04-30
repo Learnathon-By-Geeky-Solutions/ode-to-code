@@ -3,7 +3,7 @@
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:usesCleartextTraffic="false"
-        android:label="edu_bridge_app"
+        android:label="Edu Bridge"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
 

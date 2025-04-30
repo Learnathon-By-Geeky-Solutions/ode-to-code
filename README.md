@@ -83,7 +83,7 @@ Education in Bangladesh is often:
 3. 🎯 [Key Goals](#-key-goals)
 4. 🌟 [Why This Matters](#-why-this-matters)
 5. 🔧 [Technical Alignment](#-technical-alignment)
-6. 🏗️ [Project Structure: MVVM Architecture with Repository Pattern](#-project-structure-mvvm-architecture-with-repository-pattern)
+6. 🏗️ [Project Structure: Feature-Based  Architecture with Repository Pattern](#-project-structure-mvvm-architecture-with-repository-pattern)
 7. 🗃️ [Database Design](#-database-design)
 8. 🌐 [API Documentation](#-api-documentation)
 9. 💻 [Development Guidelines](#-development-guidelines)
@@ -129,7 +129,7 @@ Here's the updated **Technical Alignment** based on your **new project structure
 
 ## 📚 **Learning & Resources**
 
-[![Figma](https://img.shields.io/badge/Figma-UI_Designs-blueviolet?logo=figma&logoColor=white)](https://www.figma.com/proto/e4OYzhQK75LW0kQBk9j5XL/EDU-BRIDGE?node-id=0-1&t=14BMsrBnyiJX5mql-1)  [![Supabase Docs](https://img.shields.io/badge/Supabase-Documentation-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/docs) [![Flutter MVVM](https://img.shields.io/badge/Flutter-MVVM_Tutorials-blue?logo=flutter&logoColor=white)](https://resocoder.com/flutter-clean-architecture-tdd/)
+[![Figma](https://img.shields.io/badge/Figma-UI_Designs-blueviolet?logo=figma&logoColor=white)](https://www.figma.com/design/e4OYzhQK75LW0kQBk9j5XL/EDU-BRIDGE?node-id=0-1&p=f&t=8Hk91ufe5SQewE3K-0)  [![Supabase Docs](https://img.shields.io/badge/Supabase-Documentation-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/docs) [![Flutter Feature-Based Architecture](https://img.shields.io/badge/Flutter-Feature--Based_Architecture-blue?logo=flutter&logoColor=white)](https://your-tutorial-link-here.com)
 
 ![Screenshot 2025-04-29 164258](https://github.com/user-attachments/assets/9b0cf05f-afc8-44c6-921c-2b1395e5e545)
 
@@ -326,6 +326,7 @@ flutter:
 
 ```bash
 flutter pub get
+flutter pub run flutter_launcher_icons:main
 ```
 
 to update your project.
