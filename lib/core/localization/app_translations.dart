@@ -14,6 +14,7 @@ class AppTranslations extends Translations {
           'signIn': 'Sign In',
           'signOut': 'Sign Out',
           'profile': 'Profile',
+          'your_profile': 'Your Profile',
 
           //reset password
           "back_to_sign_in": "Back to Sign In",
@@ -75,7 +76,6 @@ class AppTranslations extends Translations {
           'add_class': 'Add Class',
           'enter_class_name': 'Enter Class Name',
           'fill_your_profile': 'Fill Your Profile',
-          'your_profile': 'Your Profile',
           'popular_course': 'Popular Course',
           'see_all': 'SEE ALL',
           'forget_password': 'Forget Password',
@@ -104,7 +104,7 @@ class AppTranslations extends Translations {
           'transform_the_future': 'Transform the Future',
           'knowledge_our_progress':
               'Your Knowledge, Our Progress Shaping a New Bangladesh!',
-          'no_user_profile_found': 'No user profile found',
+          'no_user_profile_found': 'No sign_up profile found',
           'about_user': 'About User',
           'notification': 'Notification',
           'help_center': 'Help Center',
@@ -194,6 +194,7 @@ class AppTranslations extends Translations {
           // Bangla additions
           'user_email': 'ইউজার ইমেইল',
           'warning': 'সতর্কতা',
+          'your_profile': 'তোমার প্রোফাইল',
           // Other
 
           'add_class': 'ক্লাস যোগ করুন',
@@ -205,7 +206,6 @@ class AppTranslations extends Translations {
           'categories': 'বিভাগসমূহ',
           'hi_there': 'হ্যালো!',
           'search_prompt': 'আজ আপনি কী শিখতে চান?\nনীচে অনুসন্ধান করুন',
-          'your_profile': 'তোমার প্রোফাইল',
           'no_content_available': 'কোনো কনটেন্ট উপলব্ধ নেই',
           'add_new_chapter': 'নতুন অধ্যায় যোগ করুন',
           'enter_chapter_name': 'অধ্যায়ের নাম লিখুন',
