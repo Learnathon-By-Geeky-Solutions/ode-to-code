@@ -42,12 +42,20 @@ export 'package:edu_bridge_app/feature/admin_content_post/widget/add_offer_slide
 export 'package:edu_bridge_app/feature/admin_content_post/widget/add_popular_course.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/controller/forget_password_controller.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/view/forget_password_view.dart';
-export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_button.dart';
 export 'package:edu_bridge_app/feature/auth/forgot_password/widgets/forgot_password_text_button.dart';
 export 'package:edu_bridge_app/feature/auth/reset_password/controller/reset_password_controller.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/controller/sign_in_controller.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/view/sign_in_view.dart';
 export 'package:edu_bridge_app/feature/auth/sign_in/widgets/sign_in_text_button.dart';
+export 'package:edu_bridge_app/feature/auth/sign_up/controller/sign_up_controller.dart';
+export 'package:edu_bridge_app/feature/auth/sign_up/controller/user_profile_controller.dart';
+// User Feature
+export 'package:edu_bridge_app/feature/auth/sign_up/model/user_profile_model.dart';
+export 'package:edu_bridge_app/feature/auth/sign_up/repo/i_user_profile_repository.dart';
+export 'package:edu_bridge_app/feature/auth/sign_up/repo/user_profile_repository.dart';
+export 'package:edu_bridge_app/feature/auth/sign_up/view/sign_up_view.dart';
+export 'package:edu_bridge_app/feature/auth/sign_up/widget/profile_image_picker.dart';
+export 'package:edu_bridge_app/feature/auth/sign_up/widget/user_profile_form.dart';
 export 'package:edu_bridge_app/feature/auth/splash_view/splash_view.dart';
 export 'package:edu_bridge_app/feature/category/controller/category_controller.dart';
 // Category_1 Feature
@@ -122,14 +130,6 @@ export 'package:edu_bridge_app/feature/subjects/view/subjects_view.dart';
 // Theming and Localization
 export 'package:edu_bridge_app/feature/theming_and_localization/controller/localization_controller.dart';
 export 'package:edu_bridge_app/feature/theming_and_localization/controller/theme_controller.dart';
-export 'package:edu_bridge_app/feature/user/controller/sign_up_controller.dart';
-export 'package:edu_bridge_app/feature/user/controller/user_profile_controller.dart';
-// User Feature
-export 'package:edu_bridge_app/feature/user/model/user_profile_model.dart';
-export 'package:edu_bridge_app/feature/user/repo/user_profile_repository.dart';
-//export 'package:edu_bridge_app/feature/profile/view/fetch_user_profile_view.dart';
-
-export 'package:edu_bridge_app/feature/user/view/user_profile_view.dart';
 export 'package:edu_bridge_app/feature/user_saved_item/controller/user_saved_item_controller.dart';
 export 'package:edu_bridge_app/feature/user_saved_item/model/user_saved_item_model.dart';
 export 'package:edu_bridge_app/feature/user_saved_item/repo/i_user_saved_item_repository.dart';

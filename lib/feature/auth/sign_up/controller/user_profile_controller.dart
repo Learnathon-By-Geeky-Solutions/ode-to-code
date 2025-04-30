@@ -1,5 +1,4 @@
 import 'package:edu_bridge_app/core/export.dart';
-import 'package:edu_bridge_app/feature/user/repo/i_user_profile_repository.dart';
 
 class UserProfileController extends GetxController {
   final IUserProfileRepository _repository;
@@ -74,7 +73,6 @@ class UserProfileController extends GetxController {
 
       final isSuccess = await _repository.createUserProfile(profile);
       if (isSuccess) {
-        SnackBarUtil.showSuccess("Success", "User profile added successfully!");
         return true;
       } else {
         _handleError("Failed to add user profile.");
@@ -101,5 +99,10 @@ class UserProfileController extends GetxController {
     } finally {
       _setInProgress(false);
     }
+  }
+
+  void clearProfileImage() {
+    _profileImage = null;
+    update();
   }
 }
