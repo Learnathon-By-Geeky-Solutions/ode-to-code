@@ -24,7 +24,7 @@ class _FetchUserProfileViewState extends State<FetchUserProfileView> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      name: 'Your Profile',
+      name: 'your_profile'.tr,
       body: GetBuilder<UserProfileController>(
         builder: (controller) {
           if (controller.inProgress) {

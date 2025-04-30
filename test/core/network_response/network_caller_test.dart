@@ -24,7 +24,7 @@ void main() {
     caller = NetworkCaller(client: mockClient, logger: mockLogger);
   });
 
-  test('getCurrentUserId returns user id when available', () {
+  test('getCurrentUserId returns sign_up id when available', () {
     const mockUser = User(
       id: 'user123',
       appMetadata: {},

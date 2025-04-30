@@ -26,7 +26,8 @@ class SignUpController extends GetxController {
     try {
       final response = await _authService.signUpWithEmail(email, password);
       if (response.user != null) {
-        SnackBarUtil.showSuccess("Success", "Account created successfully!");
+        SnackBarUtil.showSuccess(
+            "Check Mail for Conformation ", "Account created successfully!");
         return true;
       } else {
         _errorMessage = "Failed to create an account. Please try again.";

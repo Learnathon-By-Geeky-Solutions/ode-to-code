@@ -69,7 +69,7 @@ void main() {
           .called(1);
     });
 
-    test('should handle sign up failure when user is null', () async {
+    test('should handle sign up failure when sign_up is null', () async {
       when(() =>
               mockAuthService.signUpWithEmail('invalid@example.com', '123456'))
           .thenAnswer((_) async => AuthResponse(user: null));

@@ -107,7 +107,7 @@ void main() {
           .called(1);
     });
 
-    test('currentUser returns user from auth', () {
+    test('currentUser returns sign_up from auth', () {
       final mockUser = MockUser();
       when(() => mockAuth.currentUser).thenReturn(mockUser);
 

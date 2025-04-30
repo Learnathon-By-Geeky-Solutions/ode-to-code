@@ -65,7 +65,7 @@ void main() {
           .called(1);
     });
 
-    test('should handle sign in failure when user is null', () async {
+    test('should handle sign in failure when sign_up is null', () async {
       when(() => mockAuthService.signInWithEmail(
               'wrong@example.com', 'wrongpassword'))
           .thenAnswer((_) async => AuthResponse(user: null));
